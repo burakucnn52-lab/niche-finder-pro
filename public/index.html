@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>NicheFinder Pro - YouTube Niş Bulucu</title>
+<style>
+:root {
+  --bg: #0a0e1a;
+  --panel: #131929;
+  --card: #1a2138;
+  --text: #f0f4ff;
+  --muted: #8a99b8;
+  --blue: #4da3ff;
+  --green: #45e08a;
+  --red: #ff5c7a;
+  --yellow: #ffd166;
+  --purple: #a78bfa;
+  --line: rgba(255,255,255,.1);
+  --shadow: 0 20px 60px rgba(0,0,0,.4);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, system-ui, sans-serif;
+  background: radial-gradient(circle at top, rgba(77,163,255,.15), transparent 50%), var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+}
+.container { width: min(1400px, 94%); margin: 0 auto; padding: 20px 0 60px; }
+.header {
+  background: linear-gradient(135deg, rgba(77,163,255,.15), rgba(167,139,250,.1));
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  padding: 32px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow);
+}
+.header h1 { font-size: clamp(28px, 4vw, 42px); margin-bottom: 8px; }
+.header p { color: var(--muted); font-size: 15px; max-width: 700px; line-height: 1.5; }
+.badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+.badge {
+  background: rgba(255,255,255,.08);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  border: 1px solid var(--line);
+}
+.search-box {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+.search-box h2 { margin-bottom: 16px; font-size: 20px; }
+.input-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.input-row input {
+  flex: 1;
+  min-width: 250px;
+  padding: 14px 18px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  color: var(--text);
+  font-size: 15px;
+  outline: none;
+}
+.input-row input:focus { border-color: var(--blue); }
+.btn {
+  padding: 14px 24px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: 0.2s;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--blue), var(--purple));
+  color: white;
+}
+.btn-primary:hover { transform: translateY(-2px); }
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+.results {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 24px;
+}
+.results h2 { margin-bottom: 16px; font-size: 20px; }
+.status {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--muted);
+}
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+}
+.video-card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: 0.2s;
+}
+.video-card:hover { transform: translateY(-4px); border-color: var(--blue); }
+.video-card img { width: 100%; display: block; }
+.video-info { padding: 14px; }
+.video-info h3 { font-size: 15px; line-height: 1.4; margin-bottom: 8px; }
+.video-info p { color: var(--muted); font-size: 13px; margin-bottom: 4px; }
+.error {
+  background: rgba(255,92,122,.1);
+  border: 1px solid var(--red);
+  color: var(--red);
+  padding: 16px;
+  border-radius: 12px;
+  margin-top: 16px;
+}
+.loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(255,255,255,.2);
+  border-top-color: var(--blue);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.footer {
+  text-align: center;
+  color: var(--muted);
+  margin-top: 30px;
+  font-size: 13px;
+}
+.footer a { color: var(--blue); text-decoration: none; }
+</style>
+</head>
+<body>
+<div class="container">
+
+<header class="header">
+<h1>🚀 NicheFinder Pro</h1>
+<p>YouTube için canlı veri çeken niş keşif aracı. Yapay zeka destekli, profesyonel, çok dilli.</p>
+<div class="badges">
+<span class="badge">🔴 Canlı YouTube Verisi</span>
+<span class="badge">🎯 Niş Analizi</span>
+<span class="badge">🛡️ Risk Detector</span>
+<span class="badge">📊 10 Kriterli Puanlama</span>
+<span class="badge">🌍 Çok Dilli</span>
+</div>
+</header>
+
+<section class="search-box">
+<h2>🔍 Niş Ara</h2>
+<div class="input-row">
+<input type="text" id="searchInput" placeholder="Örnek: AI tools, motivation, gaming, finance..." />
+<button class="btn btn-primary" onclick="searchNiche()" id="searchBtn">🚀 Ara</button>
+</div>
+<p style="margin-top:12px;color:var(--muted);font-size:13px;">
+💡 İpucu: İngilizce arama daha iyi sonuç verir. Örnek: "AI productivity", "passive income", "minimalist lifestyle"
+</p>
+</section>
+
+<section class="results">
+<h2>📊 Sonuçlar</h2>
+<div id="resultsArea">
+<div class="status">
+<p>Yukarıya bir niş yazıp "Ara" butonuna bas.</p>
+<p style="margin-top:8px;font-size:13px;">YouTube'dan canlı veri çekilecek.</p>
+</div>
+</div>
+</section>
+
+<p class="footer">
+NicheFinder Pro v1.0 | YouTube Data API ile canlı veri
+</p>
+
+</div>
+
+<script>
+async function searchNiche() {
+  const query = document.getElementById('searchInput').value.trim();
+  const btn = document.getElementById('searchBtn');
+  const area = document.getElementById('resultsArea');
+  
+  if (!query) {
+    alert('Lütfen bir niş yaz!');
+    return;
+  }
+  
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loading"></span> Aranıyor...';
+  area.innerHTML = '<div class="status"><div class="loading"></div><p style="margin-top:16px;">YouTube\'dan veri çekiliyor...</p></div>';
+  
+  try {
+    const response = await fetch('/api/search?q=' + encodeURIComponent(query) + '&max=12');
+    const data = await response.json();
+    
+    if (data.error) {
+      area.innerHTML = '<div class="error">❌ Hata: ' + data.error + '<br>' + (data.message || '') + '</div>';
+      return;
+    }
+    
+    if (!data.videos || data.videos.length === 0) {
+      area.innerHTML = '<div class="status"><p>Sonuç bulunamadı.</p></div>';
+      return;
+    }
+    
+    let html = '<p style="color:var(--muted);margin-bottom:16px;">✅ ' + data.count + ' sonuç bulundu</p>';
+    html += '<div class="video-grid">';
+    
+    data.videos.forEach(v => {
+      const date = new Date(v.published).toLocaleDateString('tr-TR');
+      html += '<div class="video-card">';
+      html += '<a href="https://youtube.com/watch?v=' + v.video_id + '" target="_blank">';
+      html += '<img src="' + v.thumbnail + '" alt="' + v.title + '"/>';
+      html += '</a>';
+      html += '<div class="video-info">';
+      html += '<h3>' + v.title + '</h3>';
+      html += '<p>📺 ' + v.channel + '</p>';
+      html += '<p>📅 ' + date + '</p>';
+      html += '</div>';
+      html += '</div>';
+    });
+    
+    html += '</div>';
+    area.innerHTML = html;
+    
+  } catch (e) {
+    area.innerHTML = '<div class="error">❌ Bağlantı hatası: ' + e.message + '</div>';
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '🚀 Ara';
+  }
+}
+
+document.getElementById('searchInput').addEventListener('keypress', function(e) {
+  if (e.key === 'Enter') searchNiche();
+});
+</script>
+
+</body>
+</html>
