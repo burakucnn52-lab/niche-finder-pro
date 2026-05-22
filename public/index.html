@@ -32,10 +32,6 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 .btn-secondary{background:rgba(255,255,255,.08);border:1px solid var(--line);color:var(--text)}
 .toggle-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}
 .toggle{display:inline-flex;align-items:center;gap:8px;padding:9px 14px;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:999px;cursor:pointer;font-size:13px;color:#dce6f7}
-.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
-.tab{padding:10px 18px;background:var(--card);border:1px solid var(--line);border-radius:12px;cursor:pointer;font-size:14px;color:var(--muted);transition:.2s}
-.tab.active{background:linear-gradient(135deg,var(--blue),var(--purple));color:white;border-color:transparent}
-.tab:hover:not(.active){background:rgba(255,255,255,.1);color:var(--text)}
 .results-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;margin-top:16px}
 .niche-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;transition:.2s;cursor:pointer}
 .niche-card:hover{transform:translateY(-3px);border-color:var(--blue)}
@@ -84,7 +80,30 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 .example-card .ex-stats{display:flex;gap:12px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin:6px 0}
 .example-card .ex-strategy{font-size:13px;color:#cfd9ea;margin-top:8px;padding-top:8px;border-top:1px solid var(--line)}
 .footer{text-align:center;color:var(--muted);margin-top:30px;font-size:12px;padding:20px}
-@media(max-width:768px){.dashboard{grid-template-columns:repeat(2,1fr)}.results-grid{grid-template-columns:1fr}.detail-grid{grid-template-columns:1fr}}
+
+/* AI ASİSTAN STİLLERİ */
+.ai-bot-button{position:fixed;bottom:24px;right:24px;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--purple));border:none;cursor:pointer;box-shadow:0 8px 24px rgba(77,163,255,.4);display:grid;place-items:center;font-size:28px;transition:.3s;z-index:9998;animation:pulse 2s infinite}
+.ai-bot-button:hover{transform:scale(1.1) rotate(10deg)}
+@keyframes pulse{0%,100%{box-shadow:0 8px 24px rgba(77,163,255,.4)}50%{box-shadow:0 8px 32px rgba(167,139,250,.6)}}
+.ai-bot-button.active{background:linear-gradient(135deg,var(--red),var(--orange))}
+.ai-chat{position:fixed;bottom:100px;right:24px;width:380px;max-width:calc(100vw - 48px);height:560px;max-height:calc(100vh - 140px);background:#0d1322;border:1px solid var(--line);border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.6);display:none;flex-direction:column;z-index:9999;overflow:hidden}
+.ai-chat.active{display:flex}
+.ai-chat-header{background:linear-gradient(135deg,var(--blue),var(--purple));padding:16px;display:flex;align-items:center;gap:12px}
+.ai-chat-header .avatar{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.2);display:grid;place-items:center;font-size:20px}
+.ai-chat-header h3{color:white;font-size:16px;margin-bottom:2px}
+.ai-chat-header p{color:rgba(255,255,255,.8);font-size:11px}
+.ai-chat-body{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+.ai-message{padding:12px 14px;border-radius:14px;font-size:13px;line-height:1.5;max-width:90%;animation:fadeIn .3s}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.ai-message.bot{background:var(--card);border:1px solid var(--line);align-self:flex-start;color:var(--text)}
+.ai-message.user{background:linear-gradient(135deg,var(--blue),var(--purple));align-self:flex-end;color:white}
+.ai-quick-questions{padding:12px;border-top:1px solid var(--line);background:rgba(255,255,255,.02)}
+.ai-quick-questions p{font-size:11px;color:var(--muted);margin-bottom:8px;font-weight:600}
+.ai-quick-grid{display:grid;grid-template-columns:1fr;gap:6px}
+.ai-quick-btn{padding:10px 12px;background:var(--card);border:1px solid var(--line);border-radius:10px;color:var(--text);font-size:12px;cursor:pointer;text-align:left;transition:.2s;font-family:inherit}
+.ai-quick-btn:hover{background:rgba(77,163,255,.1);border-color:var(--blue)}
+
+@media(max-width:768px){.dashboard{grid-template-columns:repeat(2,1fr)}.results-grid{grid-template-columns:1fr}.detail-grid{grid-template-columns:1fr}.ai-chat{width:calc(100vw - 32px);right:16px;bottom:90px;height:500px}.ai-bot-button{width:56px;height:56px;bottom:16px;right:16px}}
 </style>
 </head>
 <body>
@@ -108,6 +127,7 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 <span class="badge" data-i18n="badge4">📊 10 Kriterli Puanlama</span>
 <span class="badge" data-i18n="badge5">🌍 Çok Dilli</span>
 <span class="badge" data-i18n="badge6">📺 Örnek Kanallar</span>
+<span class="badge" data-i18n="badge7">🤖 AI Asistan</span>
 </div>
 </header>
 
@@ -148,7 +168,34 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 <div id="nichesGrid" class="results-grid"></div>
 </section>
 
-<p class="footer">NicheFinder Pro v1.2 | © 2025 | 20 Niş + Örnek Kanallar</p>
+<p class="footer">NicheFinder Pro v1.3 | © 2025 | 🤖 AI Asistan Aktif</p>
+</div>
+
+<!-- AI ASİSTAN BUTONU -->
+<button class="ai-bot-button" onclick="toggleAI()" id="aiBotBtn" title="AI Asistan">🤖</button>
+
+<!-- AI ASİSTAN CHAT PENCERESİ -->
+<div class="ai-chat" id="aiChat">
+<div class="ai-chat-header">
+<div class="avatar">🤖</div>
+<div>
+<h3 id="aiTitle">NicheBot Asistan</h3>
+<p id="aiSubtitle">Sana nasıl yardımcı olabilirim?</p>
+</div>
+</div>
+<div class="ai-chat-body" id="aiMessages">
+<div class="ai-message bot" id="aiWelcome">👋 Merhaba! Ben NicheBot. Sana YouTube nişi seçmek, içerik üretmek ve büyümen için yardımcı olurum. Aşağıdaki sorulardan birini seçebilir veya kendi sorunu yazabilirsin.</div>
+</div>
+<div class="ai-quick-questions">
+<p id="quickTitle">⚡ Hızlı Sorular:</p>
+<div class="ai-quick-grid">
+<button class="ai-quick-btn" onclick="askAI('q1')" id="q1Btn">🎯 Hangi nişle başlamalıyım?</button>
+<button class="ai-quick-btn" onclick="askAI('q2')" id="q2Btn">🛡️ Risk Detector ne yapar?</button>
+<button class="ai-quick-btn" onclick="askAI('q3')" id="q3Btn">💰 Para nasıl kazanırım?</button>
+<button class="ai-quick-btn" onclick="askAI('q4')" id="q4Btn">🆕 Yeni başlıyorum, ne yapayım?</button>
+<button class="ai-quick-btn" onclick="askAI('q5')" id="q5Btn">🎭 Faceless kanal nedir?</button>
+</div>
+</div>
 </div>
 
 <div id="detailModal" class="modal">
@@ -163,15 +210,41 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 
 <script>
 const T={
-tr:{title:"🚀 NicheFinder Pro",subtitle:"YouTube için akıllı niş keşif sistemi. Gizli fırsatlar, AI puanlama, risk analizi, içerik fikirleri ve canlı veri tek bir platformda.",badge1:"🔴 Canlı YouTube Verisi",badge2:"🎯 20+ Niş Havuzu",badge3:"🛡️ Risk Detector",badge4:"📊 10 Kriterli Puanlama",badge5:"🌍 Çok Dilli",badge6:"📺 Örnek Kanallar",statTotal:"Toplam Niş",statHidden:"Hidden Fırsat",statFav:"Favoriler",statCompare:"Karşılaştırma",searchTitle:"🔍 Niş Keşfi",searchPlaceholder:"Niş ara: AI, finans, motivasyon...",allLangs:"🌍 Tüm Diller",sortBest:"⭐ Genel Fırsat",sortHidden:"🔍 Gizli Fırsat",sortLow:"📉 Düşük Rekabet",sortMoney:"💰 Kazanç",sortNew:"🆕 Yeni Kanal Dostu",filterHidden:"🔍 Hidden Opportunity",filterNew:"🆕 Yeni Kanal Dostu",filterFaceless:"🎭 Faceless",resultsTitle:"📊 Sonuçlar",detail:"📋 Detay",fav:"☆ Favori",favRemove:"⭐ Çıkar",compare:"⚖️ Karşılaştır",inCompare:"✓ Eklendi",empty:"Niş bulunamadı.",hiddenChip:"🔍 Hidden",newChip:"🆕 Yeni Dostu",riskChip:"Risk",compLow:"Düşük",compMid:"Orta",compHigh:"Yüksek",compLabel:"Rekabet",opportunity:"Fırsat",hidden:"Hidden",earnings:"Kazanç",trend:"Trend",scoresTitle:"📊 Puanlar",audienceTitle:"🎯 Hedef & Rakip",audience:"Hedef",competitor:"Rakip",riskTitle:"🛡️ Risk Analizi",safetyScore:"Güvenlik",mainRisk:"Risk",dontDo:"❌ YAPMA",doThese:"✅ YAP",examplesTitle:"📺 Örnek Kanallar (Bu Nişte Sıfırdan Başarılı Olanlar)",beginner:"🌱 Yeni Başlayan",rising:"🚀 Yükselen Yıldız",success:"🏆 Başarı Hikayesi",subs:"Abone",age:"Yaş",growth:"Büyüme",strategy:"💡 Stratejisi",closeBtn:"✕ Kapat"},
-en:{title:"🚀 NicheFinder Pro",subtitle:"Smart niche discovery system for YouTube. Hidden opportunities, AI scoring, risk analysis, content ideas and live data in one platform.",badge1:"🔴 Live YouTube Data",badge2:"🎯 20+ Niche Pool",badge3:"🛡️ Risk Detector",badge4:"📊 10-Criteria Scoring",badge5:"🌍 Multi-Language",badge6:"📺 Example Channels",statTotal:"Total Niches",statHidden:"Hidden Opp.",statFav:"Favorites",statCompare:"Compare",searchTitle:"🔍 Niche Discovery",searchPlaceholder:"Search: AI, finance, motivation...",allLangs:"🌍 All Languages",sortBest:"⭐ Overall",sortHidden:"🔍 Hidden",sortLow:"📉 Low Competition",sortMoney:"💰 Earnings",sortNew:"🆕 Newbie Friendly",filterHidden:"🔍 Hidden Opportunity",filterNew:"🆕 Newbie Friendly",filterFaceless:"🎭 Faceless",resultsTitle:"📊 Results",detail:"📋 Detail",fav:"☆ Favorite",favRemove:"⭐ Remove",compare:"⚖️ Compare",inCompare:"✓ Added",empty:"No niches found.",hiddenChip:"🔍 Hidden",newChip:"🆕 Newbie",riskChip:"Risk",compLow:"Low",compMid:"Medium",compHigh:"High",compLabel:"Competition",opportunity:"Opportunity",hidden:"Hidden",earnings:"Earnings",trend:"Trend",scoresTitle:"📊 Scores",audienceTitle:"🎯 Target & Competitor",audience:"Target",competitor:"Competitor",riskTitle:"🛡️ Risk Analysis",safetyScore:"Safety",mainRisk:"Risk",dontDo:"❌ DON'T",doThese:"✅ DO",examplesTitle:"📺 Example Channels (Successful from Scratch)",beginner:"🌱 Beginner",rising:"🚀 Rising Star",success:"🏆 Success Story",subs:"Subs",age:"Age",growth:"Growth",strategy:"💡 Strategy",closeBtn:"✕ Close"},
-de:{title:"🚀 NicheFinder Pro",subtitle:"Intelligentes Nischenfindungssystem für YouTube. Versteckte Chancen, KI-Bewertung, Risikoanalyse, Inhaltsideen und Live-Daten in einer Plattform.",badge1:"🔴 Live YouTube Daten",badge2:"🎯 20+ Nischenpool",badge3:"🛡️ Risiko Detektor",badge4:"📊 10-Kriterien Bewertung",badge5:"🌍 Mehrsprachig",badge6:"📺 Beispielkanäle",statTotal:"Nischen",statHidden:"Versteckte",statFav:"Favoriten",statCompare:"Vergleich",searchTitle:"🔍 Nischen Entdeckung",searchPlaceholder:"Suchen: KI, Finanzen, Motivation...",allLangs:"🌍 Alle Sprachen",sortBest:"⭐ Gesamt",sortHidden:"🔍 Versteckt",sortLow:"📉 Geringe Konkurrenz",sortMoney:"💰 Verdienst",sortNew:"🆕 Anfängerfreundlich",filterHidden:"🔍 Versteckt",filterNew:"🆕 Anfängerfreundlich",filterFaceless:"🎭 Faceless",resultsTitle:"📊 Ergebnisse",detail:"📋 Detail",fav:"☆ Favorit",favRemove:"⭐ Entfernen",compare:"⚖️ Vergleichen",inCompare:"✓ Hinzugefügt",empty:"Keine Nischen gefunden.",hiddenChip:"🔍 Versteckt",newChip:"🆕 Anfänger",riskChip:"Risiko",compLow:"Niedrig",compMid:"Mittel",compHigh:"Hoch",compLabel:"Konkurrenz",opportunity:"Chance",hidden:"Versteckt",earnings:"Verdienst",trend:"Trend",scoresTitle:"📊 Bewertung",audienceTitle:"🎯 Ziel & Konkurrenz",audience:"Ziel",competitor:"Konkurrent",riskTitle:"🛡️ Risikoanalyse",safetyScore:"Sicherheit",mainRisk:"Risiko",dontDo:"❌ NICHT tun",doThese:"✅ TUN",examplesTitle:"📺 Beispielkanäle (Von Null erfolgreich)",beginner:"🌱 Anfänger",rising:"🚀 Aufsteigend",success:"🏆 Erfolgsgeschichte",subs:"Abos",age:"Alter",growth:"Wachstum",strategy:"💡 Strategie",closeBtn:"✕ Schließen"}};
+tr:{title:"🚀 NicheFinder Pro",subtitle:"YouTube için akıllı niş keşif sistemi. Gizli fırsatlar, AI puanlama, risk analizi, içerik fikirleri ve canlı veri tek bir platformda.",badge1:"🔴 Canlı YouTube Verisi",badge2:"🎯 20+ Niş Havuzu",badge3:"🛡️ Risk Detector",badge4:"📊 10 Kriterli Puanlama",badge5:"🌍 Çok Dilli",badge6:"📺 Örnek Kanallar",badge7:"🤖 AI Asistan",statTotal:"Toplam Niş",statHidden:"Hidden Fırsat",statFav:"Favoriler",statCompare:"Karşılaştırma",searchTitle:"🔍 Niş Keşfi",searchPlaceholder:"Niş ara: AI, finans, motivasyon...",allLangs:"🌍 Tüm Diller",sortBest:"⭐ Genel Fırsat",sortHidden:"🔍 Gizli Fırsat",sortLow:"📉 Düşük Rekabet",sortMoney:"💰 Kazanç",sortNew:"🆕 Yeni Kanal Dostu",filterHidden:"🔍 Hidden Opportunity",filterNew:"🆕 Yeni Kanal Dostu",filterFaceless:"🎭 Faceless",resultsTitle:"📊 Sonuçlar",detail:"📋 Detay",fav:"☆ Favori",favRemove:"⭐ Çıkar",empty:"Niş bulunamadı.",hiddenChip:"🔍 Hidden",newChip:"🆕 Yeni Dostu",riskChip:"Risk",compLow:"Düşük",compMid:"Orta",compHigh:"Yüksek",compLabel:"Rekabet",opportunity:"Fırsat",hidden:"Hidden",earnings:"Kazanç",trend:"Trend",scoresTitle:"📊 Puanlar",audienceTitle:"🎯 Hedef & Rakip",audience:"Hedef",competitor:"Rakip",riskTitle:"🛡️ Risk Analizi",safetyScore:"Güvenlik",mainRisk:"Risk",dontDo:"❌ YAPMA",doThese:"✅ YAP",examplesTitle:"📺 Örnek Kanallar (Bu Nişte Sıfırdan Başarılı Olanlar)",beginner:"🌱 Yeni Başlayan",rising:"🚀 Yükselen Yıldız",success:"🏆 Başarı Hikayesi",subs:"Abone",age:"Yaş",growth:"Büyüme",strategy:"💡 Stratejisi",
+aiTitle:"NicheBot Asistan",aiSubtitle:"Sana nasıl yardımcı olabilirim?",aiWelcome:"👋 Merhaba! Ben NicheBot. Sana YouTube nişi seçmek, içerik üretmek ve büyümen için yardımcı olurum. Aşağıdaki sorulardan birini seçebilir veya kendi sorunu yazabilirsin.",quickTitle:"⚡ Hızlı Sorular:",
+q1:"🎯 Hangi nişle başlamalıyım?",q2:"🛡️ Risk Detector ne yapar?",q3:"💰 Para nasıl kazanırım?",q4:"🆕 Yeni başlıyorum, ne yapayım?",q5:"🎭 Faceless kanal nedir?",
+a1:"🎯 Niş seçimi için 3 adım izle:<br><br>1. Sayfanın üstündeki <b>'Hidden Opportunity'</b> filtresini aç. Bunlar gizli fırsatlar!<br><br>2. <b>'Yeni Kanal Dostu'</b> filtresini de aç. Bunlar 0 aboneden büyüyebilen nişler.<br><br>3. Çıkan listeden ilgilendiğin bir konuyu seç ve <b>'Detay'</b>a tıkla. Risk puanı 80+ olanları tercih et.",
+a2:"🛡️ Risk Detector, her niş için <b>kanal kapanma riskini</b> analiz eder!<br><br>📊 Her nişe 100 üzerinden güvenlik puanı verilir:<br>• 80-100: ✅ Çok güvenli<br>• 60-80: ⚠️ Orta risk<br>• 0-60: ❌ Riskli (kanal kapanabilir!)<br><br>Her niş için <b>YAPMA</b> ve <b>YAP</b> listesi gösteririz. Telif hakkı, topluluk kuralları gibi tehlikelerden seni korur!",
+a3:"💰 YouTube'da para kazanmanın 5 yolu:<br><br>1. 💵 <b>AdSense reklamları</b> (1000 izlenmede $1-5)<br>2. 🤝 <b>Sponsorluk anlaşmaları</b> (10K+ aboneden sonra)<br>3. 🛍️ <b>Affiliate marketing</b> (link satışı)<br>4. 📚 <b>Kendi ürünün</b> (kurs, e-kitap)<br>5. ⭐ <b>Üyelik/Patreon</b><br><br>Her nişin <b>'Detay'</b> sayfasında tahmini kazanç var. Küçük kanal $50-300/ay başlar!",
+a4:"🆕 Sıfırdan başlıyorsan plan:<br><br>📅 <b>Hafta 1-2:</b> Niş seç (Hidden + Yeni Dostu filtreleri ile)<br><br>📅 <b>Hafta 3-4:</b> 'Örnek Kanallar' bölümündeki <b>Yeni Başlayan</b> kanalları incele. Onların stratejilerini taklit et.<br><br>📅 <b>Ay 2:</b> Haftada 2-3 video at. Shorts'a odaklan, viral olur.<br><br>📅 <b>Ay 3-6:</b> 1000 abone hedefle. AdSense açılır, para gelmeye başlar!",
+a5:"🎭 Faceless kanal = <b>Yüz göstermeyen kanal!</b><br><br>✅ Avantajları:<br>• Kameraya çıkmazsın<br>• Sesini bile değiştirebilirsin (AI ile)<br>• Birden fazla kanal açabilirsin<br>• Otomatize edilebilir<br><br>📊 Filtrelerde <b>'Faceless'</b> seçeneğini aç!<br><br>👍 Faceless için en iyi nişler:<br>• AI Tools<br>• Engineering Stories<br>• History<br>• Space<br>• Geography",
+typing:"Yazıyor..."},
+en:{title:"🚀 NicheFinder Pro",subtitle:"Smart niche discovery system for YouTube. Hidden opportunities, AI scoring, risk analysis, content ideas and live data in one platform.",badge1:"🔴 Live YouTube Data",badge2:"🎯 20+ Niche Pool",badge3:"🛡️ Risk Detector",badge4:"📊 10-Criteria Scoring",badge5:"🌍 Multi-Language",badge6:"📺 Example Channels",badge7:"🤖 AI Assistant",statTotal:"Total Niches",statHidden:"Hidden Opp.",statFav:"Favorites",statCompare:"Compare",searchTitle:"🔍 Niche Discovery",searchPlaceholder:"Search: AI, finance, motivation...",allLangs:"🌍 All Languages",sortBest:"⭐ Overall",sortHidden:"🔍 Hidden",sortLow:"📉 Low Competition",sortMoney:"💰 Earnings",sortNew:"🆕 Newbie Friendly",filterHidden:"🔍 Hidden Opportunity",filterNew:"🆕 Newbie Friendly",filterFaceless:"🎭 Faceless",resultsTitle:"📊 Results",detail:"📋 Detail",fav:"☆ Favorite",favRemove:"⭐ Remove",empty:"No niches found.",hiddenChip:"🔍 Hidden",newChip:"🆕 Newbie",riskChip:"Risk",compLow:"Low",compMid:"Medium",compHigh:"High",compLabel:"Competition",opportunity:"Opportunity",hidden:"Hidden",earnings:"Earnings",trend:"Trend",scoresTitle:"📊 Scores",audienceTitle:"🎯 Target & Competitor",audience:"Target",competitor:"Competitor",riskTitle:"🛡️ Risk Analysis",safetyScore:"Safety",mainRisk:"Risk",dontDo:"❌ DON'T",doThese:"✅ DO",examplesTitle:"📺 Example Channels (Successful from Scratch)",beginner:"🌱 Beginner",rising:"🚀 Rising Star",success:"🏆 Success Story",subs:"Subs",age:"Age",growth:"Growth",strategy:"💡 Strategy",
+aiTitle:"NicheBot Assistant",aiSubtitle:"How can I help you?",aiWelcome:"👋 Hi! I'm NicheBot. I'll help you choose a YouTube niche, create content, and grow your channel. Pick a quick question below or type your own.",quickTitle:"⚡ Quick Questions:",
+q1:"🎯 Which niche should I start with?",q2:"🛡️ What does Risk Detector do?",q3:"💰 How do I make money?",q4:"🆕 I'm just starting, what should I do?",q5:"🎭 What is a faceless channel?",
+a1:"🎯 Follow 3 steps to choose a niche:<br><br>1. Enable <b>'Hidden Opportunity'</b> filter on top. These are hidden gems!<br><br>2. Enable <b>'Newbie Friendly'</b> filter. These niches can grow from 0 subscribers.<br><br>3. Pick a topic you like and click <b>'Detail'</b>. Prefer ones with Safety score 80+.",
+a2:"🛡️ Risk Detector analyzes <b>channel termination risk</b> for each niche!<br><br>📊 Each niche gets a safety score out of 100:<br>• 80-100: ✅ Very safe<br>• 60-80: ⚠️ Medium risk<br>• 0-60: ❌ Risky (channel may close!)<br><br>For each niche we show <b>DON'T</b> and <b>DO</b> lists. Protects you from copyright and community guideline issues!",
+a3:"💰 5 ways to make money on YouTube:<br><br>1. 💵 <b>AdSense ads</b> ($1-5 per 1000 views)<br>2. 🤝 <b>Sponsorships</b> (after 10K+ subs)<br>3. 🛍️ <b>Affiliate marketing</b><br>4. 📚 <b>Your own products</b> (courses, ebooks)<br>5. ⭐ <b>Memberships/Patreon</b><br><br>Each niche shows estimated earnings in <b>'Detail'</b>. Small channels start $50-300/month!",
+a4:"🆕 Starting from scratch plan:<br><br>📅 <b>Week 1-2:</b> Pick a niche (use Hidden + Newbie filters)<br><br>📅 <b>Week 3-4:</b> Study the <b>Beginner</b> channels in 'Example Channels'. Copy their strategy.<br><br>📅 <b>Month 2:</b> Post 2-3 videos weekly. Focus on Shorts for virality.<br><br>📅 <b>Month 3-6:</b> Target 1000 subs. AdSense opens, money starts coming!",
+a5:"🎭 Faceless channel = <b>No face on camera!</b><br><br>✅ Advantages:<br>• You never appear<br>• Can even change your voice (AI)<br>• Can run multiple channels<br>• Can be automated<br><br>📊 Enable <b>'Faceless'</b> filter!<br><br>👍 Best niches for faceless:<br>• AI Tools<br>• Engineering Stories<br>• History<br>• Space<br>• Geography",
+typing:"Typing..."},
+de:{title:"🚀 NicheFinder Pro",subtitle:"Intelligentes Nischenfindungssystem für YouTube. Versteckte Chancen, KI-Bewertung, Risikoanalyse, Inhaltsideen und Live-Daten in einer Plattform.",badge1:"🔴 Live YouTube Daten",badge2:"🎯 20+ Nischenpool",badge3:"🛡️ Risiko Detektor",badge4:"📊 10-Kriterien Bewertung",badge5:"🌍 Mehrsprachig",badge6:"📺 Beispielkanäle",badge7:"🤖 KI-Assistent",statTotal:"Nischen",statHidden:"Versteckte",statFav:"Favoriten",statCompare:"Vergleich",searchTitle:"🔍 Nischen Entdeckung",searchPlaceholder:"Suchen: KI, Finanzen, Motivation...",allLangs:"🌍 Alle Sprachen",sortBest:"⭐ Gesamt",sortHidden:"🔍 Versteckt",sortLow:"📉 Geringe Konkurrenz",sortMoney:"💰 Verdienst",sortNew:"🆕 Anfängerfreundlich",filterHidden:"🔍 Versteckt",filterNew:"🆕 Anfängerfreundlich",filterFaceless:"🎭 Faceless",resultsTitle:"📊 Ergebnisse",detail:"📋 Detail",fav:"☆ Favorit",favRemove:"⭐ Entfernen",empty:"Keine Nischen gefunden.",hiddenChip:"🔍 Versteckt",newChip:"🆕 Anfänger",riskChip:"Risiko",compLow:"Niedrig",compMid:"Mittel",compHigh:"Hoch",compLabel:"Konkurrenz",opportunity:"Chance",hidden:"Versteckt",earnings:"Verdienst",trend:"Trend",scoresTitle:"📊 Bewertung",audienceTitle:"🎯 Ziel & Konkurrenz",audience:"Ziel",competitor:"Konkurrent",riskTitle:"🛡️ Risikoanalyse",safetyScore:"Sicherheit",mainRisk:"Risiko",dontDo:"❌ NICHT tun",doThese:"✅ TUN",examplesTitle:"📺 Beispielkanäle (Von Null erfolgreich)",beginner:"🌱 Anfänger",rising:"🚀 Aufsteigend",success:"🏆 Erfolgsgeschichte",subs:"Abos",age:"Alter",growth:"Wachstum",strategy:"💡 Strategie",
+aiTitle:"NicheBot Assistent",aiSubtitle:"Wie kann ich helfen?",aiWelcome:"👋 Hallo! Ich bin NicheBot. Ich helfe dir bei YouTube-Nische, Inhalten und Wachstum. Wähle eine Frage oder schreib deine eigene.",quickTitle:"⚡ Schnelle Fragen:",
+q1:"🎯 Mit welcher Nische soll ich starten?",q2:"🛡️ Was macht der Risiko-Detektor?",q3:"💰 Wie verdiene ich Geld?",q4:"🆕 Ich fange gerade an, was tun?",q5:"🎭 Was ist ein Faceless-Kanal?",
+a1:"🎯 In 3 Schritten zur Nische:<br><br>1. Aktiviere oben den Filter <b>'Versteckte Chance'</b>. Das sind versteckte Juwelen!<br><br>2. Aktiviere <b>'Anfängerfreundlich'</b>. Diese können von 0 wachsen.<br><br>3. Wähle ein Thema und klicke <b>'Detail'</b>. Bevorzuge Sicherheit 80+.",
+a2:"🛡️ Risiko-Detektor analysiert das <b>Risiko einer Kanalsperrung</b>!<br><br>📊 Sicherheitspunkte (100):<br>• 80-100: ✅ Sehr sicher<br>• 60-80: ⚠️ Mittleres Risiko<br>• 0-60: ❌ Riskant!<br><br>Für jede Nische zeigen wir <b>NICHT TUN</b> und <b>TUN</b>-Listen. Schützt vor Urheberrechtsproblemen!",
+a3:"💰 5 Wege Geld zu verdienen:<br><br>1. 💵 <b>AdSense-Werbung</b> ($1-5 pro 1000 Aufrufe)<br>2. 🤝 <b>Sponsoring</b> (nach 10K+ Abos)<br>3. 🛍️ <b>Affiliate-Marketing</b><br>4. 📚 <b>Eigene Produkte</b><br>5. ⭐ <b>Mitgliedschaften</b><br><br>Jede Nische zeigt geschätzten Verdienst in <b>'Detail'</b>. Kleine Kanäle starten bei $50-300/Monat!",
+a4:"🆕 Plan für den Start:<br><br>📅 <b>Woche 1-2:</b> Nische wählen (Versteckt + Anfänger Filter)<br><br>📅 <b>Woche 3-4:</b> Studiere die <b>Anfänger</b>-Kanäle in 'Beispielkanäle'.<br><br>📅 <b>Monat 2:</b> 2-3 Videos pro Woche. Shorts für viralen Erfolg.<br><br>📅 <b>Monat 3-6:</b> 1000 Abos Ziel. AdSense öffnet sich!",
+a5:"🎭 Faceless-Kanal = <b>Kein Gesicht in Kamera!</b><br><br>✅ Vorteile:<br>• Du erscheinst nie<br>• Stimme änderbar (KI)<br>• Mehrere Kanäle möglich<br>• Automatisierbar<br><br>📊 Aktiviere den <b>'Faceless'</b> Filter!<br><br>👍 Beste Faceless-Nischen:<br>• KI-Tools<br>• Ingenieurgeschichten<br>• Geschichte<br>• Weltraum<br>• Geografie",
+typing:"Tippt..."}};
+
 let lang=localStorage.getItem("nf_lang")||"tr";
 let favorites=JSON.parse(localStorage.getItem("nf_favs")||"[]");
 let compareList=JSON.parse(localStorage.getItem("nf_compare")||"[]").slice(0,3);
 function t(k){return T[lang][k]||k}
-function setLang(l){lang=l;localStorage.setItem("nf_lang",l);apply();render();document.querySelectorAll(".lang-btn").forEach(b=>b.classList.remove("active"));document.getElementById("lang-"+l).classList.add("active")}
+function setLang(l){lang=l;localStorage.setItem("nf_lang",l);apply();render();document.querySelectorAll(".lang-btn").forEach(b=>b.classList.remove("active"));document.getElementById("lang-"+l).classList.add("active");updateAILang()}
 function apply(){document.querySelectorAll("[data-i18n]").forEach(el=>{el.textContent=t(el.getAttribute("data-i18n"))});document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{el.placeholder=t(el.getAttribute("data-i18n-placeholder"))});document.documentElement.lang=lang}
+function updateAILang(){document.getElementById("aiTitle").textContent=t("aiTitle");document.getElementById("aiSubtitle").textContent=t("aiSubtitle");document.getElementById("aiWelcome").textContent=t("aiWelcome");document.getElementById("quickTitle").textContent=t("quickTitle");["q1","q2","q3","q4","q5"].forEach(q=>document.getElementById(q+"Btn").textContent=t(q))}
 function clamp(n){return Math.max(0,Math.min(100,Math.round(n)))}
 function overall(n){const s=n.scores;return clamp((100-s.comp)*.18+s.money*.15+s.trend*.15+s.faceless*.08+Math.max(s.shorts,s.longform)*.08+s.sustain*.10+s.newCh*.13+s.under*.18+s.multi*.05)}
 function hidden(n){const s=n.scores;return clamp((100-s.comp)*.26+s.under*.30+s.newCh*.24+s.multi*.10+s.sustain*.10)}
@@ -271,6 +344,37 @@ return `<div class="example-card ${ex.type}">
 document.getElementById("detailModal").classList.add("active")}
 function closeModal(){document.getElementById("detailModal").classList.remove("active")}
 function toggleFav(id){if(favorites.includes(id))favorites=favorites.filter(x=>x!==id);else favorites.push(id);localStorage.setItem("nf_favs",JSON.stringify(favorites));render()}
+
+// AI ASİSTAN FONKSİYONLARI
+function toggleAI(){
+const chat=document.getElementById("aiChat");
+const btn=document.getElementById("aiBotBtn");
+chat.classList.toggle("active");
+btn.classList.toggle("active");
+btn.textContent=chat.classList.contains("active")?"✕":"🤖";
+}
+function askAI(qId){
+const msgArea=document.getElementById("aiMessages");
+const question=t(qId);
+const answer=t(qId.replace("q","a"));
+// Kullanıcı mesajı
+const userMsg=document.createElement("div");
+userMsg.className="ai-message user";
+userMsg.textContent=question;
+msgArea.appendChild(userMsg);
+// Bot yazıyor mesajı
+const typing=document.createElement("div");
+typing.className="ai-message bot";
+typing.innerHTML="⏳ "+t("typing");
+msgArea.appendChild(typing);
+msgArea.scrollTop=msgArea.scrollHeight;
+// Cevap göster
+setTimeout(()=>{
+typing.innerHTML=answer;
+msgArea.scrollTop=msgArea.scrollHeight;
+},800);
+}
+
 document.getElementById("searchInput").addEventListener("input",render);
 document.getElementById("langFilter").addEventListener("change",render);
 document.getElementById("sortFilter").addEventListener("change",render);
@@ -279,6 +383,7 @@ document.getElementById("newChannelOnly").addEventListener("change",render);
 document.getElementById("facelessOnly").addEventListener("change",render);
 document.getElementById("detailModal").addEventListener("click",e=>{if(e.target.id==="detailModal")closeModal()});
 apply();
+updateAILang();
 render();
 document.querySelectorAll(".lang-btn").forEach(b=>b.classList.remove("active"));
 document.getElementById("lang-"+lang).classList.add("active");
