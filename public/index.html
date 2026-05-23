@@ -54,6 +54,8 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 .tab{padding:10px 18px;background:var(--card);border:1px solid var(--line);border-radius:12px;cursor:pointer;font-size:14px;color:var(--muted);transition:.2s}
 .tab.active{background:linear-gradient(135deg,var(--blue),var(--purple));color:white;border-color:transparent}
 .tab:hover:not(.active){background:rgba(255,255,255,.1);color:var(--text)}
+.tab.trending-tab{background:linear-gradient(135deg,rgba(255,92,122,.2),rgba(255,159,67,.15));border-color:var(--red);color:var(--red);font-weight:700}
+.tab.trending-tab.active{background:linear-gradient(135deg,var(--red),var(--orange));color:white;border-color:transparent}
 .results-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;margin-top:16px}
 .niche-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;transition:.2s;cursor:pointer}
 .niche-card:hover{transform:translateY(-3px);border-color:var(--blue)}
@@ -81,6 +83,26 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 .stat-card.premium strong{background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-size:18px}
 .live-dot{display:inline-block;width:8px;height:8px;background:var(--green);border-radius:50%;margin-right:6px;animation:livepulse 1.5s infinite}
 @keyframes livepulse{0%,100%{opacity:1}50%{opacity:.4}}
+.trending-card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:.2s;display:flex;flex-direction:column}
+.trending-card:hover{transform:translateY(-3px);border-color:var(--red)}
+.trending-thumb{position:relative;overflow:hidden;aspect-ratio:16/9}
+.trending-thumb img{width:100%;height:100%;object-fit:cover}
+.trending-thumb .live-badge{position:absolute;top:8px;left:8px;background:var(--red);color:white;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700;display:flex;align-items:center;gap:4px}
+.trending-thumb .live-badge::before{content:"";display:inline-block;width:6px;height:6px;background:white;border-radius:50%;animation:livepulse 1s infinite}
+.trending-info{padding:14px;flex:1;display:flex;flex-direction:column}
+.trending-info h3{font-size:14px;line-height:1.4;margin-bottom:8px;color:var(--text);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.trending-channel{display:flex;align-items:center;gap:8px;margin:8px 0;padding-top:8px;border-top:1px solid var(--line)}
+.trending-channel img{width:32px;height:32px;border-radius:50%}
+.trending-channel-info{flex:1;min-width:0}
+.trending-channel-name{font-size:13px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.trending-channel-subs{font-size:11px;color:var(--muted)}
+.trending-stats{display:flex;gap:12px;margin:10px 0;font-size:11px;color:var(--muted)}
+.trending-stats span{display:flex;align-items:center;gap:4px}
+.trending-rank{position:absolute;top:8px;right:8px;background:linear-gradient(135deg,var(--blue),var(--purple));color:white;width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:13px}
+.trending-actions{display:flex;gap:6px;margin-top:auto}
+.trending-loading{text-align:center;padding:60px 20px;color:var(--muted)}
+.trending-loading .spinner{width:40px;height:40px;border:4px solid var(--line);border-top:4px solid var(--red);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 14px}
+@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:flex-start;justify-content:center;padding:20px;z-index:9999;overflow-y:auto}
 .modal.active{display:flex}
 .modal-card{width:min(900px,100%);background:#0d1322;border:1px solid var(--line);border-radius:24px;box-shadow:var(--shadow);margin:auto}
@@ -174,6 +196,7 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 <span class="badge" data-i18n="badge5">🌍 Çok Dilli</span>
 <span class="badge" data-i18n="badge6">📺 Örnek Kanallar</span>
 <span class="badge" data-i18n="badge7">🤖 AI Asistan</span>
+<span class="badge" data-i18n="badge8">🔥 Trending Kanallar</span>
 </div>
 </header>
 
@@ -201,6 +224,7 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 
 <div class="tabs">
 <div class="tab active" onclick="switchTab('niches')" data-i18n="tabNiches">🎯 Niş Keşfi</div>
+<div class="tab trending-tab" onclick="switchTab('trending')" data-i18n="tabTrending">🔥 Yükselen Kanallar</div>
 <div class="tab" onclick="switchTab('roadmap')" data-i18n="tabRoadmap">🚀 Yakında Gelecek</div>
 </div>
 
@@ -236,6 +260,26 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 </section>
 </div>
 
+<div id="tab-trending" class="tab-content" style="display:none">
+<section class="section">
+<h2 data-i18n="trendingTitle">🔥 Bugün Yükselen YouTube Kanalları</h2>
+<p style="color:var(--muted);margin-bottom:14px" data-i18n="trendingDesc">CANLI veri! Şu an yükselen küçük ve orta boy kanallar (1K-500K abone).</p>
+<div class="input-row" style="margin-bottom:14px">
+<select id="trendingRegion">
+<option value="US">🇺🇸 ABD</option>
+<option value="TR">🇹🇷 Türkiye</option>
+<option value="DE">🇩🇪 Almanya</option>
+<option value="GB">🇬🇧 İngiltere</option>
+<option value="FR">🇫🇷 Fransa</option>
+<option value="ES">🇪🇸 İspanya</option>
+<option value="JP">🇯🇵 Japonya</option>
+</select>
+<button class="btn btn-primary" onclick="loadTrending()" data-i18n="trendingRefresh">🔄 Yenile</button>
+</div>
+<div id="trendingGrid"></div>
+</section>
+</div>
+
 <div id="tab-roadmap" class="tab-content" style="display:none">
 <section class="section">
 <h2 data-i18n="roadmapTitle">🚀 Yakında Gelecek Özellikler</h2>
@@ -245,7 +289,7 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 <span class="status lifetime">🔥 SINIRLI SÜRE</span>
 <h3>💎 LIFETIME DEAL</h3>
 <div class="date" data-i18n="ltDate">Sadece İlk 100 Kişiye: $89</div>
-<p data-i18n="ltLong">Tek seferlik ödeme, ömür boyu erişim! Tüm gelecek güncellemeler ücretsiz. Pro üyelik yerine $89 ile lifetime al, asla aboneliğe ödeme yapma!</p>
+<p data-i18n="ltLong">Tek seferlik ödeme, ömür boyu erişim! Tüm gelecek güncellemeler ücretsiz.</p>
 </div>
 <div class="roadmap-card coming">
 <span class="status coming" data-i18n="statusComing">⏳ Bu Hafta</span>
@@ -253,47 +297,35 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 <div class="date" data-i18n="date1">Tahmini: Birkaç gün içinde</div>
 <p data-i18n="feature1">Kanal istatistikleri, tahmini RPM, aylık kazanç tahmini ve 30 günlük büyüme grafiği.</p>
 </div>
-<div class="roadmap-card coming">
-<span class="status coming" data-i18n="statusComing">⏳ Bu Hafta</span>
-<h3>🔥 Trending Section</h3>
-<div class="date" data-i18n="date2">Tahmini: Birkaç gün içinde</div>
-<p data-i18n="feature2">Anasayfaya canlı yükselen kanallar bölümü. YouTube trend verilerinden gerçek zamanlı.</p>
-</div>
 <div class="roadmap-card soon">
 <span class="status soon" data-i18n="statusSoon">🔜 Çok Yakında</span>
 <h3>📱 TikTok & Instagram</h3>
 <div class="date" data-i18n="date4">Tahmini: 2 hafta içinde</div>
-<p data-i18n="feature4">TikTok ve Instagram Reels niş keşfi ekleniyor. Çapraz platform önerileri.</p>
+<p data-i18n="feature4">TikTok ve Instagram Reels niş keşfi ekleniyor.</p>
 </div>
 <div class="roadmap-card planned">
 <span class="status planned" data-i18n="statusPlanned">📅 Planlama</span>
 <h3>🎨 AI Görsel Üretici</h3>
 <div class="date" data-i18n="date5">Tahmini: 1 ay içinde</div>
-<p data-i18n="feature5">Thumbnail otomatik üretimi, banner tasarımı ve logo fikirleri. AI destekli.</p>
+<p data-i18n="feature5">Thumbnail otomatik üretimi, banner tasarımı ve logo fikirleri.</p>
 </div>
 <div class="roadmap-card planned">
 <span class="status planned" data-i18n="statusPlanned">📅 Planlama</span>
 <h3>📝 Content Generator</h3>
 <div class="date" data-i18n="date6">Tahmini: 1 ay içinde</div>
-<p data-i18n="feature6">Otomatik video scripti, başlık önerileri ve trend haberlere göre içerik üretimi.</p>
+<p data-i18n="feature6">Otomatik video scripti, başlık önerileri.</p>
 </div>
 <div class="roadmap-card planned">
 <span class="status planned" data-i18n="statusPlanned">📅 Planlama</span>
 <h3>📱 Mobil Uygulama</h3>
 <div class="date" data-i18n="date7">Tahmini: 2 ay içinde</div>
-<p data-i18n="feature7">iOS ve Android için mobil uygulama. Her yerden niş keşfi.</p>
-</div>
-<div class="roadmap-card planned">
-<span class="status planned" data-i18n="statusPlanned">📅 Planlama</span>
-<h3>🌍 Daha Fazla Dil</h3>
-<div class="date" data-i18n="date8">Tahmini: 2 ay içinde</div>
-<p data-i18n="feature8">İspanyolca, Fransızca, Portekizce, Arapça ve Japonca dil desteği.</p>
+<p data-i18n="feature7">iOS ve Android için mobil uygulama.</p>
 </div>
 </div>
 </section>
 </div>
 
-<p class="footer">NicheFinder Pro v1.5 | © 2025 | 🚀 Sürekli Güncellenen Platform</p>
+<p class="footer">NicheFinder Pro v2.0 | © 2025 | 🚀 Sürekli Güncellenen Platform | 🔥 CANLI Trending</p>
 </div>
 
 <button class="ai-bot-button" onclick="toggleAI()" id="aiBotBtn" title="AI Asistan">🤖</button>
@@ -345,77 +377,81 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 
 <script>
 const T={
-tr:{title:"🚀 NicheFinder Pro",subtitle:"YouTube için akıllı niş keşif sistemi. Gizli fırsatlar, AI puanlama, risk analizi, içerik fikirleri ve canlı veri tek bir platformda.",badge1:"🔴 Canlı YouTube Verisi",badge2:"🎯 Sürekli Güncellenen Havuz",badge3:"🛡️ Risk Detector",badge4:"📊 10 Kriterli Puanlama",badge5:"🌍 Çok Dilli",badge6:"📺 Örnek Kanallar",badge7:"🤖 AI Asistan",livePool:"🔴 Sürekli Güncellenen",poolDesc:"Niş Havuzu",statHidden:"Hidden Fırsat",statFav:"Favoriler",weekNew:"5",weekNewDesc:"Bu Hafta Eklendi",tabNiches:"🎯 Niş Keşfi",tabRoadmap:"🚀 Yakında Gelecek",searchTitle:"🔍 Niş Keşfi",searchPlaceholder:"Niş ara: AI, finans, motivasyon...",allLangs:"🌍 Tüm Diller",sortBest:"⭐ Genel Fırsat",sortHidden:"🔍 Gizli Fırsat",sortLow:"📉 Düşük Rekabet",sortMoney:"💰 Kazanç",sortNew:"🆕 Yeni Kanal Dostu",filterHidden:"🔍 Hidden Opportunity",filterNew:"🆕 Yeni Kanal Dostu",filterFaceless:"🎭 Faceless",resultsTitle:"📊 Sonuçlar",detail:"📋 Detay",fav:"☆ Favori",favRemove:"⭐ Çıkar",empty:"Niş bulunamadı.",hiddenChip:"🔍 Hidden",newChip:"🆕 Yeni Dostu",riskChip:"Risk",compLow:"Düşük",compMid:"Orta",compHigh:"Yüksek",compLabel:"Rekabet",opportunity:"Fırsat",hidden:"Hidden",earnings:"Kazanç",trend:"Trend",scoresTitle:"📊 Puanlar",audienceTitle:"🎯 Hedef & Rakip",audience:"Hedef",competitor:"Rakip",riskTitle:"🛡️ Risk Analizi",safetyScore:"Güvenlik",mainRisk:"Risk",dontDo:"❌ YAPMA",doThese:"✅ YAP",examplesTitle:"📺 Örnek Kanallar",beginner:"🌱 Yeni Başlayan",rising:"🚀 Yükselen Yıldız",success:"🏆 Başarı Hikayesi",subs:"Abone",age:"Yaş",growth:"Büyüme",strategy:"💡 Stratejisi",
-ltTitle:"🔥 LIFETIME DEAL - İlk 100 Kişiye Özel!",ltDesc:"Tek seferlik ödeme yap, ÖMÜR BOYU kullan! Tüm gelecek özellikler dahil.",ltSave:"%40 İNDİRİM",ltRemaining:"koltuk kaldı!",ltCta:"🚀 Lifetime Erişim Al - $89",ltDate:"Sadece İlk 100 Kişiye: $89",ltLong:"Tek seferlik ödeme, ömür boyu erişim! Tüm gelecek güncellemeler ücretsiz. Pro üyelik yerine $89 ile lifetime al, asla aboneliğe ödeme yapma!",
-roadmapTitle:"🚀 Yakında Gelecek Özellikler",roadmapDesc:"Platform sürekli gelişiyor! Lifetime üyeler tüm yeni özelliklere ÜCRETSİZ erişir.",statusComing:"⏳ Bu Hafta",statusSoon:"🔜 Çok Yakında",statusPlanned:"📅 Planlama",date1:"Tahmini: Birkaç gün içinde",feature1:"Kanal istatistikleri, tahmini RPM, aylık kazanç tahmini ve 30 günlük büyüme grafiği.",date2:"Tahmini: Birkaç gün içinde",feature2:"Anasayfaya canlı yükselen kanallar bölümü. YouTube trend verilerinden gerçek zamanlı.",date4:"Tahmini: 2 hafta içinde",feature4:"TikTok ve Instagram Reels niş keşfi ekleniyor.",date5:"Tahmini: 1 ay içinde",feature5:"Thumbnail otomatik üretimi, banner tasarımı ve logo fikirleri.",date6:"Tahmini: 1 ay içinde",feature6:"Otomatik video scripti, başlık önerileri ve trend haberlere göre içerik üretimi.",date7:"Tahmini: 2 ay içinde",feature7:"iOS ve Android için mobil uygulama.",date8:"Tahmini: 2 ay içinde",feature8:"İspanyolca, Fransızca, Portekizce, Arapça ve Japonca dil desteği.",
-aiTitle:"NicheBot Asistan",aiSubtitle:"Sana nasıl yardımcı olabilirim?",aiWelcome:"👋 Merhaba! Ben NicheBot. Aşağıdaki kategorilerden bir soru seç!",catNiche:"🎯 NİŞ SEÇİMİ",catRisk:"🛡️ RİSK YÖNETİMİ",catMoney:"💰 PARA KAZANMA",catContent:"📺 İÇERİK ÜRETİMİ",catStart:"🆕 BAŞLANGIÇ",
+tr:{title:"🚀 NicheFinder Pro",subtitle:"YouTube için akıllı niş keşif sistemi. Gizli fırsatlar, AI puanlama, risk analizi, içerik fikirleri ve canlı veri tek bir platformda.",badge1:"🔴 Canlı YouTube Verisi",badge2:"🎯 Sürekli Güncellenen Havuz",badge3:"🛡️ Risk Detector",badge4:"📊 10 Kriterli Puanlama",badge5:"🌍 Çok Dilli",badge6:"📺 Örnek Kanallar",badge7:"🤖 AI Asistan",badge8:"🔥 Trending Kanallar",livePool:"🔴 Sürekli Güncellenen",poolDesc:"Niş Havuzu",statHidden:"Hidden Fırsat",statFav:"Favoriler",weekNew:"5",weekNewDesc:"Bu Hafta Eklendi",tabNiches:"🎯 Niş Keşfi",tabTrending:"🔥 Yükselen Kanallar",tabRoadmap:"🚀 Yakında Gelecek",searchTitle:"🔍 Niş Keşfi",searchPlaceholder:"Niş ara: AI, finans, motivasyon...",allLangs:"🌍 Tüm Diller",sortBest:"⭐ Genel Fırsat",sortHidden:"🔍 Gizli Fırsat",sortLow:"📉 Düşük Rekabet",sortMoney:"💰 Kazanç",sortNew:"🆕 Yeni Kanal Dostu",filterHidden:"🔍 Hidden Opportunity",filterNew:"🆕 Yeni Kanal Dostu",filterFaceless:"🎭 Faceless",resultsTitle:"📊 Sonuçlar",detail:"📋 Detay",fav:"☆ Favori",favRemove:"⭐ Çıkar",empty:"Niş bulunamadı.",hiddenChip:"🔍 Hidden",newChip:"🆕 Yeni Dostu",riskChip:"Risk",compLow:"Düşük",compMid:"Orta",compHigh:"Yüksek",compLabel:"Rekabet",opportunity:"Fırsat",hidden:"Hidden",earnings:"Kazanç",trend:"Trend",scoresTitle:"📊 Puanlar",audienceTitle:"🎯 Hedef & Rakip",audience:"Hedef",competitor:"Rakip",riskTitle:"🛡️ Risk Analizi",safetyScore:"Güvenlik",mainRisk:"Risk",dontDo:"❌ YAPMA",doThese:"✅ YAP",examplesTitle:"📺 Örnek Kanallar",beginner:"🌱 Yeni Başlayan",rising:"🚀 Yükselen Yıldız",success:"🏆 Başarı Hikayesi",subs:"Abone",age:"Yaş",growth:"Büyüme",strategy:"💡 Stratejisi",
+trendingTitle:"🔥 Bugün Yükselen YouTube Kanalları",trendingDesc:"CANLI veri! Şu an yükselen küçük ve orta boy kanallar (1K-500K abone).",trendingRefresh:"🔄 Yenile",trendingLoading:"Yükleniyor... YouTube'dan en güncel veri çekiliyor",trendingEmpty:"Trend kanal bulunamadı.",trendingChannel:"Kanal",trendingViews:"izlenme",goToChannel:"Kanala Git",goToVideo:"Videoyu Aç",
+ltTitle:"🔥 LIFETIME DEAL - İlk 100 Kişiye Özel!",ltDesc:"Tek seferlik ödeme yap, ÖMÜR BOYU kullan!",ltSave:"%40 İNDİRİM",ltRemaining:"koltuk kaldı!",ltCta:"🚀 Lifetime Erişim Al - $89",ltDate:"Sadece İlk 100 Kişiye: $89",ltLong:"Tek seferlik ödeme, ömür boyu erişim!",
+roadmapTitle:"🚀 Yakında Gelecek Özellikler",roadmapDesc:"Platform sürekli gelişiyor!",statusComing:"⏳ Bu Hafta",statusSoon:"🔜 Çok Yakında",statusPlanned:"📅 Planlama",date1:"Tahmini: Birkaç gün içinde",feature1:"Kanal istatistikleri, RPM, gelir tahmini.",date4:"Tahmini: 2 hafta içinde",feature4:"TikTok ve Instagram Reels.",date5:"Tahmini: 1 ay içinde",feature5:"AI thumbnail ve görsel üretici.",date6:"Tahmini: 1 ay içinde",feature6:"Otomatik video scripti.",date7:"Tahmini: 2 ay içinde",feature7:"Mobil uygulama.",
+aiTitle:"NicheBot Asistan",aiSubtitle:"Sana nasıl yardımcı olabilirim?",aiWelcome:"👋 Merhaba! Ben NicheBot.",catNiche:"🎯 NİŞ SEÇİMİ",catRisk:"🛡️ RİSK YÖNETİMİ",catMoney:"💰 PARA KAZANMA",catContent:"📺 İÇERİK ÜRETİMİ",catStart:"🆕 BAŞLANGIÇ",
 q1:"Hangi nişle başlamalıyım?",q2:"Niş nasıl test edilir?",q3:"Hangi niş daha çok para kazandırır?",q4:"Risk Detector ne yapar?",q5:"Kanalım neden kapanır?",q6:"Telif hakkı nasıl korunur?",q7:"Para nasıl kazanırım?",q8:"1000 aboneye nasıl ulaşırım?",q9:"Sponsorluk nasıl alınır?",q10:"Video başlığı nasıl yazılır?",q11:"Thumbnail nasıl tasarlanır?",q12:"Faceless kanal nedir?",q13:"Yeni başlıyorum, ne yapayım?",q14:"Hangi ekipman gerekli?",q15:"İlk videom nasıl olmalı?",
-a1:"🎯 3 adım izle:<br><br>1. <b>'Hidden Opportunity'</b> filtresini aç<br>2. <b>'Yeni Kanal Dostu'</b> filtresini aç<br>3. Risk puanı 80+ olan nişleri tercih et",
-a2:"🧪 Nişi 30 günde test et:<br><br>1. 10 short paylaş<br>2. İzlenme oranlarını gör<br>3. Yorumları analiz et<br>4. Eğer 1000 izlenmeye ulaşıyorsa = Niş çalışıyor!",
-a3:"💰 En çok para kazandıran nişler:<br><br>🥇 <b>Finance</b> (RPM: $8-15)<br>🥈 <b>Business</b> (RPM: $6-10)<br>🥉 <b>Tech</b> (RPM: $4-7)",
-a4:"🛡️ Risk Detector güvenlik puanı verir:<br><br>• 80-100: ✅ Çok güvenli<br>• 60-80: ⚠️ Orta risk<br>• 0-60: ❌ Riskli<br><br>Telif hakkından korur!",
-a5:"⚠️ Kanal kapanma sebepleri:<br><br>1. 📵 Telif hakkı<br>2. 🚫 Topluluk kuralları<br>3. 👶 COPPA<br>4. 💊 Tıbbi iddialar",
-a6:"📜 Telif koruma:<br><br>✅ Royalty-free müzik<br>✅ Kendi görseller<br>❌ Bilinen şarkılar<br>❌ Film sahneleri",
-a7:"💰 5 para kazanma yolu:<br><br>1. AdSense<br>2. Sponsorluk<br>3. Affiliate<br>4. Kendi ürün<br>5. Üyelik",
-a8:"📈 1000 abone planı:<br><br>Ay 1: Niş seç + 10 video<br>Ay 2: Haftada 3 video<br>Ay 3-6: Tutarlılık",
-a9:"🤝 Sponsorluk:<br><br>1. Min 10K abone<br>2. Famebit, LinkedIn<br>3. İlk: $200-500<br>4. 100K sonra: $2K-10K",
-a10:"📝 Başlık formülü:<br><br>[Sayı] + [Hook] + [Sonuç]<br>'7 Şey Hayatımı Değiştirdi'",
-a11:"🖼️ Thumbnail kuralları:<br><br>• Büyük yazı<br>• Yüksek kontrast<br>• Şaşkın yüz<br>• Kırmızı = +30% CTR",
-a12:"🎭 Faceless = yüz göstermeden!<br><br>En iyi nişler: AI, History, Space, Geography",
-a13:"🆕 Yeni başlayan:<br><br>Hafta 1-2: Niş seç<br>Hafta 3-4: Örnek incele<br>Ay 2: 10 video çek",
-a14:"🎬 Başlangıç:<br><br>Bütçe: Telefon + ücretsiz CapCut<br>Orta: Boya mic + Ring light",
-a15:"🎬 İlk video:<br><br>1. Hook 5sn<br>2. Değer ver<br>3. CTA<br>İdeal: 8-12 dk",
+a1:"🎯 3 adım: 1. Hidden Opportunity 2. Yeni Kanal Dostu 3. Risk 80+",
+a2:"🧪 30 günde test: 10 short paylaş, 1000+ izlenme alıyorsan çalışıyor!",
+a3:"💰 En karlı: Finance ($8-15 RPM), Business, Tech",
+a4:"🛡️ Risk Detector güvenlik puanı verir. 80+ güvenli, 60- riskli!",
+a5:"⚠️ Sebepler: Telif hakkı, topluluk kuralları, COPPA, tıbbi iddia",
+a6:"📜 Royalty-free müzik kullan, telifli içerik kullanma!",
+a7:"💰 5 yol: AdSense, Sponsorluk, Affiliate, Kendi ürün, Üyelik",
+a8:"📈 6 ayda 1000 abone: İlk ay 10 video, sonra haftada 3, Shorts'a odaklan!",
+a9:"🤝 10K+ aboneden sonra: Famebit, LinkedIn DM. İlk: $200-500",
+a10:"📝 Formül: [Sayı] + [Hook] + [Sonuç]. Örnek: '7 Şey Hayatımı Değiştirdi'",
+a11:"🖼️ Büyük yazı, sarı/siyah kontrast, şaşkın yüz, ok işareti",
+a12:"🎭 Yüz göstermeden video. En iyi: AI, History, Space, Geography",
+a13:"🆕 1-2 hafta: Niş seç, 3-4 hafta: Örnekleri incele, 2. ay: 10 video",
+a14:"🎬 Başlangıç: Telefon + ücretsiz CapCut. Orta: Boya mic ($30)",
+a15:"🎬 İlk video: 5sn hook + değerli içerik + abone ol CTA. 8-12 dakika",
 typing:"Yazıyor..."},
-en:{title:"🚀 NicheFinder Pro",subtitle:"Smart niche discovery system for YouTube.",badge1:"🔴 Live Data",badge2:"🎯 Updated Pool",badge3:"🛡️ Risk Detector",badge4:"📊 10-Criteria",badge5:"🌍 Multi-Lang",badge6:"📺 Channels",badge7:"🤖 AI Bot",livePool:"🔴 Constantly Updated",poolDesc:"Niche Pool",statHidden:"Hidden",statFav:"Favorites",weekNew:"5",weekNewDesc:"Added This Week",tabNiches:"🎯 Discovery",tabRoadmap:"🚀 Coming Soon",searchTitle:"🔍 Discovery",searchPlaceholder:"Search niche...",allLangs:"🌍 All Languages",sortBest:"⭐ Overall",sortHidden:"🔍 Hidden",sortLow:"📉 Low Comp",sortMoney:"💰 Earnings",sortNew:"🆕 Newbie",filterHidden:"🔍 Hidden Only",filterNew:"🆕 Newbie Friendly",filterFaceless:"🎭 Faceless",resultsTitle:"📊 Results",detail:"📋 Detail",fav:"☆ Save",favRemove:"⭐ Remove",empty:"No niches.",hiddenChip:"🔍 Hidden",newChip:"🆕 Newbie",riskChip:"Risk",compLow:"Low",compMid:"Med",compHigh:"High",compLabel:"Competition",opportunity:"Opportunity",hidden:"Hidden",earnings:"Earnings",trend:"Trend",scoresTitle:"📊 Scores",audienceTitle:"🎯 Target",audience:"Target",competitor:"Competitor",riskTitle:"🛡️ Risk",safetyScore:"Safety",mainRisk:"Risk",dontDo:"❌ DON'T",doThese:"✅ DO",examplesTitle:"📺 Example Channels",beginner:"🌱 Beginner",rising:"🚀 Rising",success:"🏆 Success",subs:"Subs",age:"Age",growth:"Growth",strategy:"💡 Strategy",
-ltTitle:"🔥 LIFETIME DEAL - First 100 Only!",ltDesc:"One-time payment, LIFETIME access! All future features included.",ltSave:"40% OFF",ltRemaining:"seats left!",ltCta:"🚀 Get Lifetime Access - $89",ltDate:"First 100 People Only: $89",ltLong:"One-time payment, lifetime access! All future updates FREE. Get lifetime for $89 instead of monthly subscriptions!",
-roadmapTitle:"🚀 Coming Soon",roadmapDesc:"Platform constantly evolving! Lifetime members get all new features FREE.",statusComing:"⏳ This Week",statusSoon:"🔜 Very Soon",statusPlanned:"📅 Planned",date1:"ETA: Few days",feature1:"Channel statistics, estimated RPM, monthly earnings and 30-day growth chart.",date2:"ETA: Few days",feature2:"Live rising channels section. Real-time YouTube trend data.",date4:"ETA: 2 weeks",feature4:"TikTok and Instagram Reels niche discovery.",date5:"ETA: 1 month",feature5:"Auto thumbnail generation, banner design and logo ideas.",date6:"ETA: 1 month",feature6:"Auto video scripts, title suggestions and trend-based content.",date7:"ETA: 2 months",feature7:"iOS and Android mobile apps.",date8:"ETA: 2 months",feature8:"Spanish, French, Portuguese, Arabic and Japanese support.",
-aiTitle:"NicheBot Assistant",aiSubtitle:"How can I help?",aiWelcome:"👋 Hi! Pick a question below!",catNiche:"🎯 NICHE",catRisk:"🛡️ RISK",catMoney:"💰 MONEY",catContent:"📺 CONTENT",catStart:"🆕 START",
-q1:"Which niche should I start?",q2:"How to test a niche?",q3:"Most profitable niche?",q4:"What is Risk Detector?",q5:"Why channels get banned?",q6:"Copyright protection?",q7:"How to make money?",q8:"How to reach 1000 subs?",q9:"How to get sponsorship?",q10:"How to write titles?",q11:"How to design thumbnails?",q12:"What is faceless?",q13:"New, what to do?",q14:"What equipment?",q15:"First video tips?",
-a1:"🎯 3 steps:<br><br>1. Enable <b>'Hidden Opportunity'</b><br>2. Enable <b>'Newbie Friendly'</b><br>3. Pick Risk 80+",
-a2:"🧪 Test in 30 days:<br><br>1. Post 10 shorts<br>2. Check views<br>3. If 1000 views = Works!",
-a3:"💰 Top earners:<br><br>🥇 Finance (RPM: $8-15)<br>🥈 Business (RPM: $6-10)",
-a4:"🛡️ Risk Detector:<br><br>• 80-100: ✅ Safe<br>• 60-80: ⚠️ Medium<br>• 0-60: ❌ Risky",
-a5:"⚠️ Ban reasons:<br><br>1. Copyright<br>2. Community rules<br>3. COPPA<br>4. Medical claims",
-a6:"📜 Protection:<br><br>✅ Royalty-free music<br>❌ Famous songs",
-a7:"💰 5 ways:<br><br>1. AdSense<br>2. Sponsorship<br>3. Affiliate<br>4. Products<br>5. Membership",
-a8:"📈 1000 subs:<br><br>Month 1: Pick niche<br>Month 2-6: 3 videos/week",
-a9:"🤝 Sponsorship:<br><br>Need 10K+ subs<br>First: $200-500",
-a10:"📝 Title formula:<br><br>[Number] + [Hook] + [Result]",
-a11:"🖼️ Thumbnail:<br><br>Big text, contrast, surprised face",
-a12:"🎭 Faceless = no face on camera",
-a13:"🆕 Beginner:<br><br>Week 1-2: Niche<br>Month 2: 10 videos",
-a14:"🎬 Equipment:<br><br>Budget: Phone<br>Mid: Lav mic + Light",
-a15:"🎬 First video:<br><br>1. Hook 5s<br>2. Value<br>3. CTA",
+en:{title:"🚀 NicheFinder Pro",subtitle:"Smart niche discovery system for YouTube.",badge1:"🔴 Live Data",badge2:"🎯 Updated Pool",badge3:"🛡️ Risk Detector",badge4:"📊 10-Criteria",badge5:"🌍 Multi-Lang",badge6:"📺 Channels",badge7:"🤖 AI Bot",badge8:"🔥 Trending",livePool:"🔴 Constantly Updated",poolDesc:"Niche Pool",statHidden:"Hidden",statFav:"Favorites",weekNew:"5",weekNewDesc:"Added This Week",tabNiches:"🎯 Discovery",tabTrending:"🔥 Trending Channels",tabRoadmap:"🚀 Coming Soon",searchTitle:"🔍 Discovery",searchPlaceholder:"Search niche...",allLangs:"🌍 All Languages",sortBest:"⭐ Overall",sortHidden:"🔍 Hidden",sortLow:"📉 Low Comp",sortMoney:"💰 Earnings",sortNew:"🆕 Newbie",filterHidden:"🔍 Hidden Only",filterNew:"🆕 Newbie Friendly",filterFaceless:"🎭 Faceless",resultsTitle:"📊 Results",detail:"📋 Detail",fav:"☆ Save",favRemove:"⭐ Remove",empty:"No niches.",hiddenChip:"🔍 Hidden",newChip:"🆕 Newbie",riskChip:"Risk",compLow:"Low",compMid:"Med",compHigh:"High",compLabel:"Competition",opportunity:"Opportunity",hidden:"Hidden",earnings:"Earnings",trend:"Trend",scoresTitle:"📊 Scores",audienceTitle:"🎯 Target",audience:"Target",competitor:"Competitor",riskTitle:"🛡️ Risk",safetyScore:"Safety",mainRisk:"Risk",dontDo:"❌ DON'T",doThese:"✅ DO",examplesTitle:"📺 Example Channels",beginner:"🌱 Beginner",rising:"🚀 Rising",success:"🏆 Success",subs:"Subs",age:"Age",growth:"Growth",strategy:"💡 Strategy",
+trendingTitle:"🔥 Today's Trending YouTube Channels",trendingDesc:"LIVE data! Rising small to mid channels (1K-500K subscribers).",trendingRefresh:"🔄 Refresh",trendingLoading:"Loading... Fetching latest from YouTube",trendingEmpty:"No trending channels.",trendingChannel:"Channel",trendingViews:"views",goToChannel:"View Channel",goToVideo:"Watch Video",
+ltTitle:"🔥 LIFETIME DEAL - First 100 Only!",ltDesc:"One-time payment, LIFETIME access!",ltSave:"40% OFF",ltRemaining:"seats left!",ltCta:"🚀 Get Lifetime - $89",ltDate:"First 100: $89",ltLong:"One-time, lifetime access!",
+roadmapTitle:"🚀 Coming Soon",roadmapDesc:"Platform evolving!",statusComing:"⏳ This Week",statusSoon:"🔜 Very Soon",statusPlanned:"📅 Planned",date1:"ETA: Few days",feature1:"Channel stats, RPM estimates.",date4:"ETA: 2 weeks",feature4:"TikTok and Instagram.",date5:"ETA: 1 month",feature5:"AI image generator.",date6:"ETA: 1 month",feature6:"Auto video scripts.",date7:"ETA: 2 months",feature7:"Mobile app.",
+aiTitle:"NicheBot",aiSubtitle:"How can I help?",aiWelcome:"👋 Hi!",catNiche:"🎯 NICHE",catRisk:"🛡️ RISK",catMoney:"💰 MONEY",catContent:"📺 CONTENT",catStart:"🆕 START",
+q1:"Which niche start?",q2:"How to test?",q3:"Most profitable?",q4:"What's Risk Detector?",q5:"Why banned?",q6:"Copyright?",q7:"How to earn?",q8:"1000 subs?",q9:"Sponsorship?",q10:"Titles?",q11:"Thumbnails?",q12:"Faceless?",q13:"Start tips?",q14:"Equipment?",q15:"First video?",
+a1:"🎯 3 steps: Hidden + Newbie filters + Risk 80+",
+a2:"🧪 30 days: 10 shorts, 1000+ views means works!",
+a3:"💰 Best: Finance, Business, Tech",
+a4:"🛡️ Safety score 100. 80+ safe!",
+a5:"⚠️ Copyright, rules, COPPA",
+a6:"📜 Royalty-free music only!",
+a7:"💰 5 ways: AdSense, Sponsor, Affiliate, Products",
+a8:"📈 6 months: 10 videos first, then 3/week",
+a9:"🤝 10K+ subs needed. First: $200-500",
+a10:"📝 [Number]+[Hook]+[Result]",
+a11:"🖼️ Big text, contrast, surprised face",
+a12:"🎭 No face. Best: AI, History, Space",
+a13:"🆕 Week 1-2: Niche, Month 2: 10 videos",
+a14:"🎬 Phone + free CapCut",
+a15:"🎬 Hook 5s + value + CTA. 8-12 min",
 typing:"Typing..."},
-de:{title:"🚀 NicheFinder Pro",subtitle:"Intelligentes Nischenfindungssystem für YouTube.",badge1:"🔴 Live Daten",badge2:"🎯 Aktualisiert",badge3:"🛡️ Risiko",badge4:"📊 10-Kriterien",badge5:"🌍 Mehrsprachig",badge6:"📺 Kanäle",badge7:"🤖 KI-Bot",livePool:"🔴 Aktualisiert",poolDesc:"Pool",statHidden:"Versteckt",statFav:"Favoriten",weekNew:"5",weekNewDesc:"Diese Woche",tabNiches:"🎯 Entdeckung",tabRoadmap:"🚀 Demnächst",searchTitle:"🔍 Entdeckung",searchPlaceholder:"Nische suchen...",allLangs:"🌍 Alle",sortBest:"⭐ Gesamt",sortHidden:"🔍 Versteckt",sortLow:"📉 Niedrig",sortMoney:"💰 Verdienst",sortNew:"🆕 Anfänger",filterHidden:"🔍 Nur Versteckt",filterNew:"🆕 Anfänger",filterFaceless:"🎭 Faceless",resultsTitle:"📊 Ergebnisse",detail:"📋 Detail",fav:"☆ Favorit",favRemove:"⭐ Entfernen",empty:"Keine.",hiddenChip:"🔍 Versteckt",newChip:"🆕 Anfänger",riskChip:"Risiko",compLow:"Niedrig",compMid:"Mittel",compHigh:"Hoch",compLabel:"Konkurrenz",opportunity:"Chance",hidden:"Versteckt",earnings:"Verdienst",trend:"Trend",scoresTitle:"📊 Werte",audienceTitle:"🎯 Ziel",audience:"Ziel",competitor:"Konkurrent",riskTitle:"🛡️ Risiko",safetyScore:"Sicherheit",mainRisk:"Risiko",dontDo:"❌ NICHT",doThese:"✅ TUN",examplesTitle:"📺 Beispielkanäle",beginner:"🌱 Anfänger",rising:"🚀 Aufsteigend",success:"🏆 Erfolg",subs:"Abos",age:"Alter",growth:"Wachstum",strategy:"💡 Strategie",
-ltTitle:"🔥 LIFETIME DEAL - Nur erste 100!",ltDesc:"Einmalige Zahlung, LEBENSLANG nutzen!",ltSave:"40% RABATT",ltRemaining:"Plätze!",ltCta:"🚀 Lifetime - $89",ltDate:"Nur erste 100: $89",ltLong:"Einmalige Zahlung, lebenslang! Alle Updates KOSTENLOS.",
-roadmapTitle:"🚀 Demnächst",roadmapDesc:"Plattform entwickelt sich ständig!",statusComing:"⏳ Diese Woche",statusSoon:"🔜 Bald",statusPlanned:"📅 Geplant",date1:"ETA: Tage",feature1:"Kanalstatistiken und Wachstum.",date2:"ETA: Tage",feature2:"Live aufsteigende Kanäle.",date4:"ETA: 2 Wochen",feature4:"TikTok und Instagram.",date5:"ETA: 1 Monat",feature5:"Auto Thumbnails.",date6:"ETA: 1 Monat",feature6:"Auto Skripte.",date7:"ETA: 2 Monate",feature7:"Mobile Apps.",date8:"ETA: 2 Monate",feature8:"Mehr Sprachen.",
+de:{title:"🚀 NicheFinder Pro",subtitle:"Intelligentes Nischenfindungssystem.",badge1:"🔴 Live",badge2:"🎯 Aktualisiert",badge3:"🛡️ Risiko",badge4:"📊 10-Kriterien",badge5:"🌍 Mehrsprachig",badge6:"📺 Kanäle",badge7:"🤖 KI-Bot",badge8:"🔥 Trending",livePool:"🔴 Aktualisiert",poolDesc:"Pool",statHidden:"Versteckt",statFav:"Favoriten",weekNew:"5",weekNewDesc:"Diese Woche",tabNiches:"🎯 Entdeckung",tabTrending:"🔥 Trending Kanäle",tabRoadmap:"🚀 Demnächst",searchTitle:"🔍 Entdeckung",searchPlaceholder:"Nische suchen...",allLangs:"🌍 Alle",sortBest:"⭐ Gesamt",sortHidden:"🔍 Versteckt",sortLow:"📉 Niedrig",sortMoney:"💰 Verdienst",sortNew:"🆕 Anfänger",filterHidden:"🔍 Versteckt",filterNew:"🆕 Anfänger",filterFaceless:"🎭 Faceless",resultsTitle:"📊 Ergebnisse",detail:"📋 Detail",fav:"☆ Favorit",favRemove:"⭐ Entfernen",empty:"Keine.",hiddenChip:"🔍 Versteckt",newChip:"🆕 Anfänger",riskChip:"Risiko",compLow:"Niedrig",compMid:"Mittel",compHigh:"Hoch",compLabel:"Konkurrenz",opportunity:"Chance",hidden:"Versteckt",earnings:"Verdienst",trend:"Trend",scoresTitle:"📊 Werte",audienceTitle:"🎯 Ziel",audience:"Ziel",competitor:"Konkurrent",riskTitle:"🛡️ Risiko",safetyScore:"Sicherheit",mainRisk:"Risiko",dontDo:"❌ NICHT",doThese:"✅ TUN",examplesTitle:"📺 Beispielkanäle",beginner:"🌱 Anfänger",rising:"🚀 Aufsteigend",success:"🏆 Erfolg",subs:"Abos",age:"Alter",growth:"Wachstum",strategy:"💡 Strategie",
+trendingTitle:"🔥 Heute aufsteigende YouTube-Kanäle",trendingDesc:"LIVE-Daten! Aufsteigende Kanäle (1K-500K Abos).",trendingRefresh:"🔄 Aktualisieren",trendingLoading:"Lädt...",trendingEmpty:"Keine Trends.",trendingChannel:"Kanal",trendingViews:"Aufrufe",goToChannel:"Zum Kanal",goToVideo:"Video ansehen",
+ltTitle:"🔥 LIFETIME DEAL!",ltDesc:"Einmalige Zahlung!",ltSave:"40% RABATT",ltRemaining:"Plätze!",ltCta:"🚀 Lifetime - $89",ltDate:"Nur erste 100: $89",ltLong:"Einmalige Zahlung!",
+roadmapTitle:"🚀 Demnächst",roadmapDesc:"Plattform entwickelt sich!",statusComing:"⏳ Diese Woche",statusSoon:"🔜 Bald",statusPlanned:"📅 Geplant",date1:"ETA: Tage",feature1:"Kanalstatistiken.",date4:"ETA: 2 Wochen",feature4:"TikTok und Instagram.",date5:"ETA: 1 Monat",feature5:"KI-Bildgenerator.",date6:"ETA: 1 Monat",feature6:"Auto-Skripte.",date7:"ETA: 2 Monate",feature7:"Mobile App.",
 aiTitle:"NicheBot",aiSubtitle:"Wie helfen?",aiWelcome:"👋 Hallo!",catNiche:"🎯 NISCHE",catRisk:"🛡️ RISIKO",catMoney:"💰 GELD",catContent:"📺 INHALT",catStart:"🆕 START",
-q1:"Welche Nische?",q2:"Wie testen?",q3:"Beste Nische?",q4:"Was ist Risiko-Detektor?",q5:"Warum Sperren?",q6:"Urheberrecht?",q7:"Geld verdienen?",q8:"1000 Abos?",q9:"Sponsoring?",q10:"Titel schreiben?",q11:"Thumbnails?",q12:"Was ist Faceless?",q13:"Neu, was tun?",q14:"Ausrüstung?",q15:"Erstes Video?",
-a1:"🎯 3 Schritte: Hidden + Anfänger Filter + Sicherheit 80+",
-a2:"🧪 30 Tage: 10 Shorts posten",
-a3:"💰 Top: Finanzen, Business, Tech",
-a4:"🛡️ Sicherheitswert 100",
-a5:"⚠️ Urheberrecht, Regeln",
-a6:"📜 Lizenzfreie Musik",
-a7:"💰 AdSense, Sponsoring, Affiliate",
-a8:"📈 Monat 1: Nische, Monat 2-6: 3 Videos/Woche",
-a9:"🤝 10K+ Abos benötigt",
-a10:"📝 [Zahl] + [Hook] + [Ergebnis]",
-a11:"🖼️ Großer Text, Kontrast",
-a12:"🎭 Kein Gesicht auf Kamera",
+q1:"Welche Nische?",q2:"Wie testen?",q3:"Beste Nische?",q4:"Was ist Risiko-Detektor?",q5:"Warum Sperren?",q6:"Urheberrecht?",q7:"Geld verdienen?",q8:"1000 Abos?",q9:"Sponsoring?",q10:"Titel?",q11:"Thumbnails?",q12:"Was ist Faceless?",q13:"Neu, was tun?",q14:"Ausrüstung?",q15:"Erstes Video?",
+a1:"🎯 3 Schritte: Hidden + Anfänger + Sicherheit 80+",
+a2:"🧪 30 Tage: 10 Shorts, 1000+ Aufrufe = funktioniert",
+a3:"💰 Beste: Finanzen, Business, Tech",
+a4:"🛡️ Sicherheitswert 100. 80+ sicher!",
+a5:"⚠️ Urheberrecht, Regeln, COPPA",
+a6:"📜 Lizenzfreie Musik!",
+a7:"💰 5 Wege: AdSense, Sponsoring, Affiliate",
+a8:"📈 6 Monate: 10 Videos zuerst, dann 3/Woche",
+a9:"🤝 10K+ Abos benötigt. Erste: $200-500",
+a10:"📝 [Zahl]+[Hook]+[Ergebnis]",
+a11:"🖼️ Großer Text, Kontrast, Überraschung",
+a12:"🎭 Kein Gesicht. Beste: KI, Geschichte, Weltraum",
 a13:"🆕 Woche 1-2: Nische, Monat 2: 10 Videos",
-a14:"🎬 Handy reicht zum Start",
-a15:"🎬 Hook 5s, Wert, CTA",
+a14:"🎬 Handy + kostenloses CapCut",
+a15:"🎬 Hook 5s + Wert + CTA. 8-12 Min",
 typing:"Tippt..."}};
 
 let lang=localStorage.getItem("nf_lang")||"tr";
 let favorites=JSON.parse(localStorage.getItem("nf_favs")||"[]");
 const urlParams=new URLSearchParams(window.location.search);
 const isAdmin=urlParams.get('admin')==='1';
+let trendingLoaded=false;
 
 function t(k){return T[lang][k]||k}
-function setLang(l){lang=l;localStorage.setItem("nf_lang",l);apply();render();document.querySelectorAll(".lang-btn").forEach(b=>b.classList.remove("active"));document.getElementById("lang-"+l).classList.add("active");updateAILang()}
+function setLang(l){lang=l;localStorage.setItem("nf_lang",l);apply();render();document.querySelectorAll(".lang-btn").forEach(b=>b.classList.remove("active"));document.getElementById("lang-"+l).classList.add("active");updateAILang();if(trendingLoaded)renderTrending(window.lastTrending||[])}
 function apply(){document.querySelectorAll("[data-i18n]").forEach(el=>{el.textContent=t(el.getAttribute("data-i18n"))});document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{el.placeholder=t(el.getAttribute("data-i18n-placeholder"))});document.documentElement.lang=lang}
 function updateAILang(){document.getElementById("aiTitle").textContent=t("aiTitle");document.getElementById("aiSubtitle").textContent=t("aiSubtitle");document.getElementById("aiWelcome").textContent=t("aiWelcome");["catNiche","catRisk","catMoney","catContent","catStart"].forEach(k=>{const el=document.getElementById(k);if(el)el.textContent=t(k)});for(let i=1;i<=15;i++){const el=document.getElementById("q"+i+"Btn");if(el)el.textContent=t("q"+i)}}
 function clamp(n){return Math.max(0,Math.min(100,Math.round(n)))}
@@ -432,7 +468,60 @@ function getRiskSebep(n){return n.risk.sebep[lang]||n.risk.sebep.tr}
 function getRiskYapma(n){return n.risk.yapma[lang]||n.risk.yapma.tr}
 function getRiskYap(n){return n.risk.yap[lang]||n.risk.yap.tr}
 function getEx(ex,field){return ex[field][lang]||ex[field].tr}
-function switchTab(tab){document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".tab-content").forEach(x=>x.style.display="none");document.querySelector(`.tab[onclick*="${tab}"]`).classList.add("active");document.getElementById("tab-"+tab).style.display="block"}
+function switchTab(tab){document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".tab-content").forEach(x=>x.style.display="none");document.querySelector(`.tab[onclick*="${tab}"]`).classList.add("active");document.getElementById("tab-"+tab).style.display="block";if(tab==="trending"&&!trendingLoaded){loadTrending()}}
+
+function formatNumber(n){if(n>=1000000)return(n/1000000).toFixed(1)+"M";if(n>=1000)return(n/1000).toFixed(1)+"K";return n}
+
+async function loadTrending(){
+const region=document.getElementById("trendingRegion").value;
+const grid=document.getElementById("trendingGrid");
+grid.innerHTML=`<div class="trending-loading"><div class="spinner"></div><p>${t("trendingLoading")}</p></div>`;
+try{
+const r=await fetch(`/api/search?endpoint=trending&region=${region}`);
+const data=await r.json();
+if(data.success&&data.channels){
+window.lastTrending=data.channels;
+trendingLoaded=true;
+renderTrending(data.channels);
+}else{
+grid.innerHTML=`<div class="empty">${t("trendingEmpty")}</div>`;
+}
+}catch(e){
+grid.innerHTML=`<div class="empty">❌ ${e.message}</div>`;
+}
+}
+
+function renderTrending(channels){
+const grid=document.getElementById("trendingGrid");
+if(!channels||!channels.length){grid.innerHTML=`<div class="empty">${t("trendingEmpty")}</div>`;return}
+grid.innerHTML=`<div class="results-grid">`+channels.map((ch,i)=>`
+<div class="trending-card">
+<div class="trending-thumb">
+<img src="${ch.video_thumbnail}" alt=""/>
+<div class="live-badge">LIVE</div>
+<div class="trending-rank">${i+1}</div>
+</div>
+<div class="trending-info">
+<h3>${esc(ch.video_title)}</h3>
+<div class="trending-channel">
+<img src="${ch.channel_thumbnail}" alt=""/>
+<div class="trending-channel-info">
+<div class="trending-channel-name">${esc(ch.channel_title)}</div>
+<div class="trending-channel-subs">${formatNumber(ch.subscriber_count)} ${t("subs")}</div>
+</div>
+</div>
+<div class="trending-stats">
+<span>👁️ ${formatNumber(ch.video_views)} ${t("trendingViews")}</span>
+<span>📊 ${formatNumber(ch.view_count)} total</span>
+</div>
+<div class="trending-actions">
+<a href="https://youtube.com/channel/${ch.channel_id}" target="_blank" class="btn btn-small btn-primary" style="text-decoration:none">${t("goToChannel")}</a>
+<a href="https://youtube.com/watch?v=${ch.video_id}" target="_blank" class="btn btn-small btn-secondary" style="text-decoration:none">${t("goToVideo")}</a>
+</div>
+</div>
+</div>`).join("")+`</div>`;
+}
+
 function render(){
 const q=document.getElementById("searchInput").value.trim().toLowerCase();
 const lf=document.getElementById("langFilter").value;
@@ -473,6 +562,7 @@ ${n.scores.newCh>=75?`<span class="chip yellow">${t("newChip")}</span>`:''}
 <button class="btn btn-small btn-primary" onclick="openDetail('${n.id}')">${t("detail")}</button>
 <button class="btn btn-small btn-secondary" onclick="toggleFav('${n.id}')">${favorites.includes(n.id)?t("favRemove"):t("fav")}</button>
 </div></div>`}).join("")}
+
 function openDetail(id){
 const n=NICHES_DATA.find(x=>x.id===id);if(!n)return;
 document.getElementById("modalTitle").textContent=getName(n);
@@ -534,11 +624,8 @@ msgArea.scrollTop=msgArea.scrollHeight;
 setTimeout(()=>{typing.innerHTML=answer;msgArea.scrollTop=msgArea.scrollHeight},800);
 }
 
-// ADMIN MODE
 if(isAdmin){
 document.getElementById("adminBanner").classList.add("active");
-console.log("👑 ADMIN MODE ACTIVE");
-console.log("📊 Total Niches:",NICHES_DATA.length);
 }
 
 document.getElementById("searchInput").addEventListener("input",render);
