@@ -4,8 +4,7 @@ import os
 import urllib.request
 import urllib.parse
 
-# Müzik kategorisi kanal isimleri (filtrelemek için)
-BLOCKED_KEYWORDS = ['vevo', 'official', 'records', 'music', 'entertainment', 'tv', 'media']
+BLOCKED_KEYWORDS = ['vevo', 'official', 'records', 'music', 'entertainment', 'tv', 'media', 'topic']
 
 class handler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -34,11 +33,12 @@ class handler(BaseHTTPRequestHandler):
             if endpoint == 'trending':
                 region = params.get('region', 'US')
                 search_query = params.get('q', '').strip()
+                limit = int(params.get('limit', '50'))
                 
                 results = []
                 
                 if search_query:
-                    # KULLANICI ARAMASI - Niş bazlı kanal bul
+                    # KULLANICI ARAMASI
                     search_url = f"https://www.googleapis.com/youtube/v3/search?part=snippet&q={urllib.parse.quote(search_query)}&type=channel&maxResults=25&regionCode={region}&key={api_key}"
                     req = urllib.request.Request(search_url)
                     response = urllib.request.urlopen(req, timeout=10)
@@ -82,14 +82,15 @@ class handler(BaseHTTPRequestHandler):
                         results.sort(key=lambda x: x['view_count'] / max(x['subscriber_count'], 1), reverse=True)
                 
                 else:
-                    # OTOMATIK TRENDING - Niş kategorileri
-                    # Kategori 27=Education, 28=Science&Tech, 26=HowTo&Style, 22=People&Blogs
-                    categories = ['27', '28', '26', '22']
+                    # OTOMATIK - Tüm niş kategoriler
+                    categories = ['27', '28', '26', '22', '24', '20', '25']
                     seen_channels = set()
                     
                     for cat in categories:
+                        if len(results) >= limit:
+                            break
                         try:
-                            videos_url = f"https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&chart=mostPopular&regionCode={region}&videoCategoryId={cat}&maxResults=15&key={api_key}"
+                            videos_url = f"https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&chart=mostPopular&regionCode={region}&videoCategoryId={cat}&maxResults=20&key={api_key}"
                             req = urllib.request.Request(videos_url)
                             response = urllib.request.urlopen(req, timeout=10)
                             data = json.loads(response.read())
@@ -103,7 +104,7 @@ class handler(BaseHTTPRequestHandler):
                                     video_map[ch_id] = item
                             
                             if channel_ids:
-                                channels_url = f"https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id={','.join(channel_ids[:20])}&key={api_key}"
+                                channels_url = f"https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id={','.join(channel_ids[:30])}&key={api_key}"
                                 req2 = urllib.request.Request(channels_url)
                                 response2 = urllib.request.urlopen(req2, timeout=10)
                                 channels_data = json.loads(response2.read())
@@ -148,9 +149,10 @@ class handler(BaseHTTPRequestHandler):
                 
                 self.wfile.write(json.dumps({
                     "success": True,
-                    "channels": results[:15],
+                    "channels": results[:limit],
                     "region": region,
-                    "query": search_query
+                    "query": search_query,
+                    "total": len(results)
                 }).encode())
                 return
             
