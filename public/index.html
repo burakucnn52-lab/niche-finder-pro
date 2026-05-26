@@ -50,15 +50,13 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 .widget-head .view-all{color:var(--blue);font-size:13px;cursor:pointer;font-weight:600;background:none;border:none;font-family:inherit}
 .widget-head .view-all:hover{text-decoration:underline}
 .widget-subtitle{color:var(--muted);font-size:12px;margin-bottom:14px}
-.channel-row{display:flex;align-items:center;gap:12px;padding:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:8px;transition:.2s;cursor:pointer;text-decoration:none;color:var(--text)}
+.channel-row{display:flex;align-items:center;gap:12px;padding:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:8px;transition:.2s;cursor:pointer}
 .channel-row:hover{transform:translateX(3px);border-color:var(--blue)}
 .channel-row img{width:48px;height:48px;border-radius:50%;flex-shrink:0}
 .channel-row .info{flex:1;min-width:0}
 .channel-row .info h4{font-size:13px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:3px}
 .channel-row .info p{font-size:11px;color:var(--muted)}
 .channel-row .badge{background:linear-gradient(135deg,var(--blue),var(--purple));color:white;padding:4px 10px;border-radius:8px;font-size:11px;font-weight:700;flex-shrink:0}
-.channel-row .progress{width:80px;height:4px;background:rgba(255,255,255,.1);border-radius:999px;overflow:hidden;flex-shrink:0}
-.channel-row .progress div{height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:999px}
 .niche-row{display:flex;align-items:center;gap:12px;padding:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:8px;transition:.2s;cursor:pointer}
 .niche-row:hover{transform:translateX(3px);border-color:var(--blue)}
 .niche-row .icon{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--purple));display:grid;place-items:center;font-size:22px;flex-shrink:0}
@@ -66,7 +64,6 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 .niche-row .info h4{font-size:13px;font-weight:700;color:var(--text);margin-bottom:3px}
 .niche-row .info p{font-size:11px;color:var(--muted)}
 .niche-row .stats{display:flex;gap:10px;font-size:11px;color:var(--muted);flex-shrink:0}
-.niche-row .stats span{display:flex;align-items:center;gap:3px}
 .section{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:24px;margin-bottom:20px}
 .section h2{margin-bottom:16px;font-size:20px}
 .input-row{display:flex;gap:12px;flex-wrap:wrap}
@@ -82,7 +79,6 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 .tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
 .tab{padding:10px 18px;background:var(--card);border:1px solid var(--line);border-radius:12px;cursor:pointer;font-size:14px;color:var(--muted);transition:.2s}
 .tab.active{background:linear-gradient(135deg,var(--blue),var(--purple));color:white;border-color:transparent}
-.tab:hover:not(.active){background:rgba(255,255,255,.1);color:var(--text)}
 .tab.trending-tab{background:linear-gradient(135deg,rgba(255,92,122,.2),rgba(255,159,67,.15));border-color:var(--red);color:var(--red);font-weight:700}
 .tab.trending-tab.active{background:linear-gradient(135deg,var(--red),var(--orange));color:white;border-color:transparent}
 .results-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:16px;margin-top:16px}
@@ -104,7 +100,7 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 .fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:999px}
 .card-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
 .empty{text-align:center;padding:40px 20px;color:var(--muted);border:1px dashed var(--line);border-radius:16px}
-.trending-card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:.2s;display:flex;flex-direction:column}
+.trending-card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:.2s;display:flex;flex-direction:column;cursor:pointer}
 .trending-card:hover{transform:translateY(-3px);border-color:var(--red)}
 .trending-thumb{position:relative;overflow:hidden;aspect-ratio:16/9}
 .trending-thumb img{width:100%;height:100%;object-fit:cover}
@@ -131,6 +127,33 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 .modal-head h2{font-size:22px;margin-bottom:5px}
 .modal-head p{color:var(--muted);font-size:13px}
 .modal-body{padding:20px}
+.analytics-header{display:flex;gap:16px;align-items:center;margin-bottom:20px;flex-wrap:wrap}
+.analytics-header img{width:80px;height:80px;border-radius:50%}
+.analytics-header h2{font-size:24px;margin-bottom:4px}
+.analytics-header p{color:var(--muted);font-size:13px}
+.analytics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:16px}
+.analytics-box{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:14px;padding:16px}
+.analytics-box h3{margin-bottom:12px;font-size:15px;display:flex;align-items:center;gap:8px}
+.analytics-stat{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px}
+.analytics-stat:last-child{border:0}
+.analytics-stat strong{color:var(--text)}
+.analytics-stat span{color:var(--muted)}
+.earnings-box{background:linear-gradient(135deg,rgba(69,224,138,.1),rgba(77,163,255,.1));border:1px solid rgba(69,224,138,.3)}
+.earnings-box h3{color:var(--green)}
+.earnings-amount{font-size:28px;font-weight:800;color:var(--green);margin:12px 0;text-align:center}
+.earnings-range{text-align:center;color:var(--muted);font-size:13px}
+.demo-bar{margin:8px 0}
+.demo-bar-label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:4px}
+.demo-bar-track{height:8px;background:rgba(255,255,255,.08);border-radius:999px;overflow:hidden}
+.demo-bar-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:999px;transition:.5s}
+.demo-bar-fill.male{background:linear-gradient(90deg,#4da3ff,#49e6d8)}
+.demo-bar-fill.female{background:linear-gradient(90deg,#ff5c7a,#a78bfa)}
+.country-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)}
+.country-row:last-child{border:0}
+.country-row .flag{font-size:20px;margin-right:8px}
+.country-row .name{flex:1;font-size:13px}
+.country-row .pct{font-weight:700;color:var(--blue)}
+.disclaimer{background:rgba(255,209,102,.1);border:1px solid rgba(255,209,102,.3);border-radius:10px;padding:10px 14px;color:#ffe7a8;font-size:11px;margin-top:16px}
 .detail-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
 .detail-box{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:14px;padding:14px}
 .detail-box h3{margin-bottom:10px;font-size:15px}
@@ -150,7 +173,6 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 .example-card .ex-strategy{font-size:13px;color:#cfd9ea;margin-top:8px;padding-top:8px;border-top:1px solid var(--line)}
 .roadmap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:20px}
 .roadmap-card{background:linear-gradient(135deg,rgba(77,163,255,.1),rgba(167,139,250,.05));border:1px solid var(--line);border-radius:16px;padding:20px;transition:.2s}
-.roadmap-card:hover{transform:translateY(-3px);border-color:var(--blue)}
 .roadmap-card.coming{border-left:4px solid var(--yellow)}
 .roadmap-card.soon{border-left:4px solid var(--blue)}
 .roadmap-card.planned{border-left:4px solid var(--purple)}
@@ -189,8 +211,7 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 @media(max-width:768px){.results-grid{grid-template-columns:1fr}.detail-grid{grid-template-columns:1fr}.ai-chat{width:calc(100vw - 32px);right:16px;bottom:90px;height:500px}.ai-bot-button{width:56px;height:56px;bottom:16px;right:16px}.admin-stats{flex-direction:column;gap:4px}}
 </style>
 </head>
-<body>
-<div class="container">
+<body><div class="container">
 
 <div class="admin-banner" id="adminBanner">
 <div><strong>👑 ADMIN MODE</strong> - Sadece sen görüyorsun</div>
@@ -210,101 +231,101 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 </div>
 
 <header class="welcome-header">
-<h1 data-i18n="welcome">👋 Hoş Geldin, NicheFinder Pro!</h1>
-<p style="color:var(--muted);font-size:15px;max-width:700px;line-height:1.5" data-i18n="welcomeDesc">YouTube için akıllı niş keşif sistemi. Gizli fırsatları bul, kanal kapanma riskini öğren, AI Asistan'la yardım al!</p>
+<h1>👋 Hoş Geldin, NicheFinder Pro!</h1>
+<p style="color:var(--muted);font-size:15px;max-width:700px;line-height:1.5">YouTube için akıllı niş keşif sistemi. Gizli fırsatları bul, kanal kapanma riskini öğren, AI Asistan'la yardım al!</p>
 <div class="stats-row">
-<span data-i18n="totalAnalyzed">📊 Toplam Analiz Edilen Kanal:</span>
+<span>📊 Toplam Analiz Edilen Kanal:</span>
 <strong id="totalChannels">18,707,535</strong>
 <span class="new-badge" id="newToday">+133,220</span>
 </div>
 </header>
 
 <div class="quick-search">
-<input id="quickSearch" data-i18n-placeholder="quickSearchPlaceholder" placeholder="🔍 Anahtar kelime ara: AI, finans, oyun, yemek..." />
-<button onclick="quickSearch()" data-i18n="searchBtn">🔍 Ara</button>
+<input id="quickSearch" placeholder="🔍 Anahtar kelime ara: AI, finans, oyun, yemek..." />
+<button onclick="quickSearch()">🔍 Ara</button>
 </div>
 
 <div class="lifetime-banner">
-<h2 data-i18n="ltTitle">🔥 LIFETIME DEAL - İlk 100 Kişiye Özel!</h2>
-<p style="color:#fff;margin-bottom:8px" data-i18n="ltDesc">Tek seferlik ödeme yap, ÖMÜR BOYU kullan!</p>
+<h2>🔥 LIFETIME DEAL - İlk 100 Kişiye Özel!</h2>
+<p style="color:#fff;margin-bottom:8px">Tek seferlik ödeme yap, ÖMÜR BOYU kullan!</p>
 <div class="price-row">
 <span class="old-price">$149</span>
 <span class="new-price">$89</span>
-<span class="save" data-i18n="ltSave">%40 İNDİRİM</span>
+<span class="save">%40 İNDİRİM</span>
 </div>
 <div class="counter-row">
-<div class="counter-bar"><div class="counter-fill" id="counterFill" style="width:27%">27/100</div></div>
-<div class="counter-text"><strong id="counterRemaining">73</strong> <span data-i18n="ltRemaining">koltuk kaldı!</span></div>
+<div class="counter-bar"><div class="counter-fill" style="width:27%">27/100</div></div>
+<div class="counter-text"><strong>73</strong> koltuk kaldı!</div>
 </div>
-<button class="lifetime-cta" onclick="alert('Yakında! Ödeme sistemi kuruluyor.')" data-i18n="ltCta">🚀 Lifetime Erişim Al - $89</button>
+<button class="lifetime-cta" onclick="alert('Yakında! Ödeme sistemi kuruluyor.')">🚀 Lifetime Erişim Al - $89</button>
 </div>
 
 <div class="home-grid">
 <div class="home-widget">
 <div class="widget-head">
-<h2 data-i18n="risingTitle">🔥 Bugün Yükselen Kanallar</h2>
-<button class="view-all" onclick="switchTab('trending')" data-i18n="viewAll">Tümünü Gör →</button>
+<h2>🔥 Bugün Yükselen Kanallar</h2>
+<button class="view-all" onclick="switchTab('trending')">Tümünü Gör →</button>
 </div>
-<p class="widget-subtitle" data-i18n="risingSubtitle">Son 24 saatte yükselen küçük niş kanalları</p>
+<p class="widget-subtitle">Son 24 saatte yükselen küçük niş kanalları</p>
 <div id="risingChannels">
-<div class="home-loading"><div class="spinner"></div><p data-i18n="loading">Yükleniyor...</p></div>
+<div class="home-loading"><div class="spinner"></div><p>Yükleniyor...</p></div>
 </div>
 </div>
 
 <div class="home-widget">
 <div class="widget-head">
-<h2 data-i18n="topNichesTitle">🎯 En İyi Fırsat Nişler</h2>
-<button class="view-all" onclick="switchTab('niches')" data-i18n="viewAll">Tümünü Gör →</button>
+<h2>🎯 En İyi Fırsat Nişler</h2>
+<button class="view-all" onclick="switchTab('niches')">Tümünü Gör →</button>
 </div>
-<p class="widget-subtitle" data-i18n="topNichesSubtitle">Yüksek skorlu ve düşük rekabetli nişler</p>
+<p class="widget-subtitle">Yüksek skorlu ve düşük rekabetli nişler</p>
 <div id="topNiches"></div>
 </div>
 </div>
 
 <div class="tabs">
-<div class="tab active" onclick="switchTab('home')" data-i18n="tabHome">🏠 Anasayfa</div>
-<div class="tab" onclick="switchTab('niches')" data-i18n="tabNiches">🎯 Niş Keşfi</div>
-<div class="tab trending-tab" onclick="switchTab('trending')" data-i18n="tabTrending">🔥 Yükselen Kanallar</div>
-<div class="tab" onclick="switchTab('roadmap')" data-i18n="tabRoadmap">🚀 Yakında Gelecek</div>
+<div class="tab active" onclick="switchTab('home')">🏠 Anasayfa</div>
+<div class="tab" onclick="switchTab('niches')">🎯 Niş Keşfi</div>
+<div class="tab trending-tab" onclick="switchTab('trending')">🔥 Yükselen Kanallar</div>
+<div class="tab" onclick="switchTab('roadmap')">🚀 Yakında Gelecek</div>
 </div>
 
 <div id="tab-home" class="tab-content"></div>
 
 <div id="tab-niches" class="tab-content" style="display:none">
 <section class="section">
-<h2 data-i18n="searchTitle">🔍 Niş Keşfi</h2>
+<h2>🔍 Niş Keşfi</h2>
 <div class="input-row">
-<input id="searchInput" data-i18n-placeholder="searchPlaceholder" placeholder="Niş ara: AI, finans, motivasyon..." />
+<input id="searchInput" placeholder="Niş ara: AI, finans, motivasyon..." />
 <select id="langFilter">
-<option value="all" data-i18n="allLangs">🌍 Tüm Diller</option>
+<option value="all">🌍 Tüm Diller</option>
 <option value="TR">🇹🇷 Türkçe</option>
 <option value="EN">🇬🇧 English</option>
 <option value="DE">🇩🇪 Deutsch</option>
 </select>
 <select id="sortFilter">
-<option value="best" data-i18n="sortBest">⭐ Genel Fırsat</option>
-<option value="hidden" data-i18n="sortHidden">🔍 Gizli Fırsat</option>
-<option value="lowComp" data-i18n="sortLow">📉 Düşük Rekabet</option>
-<option value="money" data-i18n="sortMoney">💰 Kazanç</option>
-<option value="new" data-i18n="sortNew">🆕 Yeni Kanal Dostu</option>
+<option value="best">⭐ Genel Fırsat</option>
+<option value="hidden">🔍 Gizli Fırsat</option>
+<option value="lowComp">📉 Düşük Rekabet</option>
+<option value="money">💰 Kazanç</option>
+<option value="new">🆕 Yeni Kanal Dostu</option>
 </select>
 </div>
 <div class="toggle-row">
-<label class="toggle"><input type="checkbox" id="hiddenOnly"> <span data-i18n="filterHidden">🔍 Hidden Opportunity</span></label>
-<label class="toggle"><input type="checkbox" id="newChannelOnly"> <span data-i18n="filterNew">🆕 Yeni Kanal Dostu</span></label>
-<label class="toggle"><input type="checkbox" id="facelessOnly"> <span data-i18n="filterFaceless">🎭 Faceless</span></label>
+<label class="toggle"><input type="checkbox" id="hiddenOnly"> 🔍 Hidden Opportunity</label>
+<label class="toggle"><input type="checkbox" id="newChannelOnly"> 🆕 Yeni Kanal Dostu</label>
+<label class="toggle"><input type="checkbox" id="facelessOnly"> 🎭 Faceless</label>
 </div>
 </section>
 <section class="section">
-<h2 data-i18n="resultsTitle">📊 Sonuçlar</h2>
+<h2>📊 Sonuçlar</h2>
 <div id="nichesGrid" class="results-grid"></div>
 </section>
 </div>
 
 <div id="tab-trending" class="tab-content" style="display:none">
 <section class="section">
-<h2 data-i18n="trendingTitle">🔥 Yükselen YouTube Niş Kanalları</h2>
-<p style="color:var(--muted);margin-bottom:14px" data-i18n="trendingDesc">CANLI veri! Sadece niş kanallar.</p>
+<h2>🔥 Yükselen YouTube Niş Kanalları</h2>
+<p style="color:var(--muted);margin-bottom:14px">CANLI veri! Kanala tıklayarak detaylı analiz görebilirsin (RPM, kazanç, demografi)</p>
 <div class="input-row" style="margin-bottom:14px">
 <input id="trendingSearch" placeholder="🔍 Niş ara: AI tutorial, finance, cooking..." style="flex:2"/>
 <select id="trendingRegion">
@@ -316,7 +337,7 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 <option value="ES">🇪🇸 İspanya</option>
 <option value="JP">🇯🇵 Japonya</option>
 </select>
-<button class="btn btn-primary" onclick="loadTrending()" data-i18n="trendingRefresh">🔄 Ara</button>
+<button class="btn btn-primary" onclick="loadTrending()">🔄 Ara</button>
 </div>
 <div id="trendingGrid"></div>
 </section>
@@ -324,50 +345,50 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 
 <div id="tab-roadmap" class="tab-content" style="display:none">
 <section class="section">
-<h2 data-i18n="roadmapTitle">🚀 Yakında Gelecek Özellikler</h2>
-<p style="color:var(--muted);margin-bottom:14px" data-i18n="roadmapDesc">Platform sürekli gelişiyor!</p>
+<h2>🚀 Yakında Gelecek Özellikler</h2>
+<p style="color:var(--muted);margin-bottom:14px">Platform sürekli gelişiyor!</p>
 <div class="roadmap-grid">
 <div class="roadmap-card lifetime">
 <span class="status lifetime">🔥 SINIRLI SÜRE</span>
 <h3>💎 LIFETIME DEAL</h3>
-<div class="date" data-i18n="ltDate">Sadece İlk 100 Kişiye: $89</div>
-<p data-i18n="ltLong">Tek seferlik ödeme, ömür boyu erişim!</p>
+<div class="date">Sadece İlk 100 Kişiye: $89</div>
+<p>Tek seferlik ödeme, ömür boyu erişim!</p>
 </div>
 <div class="roadmap-card coming">
-<span class="status coming" data-i18n="statusComing">⏳ Bu Hafta</span>
-<h3>📊 Channel Analytics</h3>
-<div class="date" data-i18n="date1">Tahmini: Birkaç gün</div>
-<p data-i18n="feature1">RPM, kazanç tahmini ve büyüme grafiği.</p>
+<span class="status coming">⏳ Bu Hafta</span>
+<h3>💳 Ödeme Sistemi</h3>
+<div class="date">Tahmini: Birkaç gün</div>
+<p>LemonSqueezy entegrasyonu, Lifetime Deal aktif!</p>
 </div>
 <div class="roadmap-card soon">
-<span class="status soon" data-i18n="statusSoon">🔜 Çok Yakında</span>
+<span class="status soon">🔜 Çok Yakında</span>
 <h3>📱 TikTok & Instagram</h3>
-<div class="date" data-i18n="date4">Tahmini: 2 hafta</div>
-<p data-i18n="feature4">TikTok ve Instagram Reels.</p>
+<div class="date">Tahmini: 2 hafta</div>
+<p>TikTok ve Instagram Reels.</p>
 </div>
 <div class="roadmap-card planned">
-<span class="status planned" data-i18n="statusPlanned">📅 Planlama</span>
+<span class="status planned">📅 Planlama</span>
 <h3>🎨 AI Görsel Üretici</h3>
-<div class="date" data-i18n="date5">Tahmini: 1 ay</div>
-<p data-i18n="feature5">AI thumbnail.</p>
+<div class="date">Tahmini: 1 ay</div>
+<p>AI thumbnail.</p>
 </div>
 <div class="roadmap-card planned">
-<span class="status planned" data-i18n="statusPlanned">📅 Planlama</span>
+<span class="status planned">📅 Planlama</span>
 <h3>📝 Content Generator</h3>
-<div class="date" data-i18n="date6">Tahmini: 1 ay</div>
-<p data-i18n="feature6">Otomatik video scripti.</p>
+<div class="date">Tahmini: 1 ay</div>
+<p>Otomatik video scripti.</p>
 </div>
 <div class="roadmap-card planned">
-<span class="status planned" data-i18n="statusPlanned">📅 Planlama</span>
+<span class="status planned">📅 Planlama</span>
 <h3>📱 Mobil Uygulama</h3>
-<div class="date" data-i18n="date7">Tahmini: 2 ay</div>
-<p data-i18n="feature7">iOS ve Android.</p>
+<div class="date">Tahmini: 2 ay</div>
+<p>iOS ve Android.</p>
 </div>
 </div>
 </section>
 </div>
 
-<p class="footer">NicheFinder Pro v3.0 | © 2025 | 🚀 Profesyonel Niş Keşif Sistemi</p>
+<p class="footer">NicheFinder Pro v3.1 | © 2025 | 🚀 Profesyonel Niş Keşif Sistemi</p>
 </div>
 
 <button class="ai-bot-button" onclick="toggleAI()" id="aiBotBtn" title="AI Asistan">🤖</button>
@@ -376,34 +397,26 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 <div class="ai-chat-header">
 <div class="avatar">🤖</div>
 <div>
-<h3 id="aiTitle">NicheBot Asistan</h3>
-<p id="aiSubtitle">Sana nasıl yardımcı olabilirim?</p>
+<h3>NicheBot Asistan</h3>
+<p>Sana nasıl yardımcı olabilirim?</p>
 </div>
 </div>
 <div class="ai-chat-body" id="aiMessages">
-<div class="ai-message bot" id="aiWelcome">👋 Merhaba!</div>
+<div class="ai-message bot">👋 Merhaba! Ben NicheBot. Aşağıdaki kategorilerden bir soru seç!</div>
 </div>
 <div class="ai-categories">
-<div class="ai-cat-title" id="catNiche">🎯 Niş Seçimi</div>
-<button class="ai-quick-btn" onclick="askAI('q1')" id="q1Btn">Hangi nişle başlamalıyım?</button>
-<button class="ai-quick-btn" onclick="askAI('q2')" id="q2Btn">Niş nasıl test edilir?</button>
-<button class="ai-quick-btn" onclick="askAI('q3')" id="q3Btn">Hangi niş para kazandırır?</button>
-<div class="ai-cat-title" id="catRisk">🛡️ Risk Yönetimi</div>
-<button class="ai-quick-btn" onclick="askAI('q4')" id="q4Btn">Risk Detector ne yapar?</button>
-<button class="ai-quick-btn" onclick="askAI('q5')" id="q5Btn">Kanalım neden kapanır?</button>
-<button class="ai-quick-btn" onclick="askAI('q6')" id="q6Btn">Telif hakkı?</button>
-<div class="ai-cat-title" id="catMoney">💰 Para Kazanma</div>
-<button class="ai-quick-btn" onclick="askAI('q7')" id="q7Btn">Para nasıl kazanırım?</button>
-<button class="ai-quick-btn" onclick="askAI('q8')" id="q8Btn">1000 aboneye nasıl ulaşırım?</button>
-<button class="ai-quick-btn" onclick="askAI('q9')" id="q9Btn">Sponsorluk?</button>
-<div class="ai-cat-title" id="catContent">📺 İçerik Üretimi</div>
-<button class="ai-quick-btn" onclick="askAI('q10')" id="q10Btn">Video başlığı?</button>
-<button class="ai-quick-btn" onclick="askAI('q11')" id="q11Btn">Thumbnail tasarımı?</button>
-<button class="ai-quick-btn" onclick="askAI('q12')" id="q12Btn">Faceless kanal?</button>
-<div class="ai-cat-title" id="catStart">🆕 Başlangıç</div>
-<button class="ai-quick-btn" onclick="askAI('q13')" id="q13Btn">Yeni başlıyorum?</button>
-<button class="ai-quick-btn" onclick="askAI('q14')" id="q14Btn">Ekipman?</button>
-<button class="ai-quick-btn" onclick="askAI('q15')" id="q15Btn">İlk videom?</button>
+<div class="ai-cat-title">🎯 Niş Seçimi</div>
+<button class="ai-quick-btn" onclick="askAI('q1')">Hangi nişle başlamalıyım?</button>
+<button class="ai-quick-btn" onclick="askAI('q2')">Niş nasıl test edilir?</button>
+<button class="ai-quick-btn" onclick="askAI('q3')">Hangi niş para kazandırır?</button>
+<div class="ai-cat-title">🛡️ Risk Yönetimi</div>
+<button class="ai-quick-btn" onclick="askAI('q4')">Risk Detector ne yapar?</button>
+<button class="ai-quick-btn" onclick="askAI('q5')">Kanalım neden kapanır?</button>
+<button class="ai-quick-btn" onclick="askAI('q6')">Telif hakkı?</button>
+<div class="ai-cat-title">💰 Para Kazanma</div>
+<button class="ai-quick-btn" onclick="askAI('q7')">Para nasıl kazanırım?</button>
+<button class="ai-quick-btn" onclick="askAI('q8')">1000 aboneye nasıl ulaşırım?</button>
+<button class="ai-quick-btn" onclick="askAI('q9')">Sponsorluk?</button>
 </div>
 </div>
 
@@ -417,53 +430,41 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 </div>
 </div>
 
+<div id="channelModal" class="modal">
+<div class="modal-card">
+<div class="modal-head">
+<div><h2 id="chModalTitle">Kanal Analizi</h2><p id="chModalSub">Detay</p></div>
+<button class="btn btn-secondary btn-small" onclick="closeChannelModal()">✕</button>
+</div>
+<div id="chModalBody" class="modal-body"></div>
+</div>
+</div>
+
 <script>
-const T={
-tr:{welcome:"👋 Hoş Geldin, NicheFinder Pro!",welcomeDesc:"YouTube için akıllı niş keşif sistemi. Gizli fırsatları bul, kanal kapanma riskini öğren, AI Asistan'la yardım al!",totalAnalyzed:"📊 Toplam Analiz Edilen Kanal:",quickSearchPlaceholder:"🔍 Anahtar kelime ara: AI, finans, oyun, yemek...",searchBtn:"🔍 Ara",risingTitle:"🔥 Bugün Yükselen Kanallar",risingSubtitle:"Son 24 saatte yükselen küçük niş kanalları",topNichesTitle:"🎯 En İyi Fırsat Nişler",topNichesSubtitle:"Yüksek skorlu ve düşük rekabetli nişler",viewAll:"Tümünü Gör →",loading:"Yükleniyor...",tabHome:"🏠 Anasayfa",tabNiches:"🎯 Niş Keşfi",tabTrending:"🔥 Yükselen Kanallar",tabRoadmap:"🚀 Yakında Gelecek",searchTitle:"🔍 Niş Keşfi",searchPlaceholder:"Niş ara: AI, finans, motivasyon...",allLangs:"🌍 Tüm Diller",sortBest:"⭐ Genel Fırsat",sortHidden:"🔍 Gizli Fırsat",sortLow:"📉 Düşük Rekabet",sortMoney:"💰 Kazanç",sortNew:"🆕 Yeni Kanal Dostu",filterHidden:"🔍 Hidden Opportunity",filterNew:"🆕 Yeni Kanal Dostu",filterFaceless:"🎭 Faceless",resultsTitle:"📊 Sonuçlar",detail:"📋 Detay",fav:"☆ Favori",favRemove:"⭐ Çıkar",empty:"Niş bulunamadı.",hiddenChip:"🔍 Hidden",newChip:"🆕 Yeni Dostu",riskChip:"Risk",compLow:"Düşük",compMid:"Orta",compHigh:"Yüksek",compLabel:"Rekabet",opportunity:"Fırsat",hidden:"Hidden",earnings:"Kazanç",trend:"Trend",scoresTitle:"📊 Puanlar",audienceTitle:"🎯 Hedef & Rakip",audience:"Hedef",competitor:"Rakip",riskTitle:"🛡️ Risk Analizi",safetyScore:"Güvenlik",mainRisk:"Risk",dontDo:"❌ YAPMA",doThese:"✅ YAP",examplesTitle:"📺 Örnek Kanallar",beginner:"🌱 Yeni Başlayan",rising:"🚀 Yükselen Yıldız",success:"🏆 Başarı Hikayesi",subs:"Abone",age:"Yaş",growth:"Büyüme",strategy:"💡 Stratejisi",trendingTitle:"🔥 Yükselen YouTube Niş Kanalları",trendingDesc:"CANLI veri! Sadece niş kanallar.",trendingRefresh:"🔄 Ara",trendingLoading:"Yükleniyor...",trendingEmpty:"Niş kanal bulunamadı.",trendingChannel:"Kanal",trendingViews:"izlenme",goToChannel:"Kanala Git",goToVideo:"Videoyu Aç",ltTitle:"🔥 LIFETIME DEAL - İlk 100 Kişiye Özel!",ltDesc:"Tek seferlik ödeme yap, ÖMÜR BOYU kullan!",ltSave:"%40 İNDİRİM",ltRemaining:"koltuk kaldı!",ltCta:"🚀 Lifetime Erişim Al - $89",ltDate:"Sadece İlk 100 Kişiye: $89",ltLong:"Tek seferlik ödeme, ömür boyu erişim!",roadmapTitle:"🚀 Yakında Gelecek Özellikler",roadmapDesc:"Platform sürekli gelişiyor!",statusComing:"⏳ Bu Hafta",statusSoon:"🔜 Çok Yakında",statusPlanned:"📅 Planlama",date1:"Tahmini: Birkaç gün",feature1:"RPM, kazanç tahmini, büyüme grafiği.",date4:"Tahmini: 2 hafta",feature4:"TikTok ve Instagram.",date5:"Tahmini: 1 ay",feature5:"AI thumbnail.",date6:"Tahmini: 1 ay",feature6:"Otomatik script.",date7:"Tahmini: 2 ay",feature7:"Mobil uygulama.",aiTitle:"NicheBot",aiSubtitle:"Yardım?",aiWelcome:"👋 Merhaba!",catNiche:"🎯 NİŞ",catRisk:"🛡️ RİSK",catMoney:"💰 PARA",catContent:"📺 İÇERİK",catStart:"🆕 BAŞLANGIÇ",q1:"Hangi nişle başlamalıyım?",q2:"Niş nasıl test edilir?",q3:"Hangi niş para kazandırır?",q4:"Risk Detector ne yapar?",q5:"Kanalım neden kapanır?",q6:"Telif hakkı?",q7:"Para nasıl kazanırım?",q8:"1000 aboneye nasıl ulaşırım?",q9:"Sponsorluk?",q10:"Video başlığı?",q11:"Thumbnail?",q12:"Faceless kanal?",q13:"Yeni başlıyorum?",q14:"Ekipman?",q15:"İlk videom?",a1:"🎯 3 adım: Hidden + Yeni Kanal + Risk 80+",a2:"🧪 30 günde test: 10 short, 1000+ izlenme = çalışıyor!",a3:"💰 En karlı: Finance, Business, Tech",a4:"🛡️ Güvenlik puanı. 80+ güvenli!",a5:"⚠️ Telif, kurallar, COPPA",a6:"📜 Royalty-free müzik!",a7:"💰 5 yol: AdSense, Sponsor, Affiliate",a8:"📈 6 ayda: 10 video, sonra haftada 3",a9:"🤝 10K+ abone gerekli. İlk: $200-500",a10:"📝 [Sayı]+[Hook]+[Sonuç]",a11:"🖼️ Büyük yazı, kontrast",a12:"🎭 Yüz göstermeden video",a13:"🆕 Hafta 1-2: Niş, Ay 2: 10 video",a14:"🎬 Telefon + CapCut yeter",a15:"🎬 Hook 5sn + içerik + CTA",typing:"Yazıyor..."},
-en:{welcome:"👋 Welcome to NicheFinder Pro!",welcomeDesc:"Smart YouTube niche discovery system. Find hidden opportunities, learn channel risk, get AI help!",totalAnalyzed:"📊 Total Channels Analyzed:",quickSearchPlaceholder:"🔍 Search keyword: AI, finance, gaming...",searchBtn:"🔍 Search",risingTitle:"🔥 Today's Rising Channels",risingSubtitle:"Small niche channels rising in last 24h",topNichesTitle:"🎯 Top Opportunity Niches",topNichesSubtitle:"High score, low competition niches",viewAll:"View All →",loading:"Loading...",tabHome:"🏠 Home",tabNiches:"🎯 Discovery",tabTrending:"🔥 Trending",tabRoadmap:"🚀 Coming",searchTitle:"🔍 Discovery",searchPlaceholder:"Search niche...",allLangs:"🌍 All",sortBest:"⭐ Best",sortHidden:"🔍 Hidden",sortLow:"📉 Low Comp",sortMoney:"💰 Earnings",sortNew:"🆕 Newbie",filterHidden:"🔍 Hidden Only",filterNew:"🆕 Newbie Friendly",filterFaceless:"🎭 Faceless",resultsTitle:"📊 Results",detail:"📋 Detail",fav:"☆ Save",favRemove:"⭐ Remove",empty:"No niches.",hiddenChip:"🔍 Hidden",newChip:"🆕 Newbie",riskChip:"Risk",compLow:"Low",compMid:"Med",compHigh:"High",compLabel:"Competition",opportunity:"Opportunity",hidden:"Hidden",earnings:"Earnings",trend:"Trend",scoresTitle:"📊 Scores",audienceTitle:"🎯 Target",audience:"Target",competitor:"Competitor",riskTitle:"🛡️ Risk",safetyScore:"Safety",mainRisk:"Risk",dontDo:"❌ DON'T",doThese:"✅ DO",examplesTitle:"📺 Examples",beginner:"🌱 Beginner",rising:"🚀 Rising",success:"🏆 Success",subs:"Subs",age:"Age",growth:"Growth",strategy:"💡 Strategy",trendingTitle:"🔥 Rising Channels",trendingDesc:"LIVE niche data!",trendingRefresh:"🔄 Search",trendingLoading:"Loading...",trendingEmpty:"No channels.",trendingChannel:"Channel",trendingViews:"views",goToChannel:"View Channel",goToVideo:"Watch",ltTitle:"🔥 LIFETIME DEAL!",ltDesc:"One-time, LIFETIME!",ltSave:"40% OFF",ltRemaining:"left!",ltCta:"🚀 Get Lifetime - $89",ltDate:"First 100: $89",ltLong:"One-time payment!",roadmapTitle:"🚀 Coming Soon",roadmapDesc:"Evolving!",statusComing:"⏳ This Week",statusSoon:"🔜 Soon",statusPlanned:"📅 Planned",date1:"Few days",feature1:"RPM, earnings.",date4:"2 weeks",feature4:"TikTok, IG.",date5:"1 month",feature5:"AI images.",date6:"1 month",feature6:"Auto scripts.",date7:"2 months",feature7:"Mobile app.",aiTitle:"NicheBot",aiSubtitle:"Help?",aiWelcome:"👋 Hi!",catNiche:"🎯 NICHE",catRisk:"🛡️ RISK",catMoney:"💰 MONEY",catContent:"📺 CONTENT",catStart:"🆕 START",q1:"Which niche?",q2:"How to test?",q3:"Most profitable?",q4:"Risk Detector?",q5:"Why banned?",q6:"Copyright?",q7:"How to earn?",q8:"1000 subs?",q9:"Sponsorship?",q10:"Titles?",q11:"Thumbnails?",q12:"Faceless?",q13:"Start tips?",q14:"Equipment?",q15:"First video?",a1:"🎯 3 steps: Hidden + Newbie + Risk 80+",a2:"🧪 30 days: 10 shorts, 1000+ views works!",a3:"💰 Best: Finance, Business, Tech",a4:"🛡️ Safety score 100. 80+ safe!",a5:"⚠️ Copyright, rules",a6:"📜 Royalty-free!",a7:"💰 5 ways: AdSense, Sponsor",a8:"📈 6 months: 10 videos, then 3/week",a9:"🤝 10K+ needed. First: $200-500",a10:"📝 [Num]+[Hook]+[Result]",a11:"🖼️ Big text, contrast",a12:"🎭 No face",a13:"🆕 Week 1-2: Niche, Month 2: 10 videos",a14:"🎬 Phone enough",a15:"🎬 Hook 5s + value + CTA",typing:"Typing..."},
-de:{welcome:"👋 Willkommen bei NicheFinder Pro!",welcomeDesc:"Intelligentes YouTube Nischenfindungssystem.",totalAnalyzed:"📊 Analysierte Kanäle:",quickSearchPlaceholder:"🔍 Schlüsselwort suchen...",searchBtn:"🔍 Suchen",risingTitle:"🔥 Heute aufsteigende Kanäle",risingSubtitle:"Kleine Nischenkanäle der letzten 24h",topNichesTitle:"🎯 Top Chancen Nischen",topNichesSubtitle:"Hohe Bewertung, geringe Konkurrenz",viewAll:"Alle ansehen →",loading:"Lädt...",tabHome:"🏠 Startseite",tabNiches:"🎯 Entdeckung",tabTrending:"🔥 Trending",tabRoadmap:"🚀 Demnächst",searchTitle:"🔍 Entdeckung",searchPlaceholder:"Nische suchen...",allLangs:"🌍 Alle",sortBest:"⭐ Beste",sortHidden:"🔍 Versteckt",sortLow:"📉 Niedrig",sortMoney:"💰 Verdienst",sortNew:"🆕 Anfänger",filterHidden:"🔍 Nur Versteckt",filterNew:"🆕 Anfänger",filterFaceless:"🎭 Faceless",resultsTitle:"📊 Ergebnisse",detail:"📋 Detail",fav:"☆ Favorit",favRemove:"⭐ Entfernen",empty:"Keine.",hiddenChip:"🔍 Versteckt",newChip:"🆕 Anfänger",riskChip:"Risiko",compLow:"Niedrig",compMid:"Mittel",compHigh:"Hoch",compLabel:"Konkurrenz",opportunity:"Chance",hidden:"Versteckt",earnings:"Verdienst",trend:"Trend",scoresTitle:"📊 Werte",audienceTitle:"🎯 Ziel",audience:"Ziel",competitor:"Konkurrent",riskTitle:"🛡️ Risiko",safetyScore:"Sicherheit",mainRisk:"Risiko",dontDo:"❌ NICHT",doThese:"✅ TUN",examplesTitle:"📺 Beispiele",beginner:"🌱 Anfänger",rising:"🚀 Aufsteigend",success:"🏆 Erfolg",subs:"Abos",age:"Alter",growth:"Wachstum",strategy:"💡 Strategie",trendingTitle:"🔥 Aufsteigende Kanäle",trendingDesc:"LIVE Daten!",trendingRefresh:"🔄 Suchen",trendingLoading:"Lädt...",trendingEmpty:"Keine.",trendingChannel:"Kanal",trendingViews:"Aufrufe",goToChannel:"Zum Kanal",goToVideo:"Video",ltTitle:"🔥 LIFETIME DEAL!",ltDesc:"Einmalige Zahlung!",ltSave:"40% RABATT",ltRemaining:"Plätze!",ltCta:"🚀 Lifetime - $89",ltDate:"Erste 100: $89",ltLong:"Einmalig!",roadmapTitle:"🚀 Demnächst",roadmapDesc:"Entwickelt sich!",statusComing:"⏳ Diese Woche",statusSoon:"🔜 Bald",statusPlanned:"📅 Geplant",date1:"Tage",feature1:"RPM.",date4:"2 Wochen",feature4:"TikTok.",date5:"1 Monat",feature5:"KI-Bilder.",date6:"1 Monat",feature6:"Skripte.",date7:"2 Monate",feature7:"App.",aiTitle:"NicheBot",aiSubtitle:"Hilfe?",aiWelcome:"👋 Hallo!",catNiche:"🎯 NISCHE",catRisk:"🛡️ RISIKO",catMoney:"💰 GELD",catContent:"📺 INHALT",catStart:"🆕 START",q1:"Welche Nische?",q2:"Wie testen?",q3:"Beste?",q4:"Risiko-Detektor?",q5:"Warum gesperrt?",q6:"Urheberrecht?",q7:"Geld verdienen?",q8:"1000 Abos?",q9:"Sponsoring?",q10:"Titel?",q11:"Thumbnails?",q12:"Faceless?",q13:"Neu?",q14:"Ausrüstung?",q15:"Erstes Video?",a1:"🎯 3 Schritte",a2:"🧪 30 Tage Test",a3:"💰 Finanzen, Business",a4:"🛡️ Sicherheit 100",a5:"⚠️ Urheberrecht",a6:"📜 Lizenzfrei!",a7:"💰 5 Wege",a8:"📈 6 Monate",a9:"🤝 10K+ Abos",a10:"📝 Formel",a11:"🖼️ Kontrast",a12:"🎭 Kein Gesicht",a13:"🆕 Plan",a14:"🎬 Handy",a15:"🎬 Hook",typing:"Tippt..."}};
+const T={tr:{compLow:"Düşük",compMid:"Orta",compHigh:"Yüksek",compLabel:"Rekabet",opportunity:"Fırsat",hidden:"Hidden",earnings:"Kazanç",trend:"Trend",detail:"Detay",fav:"☆",favRemove:"⭐",hiddenChip:"🔍 Hidden",newChip:"🆕 Yeni",riskChip:"Risk",empty:"Niş bulunamadı.",subs:"Abone"}};
+let lang="tr";let favorites=JSON.parse(localStorage.getItem("nf_favs")||"[]");const urlParams=new URLSearchParams(window.location.search);const isAdmin=urlParams.get('admin')==='1';let trendingLoaded=false;let trendingData=[];
 
-let lang=localStorage.getItem("nf_lang")||"tr";
-let favorites=JSON.parse(localStorage.getItem("nf_favs")||"[]");
-const urlParams=new URLSearchParams(window.location.search);
-const isAdmin=urlParams.get('admin')==='1';
-let trendingLoaded=false;
-
-function t(k){return T[lang][k]||k}
-function setLang(l){lang=l;localStorage.setItem("nf_lang",l);apply();render();renderHomePage();document.querySelectorAll(".lang-btn").forEach(b=>b.classList.remove("active"));document.getElementById("lang-"+l).classList.add("active");updateAILang();if(trendingLoaded)renderTrending(window.lastTrending||[])}
-function apply(){document.querySelectorAll("[data-i18n]").forEach(el=>{el.textContent=t(el.getAttribute("data-i18n"))});document.querySelectorAll("[data-i18n-placeholder]").forEach(el=>{el.placeholder=t(el.getAttribute("data-i18n-placeholder"))});document.documentElement.lang=lang}
-function updateAILang(){document.getElementById("aiTitle").textContent=t("aiTitle");document.getElementById("aiSubtitle").textContent=t("aiSubtitle");document.getElementById("aiWelcome").textContent=t("aiWelcome");["catNiche","catRisk","catMoney","catContent","catStart"].forEach(k=>{const el=document.getElementById(k);if(el)el.textContent=t(k)});for(let i=1;i<=15;i++){const el=document.getElementById("q"+i+"Btn");if(el)el.textContent=t("q"+i)}}
+function t(k){return T.tr[k]||k}
+function setLang(l){lang=l;document.querySelectorAll(".lang-btn").forEach(b=>b.classList.remove("active"));document.getElementById("lang-"+l).classList.add("active")}
 function clamp(n){return Math.max(0,Math.min(100,Math.round(n)))}
 function overall(n){const s=n.scores;return clamp((100-s.comp)*.18+s.money*.15+s.trend*.15+s.faceless*.08+Math.max(s.shorts,s.longform)*.08+s.sustain*.10+s.newCh*.13+s.under*.18+s.multi*.05)}
 function hidden(n){const s=n.scores;return clamp((100-s.comp)*.26+s.under*.30+s.newCh*.24+s.multi*.10+s.sustain*.10)}
-function compLabel(c){return c<=40?t("compLow"):c<=65?t("compMid"):t("compHigh")}
+function compLabel(c){return c<=40?"Düşük":c<=65?"Orta":"Yüksek"}
 function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
-function getName(n){return n[lang]||n.tr}
-function getCat(n){return n.cat[lang]||n.cat.tr}
-function getSub(n){return n.sub[lang]||n.sub.tr}
-function getAudience(n){return n.audience[lang]||n.audience.tr}
-function getComp(n){return n.competitor[lang]||n.competitor.tr}
-function getRiskSebep(n){return n.risk.sebep[lang]||n.risk.sebep.tr}
-function getRiskYapma(n){return n.risk.yapma[lang]||n.risk.yapma.tr}
-function getRiskYap(n){return n.risk.yap[lang]||n.risk.yap.tr}
-function getEx(ex,field){return ex[field][lang]||ex[field].tr}
+function getName(n){return n.tr||n.en}
+function getCat(n){return n.cat.tr||n.cat.en}
+function getSub(n){return n.sub.tr||n.sub.en}
+function getAudience(n){return n.audience.tr||n.audience.en}
+function getComp(n){return n.competitor.tr||n.competitor.en}
+function getRiskSebep(n){return n.risk.sebep.tr||n.risk.sebep.en}
+function getRiskYapma(n){return n.risk.yapma.tr||n.risk.yapma.en}
+function getRiskYap(n){return n.risk.yap.tr||n.risk.yap.en}
+function getEx(ex,field){return ex[field].tr||ex[field].en}
 function formatNumber(n){if(n>=1000000)return(n/1000000).toFixed(1)+"M";if(n>=1000)return(n/1000).toFixed(1)+"K";return n}
 
-function switchTab(tab){
-document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));
-document.querySelectorAll(".tab-content").forEach(x=>x.style.display="none");
-document.querySelector(`.tab[onclick*="${tab}"]`).classList.add("active");
-document.getElementById("tab-"+tab).style.display="block";
-if(tab==="trending"&&!trendingLoaded){loadTrending()}
-}
+function switchTab(tab){document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".tab-content").forEach(x=>x.style.display="none");document.querySelector(`.tab[onclick*="${tab}"]`).classList.add("active");document.getElementById("tab-"+tab).style.display="block";if(tab==="trending"&&!trendingLoaded)loadTrending()}
 
-function quickSearch(){
-const q=document.getElementById("quickSearch").value.trim();
-if(!q)return;
-document.getElementById("trendingSearch").value=q;
-switchTab('trending');
-setTimeout(()=>loadTrending(),300);
-}
+function quickSearch(){const q=document.getElementById("quickSearch").value.trim();if(!q)return;document.getElementById("trendingSearch").value=q;switchTab('trending');setTimeout(()=>loadTrending(),300)}
 
 async function loadRisingChannels(){
 const el=document.getElementById("risingChannels");
@@ -471,24 +472,19 @@ try{
 const r=await fetch('/api/search?endpoint=trending&region=US&limit=10');
 const data=await r.json();
 if(data.channels&&data.channels.length){
+trendingData=data.channels;
 el.innerHTML=data.channels.slice(0,8).map((ch,i)=>{
 const ratio=(ch.view_count/Math.max(ch.subscriber_count,1)).toFixed(1);
-const progress=Math.min((ratio/100)*100,100);
-return `<a href="https://youtube.com/channel/${ch.channel_id}" target="_blank" class="channel-row">
+return `<div class="channel-row" onclick="openChannelDetail('${ch.channel_id}',${i})">
 <img src="${ch.channel_thumbnail}" alt=""/>
 <div class="info">
 <h4>${esc(ch.channel_title)}</h4>
-<p>${formatNumber(ch.subscriber_count)} ${t("subs")}</p>
+<p>${formatNumber(ch.subscriber_count)} abone</p>
 </div>
-<div class="progress"><div style="width:${progress}%"></div></div>
 <div class="badge">${ratio}x</div>
-</a>`}).join("");
-}else{
-el.innerHTML=`<p style="color:var(--muted);text-align:center;padding:20px">${t("trendingEmpty")}</p>`;
-}
-}catch(e){
-el.innerHTML=`<p style="color:var(--red);text-align:center;padding:20px">❌ ${e.message}</p>`;
-}
+</div>`}).join("");
+}else{el.innerHTML='<p style="color:var(--muted);text-align:center;padding:20px">Yükselen kanal bulunamadı</p>'}
+}catch(e){el.innerHTML=`<p style="color:var(--red);text-align:center;padding:20px">❌ ${e.message}</p>`}
 }
 
 function renderTopNiches(){
@@ -496,12 +492,12 @@ const el=document.getElementById("topNiches");
 const top=NICHES_DATA.map(n=>({n,score:overall(n)})).sort((a,b)=>b.score-a.score).slice(0,8);
 el.innerHTML=top.map(({n,score})=>{
 const cat=getCat(n);
-const icon=cat.includes("Tek")||cat.includes("Tech")?"💻":cat.includes("Fin")?"💰":cat.includes("Eğ")||cat.includes("Edu")?"📚":cat.includes("Yem")||cat.includes("Food")?"🍳":cat.includes("Hobi")||cat.includes("Hobby")?"🎨":cat.includes("Sağ")||cat.includes("Health")?"💪":"🎯";
+const icon=cat.includes("Tek")?"💻":cat.includes("Fin")?"💰":cat.includes("Eğ")?"📚":cat.includes("Yem")?"🍳":cat.includes("Hobi")?"🎨":cat.includes("Sağ")?"💪":"🎯";
 return `<div class="niche-row" onclick="switchTab('niches');setTimeout(()=>openDetail('${n.id}'),100)">
 <div class="icon">${icon}</div>
 <div class="info">
 <h4>${esc(getName(n))}</h4>
-<p>${esc(cat)} · ${t("opportunity")}: ${score}/100</p>
+<p>${esc(cat)} · Fırsat: ${score}/100</p>
 </div>
 <div class="stats">
 <span>📊 ${score}</span>
@@ -510,38 +506,140 @@ return `<div class="niche-row" onclick="switchTab('niches');setTimeout(()=>openD
 </div>`}).join("");
 }
 
-function renderHomePage(){
-loadRisingChannels();
-renderTopNiches();
+function detectNiche(title,desc){const t=(title+' '+desc).toLowerCase();if(/finance|invest|crypto|trading|money|wealth|stock/.test(t))return{name:'Finans',rpm:{min:8,max:15,avg:11.5}};if(/business|startup|entrepreneur|marketing/.test(t))return{name:'Business',rpm:{min:6,max:12,avg:9}};if(/real estate|property|realtor/.test(t))return{name:'Emlak',rpm:{min:7,max:14,avg:10.5}};if(/tech|ai|programming|code|developer|software/.test(t))return{name:'Teknoloji',rpm:{min:3,max:7,avg:5}};if(/education|learn|tutorial|course|teach/.test(t))return{name:'Eğitim',rpm:{min:4,max:8,avg:6}};if(/game|gaming|gamer|play/.test(t))return{name:'Oyun',rpm:{min:1,max:3,avg:2}};if(/beauty|makeup|skin|cosmetic/.test(t))return{name:'Güzellik',rpm:{min:2,max:5,avg:3.5}};if(/food|cook|recipe|kitchen/.test(t))return{name:'Yemek',rpm:{min:2,max:4,avg:3}};if(/health|medical|doctor|wellness/.test(t))return{name:'Sağlık',rpm:{min:5,max:9,avg:7}};if(/fitness|workout|gym|exercise/.test(t))return{name:'Fitness',rpm:{min:3,max:6,avg:4.5}};if(/travel|tour|vacation/.test(t))return{name:'Seyahat',rpm:{min:2,max:5,avg:3.5}};if(/car|auto|vehicle/.test(t))return{name:'Otomotiv',rpm:{min:4,max:8,avg:6}};return{name:'Genel',rpm:{min:2,max:5,avg:3.5}}}
+
+function getDemographics(nicheName){const d={'Finans':{male:72,female:28,age:{a:15,b:38,c:30,d:17}},'Business':{male:65,female:35,age:{a:18,b:42,c:28,d:12}},'Teknoloji':{male:78,female:22,age:{a:28,b:40,c:22,d:10}},'Oyun':{male:82,female:18,age:{a:45,b:35,c:15,d:5}},'Güzellik':{male:18,female:82,age:{a:38,b:35,c:20,d:7}},'Yemek':{male:38,female:62,age:{a:22,b:35,c:28,d:15}},'Fitness':{male:55,female:45,age:{a:32,b:40,c:20,d:8}},'Eğitim':{male:52,female:48,age:{a:35,b:35,c:20,d:10}}};return d[nicheName]||{male:58,female:42,age:{a:28,b:35,c:22,d:15}}}
+
+function getCountries(){return[{flag:'🇺🇸',name:'ABD',pct:35},{flag:'🇮🇳',name:'Hindistan',pct:18},{flag:'🇬🇧',name:'İngiltere',pct:10},{flag:'🇨🇦',name:'Kanada',pct:8},{flag:'🇦🇺',name:'Avustralya',pct:6}]}
+
+function openChannelDetail(channelId,idx){
+const ch=trendingData[idx]||trendingData.find(c=>c.channel_id===channelId);
+if(!ch)return;
+const niche=detectNiche(ch.channel_title,ch.channel_description);
+const avgViews=Math.round(ch.view_count/Math.max(ch.video_count,1));
+const created=ch.channel_created?new Date(ch.channel_created):null;
+let channelAge="Bilinmiyor";let monthlyVideos=0;
+if(created){const days=Math.floor((Date.now()-created.getTime())/(1000*60*60*24));const years=Math.floor(days/365);const months=Math.floor((days%365)/30);channelAge=years>0?`${years} yıl ${months} ay`:`${months} ay`;monthlyVideos=(ch.video_count/Math.max(days/30,1)).toFixed(1)}
+const monthlyViews=avgViews*(parseFloat(monthlyVideos)||1);
+const earnMin=Math.round((monthlyViews/1000)*niche.rpm.min);
+const earnMax=Math.round((monthlyViews/1000)*niche.rpm.max);
+const earnAvg=Math.round((monthlyViews/1000)*niche.rpm.avg);
+const demo=getDemographics(niche.name);
+const countries=getCountries();
+
+document.getElementById("chModalTitle").textContent="📊 Kanal Analizi";
+document.getElementById("chModalSub").textContent=niche.name+" Nişi";
+
+document.getElementById("chModalBody").innerHTML=`
+<div class="analytics-header">
+<img src="${ch.channel_thumbnail}" alt=""/>
+<div>
+<h2>${esc(ch.channel_title)}</h2>
+<p>${esc(ch.channel_description.substring(0,150))}...</p>
+</div>
+</div>
+
+<div class="analytics-grid">
+
+<div class="analytics-box">
+<h3>📊 Kanal İstatistikleri</h3>
+<div class="analytics-stat"><span>👥 Abone</span><strong>${formatNumber(ch.subscriber_count)}</strong></div>
+<div class="analytics-stat"><span>👁️ Toplam İzlenme</span><strong>${formatNumber(ch.view_count)}</strong></div>
+<div class="analytics-stat"><span>🎬 Toplam Video</span><strong>${ch.video_count}</strong></div>
+<div class="analytics-stat"><span>📅 Kanal Yaşı</span><strong>${channelAge}</strong></div>
+<div class="analytics-stat"><span>📊 Avg İzlenme/Video</span><strong>${formatNumber(avgViews)}</strong></div>
+<div class="analytics-stat"><span>📹 Aylık Video</span><strong>${monthlyVideos}</strong></div>
+</div>
+
+<div class="analytics-box earnings-box">
+<h3>💰 Tahmini Aylık Kazanç</h3>
+<div class="earnings-amount">$${formatNumber(earnAvg)}</div>
+<div class="earnings-range">$${formatNumber(earnMin)} - $${formatNumber(earnMax)}</div>
+<div class="analytics-stat" style="margin-top:14px"><span>💵 Tahmini RPM</span><strong>$${niche.rpm.min} - $${niche.rpm.max}</strong></div>
+<div class="analytics-stat"><span>📈 Yıllık Tahmini</span><strong>$${formatNumber(earnMin*12)} - $${formatNumber(earnMax*12)}</strong></div>
+<div class="analytics-stat"><span>🎯 Niş Kategorisi</span><strong>${niche.name}</strong></div>
+</div>
+
+<div class="analytics-box">
+<h3>👥 Cinsiyet Dağılımı</h3>
+<div class="demo-bar">
+<div class="demo-bar-label"><span>👨 Erkek</span><strong>${demo.male}%</strong></div>
+<div class="demo-bar-track"><div class="demo-bar-fill male" style="width:${demo.male}%"></div></div>
+</div>
+<div class="demo-bar">
+<div class="demo-bar-label"><span>👩 Kadın</span><strong>${demo.female}%</strong></div>
+<div class="demo-bar-track"><div class="demo-bar-fill female" style="width:${demo.female}%"></div></div>
+</div>
+</div>
+
+<div class="analytics-box">
+<h3>📅 Yaş Dağılımı</h3>
+<div class="demo-bar">
+<div class="demo-bar-label"><span>18-24</span><strong>${demo.age.a}%</strong></div>
+<div class="demo-bar-track"><div class="demo-bar-fill" style="width:${demo.age.a}%"></div></div>
+</div>
+<div class="demo-bar">
+<div class="demo-bar-label"><span>25-34</span><strong>${demo.age.b}%</strong></div>
+<div class="demo-bar-track"><div class="demo-bar-fill" style="width:${demo.age.b}%"></div></div>
+</div>
+<div class="demo-bar">
+<div class="demo-bar-label"><span>35-44</span><strong>${demo.age.c}%</strong></div>
+<div class="demo-bar-track"><div class="demo-bar-fill" style="width:${demo.age.c}%"></div></div>
+</div>
+<div class="demo-bar">
+<div class="demo-bar-label"><span>45+</span><strong>${demo.age.d}%</strong></div>
+<div class="demo-bar-track"><div class="demo-bar-fill" style="width:${demo.age.d}%"></div></div>
+</div>
+</div>
+
+<div class="analytics-box">
+<h3>🌍 Ülke Dağılımı</h3>
+${countries.map(c=>`<div class="country-row">
+<span class="flag">${c.flag}</span>
+<span class="name">${c.name}</span>
+<span class="pct">${c.pct}%</span>
+</div>`).join('')}
+</div>
+
+</div>
+
+<div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap">
+<a href="https://youtube.com/channel/${ch.channel_id}" target="_blank" class="btn btn-primary" style="text-decoration:none">🔗 Kanala Git</a>
+${ch.video_id?`<a href="https://youtube.com/watch?v=${ch.video_id}" target="_blank" class="btn btn-secondary" style="text-decoration:none">▶️ Videoyu İzle</a>`:''}
+</div>
+
+<div class="disclaimer">
+⚠️ <strong>Önemli:</strong> RPM, kazanç, demografi ve ülke dağılımı tahminleri sektör ortalamalarına göre hesaplanmıştır. Kesin değerler için kanal sahibinin YouTube Analytics verilerine ihtiyaç vardır. Sayılar gerçek olabilir veya farklılık gösterebilir.
+</div>
+`;
+document.getElementById("channelModal").classList.add("active");
 }
+
+function closeChannelModal(){document.getElementById("channelModal").classList.remove("active")}
 
 async function loadTrending(){
 const region=document.getElementById("trendingRegion").value;
 const searchQuery=document.getElementById("trendingSearch").value.trim();
 const grid=document.getElementById("trendingGrid");
-grid.innerHTML=`<div class="trending-loading"><div class="spinner"></div><p>${t("trendingLoading")}</p></div>`;
+grid.innerHTML=`<div class="trending-loading"><div class="spinner"></div><p>Yükleniyor...</p></div>`;
 try{
 let url=`/api/search?endpoint=trending&region=${region}&limit=50`;
 if(searchQuery)url+=`&q=${encodeURIComponent(searchQuery)}`;
 const r=await fetch(url);
 const data=await r.json();
 if(data.success&&data.channels){
-window.lastTrending=data.channels;
+trendingData=data.channels;
 trendingLoaded=true;
 renderTrending(data.channels);
-}else{
-grid.innerHTML=`<div class="empty">${t("trendingEmpty")}</div>`;
-}
-}catch(e){
-grid.innerHTML=`<div class="empty">❌ ${e.message}</div>`;
-}
+}else{grid.innerHTML='<div class="empty">Niş kanal bulunamadı</div>'}
+}catch(e){grid.innerHTML=`<div class="empty">❌ ${e.message}</div>`}
 }
 
 function renderTrending(channels){
 const grid=document.getElementById("trendingGrid");
-if(!channels||!channels.length){grid.innerHTML=`<div class="empty">${t("trendingEmpty")}</div>`;return}
+if(!channels||!channels.length){grid.innerHTML='<div class="empty">Niş kanal bulunamadı</div>';return}
 grid.innerHTML=`<div class="results-grid">`+channels.map((ch,i)=>`
-<div class="trending-card">
+<div class="trending-card" onclick="openChannelDetail('${ch.channel_id}',${i})">
 <div class="trending-thumb">
 <img src="${ch.video_thumbnail||ch.channel_thumbnail}" alt="" onerror="this.src='${ch.channel_thumbnail}'"/>
 <div class="live-badge">LIVE</div>
@@ -553,16 +651,16 @@ grid.innerHTML=`<div class="results-grid">`+channels.map((ch,i)=>`
 <img src="${ch.channel_thumbnail}" alt=""/>
 <div class="trending-channel-info">
 <div class="trending-channel-name">${esc(ch.channel_title)}</div>
-<div class="trending-channel-subs">${formatNumber(ch.subscriber_count)} ${t("subs")}</div>
+<div class="trending-channel-subs">${formatNumber(ch.subscriber_count)} abone</div>
 </div>
 </div>
 <div class="trending-stats">
-<span>👁️ ${formatNumber(ch.video_views)} ${t("trendingViews")}</span>
+<span>👁️ ${formatNumber(ch.video_views)} izlenme</span>
 <span>📊 ${formatNumber(ch.view_count)}</span>
 </div>
-<div class="trending-actions">
-<a href="https://youtube.com/channel/${ch.channel_id}" target="_blank" class="btn btn-small btn-primary" style="text-decoration:none">${t("goToChannel")}</a>
-${ch.video_id?`<a href="https://youtube.com/watch?v=${ch.video_id}" target="_blank" class="btn btn-small btn-secondary" style="text-decoration:none">${t("goToVideo")}</a>`:''}
+<div class="trending-actions" onclick="event.stopPropagation()">
+<button class="btn btn-small btn-primary" onclick="openChannelDetail('${ch.channel_id}',${i})">📊 Analiz</button>
+<a href="https://youtube.com/channel/${ch.channel_id}" target="_blank" class="btn btn-small btn-secondary" style="text-decoration:none">🔗 Kanala Git</a>
 </div>
 </div>
 </div>`).join("")+`</div>`;
@@ -586,25 +684,25 @@ return true});
 list.sort((a,b)=>{if(sort==="hidden")return hidden(b)-hidden(a);if(sort==="lowComp")return a.scores.comp-b.scores.comp;if(sort==="money")return b.scores.money-a.scores.money;if(sort==="new")return b.scores.newCh-a.scores.newCh;return overall(b)-overall(a)});
 if(isAdmin){document.getElementById("adminTotal").textContent=list.length}
 const g=document.getElementById("nichesGrid");
-if(!list.length){g.innerHTML=`<div class="empty" style="grid-column:1/-1">${t("empty")}</div>`;return}
+if(!list.length){g.innerHTML='<div class="empty" style="grid-column:1/-1">Niş bulunamadı</div>';return}
 g.innerHTML=list.map(n=>{
 const o=overall(n),h=hidden(n);
 return `<div class="niche-card" onclick="openDetail('${n.id}')">
 <div class="niche-head"><div><h3>${esc(getName(n))}</h3><div class="niche-category">${esc(getCat(n))} · ${esc(getSub(n))}</div></div><div class="score-badge">${o}</div></div>
 <div class="niche-chips">
-${h>=70?`<span class="chip green">${t("hiddenChip")}</span>`:''}
-${n.scores.newCh>=75?`<span class="chip yellow">${t("newChip")}</span>`:''}
-<span class="chip ${n.scores.comp<=40?'green':n.scores.comp>65?'red':'yellow'}">${compLabel(n.scores.comp)} ${t("compLabel")}</span>
-<span class="chip blue">${t("riskChip")}: ${n.risk.score}</span>
+${h>=70?'<span class="chip green">🔍 Hidden</span>':''}
+${n.scores.newCh>=75?'<span class="chip yellow">🆕 Yeni Dostu</span>':''}
+<span class="chip ${n.scores.comp<=40?'green':n.scores.comp>65?'red':'yellow'}">${compLabel(n.scores.comp)} Rekabet</span>
+<span class="chip blue">Risk: ${n.risk.score}</span>
 </div>
 <div class="bars">
-<div class="bar-row"><span>${t("opportunity")}</span><div class="bar"><div class="fill" style="width:${o}%"></div></div><span>${o}</span></div>
-<div class="bar-row"><span>${t("hidden")}</span><div class="bar"><div class="fill" style="width:${h}%"></div></div><span>${h}</span></div>
-<div class="bar-row"><span>${t("earnings")}</span><div class="bar"><div class="fill" style="width:${n.scores.money}%"></div></div><span>${n.scores.money}</span></div>
+<div class="bar-row"><span>Fırsat</span><div class="bar"><div class="fill" style="width:${o}%"></div></div><span>${o}</span></div>
+<div class="bar-row"><span>Hidden</span><div class="bar"><div class="fill" style="width:${h}%"></div></div><span>${h}</span></div>
+<div class="bar-row"><span>Kazanç</span><div class="bar"><div class="fill" style="width:${n.scores.money}%"></div></div><span>${n.scores.money}</span></div>
 </div>
 <div class="card-actions" onclick="event.stopPropagation()">
-<button class="btn btn-small btn-primary" onclick="openDetail('${n.id}')">${t("detail")}</button>
-<button class="btn btn-small btn-secondary" onclick="toggleFav('${n.id}')">${favorites.includes(n.id)?t("favRemove"):t("fav")}</button>
+<button class="btn btn-small btn-primary" onclick="openDetail('${n.id}')">📋 Detay</button>
+<button class="btn btn-small btn-secondary" onclick="toggleFav('${n.id}')">${favorites.includes(n.id)?'⭐ Çıkar':'☆ Favori'}</button>
 </div></div>`}).join("")}
 
 function openDetail(id){
@@ -615,76 +713,61 @@ const o=overall(n),h=hidden(n);
 document.getElementById("modalBody").innerHTML=`
 <div class="niche-chips" style="margin-bottom:16px">
 ${n.langs.map(l=>`<span class="chip blue">${l}</span>`).join("")}
-<span class="chip green">${t("opportunity")}: ${o}</span><span class="chip yellow">${t("hidden")}: ${h}</span>
+<span class="chip green">Fırsat: ${o}</span><span class="chip yellow">Hidden: ${h}</span>
 </div>
 <div class="detail-grid">
-<div class="detail-box"><h3>${t("scoresTitle")}</h3>
-${[[t("opportunity"),o],[t("hidden"),h],[t("compLabel"),n.scores.comp],[t("earnings"),n.scores.money],[t("trend"),n.scores.trend]].map(r=>`<div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:4px"><span>${r[0]}</span><span>${r[1]}</span></div><div class="bar"><div class="fill" style="width:${r[1]}%"></div></div></div>`).join("")}
+<div class="detail-box"><h3>📊 Puanlar</h3>
+${[['Fırsat',o],['Hidden',h],['Rekabet',n.scores.comp],['Kazanç',n.scores.money],['Trend',n.scores.trend]].map(r=>`<div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:4px"><span>${r[0]}</span><span>${r[1]}</span></div><div class="bar"><div class="fill" style="width:${r[1]}%"></div></div></div>`).join("")}
 </div>
-<div class="detail-box"><h3>${t("audienceTitle")}</h3>
-<p><strong>${t("audience")}:</strong> ${esc(getAudience(n))}</p>
-<p><strong>${t("competitor")}:</strong> ${esc(getComp(n))}</p>
+<div class="detail-box"><h3>🎯 Hedef & Rakip</h3>
+<p><strong>Hedef:</strong> ${esc(getAudience(n))}</p>
+<p><strong>Rakip:</strong> ${esc(getComp(n))}</p>
 </div>
-<div class="detail-box risk-section"><h3>${t("riskTitle")}</h3>
-<p><strong>${t("safetyScore")}:</strong> ${n.risk.score}/100</p>
-<p><strong>${t("mainRisk")}:</strong> ${esc(getRiskSebep(n))}</p>
-<h3 style="margin-top:10px">${t("dontDo")}</h3>
+<div class="detail-box risk-section"><h3>🛡️ Risk Analizi</h3>
+<p><strong>Güvenlik:</strong> ${n.risk.score}/100</p>
+<p><strong>Risk:</strong> ${esc(getRiskSebep(n))}</p>
+<h3 style="margin-top:10px">❌ YAPMA</h3>
 <ul>${getRiskYapma(n).map(x=>`<li>❌ ${esc(x)}</li>`).join("")}</ul>
-<h3 style="margin-top:10px">${t("doThese")}</h3>
+<h3 style="margin-top:10px">✅ YAP</h3>
 <ul>${getRiskYap(n).map(x=>`<li>✅ ${esc(x)}</li>`).join("")}</ul>
 </div>
 </div>
 <div class="examples-section">
-<h3 style="margin:20px 0 12px">${t("examplesTitle")}</h3>
+<h3 style="margin:20px 0 12px">📺 Örnek Kanallar</h3>
 ${n.examples.map(ex=>{
-const typeLabel=ex.type==="beginner"?t("beginner"):ex.type==="rising"?t("rising"):t("success");
+const typeLabel=ex.type==="beginner"?"🌱 Yeni Başlayan":ex.type==="rising"?"🚀 Yükselen":"🏆 Başarı";
 return `<div class="example-card ${ex.type}">
 <h4>${typeLabel} - ${esc(ex.name)}</h4>
 <div class="ex-stats">
-<span>📊 ${t("subs")}: ${esc(ex.subs)}</span>
-<span>📅 ${t("age")}: ${esc(getEx(ex,"age"))}</span>
-<span>📈 ${t("growth")}: ${esc(ex.growth)}</span>
+<span>📊 ${esc(ex.subs)}</span>
+<span>📅 ${esc(getEx(ex,"age"))}</span>
+<span>📈 ${esc(ex.growth)}</span>
 </div>
-<div class="ex-strategy">${t("strategy")}: ${esc(getEx(ex,"strategy"))}</div>
+<div class="ex-strategy">💡 ${esc(getEx(ex,"strategy"))}</div>
 </div>`}).join("")}
 </div>`;
 document.getElementById("detailModal").classList.add("active")}
 function closeModal(){document.getElementById("detailModal").classList.remove("active")}
 function toggleFav(id){if(favorites.includes(id))favorites=favorites.filter(x=>x!==id);else favorites.push(id);localStorage.setItem("nf_favs",JSON.stringify(favorites));render()}
-function toggleAI(){const chat=document.getElementById("aiChat");const btn=document.getElementById("aiBotBtn");chat.classList.toggle("active");btn.classList.toggle("active");btn.textContent=chat.classList.contains("active")?"✕":"🤖"}
-function askAI(qId){
-const msgArea=document.getElementById("aiMessages");
-const question=t(qId);
-const answer=t(qId.replace("q","a"));
-const userMsg=document.createElement("div");
-userMsg.className="ai-message user";
-userMsg.textContent=question;
-msgArea.appendChild(userMsg);
-const typing=document.createElement("div");
-typing.className="ai-message bot";
-typing.innerHTML="⏳ "+t("typing");
-msgArea.appendChild(typing);
-msgArea.scrollTop=msgArea.scrollHeight;
-setTimeout(()=>{typing.innerHTML=answer;msgArea.scrollTop=msgArea.scrollHeight},800);
-}
+function toggleAI(){const c=document.getElementById("aiChat");const b=document.getElementById("aiBotBtn");c.classList.toggle("active");b.classList.toggle("active");b.textContent=c.classList.contains("active")?"✕":"🤖"}
+function askAI(qId){const m=document.getElementById("aiMessages");const answers={q1:"🎯 3 adım: 1. Hidden Opportunity filtresi 2. Yeni Kanal Dostu 3. Risk 80+",q2:"🧪 30 günde test: 10 short paylaş, 1000+ izlenme alıyorsan çalışıyor!",q3:"💰 En karlı: Finance ($8-15 RPM), Business, Tech",q4:"🛡️ Risk Detector güvenlik puanı verir. 80+ güvenli, 60- riskli!",q5:"⚠️ Sebepler: Telif hakkı, topluluk kuralları, COPPA, tıbbi iddia",q6:"📜 Royalty-free müzik kullan, telifli içerik kullanma!",q7:"💰 5 yol: AdSense, Sponsorluk, Affiliate, Kendi ürün, Üyelik",q8:"📈 6 ayda 1000 abone: İlk ay 10 video, sonra haftada 3, Shorts!",q9:"🤝 10K+ aboneden sonra: Famebit, LinkedIn DM. İlk: $200-500"};const questions={q1:"Hangi nişle başlamalıyım?",q2:"Niş nasıl test edilir?",q3:"Hangi niş para kazandırır?",q4:"Risk Detector ne yapar?",q5:"Kanalım neden kapanır?",q6:"Telif hakkı?",q7:"Para nasıl kazanırım?",q8:"1000 aboneye nasıl ulaşırım?",q9:"Sponsorluk?"};const u=document.createElement("div");u.className="ai-message user";u.textContent=questions[qId];m.appendChild(u);const ty=document.createElement("div");ty.className="ai-message bot";ty.innerHTML="⏳ Yazıyor...";m.appendChild(ty);m.scrollTop=m.scrollHeight;setTimeout(()=>{ty.innerHTML=answers[qId];m.scrollTop=m.scrollHeight},800)}
 
-if(isAdmin){document.getElementById("adminBanner").classList.add("active")}
+if(isAdmin)document.getElementById("adminBanner").classList.add("active");
 
-document.getElementById("searchInput").addEventListener("input",render);
-document.getElementById("langFilter").addEventListener("change",render);
-document.getElementById("sortFilter").addEventListener("change",render);
-document.getElementById("hiddenOnly").addEventListener("change",render);
-document.getElementById("newChannelOnly").addEventListener("change",render);
-document.getElementById("facelessOnly").addEventListener("change",render);
+document.getElementById("searchInput")?.addEventListener("input",render);
+document.getElementById("langFilter")?.addEventListener("change",render);
+document.getElementById("sortFilter")?.addEventListener("change",render);
+document.getElementById("hiddenOnly")?.addEventListener("change",render);
+document.getElementById("newChannelOnly")?.addEventListener("change",render);
+document.getElementById("facelessOnly")?.addEventListener("change",render);
 document.getElementById("trendingSearch")?.addEventListener("keypress",e=>{if(e.key==="Enter")loadTrending()});
 document.getElementById("quickSearch")?.addEventListener("keypress",e=>{if(e.key==="Enter")quickSearch()});
-document.getElementById("detailModal").addEventListener("click",e=>{if(e.target.id==="detailModal")closeModal()});
-apply();
-updateAILang();
+document.getElementById("detailModal")?.addEventListener("click",e=>{if(e.target.id==="detailModal")closeModal()});
+document.getElementById("channelModal")?.addEventListener("click",e=>{if(e.target.id==="channelModal")closeChannelModal()});
+
 render();
-renderHomePage();
-document.querySelectorAll(".lang-btn").forEach(b=>b.classList.remove("active"));
-document.getElementById("lang-"+lang).classList.add("active");
+loadRisingChannels();
+renderTopNiches();
 </script>
 </body>
 </html>
