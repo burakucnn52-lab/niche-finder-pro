@@ -62,7 +62,7 @@ class handler(BaseHTTPRequestHandler):
                             title_lower = ch_snippet.get('title', '').lower()
                             is_blocked = any(kw in title_lower for kw in BLOCKED_KEYWORDS)
                             
-                            if 1000 <= sub_count <= 500000 and not is_blocked and video_count > 5:
+                            if 1000 <= sub_count <= 1000000 and not is_blocked and video_count > 5:
                                 results.append({
                                     'channel_id': ch['id'],
                                     'channel_title': ch_snippet.get('title', ''),
@@ -123,7 +123,7 @@ class handler(BaseHTTPRequestHandler):
                                     title_lower = ch_snippet.get('title', '').lower()
                                     is_blocked = any(kw in title_lower for kw in BLOCKED_KEYWORDS)
                                     
-                                    if 1000 <= sub_count <= 500000 and not is_blocked and video_count > 5:
+                                    if 1000 <= sub_count <= 1000000 and not is_blocked and video_count > 5:
                                         seen_channels.add(ch_id)
                                         video = video_map.get(ch_id, {})
                                         
