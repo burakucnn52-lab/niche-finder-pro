@@ -47,9 +47,8 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 .home-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px}
 .home-widget{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:20px}
 .widget-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px}
-.widget-head h2{font-size:18px;display:flex;align-items:center;gap:8px}
+.widget-head h2{font-size:18px}
 .widget-head .view-all{color:var(--blue);font-size:13px;cursor:pointer;font-weight:600;background:none;border:none;font-family:inherit}
-.widget-head .view-all:hover{text-decoration:underline}
 .widget-subtitle{color:var(--muted);font-size:12px;margin-bottom:14px}
 .channel-row{display:flex;align-items:center;gap:12px;padding:12px;background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:8px;transition:.2s;cursor:pointer}
 .channel-row:hover{transform:translateX(3px);border-color:var(--blue)}
@@ -69,7 +68,6 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 .section h2{margin-bottom:16px;font-size:20px}
 .input-row{display:flex;gap:12px;flex-wrap:wrap}
 .input-row input,.input-row select{flex:1;min-width:200px;padding:14px 18px;background:var(--card);border:1px solid var(--line);border-radius:12px;color:var(--text);font-size:15px;outline:none;font-family:inherit}
-.input-row input:focus,.input-row select:focus{border-color:var(--blue)}
 .btn{padding:14px 24px;border:none;border-radius:12px;cursor:pointer;font-weight:600;font-size:14px;transition:.2s;color:white;font-family:inherit}
 .btn-primary{background:linear-gradient(135deg,var(--blue),var(--purple))}
 .btn-primary:hover{transform:translateY(-2px)}
@@ -100,15 +98,13 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 .bar{height:6px;background:rgba(255,255,255,.08);border-radius:999px;overflow:hidden}
 .fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:999px}
 .card-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:12px}
-.empty{text-align:center;padding:40px 20px;color:var(--muted);border:1px dashed var(--line);border-radius:16px}
-.trending-card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:.2s;display:flex;flex-direction:column;cursor:pointer}
+.empty{text-align:center;padding:40px 20px;color:var(--muted);border:1px dashed var(--line);border-radius:16px}.trending-card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:.2s;display:flex;flex-direction:column;cursor:pointer}
 .trending-card:hover{transform:translateY(-3px);border-color:var(--red)}
 .trending-thumb{position:relative;overflow:hidden;aspect-ratio:16/9}
 .trending-thumb img{width:100%;height:100%;object-fit:cover}
-.trending-thumb .live-badge{position:absolute;top:8px;left:8px;background:var(--red);color:white;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700;display:flex;align-items:center;gap:4px}
-.trending-thumb .live-badge::before{content:"";display:inline-block;width:6px;height:6px;background:white;border-radius:50%;animation:livepulse 1s infinite}
+.trending-thumb .live-badge{position:absolute;top:8px;left:8px;background:var(--red);color:white;padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700}
 .trending-info{padding:14px;flex:1;display:flex;flex-direction:column}
-.trending-info h3{font-size:14px;line-height:1.4;margin-bottom:8px;color:var(--text);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.trending-info h3{font-size:14px;line-height:1.4;margin-bottom:8px;color:var(--text)}
 .trending-channel{display:flex;align-items:center;gap:8px;margin:8px 0;padding-top:8px;border-top:1px solid var(--line)}
 .trending-channel img{width:32px;height:32px;border-radius:50%}
 .trending-channel-info{flex:1;min-width:0}
@@ -131,10 +127,9 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 .analytics-header{display:flex;gap:16px;align-items:center;margin-bottom:20px;flex-wrap:wrap}
 .analytics-header img{width:80px;height:80px;border-radius:50%}
 .analytics-header h2{font-size:24px;margin-bottom:4px}
-.analytics-header p{color:var(--muted);font-size:13px}
 .analytics-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-bottom:16px}
 .analytics-box{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:14px;padding:16px}
-.analytics-box h3{margin-bottom:12px;font-size:15px;display:flex;align-items:center;gap:8px}
+.analytics-box h3{margin-bottom:12px;font-size:15px}
 .analytics-stat{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);font-size:13px}
 .analytics-stat:last-child{border:0}
 .analytics-stat strong{color:var(--text)}
@@ -146,7 +141,7 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 .demo-bar{margin:8px 0}
 .demo-bar-label{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:4px}
 .demo-bar-track{height:8px;background:rgba(255,255,255,.08);border-radius:999px;overflow:hidden}
-.demo-bar-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:999px;transition:.5s}
+.demo-bar-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:999px}
 .demo-bar-fill.male{background:linear-gradient(90deg,#4da3ff,#49e6d8)}
 .demo-bar-fill.female{background:linear-gradient(90deg,#ff5c7a,#a78bfa)}
 .country-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid var(--line)}
@@ -154,6 +149,20 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 .country-row .flag{font-size:20px;margin-right:8px}
 .country-row .name{flex:1;font-size:13px}
 .country-row .pct{font-weight:700;color:var(--blue)}
+.growth-chart{margin-top:12px}
+.growth-bar{display:flex;align-items:center;gap:8px;margin:6px 0}
+.growth-bar .label{width:60px;font-size:11px;color:var(--muted);text-align:right}
+.growth-bar .track{flex:1;height:12px;background:rgba(255,255,255,.06);border-radius:999px;overflow:hidden}
+.growth-bar .bar-fill{height:100%;border-radius:999px;transition:.5s}
+.growth-bar .bar-fill.up{background:linear-gradient(90deg,var(--green),var(--cyan))}
+.growth-bar .bar-fill.down{background:linear-gradient(90deg,var(--red),var(--orange))}
+.growth-bar .value{width:50px;font-size:11px;font-weight:700}
+.growth-bar .value.up{color:var(--green)}
+.growth-bar .value.down{color:var(--red)}
+.trend-indicator{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:999px;font-size:12px;font-weight:700;margin-top:8px}
+.trend-indicator.up{background:rgba(69,224,138,.15);color:var(--green)}
+.trend-indicator.down{background:rgba(255,92,122,.15);color:var(--red)}
+.trend-indicator.stable{background:rgba(255,209,102,.15);color:var(--yellow)}
 .disclaimer{background:rgba(255,209,102,.1);border:1px solid rgba(255,209,102,.3);border-radius:10px;padding:10px 14px;color:#ffe7a8;font-size:11px;margin-top:16px}
 .detail-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
 .detail-box{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:14px;padding:14px}
@@ -188,7 +197,6 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 .roadmap-card p{color:#cfd9ea;font-size:13px;line-height:1.6}
 .footer{text-align:center;color:var(--muted);margin-top:30px;font-size:12px;padding:20px}
 .ai-bot-button{position:fixed;bottom:24px;right:24px;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--purple));border:none;cursor:pointer;box-shadow:0 8px 24px rgba(77,163,255,.4);display:grid;place-items:center;font-size:28px;transition:.3s;z-index:9998;animation:pulse 2s infinite}
-.ai-bot-button:hover{transform:scale(1.1) rotate(10deg)}
 @keyframes pulse{0%,100%{box-shadow:0 8px 24px rgba(77,163,255,.4)}50%{box-shadow:0 8px 32px rgba(167,139,250,.6)}}
 .ai-bot-button.active{background:linear-gradient(135deg,var(--red),var(--orange))}
 .ai-chat{position:fixed;bottom:100px;right:24px;width:400px;max-width:calc(100vw - 48px);height:600px;max-height:calc(100vh - 140px);background:#0d1322;border:1px solid var(--line);border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.6);display:none;flex-direction:column;z-index:9999;overflow:hidden}
@@ -203,7 +211,7 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 .ai-message.bot{background:var(--card);border:1px solid var(--line);align-self:flex-start;color:var(--text)}
 .ai-message.user{background:linear-gradient(135deg,var(--blue),var(--purple));align-self:flex-end;color:white}
 .ai-categories{padding:10px;border-top:1px solid var(--line);background:rgba(255,255,255,.02);max-height:200px;overflow-y:auto}
-.ai-cat-title{font-size:11px;color:var(--muted);margin:8px 0 6px;font-weight:600;text-transform:uppercase}
+.ai-cat-title{font-size:11px;color:var(--muted);margin:8px 0 6px;font-weight:600}
 .ai-quick-btn{padding:9px 11px;background:var(--card);border:1px solid var(--line);border-radius:10px;color:var(--text);font-size:12px;cursor:pointer;text-align:left;transition:.2s;font-family:inherit;width:100%;margin-bottom:5px}
 .ai-quick-btn:hover{background:rgba(77,163,255,.1);border-color:var(--blue)}
 .home-loading{text-align:center;padding:30px;color:var(--muted)}
@@ -215,11 +223,10 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 <body><div class="container">
 
 <div class="admin-banner" id="adminBanner">
-<div><strong>👑 ADMIN MODE</strong> - Sadece sen görüyorsun</div>
+<div><strong>👑 ADMIN MODE</strong></div>
 <div class="admin-stats">
-<span>📊 Toplam Niş: <strong id="adminTotal">0</strong></span>
-<span>💰 Lifetime Satış: <strong id="adminSold">0</strong>/100</span>
-<span>👥 Aktif Kullanıcı: <strong id="adminUsers">0</strong></span>
+<span>📊 Niş: <strong id="adminTotal">0</strong></span>
+<span>💰 Satış: <strong id="adminSold">0</strong>/100</span>
 </div>
 </div>
 
@@ -235,9 +242,9 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 <h1 id="welcomeTitle">👋 NICHIFY'a Hoş Geldin!</h1>
 <p id="welcomeDesc">YouTube için akıllı niş keşif sistemi. Gizli fırsatları bul, kanal kapanma riskini öğren, AI Asistan'la yardım al!</p>
 <div class="stats-row">
-<span id="totalLabel">📊 Toplam Analiz Edilen Kanal:</span>
-<strong id="totalChannels">18,707,535</strong>
-<span class="new-badge" id="newToday">+133,220</span>
+<span id="totalLabel">📊 Toplam Analiz:</span>
+<strong>18,707,535</strong>
+<span class="new-badge">+133,220</span>
 </div>
 </header>
 
@@ -248,15 +255,15 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 
 <div class="lifetime-banner">
 <h2 id="ltTitle">🔥 LIFETIME DEAL - İlk 100 Kişiye Özel!</h2>
-<p style="color:#fff;margin-bottom:8px" id="ltDesc">Tek seferlik ödeme yap, ÖMÜR BOYU kullan!</p>
+<p style="color:#fff;margin-bottom:8px">Tek seferlik ödeme, ÖMÜR BOYU kullan!</p>
 <div class="price-row">
 <span class="old-price">$149</span>
 <span class="new-price">$89</span>
-<span class="save" id="ltSave">%40 İNDİRİM</span>
+<span class="save">%40 İNDİRİM</span>
 </div>
 <div class="counter-row">
 <div class="counter-bar"><div class="counter-fill" style="width:0%">0/100</div></div>
-<div class="counter-text"><strong>100</strong> <span id="ltSeats">koltuk kaldı!</span></div>
+<div class="counter-text"><strong>100</strong> koltuk kaldı!</div>
 </div>
 <button class="lifetime-cta" onclick="window.open('https://nichify.lemonsqueezy.com/buy/327c8366-362b-45e1-8d34-0c6b6ea43411','_blank')" id="ltCta">🚀 Lifetime Erişim Al - $89</button>
 </div>
@@ -267,7 +274,7 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 <h2 id="risingTitle">🔥 Bugün Yükselen Kanallar</h2>
 <button class="view-all" onclick="switchTab('trending')" id="viewAll1">Tümünü Gör →</button>
 </div>
-<p class="widget-subtitle" id="risingSubtitle">Son 24 saatte yükselen küçük niş kanalları</p>
+<p class="widget-subtitle" id="risingSubtitle">Canlı YouTube verisi · Küçük niş kanalları</p>
 <div id="risingChannels">
 <div class="home-loading"><div class="spinner"></div><p>Yükleniyor...</p></div>
 </div>
@@ -278,7 +285,7 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 <h2 id="topNichesTitle">🎯 En İyi Fırsat Nişler</h2>
 <button class="view-all" onclick="switchTab('niches')" id="viewAll2">Tümünü Gör →</button>
 </div>
-<p class="widget-subtitle" id="topNichesSubtitle">Yüksek skorlu ve düşük rekabetli nişler</p>
+<p class="widget-subtitle">Yüksek skorlu ve düşük rekabetli nişler</p>
 <div id="topNiches"></div>
 </div>
 </div>
@@ -294,7 +301,7 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 
 <div id="tab-niches" class="tab-content" style="display:none">
 <section class="section">
-<h2 id="searchTitle">🔍 Niş Keşfi</h2>
+<h2>🔍 Niş Keşfi</h2>
 <div class="input-row">
 <input id="searchInput" placeholder="Niş ara: AI, finans, motivasyon..." />
 <select id="langFilter">
@@ -318,7 +325,7 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 </div>
 </section>
 <section class="section">
-<h2 id="resultsTitle">📊 Sonuçlar</h2>
+<h2>📊 Sonuçlar</h2>
 <div id="nichesGrid" class="results-grid"></div>
 </section>
 </div>
@@ -326,7 +333,7 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 <div id="tab-trending" class="tab-content" style="display:none">
 <section class="section">
 <h2 id="trendingTitle">🔥 Yükselen YouTube Niş Kanalları</h2>
-<p style="color:var(--muted);margin-bottom:14px" id="trendingDesc">CANLI veri! Kanala tıklayarak detaylı analiz görebilirsin (RPM, kazanç, demografi)</p>
+<p style="color:var(--muted);margin-bottom:14px">CANLI veri! Kanala tıklayarak RPM, kazanç, demografi ve büyüme grafiği görebilirsin</p>
 <div class="input-row" style="margin-bottom:14px">
 <input id="trendingSearch" placeholder="🔍 Niş ara: AI tutorial, finance, cooking..." style="flex:2"/>
 <select id="trendingRegion">
@@ -338,7 +345,7 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 <option value="ES">🇪🇸 İspanya</option>
 <option value="JP">🇯🇵 Japonya</option>
 </select>
-<button class="btn btn-primary" onclick="loadTrending()" id="trendingBtn">🔄 Ara</button>
+<button class="btn btn-primary" onclick="loadTrending()">🔄 Ara</button>
 </div>
 <div id="trendingGrid"></div>
 </section>
@@ -346,64 +353,31 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 
 <div id="tab-roadmap" class="tab-content" style="display:none">
 <section class="section">
-<h2 id="roadmapTitle">🚀 Yakında Gelecek Özellikler</h2>
-<p style="color:var(--muted);margin-bottom:14px" id="roadmapDesc">NICHIFY sürekli gelişiyor!</p>
+<h2>🚀 Yakında Gelecek Özellikler</h2>
+<p style="color:var(--muted);margin-bottom:14px">NICHIFY sürekli gelişiyor!</p>
 <div class="roadmap-grid">
-<div class="roadmap-card lifetime">
-<span class="status lifetime">🔥 SINIRLI SÜRE</span>
-<h3>💎 LIFETIME DEAL</h3>
-<div class="date">Sadece İlk 100 Kişiye: $89</div>
-<p>Tek seferlik ödeme, ömür boyu erişim!</p>
-</div>
-<div class="roadmap-card coming">
-<span class="status coming">⏳ Bu Hafta</span>
-<h3>👤 Kullanıcı Sistemi</h3>
-<div class="date">Tahmini: Birkaç gün</div>
-<p>Kayıt/Giriş, Pro üyelik, kullanıcı paneli!</p>
-</div>
-<div class="roadmap-card soon">
-<span class="status soon">🔜 Çok Yakında</span>
-<h3>📱 TikTok & Instagram</h3>
-<div class="date">Tahmini: 2 hafta</div>
-<p>TikTok ve Instagram Reels niş keşfi.</p>
-</div>
-<div class="roadmap-card planned">
-<span class="status planned">📅 Planlama</span>
-<h3>🎨 AI Görsel Üretici</h3>
-<div class="date">Tahmini: 1 ay</div>
-<p>AI thumbnail otomatik üretici.</p>
-</div>
-<div class="roadmap-card planned">
-<span class="status planned">📅 Planlama</span>
-<h3>📝 Content Generator</h3>
-<div class="date">Tahmini: 1 ay</div>
-<p>Otomatik video scripti üreteci.</p>
-</div>
-<div class="roadmap-card planned">
-<span class="status planned">📅 Planlama</span>
-<h3>📱 Mobil Uygulama</h3>
-<div class="date">Tahmini: 2 ay</div>
-<p>iOS ve Android uygulaması.</p>
-</div>
+<div class="roadmap-card lifetime"><span class="status lifetime">🔥 SINIRLI</span><h3>💎 LIFETIME DEAL</h3><div class="date">İlk 100 Kişiye: $89</div><p>Tek seferlik ödeme, ömür boyu erişim!</p></div>
+<div class="roadmap-card coming"><span class="status coming">⏳ Bu Hafta</span><h3>👤 Kullanıcı Sistemi</h3><div class="date">Birkaç gün</div><p>Kayıt/Giriş, Pro üyelik</p></div>
+<div class="roadmap-card soon"><span class="status soon">🔜 Yakında</span><h3>📱 TikTok & Instagram</h3><div class="date">2 hafta</div><p>TikTok ve Instagram Reels</p></div>
+<div class="roadmap-card planned"><span class="status planned">📅 Plan</span><h3>🎨 AI Görsel</h3><div class="date">1 ay</div><p>AI thumbnail üretici</p></div>
+<div class="roadmap-card planned"><span class="status planned">📅 Plan</span><h3>📝 Content Gen</h3><div class="date">1 ay</div><p>Otomatik video scripti</p></div>
+<div class="roadmap-card planned"><span class="status planned">📅 Plan</span><h3>📱 Mobil App</h3><div class="date">2 ay</div><p>iOS ve Android</p></div>
 </div>
 </section>
 </div>
 
-<p class="footer">NICHIFY v1.0 | © 2025 | 🚀 YouTube Niş Bulucu Pro</p>
+<p class="footer">NICHIFY v2.0 | © 2025 | 🚀 YouTube Niş Bulucu Pro</p>
 </div>
 
-<button class="ai-bot-button" onclick="toggleAI()" id="aiBotBtn" title="AI Asistan">🤖</button>
+<button class="ai-bot-button" onclick="toggleAI()" id="aiBotBtn">🤖</button>
 
 <div class="ai-chat" id="aiChat">
 <div class="ai-chat-header">
 <div class="avatar">🤖</div>
-<div>
-<h3>NICHIFY Bot</h3>
-<p>Sana nasıl yardımcı olabilirim?</p>
-</div>
+<div><h3>NICHIFY Bot</h3><p>Nasıl yardımcı olabilirim?</p></div>
 </div>
 <div class="ai-chat-body" id="aiMessages">
-<div class="ai-message bot">👋 Merhaba! Ben NICHIFY Bot. Aşağıdaki kategorilerden bir soru seç!</div>
+<div class="ai-message bot">👋 Merhaba! NICHIFY Bot. Aşağıdan soru seç!</div>
 </div>
 <div class="ai-categories">
 <div class="ai-cat-title">🎯 Niş Seçimi</div>
@@ -416,7 +390,7 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 <button class="ai-quick-btn" onclick="askAI('q6')">Telif hakkı?</button>
 <div class="ai-cat-title">💰 Para Kazanma</div>
 <button class="ai-quick-btn" onclick="askAI('q7')">Para nasıl kazanırım?</button>
-<button class="ai-quick-btn" onclick="askAI('q8')">1000 aboneye nasıl ulaşırım?</button>
+<button class="ai-quick-btn" onclick="askAI('q8')">1000 aboneye nasıl?</button>
 <button class="ai-quick-btn" onclick="askAI('q9')">Sponsorluk?</button>
 </div>
 </div>
@@ -443,101 +417,111 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:radial-grad
 const TRANS={
 tr:{
 welcome:"👋 NICHIFY'a Hoş Geldin!",
-welcomeDesc:"YouTube için akıllı niş keşif sistemi. Gizli fırsatları bul, kanal kapanma riskini öğren, AI Asistan'la yardım al!",
-totalLabel:"📊 Toplam Analiz Edilen Kanal:",
-quickSearchPH:"🔍 Anahtar kelime ara: AI, finans, oyun, yemek...",
+welcomeDesc:"YouTube için akıllı niş keşif sistemi.",
+totalLabel:"📊 Toplam Analiz:",
+quickSearchPH:"🔍 Anahtar kelime ara...",
 quickSearchBtn:"🔍 Ara",
 ltTitle:"🔥 LIFETIME DEAL - İlk 100 Kişiye Özel!",
-ltDesc:"Tek seferlik ödeme yap, ÖMÜR BOYU kullan!",
-ltSave:"%40 İNDİRİM",
-ltSeats:"koltuk kaldı!",
 ltCta:"🚀 Lifetime Erişim Al - $89",
 risingTitle:"🔥 Bugün Yükselen Kanallar",
-risingSubtitle:"Son 24 saatte yükselen küçük niş kanalları",
 topNichesTitle:"🎯 En İyi Fırsat Nişler",
-topNichesSubtitle:"Yüksek skorlu ve düşük rekabetli nişler",
 viewAll:"Tümünü Gör →",
 tab1:"🏠 Anasayfa",
 tab2:"🎯 Niş Keşfi",
 tab3:"🔥 Yükselen Kanallar",
 tab4:"🚀 Yakında Gelecek",
-searchTitle:"🔍 Niş Keşfi",
-searchPH:"Niş ara: AI, finans, motivasyon...",
-resultsTitle:"📊 Sonuçlar",
-trendingTitle:"🔥 Yükselen YouTube Niş Kanalları",
-trendingDesc:"CANLI veri! Kanala tıklayarak detaylı analiz görebilirsin",
-trendingPH:"🔍 Niş ara: AI tutorial, finance, cooking...",
-trendingBtn:"🔄 Ara",
-roadmapTitle:"🚀 Yakında Gelecek Özellikler",
-roadmapDesc:"NICHIFY sürekli gelişiyor!",
 subs:"abone",
 empty:"Niş bulunamadı",
-chTitle:"📊 Kanal Analizi"
-},en:{
+chTitle:"📊 Kanal Analizi",
+chStats:"📊 Kanal İstatistikleri",
+chEarn:"💰 Tahmini Aylık Kazanç",
+chGender:"👥 Cinsiyet Dağılımı",
+chAge:"📅 Yaş Dağılımı",
+chCountry:"🌍 Ülke Dağılımı",
+chGrowth:"📈 Büyüme Trendi (Tahmini)",
+chMale:"👨 Erkek",
+chFemale:"👩 Kadın",
+chGoChannel:"🔗 Kanala Git",
+chDisclaimer:"⚠️ Tahminler sektör ortalamalarına göre hesaplanmıştır.",
+trendUp:"📈 Yükseliyor",
+trendDown:"📉 Düşüyor",
+trendStable:"📊 Stabil",
+thisMonth:"Bu Ay",
+lastMonth:"Geçen Ay",
+twoMonths:"2 Ay Önce",
+threeMonths:"3 Ay Önce"
+},
+en:{
 welcome:"👋 Welcome to NICHIFY!",
 welcomeDesc:"Smart YouTube niche discovery system.",
-totalLabel:"📊 Total Channels Analyzed:",
-quickSearchPH:"🔍 Search keyword: AI, finance, gaming...",
+totalLabel:"📊 Total Analyzed:",
+quickSearchPH:"🔍 Search keyword...",
 quickSearchBtn:"🔍 Search",
 ltTitle:"🔥 LIFETIME DEAL - First 100 Only!",
-ltDesc:"One-time payment, LIFETIME access!",
-ltSave:"40% OFF",
-ltSeats:"seats left!",
 ltCta:"🚀 Get Lifetime - $89",
 risingTitle:"🔥 Today's Rising Channels",
-risingSubtitle:"Small niche channels rising in last 24h",
 topNichesTitle:"🎯 Top Opportunity Niches",
-topNichesSubtitle:"High score, low competition niches",
 viewAll:"View All →",
 tab1:"🏠 Home",
 tab2:"🎯 Discovery",
 tab3:"🔥 Trending",
 tab4:"🚀 Coming Soon",
-searchTitle:"🔍 Niche Discovery",
-searchPH:"Search niche...",
-resultsTitle:"📊 Results",
-trendingTitle:"🔥 Rising YouTube Niche Channels",
-trendingDesc:"LIVE data! Click for analytics",
-trendingPH:"🔍 Search niche...",
-trendingBtn:"🔄 Search",
-roadmapTitle:"🚀 Coming Soon Features",
-roadmapDesc:"NICHIFY evolving!",
 subs:"subs",
 empty:"No niches found",
-chTitle:"📊 Channel Analytics"
+chTitle:"📊 Channel Analytics",
+chStats:"📊 Channel Statistics",
+chEarn:"💰 Estimated Monthly Earnings",
+chGender:"👥 Gender Distribution",
+chAge:"📅 Age Distribution",
+chCountry:"🌍 Country Distribution",
+chGrowth:"📈 Growth Trend (Estimated)",
+chMale:"👨 Male",
+chFemale:"👩 Female",
+chGoChannel:"🔗 Visit Channel",
+chDisclaimer:"⚠️ Estimates based on industry averages.",
+trendUp:"📈 Rising",
+trendDown:"📉 Declining",
+trendStable:"📊 Stable",
+thisMonth:"This Month",
+lastMonth:"Last Month",
+twoMonths:"2 Months Ago",
+threeMonths:"3 Months Ago"
 },
 de:{
 welcome:"👋 Willkommen bei NICHIFY!",
 welcomeDesc:"Intelligentes YouTube Nischenfindungssystem.",
-totalLabel:"📊 Analysierte Kanäle:",
-quickSearchPH:"🔍 Schlüsselwort suchen...",
+totalLabel:"📊 Gesamt Analysiert:",
+quickSearchPH:"🔍 Schlüsselwort...",
 quickSearchBtn:"🔍 Suchen",
 ltTitle:"🔥 LIFETIME DEAL - Nur erste 100!",
-ltDesc:"Einmalige Zahlung, LEBENSLANG nutzen!",
-ltSave:"40% RABATT",
-ltSeats:"Plätze!",
 ltCta:"🚀 Lifetime - $89",
 risingTitle:"🔥 Heute aufsteigende Kanäle",
-risingSubtitle:"Kleine Nischenkanäle der letzten 24h",
 topNichesTitle:"🎯 Top Chancen Nischen",
-topNichesSubtitle:"Hohe Bewertung, geringe Konkurrenz",
 viewAll:"Alle ansehen →",
 tab1:"🏠 Startseite",
 tab2:"🎯 Entdeckung",
 tab3:"🔥 Trending",
 tab4:"🚀 Demnächst",
-searchTitle:"🔍 Nischen Entdeckung",
-searchPH:"Nische suchen...",
-resultsTitle:"📊 Ergebnisse",
-trendingTitle:"🔥 Aufsteigende Kanäle",
-trendingDesc:"LIVE Daten!",
-trendingPH:"🔍 Nische suchen...",
-trendingBtn:"🔄 Suchen",
-roadmapTitle:"🚀 Demnächst",
-roadmapDesc:"NICHIFY entwickelt sich!",
 subs:"Abos",
 empty:"Keine Nischen",
-chTitle:"📊 Kanalanalyse"
+chTitle:"📊 Kanalanalyse",
+chStats:"📊 Kanalstatistiken",
+chEarn:"💰 Geschätzter Verdienst",
+chGender:"👥 Geschlecht",
+chAge:"📅 Alter",
+chCountry:"🌍 Länder",
+chGrowth:"📈 Wachstumstrend (Geschätzt)",
+chMale:"👨 Männlich",
+chFemale:"👩 Weiblich",
+chGoChannel:"🔗 Zum Kanal",
+chDisclaimer:"⚠️ Schätzungen basieren auf Branchendurchschnitten.",
+trendUp:"📈 Steigend",
+trendDown:"📉 Fallend",
+trendStable:"📊 Stabil",
+thisMonth:"Diesen Monat",
+lastMonth:"Letzten Monat",
+twoMonths:"Vor 2 Monaten",
+threeMonths:"Vor 3 Monaten"
 }
 };
 
@@ -562,36 +546,13 @@ renderTopNiches();
 }
 
 function applyTranslations(){
-const set=(id,key,attr)=>{const el=document.getElementById(id);if(el){if(attr==='placeholder')el.placeholder=t(key);else el.textContent=t(key)}};
-set("welcomeTitle","welcome");
-set("welcomeDesc","welcomeDesc");
-set("totalLabel","totalLabel");
-set("quickSearch","quickSearchPH","placeholder");
-set("quickSearchBtn","quickSearchBtn");
-set("ltTitle","ltTitle");
-set("ltDesc","ltDesc");
-set("ltSave","ltSave");
-set("ltSeats","ltSeats");
-set("ltCta","ltCta");
-set("risingTitle","risingTitle");
-set("risingSubtitle","risingSubtitle");
-set("topNichesTitle","topNichesTitle");
-set("topNichesSubtitle","topNichesSubtitle");
-set("viewAll1","viewAll");
-set("viewAll2","viewAll");
-set("tab1","tab1");
-set("tab2","tab2");
-set("tab3","tab3");
-set("tab4","tab4");
-set("searchTitle","searchTitle");
-set("searchInput","searchPH","placeholder");
-set("resultsTitle","resultsTitle");
-set("trendingTitle","trendingTitle");
-set("trendingDesc","trendingDesc");
-set("trendingSearch","trendingPH","placeholder");
-set("trendingBtn","trendingBtn");
-set("roadmapTitle","roadmapTitle");
-set("roadmapDesc","roadmapDesc");
+const s=(id,key,attr)=>{const el=document.getElementById(id);if(el){if(attr==='placeholder')el.placeholder=t(key);else el.textContent=t(key)}};
+s("welcomeTitle","welcome");s("welcomeDesc","welcomeDesc");s("totalLabel","totalLabel");
+s("quickSearch","quickSearchPH","placeholder");s("quickSearchBtn","quickSearchBtn");
+s("ltTitle","ltTitle");s("ltCta","ltCta");
+s("risingTitle","risingTitle");s("topNichesTitle","topNichesTitle");
+s("viewAll1","viewAll");s("viewAll2","viewAll");
+s("tab1","tab1");s("tab2","tab2");s("tab3","tab3");s("tab4","tab4");
 }
 
 function clamp(n){return Math.max(0,Math.min(100,Math.round(n)))}
@@ -610,126 +571,132 @@ function getRiskYap(n){return n.risk.yap[lang]||n.risk.yap.tr}
 function getEx(ex,field){return ex[field][lang]||ex[field].tr}
 function formatNumber(n){if(n>=1000000)return(n/1000000).toFixed(1)+"M";if(n>=1000)return(n/1000).toFixed(1)+"K";return n}
 
-function switchTab(tab){document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".tab-content").forEach(x=>x.style.display="none");document.querySelector(`.tab[onclick*="${tab}"]`).classList.add("active");document.getElementById("tab-"+tab).style.display="block";if(tab==="trending"&&!trendingLoaded)loadTrending()}
+function switchTab(tab){document.querySelectorAll(".tab").forEach(x=>x.classList.remove("active"));document.querySelectorAll(".tab-content").forEach(x=>x.style.display="none");document.querySelector('.tab[onclick*="'+tab+'"]').classList.add("active");document.getElementById("tab-"+tab).style.display="block";if(tab==="trending"&&!trendingLoaded)loadTrending()}
 
-function quickSearch(){const q=document.getElementById("quickSearch").value.trim();if(!q)return;document.getElementById("trendingSearch").value=q;switchTab('trending');setTimeout(()=>loadTrending(),300)}async function loadRisingChannels(){
-const el=document.getElementById("risingChannels");
-try{
-const r=await fetch('/api/search?endpoint=trending&region=US&limit=10');
-const data=await r.json();
-if(data.channels&&data.channels.length){
-trendingData=data.channels;
-el.innerHTML=data.channels.slice(0,8).map((ch,i)=>{
-const ratio=(ch.view_count/Math.max(ch.subscriber_count,1)).toFixed(1);
-return `<div class="channel-row" onclick="openChannelDetail('${ch.channel_id}',${i})">
-<img src="${ch.channel_thumbnail}" alt=""/>
-<div class="info">
-<h4>${esc(ch.channel_title)}</h4>
-<p>${formatNumber(ch.subscriber_count)} ${t("subs")}</p>
-</div>
-<div class="badge">${ratio}x</div>
-</div>`}).join("");
-}else{el.innerHTML='<p style="color:var(--muted);text-align:center;padding:20px">Yok</p>'}
-}catch(e){el.innerHTML='<p style="color:var(--red);text-align:center;padding:20px">Yükleniyor...</p>'}
+function quickSearch(){const q=document.getElementById("quickSearch").value.trim();if(!q)return;document.getElementById("trendingSearch").value=q;switchTab('trending');setTimeout(function(){loadTrending()},300)}function getCountries(chTitle){
+var x=(chTitle||'').toLowerCase();
+if(/türk|turk|tr |türkçe/.test(x))return[{flag:'🇹🇷',name:'Türkiye',pct:72},{flag:'🇩🇪',name:'Almanya',pct:10},{flag:'🇺🇸',name:'ABD',pct:5},{flag:'🇦🇿',name:'Azerbaycan',pct:4},{flag:'🇳🇱',name:'Hollanda',pct:3}];
+if(/deutsch|german|auf deutsch/.test(x))return[{flag:'🇩🇪',name:'Almanya',pct:58},{flag:'🇦🇹',name:'Avusturya',pct:16},{flag:'🇨🇭',name:'İsviçre',pct:12},{flag:'🇺🇸',name:'ABD',pct:5},{flag:'🇹🇷',name:'Türkiye',pct:3}];
+if(/español|spanish/.test(x))return[{flag:'🇪🇸',name:'İspanya',pct:30},{flag:'🇲🇽',name:'Meksika',pct:25},{flag:'🇦🇷',name:'Arjantin',pct:15},{flag:'🇺🇸',name:'ABD',pct:12},{flag:'🇨🇴',name:'Kolombiya',pct:8}];
+if(/français|french/.test(x))return[{flag:'🇫🇷',name:'Fransa',pct:55},{flag:'🇨🇦',name:'Kanada',pct:15},{flag:'🇧🇪',name:'Belçika',pct:10},{flag:'🇨🇭',name:'İsviçre',pct:8},{flag:'🇺🇸',name:'ABD',pct:5}];
+if(/japan|日本/.test(x))return[{flag:'🇯🇵',name:'Japonya',pct:75},{flag:'🇺🇸',name:'ABD',pct:8},{flag:'🇧🇷',name:'Brezilya',pct:5},{flag:'🇬🇧',name:'İngiltere',pct:4},{flag:'🇩🇪',name:'Almanya',pct:3}];
+if(/india|hindi/.test(x))return[{flag:'🇮🇳',name:'Hindistan',pct:65},{flag:'🇺🇸',name:'ABD',pct:12},{flag:'🇬🇧',name:'İngiltere',pct:8},{flag:'🇨🇦',name:'Kanada',pct:5},{flag:'🇦🇪',name:'BAE',pct:4}];
+return[{flag:'🇺🇸',name:'ABD',pct:35},{flag:'🇮🇳',name:'Hindistan',pct:18},{flag:'🇬🇧',name:'İngiltere',pct:10},{flag:'🇨🇦',name:'Kanada',pct:8},{flag:'🇦🇺',name:'Avustralya',pct:6}];
 }
 
-function renderTopNiches(){
-const el=document.getElementById("topNiches");
-const top=NICHES_DATA.map(n=>({n,score:overall(n)})).sort((a,b)=>b.score-a.score).slice(0,8);
-el.innerHTML=top.map(({n,score})=>{
-const cat=getCat(n);
-const icon=cat.match(/Tek|Tech/)?"💻":cat.match(/Fin/)?"💰":cat.match(/Eğ|Edu/)?"📚":cat.match(/Yem|Food/)?"🍳":"🎯";
-return `<div class="niche-row" onclick="switchTab('niches');setTimeout(()=>openDetail('${n.id}'),100)">
-<div class="icon">${icon}</div>
-<div class="info">
-<h4>${esc(getName(n))}</h4>
-<p>${esc(cat)} · ${score}/100</p>
-</div>
-<div class="stats">
-<span>📊 ${score}</span>
-<span>🛡️ ${n.risk.score}</span>
-</div>
-</div>`}).join("");
+function detectNiche(title,desc){var x=(title+' '+desc).toLowerCase();if(/finance|invest|crypto|trading|money/.test(x))return{name:'Finans',rpm:{min:8,max:15,avg:11.5}};if(/business|startup|entrepreneur/.test(x))return{name:'Business',rpm:{min:6,max:12,avg:9}};if(/tech|ai|programming|code|software/.test(x))return{name:'Teknoloji',rpm:{min:3,max:7,avg:5}};if(/education|learn|tutorial|course/.test(x))return{name:'Eğitim',rpm:{min:4,max:8,avg:6}};if(/game|gaming|gamer/.test(x))return{name:'Oyun',rpm:{min:1,max:3,avg:2}};if(/beauty|makeup|skin/.test(x))return{name:'Güzellik',rpm:{min:2,max:5,avg:3.5}};if(/food|cook|recipe/.test(x))return{name:'Yemek',rpm:{min:2,max:4,avg:3}};if(/health|medical|wellness/.test(x))return{name:'Sağlık',rpm:{min:5,max:9,avg:7}};if(/fitness|workout|gym/.test(x))return{name:'Fitness',rpm:{min:3,max:6,avg:4.5}};if(/travel|tour/.test(x))return{name:'Seyahat',rpm:{min:2,max:5,avg:3.5}};return{name:'Genel',rpm:{min:2,max:5,avg:3.5}}}
+
+function getDemographics(n){var d={'Finans':{m:72,f:28,a:15,b:38,c:30,d:17},'Business':{m:65,f:35,a:18,b:42,c:28,d:12},'Teknoloji':{m:78,f:22,a:28,b:40,c:22,d:10},'Oyun':{m:82,f:18,a:45,b:35,c:15,d:5},'Güzellik':{m:18,f:82,a:38,b:35,c:20,d:7},'Yemek':{m:38,f:62,a:22,b:35,c:28,d:15},'Fitness':{m:55,f:45,a:32,b:40,c:20,d:8},'Eğitim':{m:52,f:48,a:35,b:35,c:20,d:10}};return d[n]||{m:58,f:42,a:28,b:35,c:22,d:15}}
+
+function calcGrowth(subs,views,videos){
+var monthlyGrowth=Math.round(subs/Math.max(12,1));
+var m1=monthlyGrowth+Math.round(Math.random()*500);
+var m2=Math.round(m1*0.88);
+var m3=Math.round(m2*0.82);
+var m4=Math.round(m3*0.75);
+var maxG=Math.max(m1,m2,m3,m4);
+var trend=m1>m2?'up':m1<m2*0.9?'down':'stable';
+return{months:[{label:t('thisMonth'),value:m1,pct:Math.round((m1/maxG)*100)},{label:t('lastMonth'),value:m2,pct:Math.round((m2/maxG)*100)},{label:t('twoMonths'),value:m3,pct:Math.round((m3/maxG)*100)},{label:t('threeMonths'),value:m4,pct:Math.round((m4/maxG)*100)}],trend:trend}
 }
-
-function detectNiche(title,desc){const x=(title+' '+desc).toLowerCase();if(/finance|invest|crypto|trading|money/.test(x))return{name:'Finans',rpm:{min:8,max:15,avg:11.5}};if(/business|startup|entrepreneur/.test(x))return{name:'Business',rpm:{min:6,max:12,avg:9}};if(/tech|ai|programming|code|software/.test(x))return{name:'Teknoloji',rpm:{min:3,max:7,avg:5}};if(/education|learn|tutorial|course/.test(x))return{name:'Eğitim',rpm:{min:4,max:8,avg:6}};if(/game|gaming|gamer/.test(x))return{name:'Oyun',rpm:{min:1,max:3,avg:2}};if(/beauty|makeup|skin/.test(x))return{name:'Güzellik',rpm:{min:2,max:5,avg:3.5}};if(/food|cook|recipe/.test(x))return{name:'Yemek',rpm:{min:2,max:4,avg:3}};if(/health|medical|wellness/.test(x))return{name:'Sağlık',rpm:{min:5,max:9,avg:7}};if(/fitness|workout|gym/.test(x))return{name:'Fitness',rpm:{min:3,max:6,avg:4.5}};if(/travel|tour/.test(x))return{name:'Seyahat',rpm:{min:2,max:5,avg:3.5}};return{name:'Genel',rpm:{min:2,max:5,avg:3.5}}}
-
-function getDemographics(n){const d={'Finans':{m:72,f:28,a:15,b:38,c:30,d:17},'Business':{m:65,f:35,a:18,b:42,c:28,d:12},'Teknoloji':{m:78,f:22,a:28,b:40,c:22,d:10},'Oyun':{m:82,f:18,a:45,b:35,c:15,d:5},'Güzellik':{m:18,f:82,a:38,b:35,c:20,d:7},'Yemek':{m:38,f:62,a:22,b:35,c:28,d:15},'Fitness':{m:55,f:45,a:32,b:40,c:20,d:8},'Eğitim':{m:52,f:48,a:35,b:35,c:20,d:10}};return d[n]||{m:58,f:42,a:28,b:35,c:22,d:15}}
-
-function getCountries(){return[{flag:'🇺🇸',name:'ABD',pct:35},{flag:'🇮🇳',name:'Hindistan',pct:18},{flag:'🇬🇧',name:'İngiltere',pct:10},{flag:'🇨🇦',name:'Kanada',pct:8},{flag:'🇦🇺',name:'Avustralya',pct:6}]}
 
 function openChannelDetail(channelId,idx){
-const ch=trendingData[idx]||trendingData.find(c=>c.channel_id===channelId);
+var ch=trendingData[idx]||trendingData.find(function(c){return c.channel_id===channelId});
 if(!ch)return;
-const niche=detectNiche(ch.channel_title,ch.channel_description);
-const avgViews=Math.round(ch.view_count/Math.max(ch.video_count,1));
-const monthlyVideos=(ch.video_count/Math.max(30,1)).toFixed(1);
-const monthlyViews=avgViews*(parseFloat(monthlyVideos)||1);
-const earnMin=Math.round((monthlyViews/1000)*niche.rpm.min);
-const earnMax=Math.round((monthlyViews/1000)*niche.rpm.max);
-const earnAvg=Math.round((monthlyViews/1000)*niche.rpm.avg);
-const demo=getDemographics(niche.name);
-const countries=getCountries();
+var niche=detectNiche(ch.channel_title,ch.channel_description);
+var avgViews=Math.round(ch.view_count/Math.max(ch.video_count,1));
+var monthlyVideos=(ch.video_count/Math.max(30,1)).toFixed(1);
+var monthlyViews=avgViews*(parseFloat(monthlyVideos)||1);
+var earnMin=Math.round((monthlyViews/1000)*niche.rpm.min);
+var earnMax=Math.round((monthlyViews/1000)*niche.rpm.max);
+var earnAvg=Math.round((monthlyViews/1000)*niche.rpm.avg);
+var demo=getDemographics(niche.name);
+var countries=getCountries(ch.channel_title);
+var growth=calcGrowth(ch.subscriber_count,ch.view_count,ch.video_count);
+var trendText=growth.trend==='up'?t('trendUp'):growth.trend==='down'?t('trendDown'):t('trendStable');
+var trendClass=growth.trend;
 
 document.getElementById("chModalTitle").textContent=t("chTitle");
 document.getElementById("chModalSub").textContent=niche.name;
 
-document.getElementById("chModalBody").innerHTML=`
-<div class="analytics-header">
-<img src="${ch.channel_thumbnail}" alt=""/>
-<div><h2>${esc(ch.channel_title)}</h2><p>${esc(ch.channel_description.substring(0,150))}</p></div>
-</div>
-<div class="analytics-grid">
-<div class="analytics-box">
-<h3>📊 Kanal İstatistikleri</h3>
-<div class="analytics-stat"><span>👥 Abone</span><strong>${formatNumber(ch.subscriber_count)}</strong></div>
-<div class="analytics-stat"><span>👁️ Toplam İzlenme</span><strong>${formatNumber(ch.view_count)}</strong></div>
-<div class="analytics-stat"><span>🎬 Video</span><strong>${ch.video_count}</strong></div>
-<div class="analytics-stat"><span>📊 Avg İzlenme</span><strong>${formatNumber(avgViews)}</strong></div>
-</div>
-<div class="analytics-box earnings-box">
-<h3>💰 Tahmini Aylık Kazanç</h3>
-<div class="earnings-amount">$${formatNumber(earnAvg)}</div>
-<div class="earnings-range">$${formatNumber(earnMin)} - $${formatNumber(earnMax)}</div>
-<div class="analytics-stat"><span>💵 RPM</span><strong>$${niche.rpm.min}-$${niche.rpm.max}</strong></div>
-<div class="analytics-stat"><span>📈 Yıllık</span><strong>$${formatNumber(earnMin*12)}-$${formatNumber(earnMax*12)}</strong></div>
-<div class="analytics-stat"><span>🎯 Niş</span><strong>${niche.name}</strong></div>
-</div>
-<div class="analytics-box">
-<h3>👥 Cinsiyet</h3>
-<div class="demo-bar"><div class="demo-bar-label"><span>👨 Erkek</span><strong>${demo.m}%</strong></div><div class="demo-bar-track"><div class="demo-bar-fill male" style="width:${demo.m}%"></div></div></div>
-<div class="demo-bar"><div class="demo-bar-label"><span>👩 Kadın</span><strong>${demo.f}%</strong></div><div class="demo-bar-track"><div class="demo-bar-fill female" style="width:${demo.f}%"></div></div></div>
-</div>
-<div class="analytics-box">
-<h3>📅 Yaş Dağılımı</h3>
-<div class="demo-bar"><div class="demo-bar-label"><span>18-24</span><strong>${demo.a}%</strong></div><div class="demo-bar-track"><div class="demo-bar-fill" style="width:${demo.a}%"></div></div></div>
-<div class="demo-bar"><div class="demo-bar-label"><span>25-34</span><strong>${demo.b}%</strong></div><div class="demo-bar-track"><div class="demo-bar-fill" style="width:${demo.b}%"></div></div></div>
-<div class="demo-bar"><div class="demo-bar-label"><span>35-44</span><strong>${demo.c}%</strong></div><div class="demo-bar-track"><div class="demo-bar-fill" style="width:${demo.c}%"></div></div></div>
-<div class="demo-bar"><div class="demo-bar-label"><span>45+</span><strong>${demo.d}%</strong></div><div class="demo-bar-track"><div class="demo-bar-fill" style="width:${demo.d}%"></div></div></div>
-</div>
-<div class="analytics-box">
-<h3>🌍 Ülke Dağılımı</h3>
-${countries.map(c=>`<div class="country-row"><span class="flag">${c.flag}</span><span class="name">${c.name}</span><span class="pct">${c.pct}%</span></div>`).join('')}
-</div>
-</div>
-<div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap">
-<a href="https://youtube.com/channel/${ch.channel_id}" target="_blank" class="btn btn-primary" style="text-decoration:none">🔗 Kanala Git</a>
-${ch.video_id?`<a href="https://youtube.com/watch?v=${ch.video_id}" target="_blank" class="btn btn-secondary" style="text-decoration:none">▶️ Video</a>`:''}
-</div>
-<div class="disclaimer">⚠️ Tahminler sektör ortalamalarına göre hesaplanmıştır.</div>`;
+document.getElementById("chModalBody").innerHTML=
+'<div class="analytics-header"><img src="'+ch.channel_thumbnail+'" alt=""/><div><h2>'+esc(ch.channel_title)+'</h2><p>'+esc(ch.channel_description.substring(0,150))+'</p></div></div>'+
+'<div class="analytics-grid">'+
+'<div class="analytics-box"><h3>'+t("chStats")+'</h3>'+
+'<div class="analytics-stat"><span>👥 Abone</span><strong>'+formatNumber(ch.subscriber_count)+'</strong></div>'+
+'<div class="analytics-stat"><span>👁️ İzlenme</span><strong>'+formatNumber(ch.view_count)+'</strong></div>'+
+'<div class="analytics-stat"><span>🎬 Video</span><strong>'+ch.video_count+'</strong></div>'+
+'<div class="analytics-stat"><span>📊 Avg İzlenme</span><strong>'+formatNumber(avgViews)+'</strong></div></div>'+
+
+'<div class="analytics-box earnings-box"><h3>'+t("chEarn")+'</h3>'+
+'<div class="earnings-amount">$'+formatNumber(earnAvg)+'</div>'+
+'<div class="earnings-range">$'+formatNumber(earnMin)+' - $'+formatNumber(earnMax)+'</div>'+
+'<div class="analytics-stat"><span>💵 RPM</span><strong>$'+niche.rpm.min+'-$'+niche.rpm.max+'</strong></div>'+
+'<div class="analytics-stat"><span>📈 Yıllık</span><strong>$'+formatNumber(earnMin*12)+'-$'+formatNumber(earnMax*12)+'</strong></div>'+
+'<div class="analytics-stat"><span>🎯 Niş</span><strong>'+niche.name+'</strong></div></div>'+
+
+'<div class="analytics-box"><h3>'+t("chGrowth")+'</h3>'+
+'<div class="growth-chart">'+growth.months.map(function(m){var cls=m===growth.months[0]?'up':'up';return '<div class="growth-bar"><div class="label">'+m.label+'</div><div class="track"><div class="bar-fill '+cls+'" style="width:'+m.pct+'%"></div></div><div class="value '+cls+'">+'+formatNumber(m.value)+'</div></div>'}).join('')+'</div>'+
+'<div class="trend-indicator '+trendClass+'">'+trendText+'</div></div>'+
+
+'<div class="analytics-box"><h3>'+t("chGender")+'</h3>'+
+'<div class="demo-bar"><div class="demo-bar-label"><span>'+t("chMale")+'</span><strong>'+demo.m+'%</strong></div><div class="demo-bar-track"><div class="demo-bar-fill male" style="width:'+demo.m+'%"></div></div></div>'+
+'<div class="demo-bar"><div class="demo-bar-label"><span>'+t("chFemale")+'</span><strong>'+demo.f+'%</strong></div><div class="demo-bar-track"><div class="demo-bar-fill female" style="width:'+demo.f+'%"></div></div></div></div>'+
+
+'<div class="analytics-box"><h3>'+t("chAge")+'</h3>'+
+'<div class="demo-bar"><div class="demo-bar-label"><span>18-24</span><strong>'+demo.a+'%</strong></div><div class="demo-bar-track"><div class="demo-bar-fill" style="width:'+demo.a+'%"></div></div></div>'+
+'<div class="demo-bar"><div class="demo-bar-label"><span>25-34</span><strong>'+demo.b+'%</strong></div><div class="demo-bar-track"><div class="demo-bar-fill" style="width:'+demo.b+'%"></div></div></div>'+
+'<div class="demo-bar"><div class="demo-bar-label"><span>35-44</span><strong>'+demo.c+'%</strong></div><div class="demo-bar-track"><div class="demo-bar-fill" style="width:'+demo.c+'%"></div></div></div>'+
+'<div class="demo-bar"><div class="demo-bar-label"><span>45+</span><strong>'+demo.d+'%</strong></div><div class="demo-bar-track"><div class="demo-bar-fill" style="width:'+demo.d+'%"></div></div></div></div>'+
+
+'<div class="analytics-box"><h3>'+t("chCountry")+'</h3>'+
+countries.map(function(c){return '<div class="country-row"><span class="flag">'+c.flag+'</span><span class="name">'+c.name+'</span><span class="pct">'+c.pct+'%</span></div>'}).join('')+'</div>'+
+
+'</div>'+
+'<div style="display:flex;gap:10px;margin-top:20px;flex-wrap:wrap">'+
+'<a href="https://youtube.com/channel/'+ch.channel_id+'" target="_blank" class="btn btn-primary" style="text-decoration:none">'+t("chGoChannel")+'</a>'+
+(ch.video_id?'<a href="https://youtube.com/watch?v='+ch.video_id+'" target="_blank" class="btn btn-secondary" style="text-decoration:none">▶️ Video</a>':'')+
+'</div>'+
+'<div class="disclaimer">'+t("chDisclaimer")+'</div>';
+
 document.getElementById("channelModal").classList.add("active");
 }
 
-function closeChannelModal(){document.getElementById("channelModal").classList.remove("active")}async function loadTrending(){
-const region=document.getElementById("trendingRegion").value;
-const searchQuery=document.getElementById("trendingSearch").value.trim();
-const grid=document.getElementById("trendingGrid");
+function closeChannelModal(){document.getElementById("channelModal").classList.remove("active")}
+
+async function loadRisingChannels(){
+var el=document.getElementById("risingChannels");
+try{
+var r=await fetch('/api/search?endpoint=trending&region=US&limit=20');
+var data=await r.json();
+if(data.channels&&data.channels.length){
+trendingData=data.channels;
+el.innerHTML=data.channels.slice(0,20).map(function(ch,i){
+var ratio=(ch.view_count/Math.max(ch.subscriber_count,1)).toFixed(1);
+return '<div class="channel-row" onclick="openChannelDetail(\''+ch.channel_id+'\','+i+')"><img src="'+ch.channel_thumbnail+'" alt=""/><div class="info"><h4>'+esc(ch.channel_title)+'</h4><p>'+formatNumber(ch.subscriber_count)+' '+t("subs")+'</p></div><div class="badge">'+ratio+'x</div></div>'
+}).join("");
+}else{el.innerHTML='<p style="color:var(--muted);text-align:center;padding:20px">Yok</p>'}
+}catch(e){el.innerHTML='<p style="color:var(--muted);text-align:center;padding:20px">Yükleniyor...</p>'}
+}
+
+function renderTopNiches(){
+var el=document.getElementById("topNiches");
+var top=NICHES_DATA.map(function(n){return{n:n,score:overall(n)}}).sort(function(a,b){return b.score-a.score}).slice(0,8);
+el.innerHTML=top.map(function(item){
+var n=item.n;var score=item.score;
+var cat=getCat(n);
+var icon=cat.match(/Tek|Tech/)?"💻":cat.match(/Fin/)?"💰":cat.match(/Eğ|Edu/)?"📚":cat.match(/Yem|Food/)?"🍳":"🎯";
+return '<div class="niche-row" onclick="switchTab(\'niches\');setTimeout(function(){openDetail(\''+n.id+'\')},100)"><div class="icon">'+icon+'</div><div class="info"><h4>'+esc(getName(n))+'</h4><p>'+esc(cat)+' · '+score+'/100</p></div><div class="stats"><span>📊 '+score+'</span><span>🛡️ '+n.risk.score+'</span></div></div>'
+}).join("");
+}async function loadTrending(){
+var region=document.getElementById("trendingRegion").value;
+var searchQuery=document.getElementById("trendingSearch").value.trim();
+var grid=document.getElementById("trendingGrid");
 grid.innerHTML='<div class="trending-loading"><div class="spinner"></div><p>Yükleniyor...</p></div>';
 try{
-let url='/api/search?endpoint=trending&region='+region+'&limit=50';
+var url='/api/search?endpoint=trending&region='+region+'&limit=50';
 if(searchQuery)url+='&q='+encodeURIComponent(searchQuery);
-const r=await fetch(url);
-const data=await r.json();
+var r=await fetch(url);
+var data=await r.json();
 if(data.success&&data.channels){
 trendingData=data.channels;
 trendingLoaded=true;
@@ -739,47 +706,50 @@ renderTrending(data.channels);
 }
 
 function renderTrending(channels){
-const grid=document.getElementById("trendingGrid");
+var grid=document.getElementById("trendingGrid");
 if(!channels||!channels.length){grid.innerHTML='<div class="empty">Yok</div>';return}
-grid.innerHTML='<div class="results-grid">'+channels.map((ch,i)=>'<div class="trending-card" onclick="openChannelDetail(\''+ch.channel_id+'\','+i+')"><div class="trending-thumb"><img src="'+(ch.video_thumbnail||ch.channel_thumbnail)+'" alt="" onerror="this.src=\''+ch.channel_thumbnail+'\'"/><div class="live-badge">LIVE</div><div class="trending-rank">'+(i+1)+'</div></div><div class="trending-info"><h3>'+esc(ch.video_title||ch.channel_title)+'</h3><div class="trending-channel"><img src="'+ch.channel_thumbnail+'" alt=""/><div class="trending-channel-info"><div class="trending-channel-name">'+esc(ch.channel_title)+'</div><div class="trending-channel-subs">'+formatNumber(ch.subscriber_count)+' '+t("subs")+'</div></div></div><div class="trending-stats"><span>👁️ '+formatNumber(ch.video_views)+'</span><span>📊 '+formatNumber(ch.view_count)+'</span></div><div class="trending-actions" onclick="event.stopPropagation()"><button class="btn btn-small btn-primary" onclick="openChannelDetail(\''+ch.channel_id+'\','+i+')">📊 Analiz</button><a href="https://youtube.com/channel/'+ch.channel_id+'" target="_blank" class="btn btn-small btn-secondary" style="text-decoration:none">🔗 Kanal</a></div></div></div>').join('')+'</div>';
+grid.innerHTML='<div class="results-grid">'+channels.map(function(ch,i){
+return '<div class="trending-card" onclick="openChannelDetail(\''+ch.channel_id+'\','+i+')"><div class="trending-thumb"><img src="'+(ch.video_thumbnail||ch.channel_thumbnail)+'" alt="" onerror="this.src=\''+ch.channel_thumbnail+'\'"/><div class="live-badge">LIVE</div><div class="trending-rank">'+(i+1)+'</div></div><div class="trending-info"><h3>'+esc(ch.video_title||ch.channel_title)+'</h3><div class="trending-channel"><img src="'+ch.channel_thumbnail+'" alt=""/><div class="trending-channel-info"><div class="trending-channel-name">'+esc(ch.channel_title)+'</div><div class="trending-channel-subs">'+formatNumber(ch.subscriber_count)+' '+t("subs")+'</div></div></div><div class="trending-stats"><span>👁️ '+formatNumber(ch.video_views)+'</span><span>📊 '+formatNumber(ch.view_count)+'</span></div><div class="trending-actions" onclick="event.stopPropagation()"><button class="btn btn-small btn-primary" onclick="openChannelDetail(\''+ch.channel_id+'\','+i+')">📊 Analiz</button><a href="https://youtube.com/channel/'+ch.channel_id+'" target="_blank" class="btn btn-small btn-secondary" style="text-decoration:none">🔗 Kanal</a></div></div></div>'
+}).join('')+'</div>';
 }
 
 function render(){
-const q=document.getElementById("searchInput").value.trim().toLowerCase();
-const lf=document.getElementById("langFilter").value;
-const sort=document.getElementById("sortFilter").value;
-const hO=document.getElementById("hiddenOnly").checked;
-const nO=document.getElementById("newChannelOnly").checked;
-const fO=document.getElementById("facelessOnly").checked;
-let list=NICHES_DATA.filter(n=>{
-const h=[getName(n),n.en,getCat(n),getSub(n)].join(" ").toLowerCase();
-if(q&&!h.includes(q))return false;
-if(lf!=="all"&&!n.langs.includes(lf))return false;
+var q=document.getElementById("searchInput").value.trim().toLowerCase();
+var lf=document.getElementById("langFilter").value;
+var sort=document.getElementById("sortFilter").value;
+var hO=document.getElementById("hiddenOnly").checked;
+var nO=document.getElementById("newChannelOnly").checked;
+var fO=document.getElementById("facelessOnly").checked;
+var list=NICHES_DATA.filter(function(n){
+var h=[getName(n),n.en,getCat(n),getSub(n)].join(" ").toLowerCase();
+if(q&&h.indexOf(q)===-1)return false;
+if(lf!=="all"&&n.langs.indexOf(lf)===-1)return false;
 if(hO&&hiddenS(n)<70)return false;
 if(nO&&n.scores.newCh<75)return false;
 if(fO&&n.scores.faceless<80)return false;
 return true});
-list.sort((a,b)=>{if(sort==="hidden")return hiddenS(b)-hiddenS(a);if(sort==="lowComp")return a.scores.comp-b.scores.comp;if(sort==="money")return b.scores.money-a.scores.money;if(sort==="new")return b.scores.newCh-a.scores.newCh;return overall(b)-overall(a)});
+list.sort(function(a,b){if(sort==="hidden")return hiddenS(b)-hiddenS(a);if(sort==="lowComp")return a.scores.comp-b.scores.comp;if(sort==="money")return b.scores.money-a.scores.money;if(sort==="new")return b.scores.newCh-a.scores.newCh;return overall(b)-overall(a)});
 if(isAdmin){document.getElementById("adminTotal").textContent=list.length}
-const g=document.getElementById("nichesGrid");
+var g=document.getElementById("nichesGrid");
 if(!list.length){g.innerHTML='<div class="empty" style="grid-column:1/-1">'+t("empty")+'</div>';return}
-g.innerHTML=list.map(n=>{
-const o=overall(n),h=hiddenS(n);
-return '<div class="niche-card" onclick="openDetail(\''+n.id+'\')"><div class="niche-head"><div><h3>'+esc(getName(n))+'</h3><div class="niche-category">'+esc(getCat(n))+' · '+esc(getSub(n))+'</div></div><div class="score-badge">'+o+'</div></div><div class="niche-chips">'+(h>=70?'<span class="chip green">🔍 Hidden</span>':'')+(n.scores.newCh>=75?'<span class="chip yellow">🆕 Yeni</span>':'')+'<span class="chip '+(n.scores.comp<=40?'green':n.scores.comp>65?'red':'yellow')+'">'+compLabel(n.scores.comp)+'</span><span class="chip blue">Risk: '+n.risk.score+'</span></div><div class="bars"><div class="bar-row"><span>Fırsat</span><div class="bar"><div class="fill" style="width:'+o+'%"></div></div><span>'+o+'</span></div><div class="bar-row"><span>Hidden</span><div class="bar"><div class="fill" style="width:'+h+'%"></div></div><span>'+h+'</span></div><div class="bar-row"><span>Kazanç</span><div class="bar"><div class="fill" style="width:'+n.scores.money+'%"></div></div><span>'+n.scores.money+'</span></div></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn btn-small btn-primary" onclick="openDetail(\''+n.id+'\')">📋 Detay</button><button class="btn btn-small btn-secondary" onclick="toggleFav(\''+n.id+'\')">'+(favorites.includes(n.id)?'⭐':'☆')+'</button></div></div>'}).join("")}
+g.innerHTML=list.map(function(n){
+var o=overall(n),h=hiddenS(n);
+return '<div class="niche-card" onclick="openDetail(\''+n.id+'\')"><div class="niche-head"><div><h3>'+esc(getName(n))+'</h3><div class="niche-category">'+esc(getCat(n))+' · '+esc(getSub(n))+'</div></div><div class="score-badge">'+o+'</div></div><div class="niche-chips">'+(h>=70?'<span class="chip green">🔍 Hidden</span>':'')+(n.scores.newCh>=75?'<span class="chip yellow">🆕 Yeni</span>':'')+'<span class="chip '+(n.scores.comp<=40?'green':n.scores.comp>65?'red':'yellow')+'">'+compLabel(n.scores.comp)+'</span><span class="chip blue">Risk: '+n.risk.score+'</span></div><div class="bars"><div class="bar-row"><span>Fırsat</span><div class="bar"><div class="fill" style="width:'+o+'%"></div></div><span>'+o+'</span></div><div class="bar-row"><span>Hidden</span><div class="bar"><div class="fill" style="width:'+h+'%"></div></div><span>'+h+'</span></div><div class="bar-row"><span>Kazanç</span><div class="bar"><div class="fill" style="width:'+n.scores.money+'%"></div></div><span>'+n.scores.money+'</span></div></div><div class="card-actions" onclick="event.stopPropagation()"><button class="btn btn-small btn-primary" onclick="openDetail(\''+n.id+'\')">📋 Detay</button><button class="btn btn-small btn-secondary" onclick="toggleFav(\''+n.id+'\')">'+(favorites.indexOf(n.id)>-1?'⭐':'☆')+'</button></div></div>'
+}).join("")}
 
 function openDetail(id){
-const n=NICHES_DATA.find(x=>x.id===id);if(!n)return;
+var n=NICHES_DATA.find(function(x){return x.id===id});if(!n)return;
 document.getElementById("modalTitle").textContent=getName(n);
 document.getElementById("modalSub").textContent=getCat(n)+" · "+getSub(n);
-const o=overall(n),h=hiddenS(n);
-document.getElementById("modalBody").innerHTML='<div class="niche-chips" style="margin-bottom:16px">'+n.langs.map(l=>'<span class="chip blue">'+l+'</span>').join('')+'<span class="chip green">Fırsat: '+o+'</span><span class="chip yellow">Hidden: '+h+'</span></div><div class="detail-grid"><div class="detail-box"><h3>📊 Puanlar</h3>'+[['Fırsat',o],['Hidden',h],['Rekabet',n.scores.comp],['Kazanç',n.scores.money],['Trend',n.scores.trend]].map(r=>'<div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:4px"><span>'+r[0]+'</span><span>'+r[1]+'</span></div><div class="bar"><div class="fill" style="width:'+r[1]+'%"></div></div></div>').join('')+'</div><div class="detail-box"><h3>🎯 Hedef & Rakip</h3><p><strong>Hedef:</strong> '+esc(getAudience(n))+'</p><p><strong>Rakip:</strong> '+esc(getComp(n))+'</p></div><div class="detail-box risk-section"><h3>🛡️ Risk Analizi</h3><p><strong>Güvenlik:</strong> '+n.risk.score+'/100</p><p><strong>Risk:</strong> '+esc(getRiskSebep(n))+'</p><h3 style="margin-top:10px">❌ YAPMA</h3><ul>'+getRiskYapma(n).map(x=>'<li>❌ '+esc(x)+'</li>').join('')+'</ul><h3 style="margin-top:10px">✅ YAP</h3><ul>'+getRiskYap(n).map(x=>'<li>✅ '+esc(x)+'</li>').join('')+'</ul></div></div><div class="examples-section"><h3 style="margin:20px 0 12px">📺 Örnek Kanallar</h3>'+n.examples.map(ex=>{const typeLabel=ex.type==="beginner"?"🌱 Yeni":ex.type==="rising"?"🚀 Yükselen":"🏆 Başarı";return '<div class="example-card '+ex.type+'"><h4>'+typeLabel+' - '+esc(ex.name)+'</h4><div class="ex-stats"><span>📊 '+esc(ex.subs)+'</span><span>📅 '+esc(getEx(ex,"age"))+'</span><span>📈 '+esc(ex.growth)+'</span></div><div class="ex-strategy">💡 '+esc(getEx(ex,"strategy"))+'</div></div>'}).join('')+'</div>';
+var o=overall(n),h=hiddenS(n);
+document.getElementById("modalBody").innerHTML='<div class="niche-chips" style="margin-bottom:16px">'+n.langs.map(function(l){return '<span class="chip blue">'+l+'</span>'}).join('')+'<span class="chip green">Fırsat: '+o+'</span><span class="chip yellow">Hidden: '+h+'</span></div><div class="detail-grid"><div class="detail-box"><h3>📊 Puanlar</h3>'+[['Fırsat',o],['Hidden',h],['Rekabet',n.scores.comp],['Kazanç',n.scores.money],['Trend',n.scores.trend]].map(function(r){return '<div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:4px"><span>'+r[0]+'</span><span>'+r[1]+'</span></div><div class="bar"><div class="fill" style="width:'+r[1]+'%"></div></div></div>'}).join('')+'</div><div class="detail-box"><h3>🎯 Hedef & Rakip</h3><p><strong>Hedef:</strong> '+esc(getAudience(n))+'</p><p><strong>Rakip:</strong> '+esc(getComp(n))+'</p></div><div class="detail-box risk-section"><h3>🛡️ Risk</h3><p><strong>Güvenlik:</strong> '+n.risk.score+'/100</p><p><strong>Risk:</strong> '+esc(getRiskSebep(n))+'</p><h3 style="margin-top:10px">❌ YAPMA</h3><ul>'+getRiskYapma(n).map(function(x){return '<li>❌ '+esc(x)+'</li>'}).join('')+'</ul><h3 style="margin-top:10px">✅ YAP</h3><ul>'+getRiskYap(n).map(function(x){return '<li>✅ '+esc(x)+'</li>'}).join('')+'</ul></div></div><div class="examples-section"><h3 style="margin:20px 0 12px">📺 Örnek Kanallar</h3>'+n.examples.map(function(ex){var typeLabel=ex.type==="beginner"?"🌱 Yeni":ex.type==="rising"?"🚀 Yükselen":"🏆 Başarı";return '<div class="example-card '+ex.type+'"><h4>'+typeLabel+' - '+esc(ex.name)+'</h4><div class="ex-stats"><span>📊 '+esc(ex.subs)+'</span><span>📅 '+esc(getEx(ex,"age"))+'</span><span>📈 '+esc(ex.growth)+'</span></div><div class="ex-strategy">💡 '+esc(getEx(ex,"strategy"))+'</div></div>'}).join('')+'</div>';
 document.getElementById("detailModal").classList.add("active")}
 
 function closeModal(){document.getElementById("detailModal").classList.remove("active")}
-function toggleFav(id){if(favorites.includes(id))favorites=favorites.filter(x=>x!==id);else favorites.push(id);localStorage.setItem("nf_favs",JSON.stringify(favorites));render()}
-function toggleAI(){const c=document.getElementById("aiChat");const b=document.getElementById("aiBotBtn");c.classList.toggle("active");b.classList.toggle("active");b.textContent=c.classList.contains("active")?"✕":"🤖"}
+function toggleFav(id){var idx=favorites.indexOf(id);if(idx>-1)favorites.splice(idx,1);else favorites.push(id);localStorage.setItem("nf_favs",JSON.stringify(favorites));render()}
+function toggleAI(){var c=document.getElementById("aiChat");var b=document.getElementById("aiBotBtn");c.classList.toggle("active");b.classList.toggle("active");b.textContent=c.classList.contains("active")?"✕":"🤖"}
 
-function askAI(qId){const m=document.getElementById("aiMessages");const answers={q1:"🎯 3 adım: 1. Hidden Opportunity 2. Yeni Kanal Dostu 3. Risk 80+",q2:"🧪 30 günde test: 10 short paylaş, 1000+ izlenme = çalışıyor!",q3:"💰 En karlı: Finance ($8-15 RPM), Business, Tech",q4:"🛡️ Risk Detector güvenlik puanı verir. 80+ güvenli!",q5:"⚠️ Sebepler: Telif hakkı, kurallar, COPPA",q6:"📜 Royalty-free müzik kullan!",q7:"💰 5 yol: AdSense, Sponsorluk, Affiliate",q8:"📈 6 ayda 1000 abone: 10 video, sonra haftada 3",q9:"🤝 10K+ aboneden sonra. İlk: $200-500"};const questions={q1:"Hangi nişle başlamalıyım?",q2:"Niş nasıl test edilir?",q3:"Hangi niş para kazandırır?",q4:"Risk Detector ne yapar?",q5:"Kanalım neden kapanır?",q6:"Telif hakkı?",q7:"Para nasıl kazanırım?",q8:"1000 aboneye nasıl ulaşırım?",q9:"Sponsorluk?"};const u=document.createElement("div");u.className="ai-message user";u.textContent=questions[qId];m.appendChild(u);const ty=document.createElement("div");ty.className="ai-message bot";ty.innerHTML="⏳ Yazıyor...";m.appendChild(ty);m.scrollTop=m.scrollHeight;setTimeout(()=>{ty.innerHTML=answers[qId];m.scrollTop=m.scrollHeight},800)}
+function askAI(qId){var m=document.getElementById("aiMessages");var answers={q1:"🎯 3 adım: 1. Hidden Opportunity 2. Yeni Kanal Dostu 3. Risk 80+",q2:"🧪 30 günde test: 10 short paylaş, 1000+ izlenme = çalışıyor!",q3:"💰 En karlı: Finance ($8-15 RPM), Business, Tech",q4:"🛡️ Risk Detector güvenlik puanı verir. 80+ güvenli!",q5:"⚠️ Sebepler: Telif hakkı, kurallar, COPPA",q6:"📜 Royalty-free müzik kullan!",q7:"💰 5 yol: AdSense, Sponsorluk, Affiliate",q8:"📈 6 ayda 1000 abone: 10 video, sonra haftada 3",q9:"🤝 10K+ aboneden sonra. İlk: $200-500"};var questions={q1:"Hangi nişle başlamalıyım?",q2:"Niş nasıl test edilir?",q3:"Hangi niş para kazandırır?",q4:"Risk Detector ne yapar?",q5:"Kanalım neden kapanır?",q6:"Telif hakkı?",q7:"Para nasıl kazanırım?",q8:"1000 aboneye nasıl?",q9:"Sponsorluk?"};var u=document.createElement("div");u.className="ai-message user";u.textContent=questions[qId];m.appendChild(u);var ty=document.createElement("div");ty.className="ai-message bot";ty.innerHTML="⏳ Yazıyor...";m.appendChild(ty);m.scrollTop=m.scrollHeight;setTimeout(function(){ty.innerHTML=answers[qId];m.scrollTop=m.scrollHeight},800)}
 
 if(isAdmin)document.getElementById("adminBanner").classList.add("active");
 
@@ -794,7 +764,7 @@ document.getElementById("quickSearch").addEventListener("keypress",function(e){i
 document.getElementById("detailModal").addEventListener("click",function(e){if(e.target.id==="detailModal")closeModal()});
 document.getElementById("channelModal").addEventListener("click",function(e){if(e.target.id==="channelModal")closeChannelModal()});
 
-document.querySelectorAll(".lang-btn").forEach(b=>b.classList.remove("active"));
+document.querySelectorAll(".lang-btn").forEach(function(b){b.classList.remove("active")});
 document.getElementById("lang-"+lang).classList.add("active");
 
 applyTranslations();
