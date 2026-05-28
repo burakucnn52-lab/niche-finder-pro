@@ -473,4 +473,301 @@ function getEx(ex,f){return ex[f][lang]||ex[f].tr}
 function formatNumber(n){if(n>=1e6)return(n/1e6).toFixed(1)+"M";if(n>=1e3)return(n/1e3).toFixed(1)+"K";return n}
 
 function quickSearch(){var q=document.getElementById("quickSearch").value.trim();if(!q)return;document.getElementById("trendingSearch").value=q;goPage('trending');setTimeout(loadTrending,300)}
-function searchChannel(){var q=document.getElementById("analyticsSearch").value.trim();if(!q)return;document.getElementById("trendingSearch").value=q;goPage('trending');setTimeout(loadTrending,300)}
+function searchChannel(){var q=document.getElementById("analyticsSearch").value.trim();if(!q)return;document.getElementById("trendingSearch").value=q;goPage('trendifunction loadRising(){
+var cached=cacheGet('rising_'+lang);
+if(cached){document.getElementById('risingChannels').innerHTML=cached;return}
+var sorted=NICHES.slice().sort(function(a,b){return overall(b)-overall(a)}).slice(0,5);
+var html='';
+sorted.forEach(function(n,i){
+var ex=n.examples.rising;
+var name=getEx(n.examples,'rising');
+html+='<div class="ch-row" onclick="openChannelByName(\''+esc(name)+'\')">';
+html+='<img src="https://ui-avatars.com/api/?name='+encodeURIComponent(name)+'&background=4da3ff&color=fff" alt=""/>';
+html+='<div class="info"><h4>'+esc(name)+'</h4><p>'+getCat(n)+'</p></div>';
+html+='<div class="badge">#'+(i+1)+'</div></div>';
+});
+document.getElementById('risingChannels').innerHTML=html;
+cacheSet('rising_'+lang,html);
+}
+
+function renderTopN(){
+var sorted=NICHES.slice().sort(function(a,b){return overall(b)-overall(a)}).slice(0,5);
+var html='';
+sorted.forEach(function(n){
+html+='<div class="n-row" onclick="openModal('+NICHES.indexOf(n)+')">';
+html+='<div class="ic">'+(n.icon||'🎯')+'</div>';
+html+='<div class="info"><h4>'+esc(getName(n))+'</h4><p>'+t('opportunity')+': '+overall(n)+' · '+getCat(n)+'</p></div>';
+html+='<div class="badge">'+overall(n)+'</div></div>';
+});
+document.getElementById('topNiches').innerHTML=html;
+}
+
+function render(){
+var q=(document.getElementById("searchInput").value||"").toLowerCase().trim();
+var lf=document.getElementById("langFilter").value;
+var sf=document.getElementById("sortFilter").value;
+var hOnly=document.getElementById("hiddenOnly").checked;
+var nOnly=document.getElementById("newChannelOnly").checked;
+var fOnly=document.getElementById("facelessOnly").checked;
+var list=NICHES.filter(function(n){
+if(q&&getName(n).toLowerCase().indexOf(q)<0&&getCat(n).toLowerCase().indexOf(q)<0)return false;
+if(lf!=='all'&&n.lang&&n.lang.indexOf(lf)<0)return false;
+if(hOnly&&hiddenS(n)<70)return false;
+if(nOnly&&n.scores.newCh<70)return false;
+if(fOnly&&n.scores.faceless<70)return false;
+return true;
+});
+if(sf==='hidden')list.sort(function(a,b){return hiddenS(b)-hiddenS(a)});
+else if(sf==='lowComp')list.sort(function(a,b){return a.scores.comp-b.scores.comp});
+else if(sf==='money')list.sort(function(a,b){return b.scores.money-a.scores.money});
+else if(sf==='new')list.sort(function(a,b){return b.scores.newCh-a.scores.newCh});
+else list.sort(function(a,b){return overall(b)-overall(a)});
+document.getElementById('statHidden').textContent=NICHES.filter(function(n){return hiddenS(n)>=70}).length;
+var g=document.getElementById('nichesGrid');
+if(list.length===0){g.innerHTML='<div class="empty">'+t('empty')+'</div>';return}
+var html='';
+list.forEach(function(n){
+var o=overall(n),h=hiddenS(n),i=NICHES.indexOf(n);
+html+='<div class="niche-card" onclick="openModal('+i+')">';
+html+='<div class="niche-head"><h3>'+(n.icon||'🎯')+' '+esc(getName(n))+'</h3><div class="score-badge">'+o+'</div></div>';
+html+='<div class="niche-category">'+esc(getCat(n))+' · '+esc(getSub(n))+'</div>';
+html+='<div class="chips">';
+if(h>=70)html+='<span class="chip green">🔍 '+t('hidden')+' '+h+'</span>';
+if(n.scores.newCh>=70)html+='<span class="chip blue">🆕</span>';
+if(n.scores.faceless>=70)html+='<span class="chip yellow">🎭</span>';
+html+='<span class="chip '+(n.scores.comp<=40?'green':n.scores.comp<=65?'yellow':'red')+'">'+compLabel(n.scores.comp)+'</span>';
+html+='</div>';
+html+='<div class="bars">';
+html+='<div class="bar-row"><span>💰 '+t('earnings')+'</span><div class="bar"><div class="fill" style="width:'+n.scores.money+'%"></div></div><span>'+n.scores.money+'</span></div>';
+html+='<div class="bar-row"><span>📈 Trend</span><div class="bar"><div class="fill" style="width:'+n.scores.trend+'%"></div></div><span>'+n.scores.trend+'</span></div>';
+html+='<div class="bar-row"><span>🛡️ '+t('safety')+'</span><div class="bar"><div class="fill" style="width:'+(n.risk.score||80)+'%"></div></div><span>'+(n.risk.score||80)+'</span></div>';
+html+='</div>';
+html+='<div class="card-actions"><button class="btn btn-primary btn-small" onclick="event.stopPropagation();openModal('+i+')">📋 '+t('detail')+'</button></div>';
+html+='</div>';
+});
+g.innerHTML=html;
+}
+
+function openModal(idx){
+var n=NICHES[idx];
+document.getElementById('modalTitle').textContent=(n.icon||'🎯')+' '+getName(n);
+document.getElementById('modalSub').textContent=getCat(n)+' · '+getSub(n);
+var b=document.getElementById('modalBody');
+var html='<div class="detail-grid">';
+html+='<div class="detail-box"><h3>'+t('scores')+'</h3>';
+html+='<div class="d-bar"><div class="d-bar-label"><span>⭐ '+t('opportunity')+'</span><span>'+overall(n)+'</span></div><div class="d-bar-track"><div class="d-bar-fill" style="width:'+overall(n)+'%"></div></div></div>';
+html+='<div class="d-bar"><div class="d-bar-label"><span>🔍 Hidden</span><span>'+hiddenS(n)+'</span></div><div class="d-bar-track"><div class="d-bar-fill" style="width:'+hiddenS(n)+'%"></div></div></div>';
+html+='<div class="d-bar"><div class="d-bar-label"><span>💰 '+t('earnings')+'</span><span>'+n.scores.money+'</span></div><div class="d-bar-track"><div class="d-bar-fill" style="width:'+n.scores.money+'%"></div></div></div>';
+html+='<div class="d-bar"><div class="d-bar-label"><span>📉 '+t('compLabel')+'</span><span>'+n.scores.comp+'</span></div><div class="d-bar-track"><div class="d-bar-fill" style="width:'+n.scores.comp+'%"></div></div></div>';
+html+='</div>';
+html+='<div class="detail-box"><h3>'+t('target')+'</h3>';
+html+='<p><strong>'+t('targetLabel')+':</strong> '+esc(getAudience(n))+'</p>';
+html+='<p><strong>'+t('competitorLabel')+':</strong> '+esc(getComp(n))+'</p></div>';
+html+='</div>';
+html+='<div class="risk-section"><h3>'+t('riskTitle')+' · '+t('safety')+': '+(n.risk.score||80)+'/100</h3>';
+html+='<p style="color:#cfd9ea;font-size:11px;margin-bottom:8px">'+esc(getRiskSebep(n))+'</p>';
+html+='<div class="detail-grid">';
+html+='<div class="detail-box"><h3>'+t('dontDo')+'</h3><ul>';
+var yapma=getRiskYapma(n);if(Array.isArray(yapma))yapma.forEach(function(x){html+='<li>'+esc(x)+'</li>'});else html+='<li>'+esc(yapma)+'</li>';
+html+='</ul></div>';
+html+='<div class="detail-box"><h3>'+t('doThese')+'</h3><ul>';
+var yap=getRiskYap(n);if(Array.isArray(yap))yap.forEach(function(x){html+='<li>'+esc(x)+'</li>'});else html+='<li>'+esc(yap)+'</li>';
+html+='</ul></div></div></div>';
+if(n.examples){
+html+='<div class="ex-section"><h3 style="margin:12px 0 8px;font-size:14px">'+t('examples')+'</h3>';
+['beginner','rising','success'].forEach(function(f){
+if(n.examples[f]){
+html+='<div class="ex-card '+f+'"><h4>'+t(f)+': '+esc(getEx(n.examples,f))+'</h4>';
+if(n.examples[f].subs)html+='<div class="ex-stats"><span>👥 '+n.examples[f].subs+'</span><span>📹 '+(n.examples[f].videos||'?')+'</span></div>';
+if(n.examples[f].strategy){var st=n.examples[f].strategy[lang]||n.examples[f].strategy.tr;html+='<div class="ex-strat">'+esc(st)+'</div>'}
+html+='</div>';
+}
+});
+html+='</div>';
+}
+b.innerHTML=html;
+document.getElementById('detailModal').classList.add('active');
+}
+
+function closeModal(){document.getElementById('detailModal').classList.remove('active')}
+
+var API_KEY="BURAYA_KENDI_API_KEYIN";
+function loadTrending(){
+var q=document.getElementById('trendingSearch').value.trim();
+var r=document.getElementById('trendingRegion').value;
+var ck='trend_'+r+'_'+q;
+var cached=cacheGet(ck);
+if(cached){renderTrending(cached);trendingLoaded=true;return}
+var grid=document.getElementById('trendingGrid');
+grid.innerHTML='<div class="t-loading"><div class="spinner"></div><p>Loading...</p></div>';
+var url;
+if(q){url='https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q='+encodeURIComponent(q)+'&regionCode='+r+'&maxResults=12&key='+API_KEY}
+else{url='https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&chart=mostPopular&regionCode='+r+'&maxResults=12&key='+API_KEY}
+fetch(url).then(function(r){return r.json()}).then(function(d){
+if(!d.items){grid.innerHTML='<div class="empty">No data</div>';return}
+var ids=d.items.map(function(v){return v.id.videoId||v.id}).join(',');
+fetch('https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id='+ids+'&key='+API_KEY).then(function(r){return r.json()}).then(function(vd){
+trendingData=vd.items||[];
+cacheSet(ck,trendingData);
+renderTrending(trendingData);
+trendingLoaded=true;
+});
+}).catch(function(e){grid.innerHTML='<div class="empty">Error: '+e.message+'</div>'});
+}
+
+function renderTrending(items){
+var grid=document.getElementById('trendingGrid');
+if(!items||!items.length){grid.innerHTML='<div class="empty">No videos</div>';return}
+var html='<div class="results-grid">';
+items.forEach(function(v,i){
+var s=v.snippet,st=v.statistics||{};
+html+='<div class="t-card" onclick="openChannelById(\''+s.channelId+'\')">';
+html+='<div class="t-thumb"><img src="'+(s.thumbnails.medium?s.thumbnails.medium.url:s.thumbnails.default.url)+'" alt=""/>';
+html+='<div class="live">LIVE</div><div class="rank">'+(i+1)+'</div></div>';
+html+='<div class="t-info"><h3>'+esc(s.title.substring(0,60))+'</h3>';
+html+='<div class="t-stats"><span>👁️ '+formatNumber(parseInt(st.viewCount||0))+'</span><span>👍 '+formatNumber(parseInt(st.likeCount||0))+'</span></div>';
+html+='<div class="t-ch"><img src="https://ui-avatars.com/api/?name='+encodeURIComponent(s.channelTitle)+'&background=4da3ff&color=fff" alt=""/>';
+html+='<div><div class="t-ch-name">'+esc(s.channelTitle)+'</div><div class="t-ch-subs">'+s.publishedAt.substring(0,10)+'</div></div></div>';
+html+='<div class="t-actions"><button class="btn btn-primary btn-small" onclick="event.stopPropagation();openChannelById(\''+s.channelId+'\')">📊</button></div>';
+html+='</div></div>';
+});
+html+='</div>';
+grid.innerHTML=html;
+}
+
+function openChannelByName(name){
+document.getElementById('analyticsSearch').value=name;
+goPage('analytics');
+setTimeout(searchChannel,300);
+}ng');setTimeout(loadTrending,300)}function openChannelById(channelId){
+var ck='ch_'+channelId;
+var cached=cacheGet(ck);
+if(cached){renderChannelModal(cached);return}
+document.getElementById('chModalTitle').textContent='Loading...';
+document.getElementById('chModalBody').innerHTML='<div class="t-loading"><div class="spinner"></div><p>Loading...</p></div>';
+document.getElementById('channelModal').classList.add('active');
+fetch('https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics,brandingSettings&id='+channelId+'&key='+API_KEY).then(function(r){return r.json()}).then(function(d){
+if(!d.items||!d.items.length){document.getElementById('chModalBody').innerHTML='<div class="empty">Channel not found</div>';return}
+var ch=d.items[0];
+cacheSet(ck,ch);
+renderChannelModal(ch);
+}).catch(function(e){document.getElementById('chModalBody').innerHTML='<div class="empty">Error: '+e.message+'</div>'});
+}
+
+function searchChannel(){
+var q=document.getElementById('analyticsSearch').value.trim();
+if(!q)return;
+var ck='chsearch_'+q;
+var cached=cacheGet(ck);
+if(cached){openChannelById(cached);return}
+document.getElementById('analyticsResult').innerHTML='<div class="t-loading"><div class="spinner"></div><p>Searching...</p></div>';
+fetch('https://www.googleapis.com/youtube/v3/search?part=snippet&type=channel&q='+encodeURIComponent(q)+'&maxResults=1&key='+API_KEY).then(function(r){return r.json()}).then(function(d){
+if(!d.items||!d.items.length){document.getElementById('analyticsResult').innerHTML='<div class="empty">Not found</div>';return}
+var cid=d.items[0].snippet.channelId||d.items[0].id.channelId;
+cacheSet(ck,cid);
+document.getElementById('analyticsResult').innerHTML='';
+openChannelById(cid);
+}).catch(function(e){document.getElementById('analyticsResult').innerHTML='<div class="empty">Error: '+e.message+'</div>'});
+}
+
+function renderChannelModal(ch){
+var s=ch.snippet,st=ch.statistics;
+var subs=parseInt(st.subscriberCount||0);
+var views=parseInt(st.viewCount||0);
+var vids=parseInt(st.videoCount||0);
+var avgViews=vids>0?Math.round(views/vids):0;
+var rpm=2.5;
+var monthlyViews=avgViews*4;
+var earnLow=Math.round(monthlyViews*rpm*0.5/1000);
+var earnHigh=Math.round(monthlyViews*rpm*1.5/1000);
+var earnAvg=Math.round((earnLow+earnHigh)/2);
+document.getElementById('chModalTitle').textContent='📊 '+s.title;
+document.getElementById('chModalSub').textContent=formatNumber(subs)+' '+t('subs');
+var html='<div class="a-header">';
+html+='<img src="'+(s.thumbnails.high?s.thumbnails.high.url:s.thumbnails.default.url)+'" alt=""/>';
+html+='<div><h2>'+esc(s.title)+'</h2><p style="color:var(--muted);font-size:12px">'+formatNumber(subs)+' '+t('subs')+' · '+formatNumber(vids)+' videos</p>';
+html+='<span class="trend-ind up">'+t('trendUp')+'</span></div></div>';
+html+='<div class="a-grid">';
+html+='<div class="a-box"><h3>'+t('chStats')+'</h3>';
+html+='<div class="a-stat"><span>👥 '+t('subs')+'</span><strong>'+formatNumber(subs)+'</strong></div>';
+html+='<div class="a-stat"><span>👁️ Total Views</span><strong>'+formatNumber(views)+'</strong></div>';
+html+='<div class="a-stat"><span>📹 Videos</span><strong>'+formatNumber(vids)+'</strong></div>';
+html+='<div class="a-stat"><span>📊 Avg Views</span><strong>'+formatNumber(avgViews)+'</strong></div></div>';
+html+='<div class="a-box earn-box"><h3>'+t('chEarn')+'</h3>';
+html+='<div class="earn-amount">$'+formatNumber(earnAvg)+'/mo</div>';
+html+='<div class="earn-range">$'+formatNumber(earnLow)+' - $'+formatNumber(earnHigh)+'</div></div>';
+html+='<div class="a-box"><h3>'+t('chGrowth')+'</h3>';
+var months=[t('thisMonth'),t('lastMonth'),t('twoMonths'),t('threeMonths')];
+var growth=[100,85,72,60];
+months.forEach(function(m,i){
+html+='<div class="g-bar"><div class="lbl">'+m+'</div><div class="trk"><div class="gfill" style="width:'+growth[i]+'%"></div></div><div class="val">'+formatNumber(Math.round(avgViews*growth[i]/100))+'</div></div>';
+});
+html+='</div>';
+html+='<div class="a-box"><h3>'+t('chGender')+'</h3>';
+html+='<div class="d-bar"><div class="d-bar-label"><span>'+t('chMale')+'</span><span>62%</span></div><div class="d-bar-track"><div class="d-bar-fill male" style="width:62%"></div></div></div>';
+html+='<div class="d-bar"><div class="d-bar-label"><span>'+t('chFemale')+'</span><span>38%</span></div><div class="d-bar-track"><div class="d-bar-fill female" style="width:38%"></div></div></div></div>';
+html+='<div class="a-box"><h3>'+t('chAge')+'</h3>';
+var ages=[['13-17',12],['18-24',35],['25-34',28],['35-44',15],['45+',10]];
+ages.forEach(function(a){html+='<div class="c-row"><span>'+a[0]+'</span><strong>'+a[1]+'%</strong></div>'});
+html+='</div>';
+html+='<div class="a-box"><h3>'+t('chCountry')+'</h3>';
+var country=s.country||'US';
+var countries=[['🇺🇸 USA',35],['🇬🇧 UK',15],['🇩🇪 Germany',10],['🇹🇷 Turkey',8],['🌍 Other',32]];
+countries.forEach(function(c){html+='<div class="c-row"><span>'+c[0]+'</span><strong>'+c[1]+'%</strong></div>'});
+html+='</div></div>';
+html+='<div style="text-align:center;margin-top:12px"><a href="https://youtube.com/channel/'+ch.id+'" target="_blank" class="btn btn-primary">'+t('chGoChannel')+'</a></div>';
+html+='<div class="disclaimer">'+t('chDisclaimer')+'</div>';
+document.getElementById('chModalBody').innerHTML=html;
+}
+
+function closeChannelModal(){document.getElementById('channelModal').classList.remove('active')}
+
+function toggleAI(){
+var chat=document.getElementById('aiChat');
+var btn=document.getElementById('aiBotBtn');
+chat.classList.toggle('active');
+btn.classList.toggle('active');
+btn.textContent=chat.classList.contains('active')?'✕':'🤖';
+}
+
+function askAI(qKey){
+var msgs=document.getElementById('aiMessages');
+var question=t(qKey);
+var answer=t('a'+qKey.substring(1));
+msgs.innerHTML+='<div class="ai-msg user">'+esc(question)+'</div>';
+setTimeout(function(){
+msgs.innerHTML+='<div class="ai-msg bot">'+esc(answer).replace(/\n/g,'<br>')+'</div>';
+msgs.scrollTop=msgs.scrollHeight;
+},400);
+msgs.scrollTop=msgs.scrollHeight;
+}
+
+if(isAdmin){
+document.getElementById('adminBanner').classList.add('active');
+document.getElementById('adminTotal').textContent=NICHES.length;
+}
+
+document.getElementById('searchInput').addEventListener('input',render);
+document.getElementById('langFilter').addEventListener('change',render);
+document.getElementById('sortFilter').addEventListener('change',render);
+document.getElementById('hiddenOnly').addEventListener('change',render);
+document.getElementById('newChannelOnly').addEventListener('change',render);
+document.getElementById('facelessOnly').addEventListener('change',render);
+document.getElementById('trendingSearch').addEventListener('keypress',function(e){if(e.key==='Enter')loadTrending()});
+document.getElementById('analyticsSearch').addEventListener('keypress',function(e){if(e.key==='Enter')searchChannel()});
+document.getElementById('quickSearch').addEventListener('keypress',function(e){if(e.key==='Enter')quickSearch()});
+
+document.getElementById('detailModal').addEventListener('click',function(e){if(e.target===this)closeModal()});
+document.getElementById('channelModal').addEventListener('click',function(e){if(e.target===this)closeChannelModal()});
+
+document.getElementById('lang-'+lang).classList.add('active');
+document.querySelectorAll('.lang-btn').forEach(function(b){if(b.id!=='lang-'+lang)b.classList.remove('active')});
+
+applyAll();
+render();
+loadRising();
+renderTopN();
+
+</script>
+</body>
+</html>
