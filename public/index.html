@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>NICHIFY - YouTube Niche Finder Pro</title>
-<script src="/niches-data.js"></script>
+<script src="niches-data.js"></script>
 <style>
 :root{--bg:#0a0e1a;--panel:#131929;--card:#1a2138;--sidebar:#0d1220;--text:#f0f4ff;--muted:#8a99b8;--blue:#4da3ff;--green:#45e08a;--red:#ff5c7a;--yellow:#ffd166;--purple:#a78bfa;--orange:#ff9f43;--cyan:#49e6d8;--line:rgba(255,255,255,.1)}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -43,7 +43,8 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:var(--bg);c
 .widget-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
 .widget-head h2{font-size:15px}
 .widget-head .va{color:var(--blue);font-size:11px;cursor:pointer;font-weight:600;background:none;border:none;font-family:inherit}
-.w-sub{color:var(--muted);font-size:10px;margin-bottom:10px}.ch-row{display:flex;align-items:center;gap:10px;padding:9px;background:var(--card);border:1px solid var(--line);border-radius:9px;margin-bottom:5px;transition:.2s;cursor:pointer}
+.w-sub{color:var(--muted);font-size:10px;margin-bottom:10px}
+.ch-row{display:flex;align-items:center;gap:10px;padding:9px;background:var(--card);border:1px solid var(--line);border-radius:9px;margin-bottom:5px;transition:.2s;cursor:pointer}
 .ch-row:hover{transform:translateX(3px);border-color:var(--blue)}
 .ch-row img{width:36px;height:36px;border-radius:50%;flex-shrink:0}
 .ch-row .info{flex:1;min-width:0}
@@ -156,7 +157,7 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:var(--bg);c
 .ex-card.rising{border-left:3px solid var(--yellow)}
 .ex-card.success{border-left:3px solid var(--purple)}
 .ex-card h4{margin-bottom:4px;font-size:12px}
-.ex-card .ex-stats{display:flex;gap:8px;font-size:10px;color:var(--muted);margin:4px 0}
+.ex-card .ex-stats{display:flex;gap:8px;font-size:10px;color:var(--muted);margin:4px 0;flex-wrap:wrap}
 .ex-card .ex-strat{font-size:11px;color:#cfd9ea;margin-top:5px;padding-top:5px;border-top:1px solid var(--line)}
 .roadmap-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-top:14px}
 .rm-card{background:linear-gradient(135deg,rgba(77,163,255,.08),rgba(167,139,250,.04));border:1px solid var(--line);border-radius:12px;padding:14px;transition:.2s}
@@ -176,7 +177,7 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:var(--bg);c
 .updated{text-align:center;color:var(--green);font-size:10px;margin-bottom:12px;display:flex;align-items:center;justify-content:center;gap:5px}
 .updated .dot{width:6px;height:6px;background:var(--green);border-radius:50%;animation:pulse2 1.5s infinite}
 @keyframes pulse2{0%,100%{opacity:1}50%{opacity:.4}}
-.ai-btn{position:fixed;bottom:16px;right:16px;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--purple));border:none;cursor:pointer;box-shadow:0 5px 16px rgba(77,163,255,.4);display:grid;place-items:center;font-size:22px;transition:.3s;z-index:9998}
+.ai-btn{position:fixed;bottom:16px;right:16px;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--blue),var(--purple));border:none;cursor:pointer;box-shadow:0 5px 16px rgba(77,163,255,.4);display:grid;place-items:center;font-size:22px;transition:.3s;z-index:9998;color:white}
 .ai-btn.active{background:linear-gradient(135deg,var(--red),var(--orange))}
 .ai-chat{position:fixed;bottom:72px;right:16px;width:340px;max-width:calc(100vw - 32px);height:480px;max-height:calc(100vh - 100px);background:#0d1322;border:1px solid var(--line);border-radius:16px;box-shadow:0 12px 40px rgba(0,0,0,.6);display:none;flex-direction:column;z-index:9999;overflow:hidden}
 .ai-chat.active{display:flex}
@@ -200,7 +201,9 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:var(--bg);c
 @media(max-width:768px){.sidebar{transform:translateX(-100%);transition:.3s}.sidebar.open{transform:translateX(0)}.main{margin-left:0}.mobile-toggle{display:grid;place-items:center}.results-grid,.detail-grid,.a-grid{grid-template-columns:1fr}.stats-row{grid-template-columns:repeat(2,1fr)}}
 </style>
 </head>
-<body><button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">☰</button>
+<body>
+
+<button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">☰</button>
 
 <nav class="sidebar">
 <div class="sidebar-logo"><h2>🚀 NICHIFY</h2><span class="ver">PRO</span></div>
@@ -238,16 +241,16 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:var(--bg);c
 <div class="updated"><span class="dot"></span><span id="updatedText">Live data · Updated just now</span></div>
 <div class="search-bar"><input id="quickSearch" placeholder="🔍 Search..."/><button onclick="quickSearch()" id="quickSearchBtn">🔍</button></div>
 <div class="stats-row">
-<div class="stat-card premium"><strong>18.7M</strong><span id="totalLabel">📊 Analyzed</span></div>
+<div class="stat-card premium"><strong id="statTotal">18.7M</strong><span id="totalLabel">📊 Analyzed</span></div>
 <div class="stat-card"><strong id="statHidden">0</strong><span id="statHiddenLabel">Hidden</span></div>
-<div class="stat-card"><strong>53</strong><span id="statNichesLabel">Niches</span></div>
+<div class="stat-card"><strong id="statNiches">100</strong><span id="statNichesLabel">Niches</span></div>
 <div class="stat-card"><strong>3</strong><span id="statLangsLabel">Languages</span></div>
 </div>
 <div class="home-grid">
 <div class="home-widget">
 <div class="widget-head"><h2 id="risingTitle">🔥 Rising</h2><button class="va" onclick="goPage('trending')" id="viewAll1">→</button></div>
 <p class="w-sub" id="risingSubtitle">Live data</p>
-<div id="risingChannels"><div class="t-loading"><div class="spinner"></div><p>Loading...</p></div></div>
+<div id="risingChannels"></div>
 </div>
 <div class="home-widget">
 <div class="widget-head"><h2 id="topNichesTitle">🎯 Top Niches</h2><button class="va" onclick="goPage('niches')" id="viewAll2">→</button></div>
@@ -348,113 +351,29 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:var(--bg);c
 </div>
 
 <div id="detailModal" class="modal"><div class="modal-card"><div class="modal-head"><div><h2 id="modalTitle">Niche</h2><p id="modalSub">Detail</p></div><button class="btn btn-secondary btn-small" onclick="closeModal()">✕</button></div><div id="modalBody" class="modal-body"></div></div></div>
-<div id="channelModal" class="modal"><div class="modal-card"><div class="modal-head"><div><h2 id="chModalTitle">Channel</h2><p id="chModalSub">Analytics</p></div><button class="btn btn-secondary btn-small" onclick="closeChannelModal()">✕</button></div><div id="chModalBody" class="modal-body"></div></div></div><script>
+<div id="channelModal" class="modal"><div class="modal-card"><div class="modal-head"><div><h2 id="chModalTitle">Channel</h2><p id="chModalSub">Analytics</p></div><button class="btn btn-secondary btn-small" onclick="closeChannelModal()">✕</button></div><div id="chModalBody" class="modal-body"></div></div></div>
+
+<script>
+var NICHES=(typeof NICHES_DATA!=='undefined')?NICHES_DATA:(typeof NICHES!=='undefined'?NICHES:[]);
 var CACHE={};var CACHE_TIME=3600000;
 function cacheGet(k){var i=CACHE[k];if(!i)return null;if(Date.now()-i.time>CACHE_TIME)return null;return i.data}
 function cacheSet(k,d){CACHE[k]={data:d,time:Date.now()}}
 
 var T={
-tr:{
-welcome:"👋 NICHIFY'a Hoş Geldin!",welcomeDesc:"YouTube için akıllı niş keşif sistemi!",totalLabel:"📊 Toplam Analiz",statHiddenLabel:"Hidden Fırsat",statNichesLabel:"Toplam Niş",statLangsLabel:"Dil",updatedText:"🔴 Canlı veri · Az önce güncellendi",
-risingTitle:"🔥 Bugün Yükselen Kanallar",risingSubtitle:"Canlı YouTube verisi",topNichesTitle:"🎯 En İyi Nişler",topNichesSubtitle:"Yüksek skor, düşük rekabet",viewAll:"Tümünü Gör →",
-sideMainLabel:"ANA MENÜ",sideToolsLabel:"ARAÇLAR",sideHomeText:"Anasayfa",sideNichesText:"Niş Keşfi",sideTrendingText:"Yükselen Kanallar",sideAnalyticsText:"Kanal Analizi",sideRiskText:"Risk Detector",sideBotText:"AI Bot",sideRoadmapText:"Yakında Gelecek",sideLifetimeText:"Lifetime Deal 🔥",
-searchTitle:"🔍 Niş Keşfi",searchPH:"Niş ara: AI, finans, motivasyon...",resultsTitle:"📊 Sonuçlar",quickSearchBtn:"🔍 Ara",
-allLangs:"🌍 Tüm Diller",sortBest:"⭐ Genel Fırsat",sortHidden:"🔍 Gizli Fırsat",sortLow:"📉 Düşük Rekabet",sortMoney:"💰 Kazanç",sortNew:"🆕 Yeni Kanal Dostu",
-filterHidden:"🔍 Hidden Opportunity",filterNew:"🆕 Yeni Kanal Dostu",filterFaceless:"🎭 Faceless",
-trendingTitle:"🔥 Yükselen YouTube Niş Kanalları",trendingDesc:"CANLI veri! Kanala tıklayarak detay gör",trendingBtn:"🔄 Ara",
-analyticsTitle:"📊 Kanal Analizi",analyticsDesc:"Kanal ara, RPM ve kazanç gör",analyticsBtn:"📊 Analiz",analyticsPH:"🔍 Kanal ara...",
-riskPageTitle:"🛡️ Risk Detector",riskPageDesc:"Niş kartlarında Risk puanı kontrol et",riskPageInfo:"← Herhangi bir nişe tıklayarak Risk Analizi görebilirsin!",riskGoBtn:"🎯 Niş Keşfine Git",
-roadmapTitle:"🚀 Yakında Gelecek Özellikler",roadmapDesc:"NICHIFY sürekli gelişiyor!",
-rmLifetime:"Tek seferlik ödeme, ömür boyu!",rmDate1:"Birkaç gün",rmDesc1:"Kayıt/Giriş, Pro üyelik",rmDate2:"2 hafta",rmDesc2:"TikTok ve Instagram Reels",rmDate3:"1 ay",rmDesc3:"AI thumbnail üretici",rmDate4:"1 ay",rmDesc4:"Otomatik video scripti",rmDate5:"2 ay",rmDesc5:"iOS ve Android",
-subs:"abone",empty:"Niş bulunamadı",opportunity:"Fırsat",hidden:"Hidden",earnings:"Kazanç",compLow:"Düşük",compMid:"Orta",compHigh:"Yüksek",compLabel:"Rekabet",riskLabel:"Risk",
-detail:"📋 Detay",scores:"📊 Puanlar",target:"🎯 Hedef & Rakip",targetLabel:"Hedef",competitorLabel:"Rakip",
-riskTitle:"🛡️ Risk Analizi",safety:"Güvenlik",dontDo:"❌ YAPMA",doThese:"✅ YAP",
-examples:"📺 Örnek Kanallar",beginner:"🌱 Yeni Başlayan",rising:"🚀 Yükselen",success:"🏆 Başarı",
-chTitle:"📊 Kanal Analizi",chStats:"📊 İstatistikler",chEarn:"💰 Tahmini Kazanç",chGrowth:"📈 Büyüme Trendi",chGender:"👥 Cinsiyet",chAge:"📅 Yaş",chCountry:"🌍 Ülke",chMale:"👨 Erkek",chFemale:"👩 Kadın",chGoChannel:"🔗 Kanala Git",chDisclaimer:"⚠️ Tahminler sektör ortalamalarına göre.",
-trendUp:"📈 Yükseliyor",trendStable:"📊 Stabil",thisMonth:"Bu Ay",lastMonth:"Geçen Ay",twoMonths:"2 Ay Önce",threeMonths:"3 Ay Önce",
-botTitle:"NICHIFY Bot",botSubtitle:"Nasıl yardımcı olabilirim?",botWelcome:"👋 Merhaba! Soru seç!",botCat1:"🎯 Niş Seçimi",botCat2:"🛡️ Risk",botCat3:"💰 Para Kazanma",
-q1:"Hangi nişle başlamalıyım?",q2:"Niş nasıl test edilir?",q3:"Hangi niş para kazandırır?",q4:"Risk Detector ne yapar?",q5:"Kanalım neden kapanır?",q6:"Telif hakkı?",q7:"Para nasıl kazanırım?",q8:"1000 aboneye nasıl?",q9:"Sponsorluk?",
-a1:"🎯 3 adım:\n1. Hidden filtresini aç\n2. Yeni Kanal Dostu aç\n3. Risk 80+ seç",a2:"🧪 30 günde:\n1. 10 short paylaş\n2. 1000+ izlenme = çalışıyor!",a3:"💰 En karlı:\n🥇 Finance ($8-15)\n🥈 Business ($6-12)\n🥉 Tech ($3-7)",a4:"🛡️ Güvenlik puanı:\n80+: ✅ Güvenli\n60-80: ⚠️ Orta\n0-60: ❌ Riskli",a5:"⚠️ Sebepler: Telif, kurallar, COPPA",a6:"📜 Royalty-free müzik kullan!",a7:"💰 5 yol: AdSense, Sponsor, Affiliate, Ürün, Üyelik",a8:"📈 6 ayda: 10 video, sonra haftada 3",a9:"🤝 10K+ aboneden sonra. İlk: $200-500"
-},
-en:{
-welcome:"👋 Welcome to NICHIFY!",welcomeDesc:"Smart YouTube niche discovery system!",totalLabel:"📊 Total Analyzed",statHiddenLabel:"Hidden Opp.",statNichesLabel:"Total Niches",statLangsLabel:"Languages",updatedText:"🔴 Live data · Updated just now",
-risingTitle:"🔥 Today's Rising Channels",risingSubtitle:"Live YouTube data",topNichesTitle:"🎯 Top Niches",topNichesSubtitle:"High score, low competition",viewAll:"View All →",
-sideMainLabel:"MAIN",sideToolsLabel:"TOOLS",sideHomeText:"Home",sideNichesText:"Niche Discovery",sideTrendingText:"Trending Channels",sideAnalyticsText:"Channel Analytics",sideRiskText:"Risk Detector",sideBotText:"AI Bot",sideRoadmapText:"Coming Soon",sideLifetimeText:"Lifetime Deal 🔥",
-searchTitle:"🔍 Niche Discovery",searchPH:"Search: AI, finance, gaming...",resultsTitle:"📊 Results",quickSearchBtn:"🔍 Search",
-allLangs:"🌍 All Languages",sortBest:"⭐ Overall",sortHidden:"🔍 Hidden",sortLow:"📉 Low Comp",sortMoney:"💰 Earnings",sortNew:"🆕 Newbie",
-filterHidden:"🔍 Hidden Opportunity",filterNew:"🆕 Newbie Friendly",filterFaceless:"🎭 Faceless",
-trendingTitle:"🔥 Rising YouTube Niche Channels",trendingDesc:"LIVE data! Click for details",trendingBtn:"🔄 Search",
-analyticsTitle:"📊 Channel Analytics",analyticsDesc:"Search and analyze channels",analyticsBtn:"📊 Analyze",analyticsPH:"🔍 Search channel...",
-riskPageTitle:"🛡️ Risk Detector",riskPageDesc:"Check Risk scores on Niche cards",riskPageInfo:"Click any niche to see Risk Analysis!",riskGoBtn:"🎯 Go to Niches",
-roadmapTitle:"🚀 Coming Soon",roadmapDesc:"NICHIFY evolving!",
-rmLifetime:"One-time, lifetime!",rmDate1:"Few days",rmDesc1:"Login, Pro",rmDate2:"2 weeks",rmDesc2:"TikTok & IG",rmDate3:"1 month",rmDesc3:"AI thumbnails",rmDate4:"1 month",rmDesc4:"Auto scripts",rmDate5:"2 months",rmDesc5:"iOS & Android",
-subs:"subs",empty:"No niches found",opportunity:"Opportunity",hidden:"Hidden",earnings:"Earnings",compLow:"Low",compMid:"Medium",compHigh:"High",compLabel:"Competition",riskLabel:"Risk",
-detail:"📋 Detail",scores:"📊 Scores",target:"🎯 Target & Competitor",targetLabel:"Target",competitorLabel:"Competitor",
-riskTitle:"🛡️ Risk Analysis",safety:"Safety",dontDo:"❌ DON'T",doThese:"✅ DO",
-examples:"📺 Example Channels",beginner:"🌱 Beginner",rising:"🚀 Rising",success:"🏆 Success",
-chTitle:"📊 Channel Analytics",chStats:"📊 Statistics",chEarn:"💰 Est. Earnings",chGrowth:"📈 Growth",chGender:"👥 Gender",chAge:"📅 Age",chCountry:"🌍 Country",chMale:"👨 Male",chFemale:"👩 Female",chGoChannel:"🔗 Visit",chDisclaimer:"⚠️ Estimates based on averages.",
-trendUp:"📈 Rising",trendStable:"📊 Stable",thisMonth:"This Month",lastMonth:"Last Month",twoMonths:"2M Ago",threeMonths:"3M Ago",
-botTitle:"NICHIFY Bot",botSubtitle:"How can I help?",botWelcome:"👋 Hello! Pick a question!",botCat1:"🎯 Niche",botCat2:"🛡️ Risk",botCat3:"💰 Money",
-q1:"Which niche to start?",q2:"How to test?",q3:"Most profitable?",q4:"Risk Detector?",q5:"Why banned?",q6:"Copyright?",q7:"How to earn?",q8:"1000 subs?",q9:"Sponsorship?",
-a1:"🎯 3 steps: Hidden + Newbie + Risk 80+",a2:"🧪 30 days: 10 shorts, 1000+ views = works!",a3:"💰 Top: Finance, Business, Tech",a4:"🛡️ Score: 80+ safe, 60-80 medium, 0-60 risky",a5:"⚠️ Copyright, rules, COPPA",a6:"📜 Royalty-free only!",a7:"💰 5 ways: AdSense, Sponsor, Affiliate",a8:"📈 6 months: 10 videos then 3/week",a9:"🤝 After 10K+. First: $200-500"
-},
-de:{
-welcome:"👋 Willkommen bei NICHIFY!",welcomeDesc:"YouTube Nischenfindung!",totalLabel:"📊 Analysiert",statHiddenLabel:"Versteckt",statNichesLabel:"Nischen",statLangsLabel:"Sprachen",updatedText:"🔴 Live · Gerade aktualisiert",
-risingTitle:"🔥 Aufsteigende Kanäle",risingSubtitle:"Live Daten",topNichesTitle:"🎯 Top Nischen",topNichesSubtitle:"Hohe Bewertung",viewAll:"Alle →",
-sideMainLabel:"HAUPT",sideToolsLabel:"TOOLS",sideHomeText:"Start",sideNichesText:"Nischen",sideTrendingText:"Trending",sideAnalyticsText:"Analyse",sideRiskText:"Risiko",sideBotText:"KI Bot",sideRoadmapText:"Demnächst",sideLifetimeText:"Lifetime 🔥",
-searchTitle:"🔍 Nischen",searchPH:"Suchen: KI, Finanzen...",resultsTitle:"📊 Ergebnisse",quickSearchBtn:"🔍 Suchen",
-allLangs:"🌍 Alle",sortBest:"⭐ Gesamt",sortHidden:"🔍 Versteckt",sortLow:"📉 Niedrig",sortMoney:"💰 Verdienst",sortNew:"🆕 Anfänger",
-filterHidden:"🔍 Versteckt",filterNew:"🆕 Anfänger",filterFaceless:"🎭 Faceless",
-trendingTitle:"🔥 Aufsteigende Kanäle",trendingDesc:"LIVE Daten!",trendingBtn:"🔄 Suchen",
-analyticsTitle:"📊 Kanalanalyse",analyticsDesc:"Kanal suchen und analysieren",analyticsBtn:"📊 Analysieren",analyticsPH:"🔍 Kanal suchen...",
-riskPageTitle:"🛡️ Risiko",riskPageDesc:"Risiko auf Nischenkarten",riskPageInfo:"Klick auf eine Nische für Risikoanalyse!",riskGoBtn:"🎯 Zu Nischen",
-roadmapTitle:"🚀 Demnächst",roadmapDesc:"NICHIFY entwickelt sich!",
-rmLifetime:"Einmalig, lebenslang!",rmDate1:"Tage",rmDesc1:"Login, Pro",rmDate2:"2 Wochen",rmDesc2:"TikTok & IG",rmDate3:"1 Monat",rmDesc3:"KI Thumbnails",rmDate4:"1 Monat",rmDesc4:"Auto Skripte",rmDate5:"2 Monate",rmDesc5:"Mobile App",
-subs:"Abos",empty:"Keine Nischen",opportunity:"Chance",hidden:"Versteckt",earnings:"Verdienst",compLow:"Niedrig",compMid:"Mittel",compHigh:"Hoch",compLabel:"Konkurrenz",riskLabel:"Risiko",
-detail:"📋 Detail",scores:"📊 Werte",target:"🎯 Ziel",targetLabel:"Ziel",competitorLabel:"Konkurrent",
-riskTitle:"🛡️ Risiko",safety:"Sicherheit",dontDo:"❌ NICHT",doThese:"✅ TUN",
-examples:"📺 Beispiele",beginner:"🌱 Anfänger",rising:"🚀 Aufsteigend",success:"🏆 Erfolg",
-chTitle:"📊 Analyse",chStats:"📊 Statistiken",chEarn:"💰 Verdienst",chGrowth:"📈 Wachstum",chGender:"👥 Geschlecht",chAge:"📅 Alter",chCountry:"🌍 Länder",chMale:"👨 M",chFemale:"👩 W",chGoChannel:"🔗 Kanal",chDisclaimer:"⚠️ Schätzungen.",
-trendUp:"📈 Steigend",trendStable:"📊 Stabil",thisMonth:"Diesen Monat",lastMonth:"Letzten Monat",twoMonths:"Vor 2M",threeMonths:"Vor 3M",
-botTitle:"NICHIFY Bot",botSubtitle:"Hilfe?",botWelcome:"👋 Hallo!",botCat1:"🎯 Nische",botCat2:"🛡️ Risiko",botCat3:"💰 Geld",
-q1:"Welche Nische?",q2:"Wie testen?",q3:"Profitabelste?",q4:"Risiko?",q5:"Warum gesperrt?",q6:"Urheberrecht?",q7:"Geld verdienen?",q8:"1000 Abos?",q9:"Sponsoring?",
-a1:"🎯 3 Schritte: Versteckt + Anfänger + 80+",a2:"🧪 30 Tage: 10 Shorts, 1000+ = geht!",a3:"💰 Top: Finanzen, Business, Tech",a4:"🛡️ 80+ sicher, 60-80 mittel, 0-60 riskant",a5:"⚠️ Urheberrecht, Regeln",a6:"📜 Lizenzfrei!",a7:"💰 5 Wege: AdSense, Sponsoring, Affiliate",a8:"📈 6 Monate: 10 Videos, dann 3/Woche",a9:"🤝 Nach 10K+. Erste: $200-500"
-}};
+tr:{welcome:"👋 NICHIFY'a Hoş Geldin!",totalLabel:"📊 Toplam Analiz",statHiddenLabel:"Hidden Fırsat",statNichesLabel:"Toplam Niş",statLangsLabel:"Dil",updatedText:"🔴 Canlı veri · Az önce güncellendi",risingTitle:"🔥 Bugün Yükselen Kanallar",risingSubtitle:"Canlı YouTube verisi",topNichesTitle:"🎯 En İyi Nişler",topNichesSubtitle:"Yüksek skor, düşük rekabet",viewAll:"Tümünü Gör →",sideMainLabel:"ANA MENÜ",sideToolsLabel:"ARAÇLAR",sideHomeText:"Anasayfa",sideNichesText:"Niş Keşfi",sideTrendingText:"Yükselen Kanallar",sideAnalyticsText:"Kanal Analizi",sideRiskText:"Risk Detector",sideBotText:"AI Bot",sideRoadmapText:"Yakında Gelecek",sideLifetimeText:"Lifetime Deal 🔥",searchTitle:"🔍 Niş Keşfi",searchPH:"Niş ara: AI, finans, motivasyon...",resultsTitle:"📊 Sonuçlar",quickSearchBtn:"🔍 Ara",allLangs:"🌍 Tüm Diller",sortBest:"⭐ Genel Fırsat",sortHidden:"🔍 Gizli Fırsat",sortLow:"📉 Düşük Rekabet",sortMoney:"💰 Kazanç",sortNew:"🆕 Yeni Kanal Dostu",filterHidden:"🔍 Hidden Opportunity",filterNew:"🆕 Yeni Kanal Dostu",filterFaceless:"🎭 Faceless",trendingTitle:"🔥 Yükselen YouTube Niş Kanalları",trendingDesc:"CANLI veri! Kanala tıklayarak detay gör",trendingBtn:"🔄 Ara",analyticsTitle:"📊 Kanal Analizi",analyticsDesc:"Kanal ara, RPM ve kazanç gör",analyticsBtn:"📊 Analiz",analyticsPH:"🔍 Kanal ara...",riskPageTitle:"🛡️ Risk Detector",riskPageDesc:"Niş kartlarında Risk puanı kontrol et",riskPageInfo:"← Herhangi bir nişe tıklayarak Risk Analizi görebilirsin!",riskGoBtn:"🎯 Niş Keşfine Git",roadmapTitle:"🚀 Yakında Gelecek Özellikler",roadmapDesc:"NICHIFY sürekli gelişiyor!",rmLifetime:"Tek seferlik ödeme, ömür boyu!",rmDate1:"Birkaç gün",rmDesc1:"Kayıt/Giriş, Pro üyelik",rmDate2:"2 hafta",rmDesc2:"TikTok ve Instagram Reels",rmDate3:"1 ay",rmDesc3:"AI thumbnail üretici",rmDate4:"1 ay",rmDesc4:"Otomatik video scripti",rmDate5:"2 ay",rmDesc5:"iOS ve Android",subs:"abone",empty:"Niş bulunamadı",opportunity:"Fırsat",hidden:"Hidden",earnings:"Kazanç",compLow:"Düşük",compMid:"Orta",compHigh:"Yüksek",compLabel:"Rekabet",riskLabel:"Risk",detail:"📋 Detay",scores:"📊 Puanlar",target:"🎯 Hedef & Rakip",targetLabel:"Hedef",competitorLabel:"Rakip",riskTitle:"🛡️ Risk Analizi",safety:"Güvenlik",dontDo:"❌ YAPMA",doThese:"✅ YAP",examples:"📺 Örnek Kanallar",beginner:"🌱 Yeni Başlayan",rising:"🚀 Yükselen",success:"🏆 Başarı",chTitle:"📊 Kanal Analizi",chStats:"📊 İstatistikler",chEarn:"💰 Tahmini Kazanç",chGrowth:"📈 Büyüme Trendi",chGender:"👥 Cinsiyet",chAge:"📅 Yaş",chCountry:"🌍 Ülke",chMale:"👨 Erkek",chFemale:"👩 Kadın",chGoChannel:"🔗 Kanala Git",chDisclaimer:"⚠️ Tahminler sektör ortalamalarına göre.",trendUp:"📈 Yükseliyor",trendStable:"📊 Stabil",thisMonth:"Bu Ay",lastMonth:"Geçen Ay",twoMonths:"2 Ay Önce",threeMonths:"3 Ay Önce",botTitle:"NICHIFY Bot",botSubtitle:"Nasıl yardımcı olabilirim?",botWelcome:"👋 Merhaba! Soru seç!",botCat1:"🎯 Niş Seçimi",botCat2:"🛡️ Risk",botCat3:"💰 Para Kazanma",q1:"Hangi nişle başlamalıyım?",q2:"Niş nasıl test edilir?",q3:"Hangi niş para kazandırır?",q4:"Risk Detector ne yapar?",q5:"Kanalım neden kapanır?",q6:"Telif hakkı?",q7:"Para nasıl kazanırım?",q8:"1000 aboneye nasıl?",q9:"Sponsorluk?",a1:"🎯 3 adım:\n1. Hidden filtresini aç\n2. Yeni Kanal Dostu aç\n3. Risk 80+ seç",a2:"🧪 30 günde:\n1. 10 short paylaş\n2. 1000+ izlenme = çalışıyor!",a3:"💰 En karlı:\n🥇 İş & Kariyer\n🥈 Teknoloji\n🥉 Eğitim",a4:"🛡️ Güvenlik puanı:\n80+: ✅ Güvenli\n60-80: ⚠️ Orta\n0-60: ❌ Riskli",a5:"⚠️ Sebepler: Telif, kurallar, COPPA",a6:"📜 Royalty-free müzik kullan!",a7:"💰 5 yol: AdSense, Sponsor, Affiliate, Ürün, Üyelik",a8:"📈 6 ayda: 10 video, sonra haftada 3",a9:"🤝 10K+ aboneden sonra. İlk: $200-500"},
+en:{welcome:"👋 Welcome to NICHIFY!",totalLabel:"📊 Total Analyzed",statHiddenLabel:"Hidden Opp.",statNichesLabel:"Total Niches",statLangsLabel:"Languages",updatedText:"🔴 Live data · Updated just now",risingTitle:"🔥 Today's Rising Channels",risingSubtitle:"Live YouTube data",topNichesTitle:"🎯 Top Niches",topNichesSubtitle:"High score, low competition",viewAll:"View All →",sideMainLabel:"MAIN",sideToolsLabel:"TOOLS",sideHomeText:"Home",sideNichesText:"Niche Discovery",sideTrendingText:"Trending Channels",sideAnalyticsText:"Channel Analytics",sideRiskText:"Risk Detector",sideBotText:"AI Bot",sideRoadmapText:"Coming Soon",sideLifetimeText:"Lifetime Deal 🔥",searchTitle:"🔍 Niche Discovery",searchPH:"Search: AI, finance, productivity...",resultsTitle:"📊 Results",quickSearchBtn:"🔍 Search",allLangs:"🌍 All Languages",sortBest:"⭐ Overall",sortHidden:"🔍 Hidden",sortLow:"📉 Low Comp",sortMoney:"💰 Earnings",sortNew:"🆕 Newbie",filterHidden:"🔍 Hidden Opportunity",filterNew:"🆕 Newbie Friendly",filterFaceless:"🎭 Faceless",trendingTitle:"🔥 Rising YouTube Niche Channels",trendingDesc:"LIVE data! Click for details",trendingBtn:"🔄 Search",analyticsTitle:"📊 Channel Analytics",analyticsDesc:"Search and analyze channels",analyticsBtn:"📊 Analyze",analyticsPH:"🔍 Search channel...",riskPageTitle:"🛡️ Risk Detector",riskPageDesc:"Check Risk scores on Niche cards",riskPageInfo:"Click any niche to see Risk Analysis!",riskGoBtn:"🎯 Go to Niches",roadmapTitle:"🚀 Coming Soon",roadmapDesc:"NICHIFY evolving!",rmLifetime:"One-time, lifetime!",rmDate1:"Few days",rmDesc1:"Login, Pro",rmDate2:"2 weeks",rmDesc2:"TikTok & IG",rmDate3:"1 month",rmDesc3:"AI thumbnails",rmDate4:"1 month",rmDesc4:"Auto scripts",rmDate5:"2 months",rmDesc5:"iOS & Android",subs:"subs",empty:"No niches found",opportunity:"Opportunity",hidden:"Hidden",earnings:"Earnings",compLow:"Low",compMid:"Medium",compHigh:"High",compLabel:"Competition",riskLabel:"Risk",detail:"📋 Detail",scores:"📊 Scores",target:"🎯 Target & Competitor",targetLabel:"Target",competitorLabel:"Competitor",riskTitle:"🛡️ Risk Analysis",safety:"Safety",dontDo:"❌ DON'T",doThese:"✅ DO",examples:"📺 Example Channels",beginner:"🌱 Beginner",rising:"🚀 Rising",success:"🏆 Success",chTitle:"📊 Channel Analytics",chStats:"📊 Statistics",chEarn:"💰 Est. Earnings",chGrowth:"📈 Growth",chGender:"👥 Gender",chAge:"📅 Age",chCountry:"🌍 Country",chMale:"👨 Male",chFemale:"👩 Female",chGoChannel:"🔗 Visit",chDisclaimer:"⚠️ Estimates based on averages.",trendUp:"📈 Rising",trendStable:"📊 Stable",thisMonth:"This Month",lastMonth:"Last Month",twoMonths:"2M Ago",threeMonths:"3M Ago",botTitle:"NICHIFY Bot",botSubtitle:"How can I help?",botWelcome:"👋 Hello! Pick a question!",botCat1:"🎯 Niche",botCat2:"🛡️ Risk",botCat3:"💰 Money",q1:"Which niche to start?",q2:"How to test?",q3:"Most profitable?",q4:"Risk Detector?",q5:"Why banned?",q6:"Copyright?",q7:"How to earn?",q8:"1000 subs?",q9:"Sponsorship?",a1:"🎯 3 steps: Hidden + Newbie + Risk 80+",a2:"🧪 30 days: 10 shorts, 1000+ views = works!",a3:"💰 Top: Business, Tech, Education",a4:"🛡️ Score: 80+ safe, 60-80 medium, 0-60 risky",a5:"⚠️ Copyright, rules, COPPA",a6:"📜 Royalty-free only!",a7:"💰 5 ways: AdSense, Sponsor, Affiliate",a8:"📈 6 months: 10 videos then 3/week",a9:"🤝 After 10K+. First: $200-500"},
+de:{welcome:"👋 Willkommen bei NICHIFY!",totalLabel:"📊 Analysiert",statHiddenLabel:"Versteckt",statNichesLabel:"Nischen",statLangsLabel:"Sprachen",updatedText:"🔴 Live · Gerade aktualisiert",risingTitle:"🔥 Aufsteigende Kanäle",risingSubtitle:"Live Daten",topNichesTitle:"🎯 Top Nischen",topNichesSubtitle:"Hohe Bewertung",viewAll:"Alle →",sideMainLabel:"HAUPT",sideToolsLabel:"TOOLS",sideHomeText:"Start",sideNichesText:"Nischen",sideTrendingText:"Trending",sideAnalyticsText:"Analyse",sideRiskText:"Risiko",sideBotText:"KI Bot",sideRoadmapText:"Demnächst",sideLifetimeText:"Lifetime 🔥",searchTitle:"🔍 Nischen",searchPH:"Suchen: KI, Finanzen...",resultsTitle:"📊 Ergebnisse",quickSearchBtn:"🔍 Suchen",allLangs:"🌍 Alle",sortBest:"⭐ Gesamt",sortHidden:"🔍 Versteckt",sortLow:"📉 Niedrig",sortMoney:"💰 Verdienst",sortNew:"🆕 Anfänger",filterHidden:"🔍 Versteckt",filterNew:"🆕 Anfänger",filterFaceless:"🎭 Faceless",trendingTitle:"🔥 Aufsteigende Kanäle",trendingDesc:"LIVE Daten!",trendingBtn:"🔄 Suchen",analyticsTitle:"📊 Kanalanalyse",analyticsDesc:"Kanal suchen und analysieren",analyticsBtn:"📊 Analysieren",analyticsPH:"🔍 Kanal suchen...",riskPageTitle:"🛡️ Risiko",riskPageDesc:"Risiko auf Nischenkarten",riskPageInfo:"Klick auf eine Nische für Risikoanalyse!",riskGoBtn:"🎯 Zu Nischen",roadmapTitle:"🚀 Demnächst",roadmapDesc:"NICHIFY entwickelt sich!",rmLifetime:"Einmalig, lebenslang!",rmDate1:"Tage",rmDesc1:"Login, Pro",rmDate2:"2 Wochen",rmDesc2:"TikTok & IG",rmDate3:"1 Monat",rmDesc3:"KI Thumbnails",rmDate4:"1 Monat",rmDesc4:"Auto Skripte",rmDate5:"2 Monate",rmDesc5:"Mobile App",subs:"Abos",empty:"Keine Nischen",opportunity:"Chance",hidden:"Versteckt",earnings:"Verdienst",compLow:"Niedrig",compMid:"Mittel",compHigh:"Hoch",compLabel:"Konkurrenz",riskLabel:"Risiko",detail:"📋 Detail",scores:"📊 Werte",target:"🎯 Ziel",targetLabel:"Ziel",competitorLabel:"Konkurrent",riskTitle:"🛡️ Risiko",safety:"Sicherheit",dontDo:"❌ NICHT",doThese:"✅ TUN",examples:"📺 Beispiele",beginner:"🌱 Anfänger",rising:"🚀 Aufsteigend",success:"🏆 Erfolg",chTitle:"📊 Analyse",chStats:"📊 Statistiken",chEarn:"💰 Verdienst",chGrowth:"📈 Wachstum",chGender:"👥 Geschlecht",chAge:"📅 Alter",chCountry:"🌍 Länder",chMale:"👨 M",chFemale:"👩 W",chGoChannel:"🔗 Kanal",chDisclaimer:"⚠️ Schätzungen.",trendUp:"📈 Steigend",trendStable:"📊 Stabil",thisMonth:"Diesen Monat",lastMonth:"Letzten Monat",twoMonths:"Vor 2M",threeMonths:"Vor 3M",botTitle:"NICHIFY Bot",botSubtitle:"Hilfe?",botWelcome:"👋 Hallo!",botCat1:"🎯 Nische",botCat2:"🛡️ Risiko",botCat3:"💰 Geld",q1:"Welche Nische?",q2:"Wie testen?",q3:"Profitabelste?",q4:"Risiko?",q5:"Warum gesperrt?",q6:"Urheberrecht?",q7:"Geld verdienen?",q8:"1000 Abos?",q9:"Sponsoring?",a1:"🎯 3 Schritte: Versteckt + Anfänger + 80+",a2:"🧪 30 Tage: 10 Shorts, 1000+ = geht!",a3:"💰 Top: Business, Tech, Bildung",a4:"🛡️ 80+ sicher, 60-80 mittel, 0-60 riskant",a5:"⚠️ Urheberrecht, Regeln",a6:"📜 Lizenzfrei!",a7:"💰 5 Wege: AdSense, Sponsoring, Affiliate",a8:"📈 6 Monate: 10 Videos, dann 3/Woche",a9:"🤝 Nach 10K+. Erste: $200-500"}};
 
 var lang=localStorage.getItem("nf_lang")||"tr";
-var favorites=JSON.parse(localStorage.getItem("nf_favs")||"[]");
 var isAdmin=new URLSearchParams(window.location.search).get('admin')==='1';
-var trendingLoaded=false;var trendingData=[];var currentPage='home';
+var trendingLoaded=false;var currentPage='home';
+var API_KEY="BURAYA_KENDI_API_KEYIN";
 
 function t(k){return(T[lang]||T.tr)[k]||k}
-
 function setLang(l){lang=l;localStorage.setItem("nf_lang",l);document.querySelectorAll(".lang-btn").forEach(function(b){b.classList.remove("active")});document.getElementById("lang-"+l).classList.add("active");applyAll();render();loadRising();renderTopN()}
-
 function goPage(p){currentPage=p;['home','niches','trending','analytics','risk','roadmap'].forEach(function(x){var el=document.getElementById('page-'+x);if(el)el.style.display=x===p?'block':'none'});document.querySelectorAll('.s-item').forEach(function(s){s.classList.remove('active')});var map={home:'sideHome',niches:'sideNiches',trending:'sideTrending',analytics:'sideAnalytics',risk:'sideRisk',roadmap:'sideRoadmap'};var btn=document.getElementById(map[p]);if(btn)btn.classList.add('active');if(p==='trending'&&!trendingLoaded)loadTrending();document.querySelector('.sidebar').classList.remove('open')}
 
-function applyAll(){
-var s=function(id,key,attr){var el=document.getElementById(id);if(el){if(attr==='ph')el.placeholder=t(key);else el.textContent=t(key)}};
-s("welcomeTitle","welcome");s("welcomeDesc","welcomeDesc");s("totalLabel","totalLabel");s("updatedText","updatedText");
-s("statHiddenLabel","statHiddenLabel");s("statNichesLabel","statNichesLabel");s("statLangsLabel","statLangsLabel");
-s("quickSearch","searchPH","ph");s("quickSearchBtn","quickSearchBtn");
-s("risingTitle","risingTitle");s("risingSubtitle","risingSubtitle");s("topNichesTitle","topNichesTitle");s("topNichesSubtitle","topNichesSubtitle");
-s("viewAll1","viewAll");s("viewAll2","viewAll");
-s("sideMainLabel","sideMainLabel");s("sideToolsLabel","sideToolsLabel");s("sideHomeText","sideHomeText");s("sideNichesText","sideNichesText");
-s("sideTrendingText","sideTrendingText");s("sideAnalyticsText","sideAnalyticsText");s("sideRiskText","sideRiskText");
-s("sideBotText","sideBotText");s("sideRoadmapText","sideRoadmapText");s("sideLifetimeText","sideLifetimeText");
-s("searchTitle","searchTitle");s("searchInput","searchPH","ph");s("resultsTitle","resultsTitle");
-s("allLangsOpt","allLangs");s("sortBestOpt","sortBest");s("sortHiddenOpt","sortHidden");s("sortLowOpt","sortLow");s("sortMoneyOpt","sortMoney");s("sortNewOpt","sortNew");
-s("filterHiddenLabel","filterHidden");s("filterNewLabel","filterNew");s("filterFacelessLabel","filterFaceless");
-s("trendingPageTitle","trendingTitle");s("trendingPageDesc","trendingDesc");s("trendingBtn","trendingBtn");
-s("analyticsTitle","analyticsTitle");s("analyticsDesc","analyticsDesc");s("analyticsBtn","analyticsBtn");s("analyticsSearch","analyticsPH","ph");
-s("riskPageTitle","riskPageTitle");s("riskPageDesc","riskPageDesc");s("riskPageInfo","riskPageInfo");s("riskGoBtn","riskGoBtn");
-s("roadmapPageTitle","roadmapTitle");s("roadmapPageDesc","roadmapDesc");
-s("rmLifetime","rmLifetime");s("rmDate1","rmDate1");s("rmDesc1","rmDesc1");s("rmDate2","rmDate2");s("rmDesc2","rmDesc2");
-s("rmDate3","rmDate3");s("rmDesc3","rmDesc3");s("rmDate4","rmDate4");s("rmDesc4","rmDesc4");s("rmDate5","rmDate5");s("rmDesc5","rmDesc5");
-s("botTitle","botTitle");s("botSubtitle","botSubtitle");s("botWelcome","botWelcome");
-s("botCat1","botCat1");s("botCat2","botCat2");s("botCat3","botCat3");
-s("botQ1","q1");s("botQ2","q2");s("botQ3","q3");s("botQ4","q4");s("botQ5","q5");s("botQ6","q6");s("botQ7","q7");s("botQ8","q8");s("botQ9","q9");
-}
+function applyAll(){var s=function(id,key,attr){var el=document.getElementById(id);if(el){if(attr==='ph')el.placeholder=t(key);else el.textContent=t(key)}};s("totalLabel","totalLabel");s("updatedText","updatedText");s("statHiddenLabel","statHiddenLabel");s("statNichesLabel","statNichesLabel");s("statLangsLabel","statLangsLabel");s("quickSearch","searchPH","ph");s("quickSearchBtn","quickSearchBtn");s("risingTitle","risingTitle");s("risingSubtitle","risingSubtitle");s("topNichesTitle","topNichesTitle");s("topNichesSubtitle","topNichesSubtitle");s("viewAll1","viewAll");s("viewAll2","viewAll");s("sideMainLabel","sideMainLabel");s("sideToolsLabel","sideToolsLabel");s("sideHomeText","sideHomeText");s("sideNichesText","sideNichesText");s("sideTrendingText","sideTrendingText");s("sideAnalyticsText","sideAnalyticsText");s("sideRiskText","sideRiskText");s("sideBotText","sideBotText");s("sideRoadmapText","sideRoadmapText");s("sideLifetimeText","sideLifetimeText");s("searchTitle","searchTitle");s("searchInput","searchPH","ph");s("resultsTitle","resultsTitle");s("allLangsOpt","allLangs");s("sortBestOpt","sortBest");s("sortHiddenOpt","sortHidden");s("sortLowOpt","sortLow");s("sortMoneyOpt","sortMoney");s("sortNewOpt","sortNew");s("filterHiddenLabel","filterHidden");s("filterNewLabel","filterNew");s("filterFacelessLabel","filterFaceless");s("trendingPageTitle","trendingTitle");s("trendingPageDesc","trendingDesc");s("trendingBtn","trendingBtn");s("analyticsTitle","analyticsTitle");s("analyticsDesc","analyticsDesc");s("analyticsBtn","analyticsBtn");s("analyticsSearch","analyticsPH","ph");s("riskPageTitle","riskPageTitle");s("riskPageDesc","riskPageDesc");s("riskPageInfo","riskPageInfo");s("riskGoBtn","riskGoBtn");s("roadmapPageTitle","roadmapTitle");s("roadmapPageDesc","roadmapDesc");s("rmLifetime","rmLifetime");s("rmDate1","rmDate1");s("rmDesc1","rmDesc1");s("rmDate2","rmDate2");s("rmDesc2","rmDesc2");s("rmDate3","rmDate3");s("rmDesc3","rmDesc3");s("rmDate4","rmDate4");s("rmDesc4","rmDesc4");s("rmDate5","rmDate5");s("rmDesc5","rmDesc5");s("botTitle","botTitle");s("botSubtitle","botSubtitle");s("botWelcome","botWelcome");s("botCat1","botCat1");s("botCat2","botCat2");s("botCat3","botCat3");s("botQ1","q1");s("botQ2","q2");s("botQ3","q3");s("botQ4","q4");s("botQ5","q5");s("botQ6","q6");s("botQ7","q7");s("botQ8","q8");s("botQ9","q9")}
 
 function clamp(n){return Math.max(0,Math.min(100,Math.round(n)))}
 function overall(n){var s=n.scores;return clamp((100-s.comp)*.18+s.money*.15+s.trend*.15+s.faceless*.08+Math.max(s.shorts,s.longform)*.08+s.sustain*.10+s.newCh*.13+s.under*.18+s.multi*.05)}
@@ -469,283 +388,39 @@ function getComp(n){return n.competitor[lang]||n.competitor.tr}
 function getRiskSebep(n){return n.risk.sebep[lang]||n.risk.sebep.tr}
 function getRiskYapma(n){return n.risk.yapma[lang]||n.risk.yapma.tr}
 function getRiskYap(n){return n.risk.yap[lang]||n.risk.yap.tr}
-function getEx(ex,f){return ex[f][lang]||ex[f].tr}
+function getExItem(ex,type){if(!ex||!Array.isArray(ex))return null;return ex.find(function(x){return x.type===type})}
+function getExAge(item){if(!item||!item.age)return '';return item.age[lang]||item.age.tr||''}
+function getExStrategy(item){if(!item||!item.strategy)return '';return item.strategy[lang]||item.strategy.tr||''}
 function formatNumber(n){if(n>=1e6)return(n/1e6).toFixed(1)+"M";if(n>=1e3)return(n/1e3).toFixed(1)+"K";return n}
-
 function quickSearch(){var q=document.getElementById("quickSearch").value.trim();if(!q)return;document.getElementById("trendingSearch").value=q;goPage('trending');setTimeout(loadTrending,300)}
-function searchChannel(){var q=document.getElementById("analyticsSearch").value.trim();if(!q)return;document.getElementById("trendingSearch").value=q;goPage('trendifunction loadRising(){
-var cached=cacheGet('rising_'+lang);
-if(cached){document.getElementById('risingChannels').innerHTML=cached;return}
-var sorted=NICHES.slice().sort(function(a,b){return overall(b)-overall(a)}).slice(0,5);
-var html='';
-sorted.forEach(function(n,i){
-var ex=n.examples.rising;
-var name=getEx(n.examples,'rising');
-html+='<div class="ch-row" onclick="openChannelByName(\''+esc(name)+'\')">';
-html+='<img src="https://ui-avatars.com/api/?name='+encodeURIComponent(name)+'&background=4da3ff&color=fff" alt=""/>';
-html+='<div class="info"><h4>'+esc(name)+'</h4><p>'+getCat(n)+'</p></div>';
-html+='<div class="badge">#'+(i+1)+'</div></div>';
-});
-document.getElementById('risingChannels').innerHTML=html;
-cacheSet('rising_'+lang,html);
-}
 
-function renderTopN(){
-var sorted=NICHES.slice().sort(function(a,b){return overall(b)-overall(a)}).slice(0,5);
-var html='';
-sorted.forEach(function(n){
-html+='<div class="n-row" onclick="openModal('+NICHES.indexOf(n)+')">';
-html+='<div class="ic">'+(n.icon||'🎯')+'</div>';
-html+='<div class="info"><h4>'+esc(getName(n))+'</h4><p>'+t('opportunity')+': '+overall(n)+' · '+getCat(n)+'</p></div>';
-html+='<div class="badge">'+overall(n)+'</div></div>';
-});
-document.getElementById('topNiches').innerHTML=html;
-}
+function loadRising(){var cached=cacheGet('rising_'+lang);if(cached){document.getElementById('risingChannels').innerHTML=cached;return}var sorted=NICHES.slice().sort(function(a,b){return overall(b)-overall(a)}).slice(0,5);var html='';sorted.forEach(function(n,i){var item=getExItem(n.examples,'rising');var name=item?item.name:getName(n);var subs=item?item.subs:'';html+='<div class="ch-row" onclick="openChannelByName(\''+esc(name).replace(/'/g,"\\'")+'\')"><img src="https://ui-avatars.com/api/?name='+encodeURIComponent(name)+'&background=4da3ff&color=fff" alt=""/><div class="info"><h4>'+esc(name)+'</h4><p>'+(subs?subs+' '+t('subs')+' · ':'')+esc(getCat(n))+'</p></div><div class="badge">#'+(i+1)+'</div></div>'});document.getElementById('risingChannels').innerHTML=html;cacheSet('rising_'+lang,html)}
 
-function render(){
-var q=(document.getElementById("searchInput").value||"").toLowerCase().trim();
-var lf=document.getElementById("langFilter").value;
-var sf=document.getElementById("sortFilter").value;
-var hOnly=document.getElementById("hiddenOnly").checked;
-var nOnly=document.getElementById("newChannelOnly").checked;
-var fOnly=document.getElementById("facelessOnly").checked;
-var list=NICHES.filter(function(n){
-if(q&&getName(n).toLowerCase().indexOf(q)<0&&getCat(n).toLowerCase().indexOf(q)<0)return false;
-if(lf!=='all'&&n.lang&&n.lang.indexOf(lf)<0)return false;
-if(hOnly&&hiddenS(n)<70)return false;
-if(nOnly&&n.scores.newCh<70)return false;
-if(fOnly&&n.scores.faceless<70)return false;
-return true;
-});
-if(sf==='hidden')list.sort(function(a,b){return hiddenS(b)-hiddenS(a)});
-else if(sf==='lowComp')list.sort(function(a,b){return a.scores.comp-b.scores.comp});
-else if(sf==='money')list.sort(function(a,b){return b.scores.money-a.scores.money});
-else if(sf==='new')list.sort(function(a,b){return b.scores.newCh-a.scores.newCh});
-else list.sort(function(a,b){return overall(b)-overall(a)});
-document.getElementById('statHidden').textContent=NICHES.filter(function(n){return hiddenS(n)>=70}).length;
-var g=document.getElementById('nichesGrid');
-if(list.length===0){g.innerHTML='<div class="empty">'+t('empty')+'</div>';return}
-var html='';
-list.forEach(function(n){
-var o=overall(n),h=hiddenS(n),i=NICHES.indexOf(n);
-html+='<div class="niche-card" onclick="openModal('+i+')">';
-html+='<div class="niche-head"><h3>'+(n.icon||'🎯')+' '+esc(getName(n))+'</h3><div class="score-badge">'+o+'</div></div>';
-html+='<div class="niche-category">'+esc(getCat(n))+' · '+esc(getSub(n))+'</div>';
-html+='<div class="chips">';
-if(h>=70)html+='<span class="chip green">🔍 '+t('hidden')+' '+h+'</span>';
-if(n.scores.newCh>=70)html+='<span class="chip blue">🆕</span>';
-if(n.scores.faceless>=70)html+='<span class="chip yellow">🎭</span>';
-html+='<span class="chip '+(n.scores.comp<=40?'green':n.scores.comp<=65?'yellow':'red')+'">'+compLabel(n.scores.comp)+'</span>';
-html+='</div>';
-html+='<div class="bars">';
-html+='<div class="bar-row"><span>💰 '+t('earnings')+'</span><div class="bar"><div class="fill" style="width:'+n.scores.money+'%"></div></div><span>'+n.scores.money+'</span></div>';
-html+='<div class="bar-row"><span>📈 Trend</span><div class="bar"><div class="fill" style="width:'+n.scores.trend+'%"></div></div><span>'+n.scores.trend+'</span></div>';
-html+='<div class="bar-row"><span>🛡️ '+t('safety')+'</span><div class="bar"><div class="fill" style="width:'+(n.risk.score||80)+'%"></div></div><span>'+(n.risk.score||80)+'</span></div>';
-html+='</div>';
-html+='<div class="card-actions"><button class="btn btn-primary btn-small" onclick="event.stopPropagation();openModal('+i+')">📋 '+t('detail')+'</button></div>';
-html+='</div>';
-});
-g.innerHTML=html;
-}
+function renderTopN(){var sorted=NICHES.slice().sort(function(a,b){return overall(b)-overall(a)}).slice(0,5);var html='';sorted.forEach(function(n){var idx=NICHES.indexOf(n);html+='<div class="n-row" onclick="openModal('+idx+')"><div class="ic">'+(n.icon||'🎯')+'</div><div class="info"><h4>'+esc(getName(n))+'</h4><p>'+t('opportunity')+': '+overall(n)+' · '+esc(getCat(n))+'</p></div><div class="badge">'+overall(n)+'</div></div>'});document.getElementById('topNiches').innerHTML=html}
 
-function openModal(idx){
-var n=NICHES[idx];
-document.getElementById('modalTitle').textContent=(n.icon||'🎯')+' '+getName(n);
-document.getElementById('modalSub').textContent=getCat(n)+' · '+getSub(n);
-var b=document.getElementById('modalBody');
-var html='<div class="detail-grid">';
-html+='<div class="detail-box"><h3>'+t('scores')+'</h3>';
-html+='<div class="d-bar"><div class="d-bar-label"><span>⭐ '+t('opportunity')+'</span><span>'+overall(n)+'</span></div><div class="d-bar-track"><div class="d-bar-fill" style="width:'+overall(n)+'%"></div></div></div>';
-html+='<div class="d-bar"><div class="d-bar-label"><span>🔍 Hidden</span><span>'+hiddenS(n)+'</span></div><div class="d-bar-track"><div class="d-bar-fill" style="width:'+hiddenS(n)+'%"></div></div></div>';
-html+='<div class="d-bar"><div class="d-bar-label"><span>💰 '+t('earnings')+'</span><span>'+n.scores.money+'</span></div><div class="d-bar-track"><div class="d-bar-fill" style="width:'+n.scores.money+'%"></div></div></div>';
-html+='<div class="d-bar"><div class="d-bar-label"><span>📉 '+t('compLabel')+'</span><span>'+n.scores.comp+'</span></div><div class="d-bar-track"><div class="d-bar-fill" style="width:'+n.scores.comp+'%"></div></div></div>';
-html+='</div>';
-html+='<div class="detail-box"><h3>'+t('target')+'</h3>';
-html+='<p><strong>'+t('targetLabel')+':</strong> '+esc(getAudience(n))+'</p>';
-html+='<p><strong>'+t('competitorLabel')+':</strong> '+esc(getComp(n))+'</p></div>';
-html+='</div>';
-html+='<div class="risk-section"><h3>'+t('riskTitle')+' · '+t('safety')+': '+(n.risk.score||80)+'/100</h3>';
-html+='<p style="color:#cfd9ea;font-size:11px;margin-bottom:8px">'+esc(getRiskSebep(n))+'</p>';
-html+='<div class="detail-grid">';
-html+='<div class="detail-box"><h3>'+t('dontDo')+'</h3><ul>';
-var yapma=getRiskYapma(n);if(Array.isArray(yapma))yapma.forEach(function(x){html+='<li>'+esc(x)+'</li>'});else html+='<li>'+esc(yapma)+'</li>';
-html+='</ul></div>';
-html+='<div class="detail-box"><h3>'+t('doThese')+'</h3><ul>';
-var yap=getRiskYap(n);if(Array.isArray(yap))yap.forEach(function(x){html+='<li>'+esc(x)+'</li>'});else html+='<li>'+esc(yap)+'</li>';
-html+='</ul></div></div></div>';
-if(n.examples){
-html+='<div class="ex-section"><h3 style="margin:12px 0 8px;font-size:14px">'+t('examples')+'</h3>';
-['beginner','rising','success'].forEach(function(f){
-if(n.examples[f]){
-html+='<div class="ex-card '+f+'"><h4>'+t(f)+': '+esc(getEx(n.examples,f))+'</h4>';
-if(n.examples[f].subs)html+='<div class="ex-stats"><span>👥 '+n.examples[f].subs+'</span><span>📹 '+(n.examples[f].videos||'?')+'</span></div>';
-if(n.examples[f].strategy){var st=n.examples[f].strategy[lang]||n.examples[f].strategy.tr;html+='<div class="ex-strat">'+esc(st)+'</div>'}
-html+='</div>';
-}
-});
-html+='</div>';
-}
-b.innerHTML=html;
-document.getElementById('detailModal').classList.add('active');
-}
+function render(){var q=(document.getElementById("searchInput").value||"").toLowerCase().trim();var lf=document.getElementById("langFilter").value;var sf=document.getElementById("sortFilter").value;var hOnly=document.getElementById("hiddenOnly").checked;var nOnly=document.getElementById("newChannelOnly").checked;var fOnly=document.getElementById("facelessOnly").checked;var list=NICHES.filter(function(n){if(q&&getName(n).toLowerCase().indexOf(q)<0&&getCat(n).toLowerCase().indexOf(q)<0)return false;if(lf!=='all'&&n.langs&&n.langs.indexOf(lf)<0)return false;if(hOnly&&hiddenS(n)<70)return false;if(nOnly&&n.scores.newCh<70)return false;if(fOnly&&n.scores.faceless<70)return false;return true});if(sf==='hidden')list.sort(function(a,b){return hiddenS(b)-hiddenS(a)});else if(sf==='lowComp')list.sort(function(a,b){return a.scores.comp-b.scores.comp});else if(sf==='money')list.sort(function(a,b){return b.scores.money-a.scores.money});else if(sf==='new')list.sort(function(a,b){return b.scores.newCh-a.scores.newCh});else list.sort(function(a,b){return overall(b)-overall(a)});document.getElementById('statHidden').textContent=NICHES.filter(function(n){return hiddenS(n)>=70}).length;document.getElementById('statNiches').textContent=NICHES.length;var g=document.getElementById('nichesGrid');if(list.length===0){g.innerHTML='<div class="empty">'+t('empty')+'</div>';return}var html='';list.forEach(function(n){var o=overall(n),h=hiddenS(n),i=NICHES.indexOf(n);html+='<div class="niche-card" onclick="openModal('+i+')"><div class="niche-head"><h3>'+(n.icon||'🎯')+' '+esc(getName(n))+'</h3><div class="score-badge">'+o+'</div></div><div class="niche-category">'+esc(getCat(n))+' · '+esc(getSub(n))+'</div><div class="chips">';if(h>=70)html+='<span class="chip green">🔍 '+t('hidden')+' '+h+'</span>';if(n.scores.newCh>=70)html+='<span class="chip blue">🆕</span>';if(n.scores.faceless>=70)html+='<span class="chip yellow">🎭</span>';html+='<span class="chip '+(n.scores.comp<=40?'green':n.scores.comp<=65?'yellow':'red')+'">'+compLabel(n.scores.comp)+'</span></div><div class="bars"><div class="bar-row"><span>💰 '+t('earnings')+'</span><div class="bar"><div class="fill" style="width:'+n.scores.money+'%"></div></div><span>'+n.scores.money+'</span></div><div class="bar-row"><span>📈 Trend</span><div class="bar"><div class="fill" style="width:'+n.scores.trend+'%"></div></div><span>'+n.scores.trend+'</span></div><div class="bar-row"><span>🛡️ '+t('safety')+'</span><div class="bar"><div class="fill" style="width:'+(n.risk.score||80)+'%"></div></div><span>'+(n.risk.score||80)+'</span></div></div><div class="card-actions"><button class="btn btn-primary btn-small" onclick="event.stopPropagation();openModal('+i+')">📋 '+t('detail')+'</button></div></div>'});g.innerHTML=html}
+
+function openModal(idx){var n=NICHES[idx];document.getElementById('modalTitle').textContent=(n.icon||'🎯')+' '+getName(n);document.getElementById('modalSub').textContent=getCat(n)+' · '+getSub(n);var b=document.getElementById('modalBody');var html='<div class="detail-grid"><div class="detail-box"><h3>'+t('scores')+'</h3><div class="d-bar"><div class="d-bar-label"><span>⭐ '+t('opportunity')+'</span><span>'+overall(n)+'</span></div><div class="d-bar-track"><div class="d-bar-fill" style="width:'+overall(n)+'%"></div></div></div><div class="d-bar"><div class="d-bar-label"><span>🔍 Hidden</span><span>'+hiddenS(n)+'</span></div><div class="d-bar-track"><div class="d-bar-fill" style="width:'+hiddenS(n)+'%"></div></div></div><div class="d-bar"><div class="d-bar-label"><span>💰 '+t('earnings')+'</span><span>'+n.scores.money+'</span></div><div class="d-bar-track"><div class="d-bar-fill" style="width:'+n.scores.money+'%"></div></div></div><div class="d-bar"><div class="d-bar-label"><span>📉 '+t('compLabel')+'</span><span>'+n.scores.comp+'</span></div><div class="d-bar-track"><div class="d-bar-fill" style="width:'+n.scores.comp+'%"></div></div></div></div><div class="detail-box"><h3>'+t('target')+'</h3><p><strong>'+t('targetLabel')+':</strong> '+esc(getAudience(n))+'</p><p><strong>'+t('competitorLabel')+':</strong> '+esc(getComp(n))+'</p></div></div><div class="risk-section"><h3>'+t('riskTitle')+' · '+t('safety')+': '+(n.risk.score||80)+'/100</h3><p style="color:#cfd9ea;font-size:11px;margin-bottom:8px">'+esc(getRiskSebep(n))+'</p><div class="detail-grid"><div class="detail-box"><h3>'+t('dontDo')+'</h3><ul>';var yapma=getRiskYapma(n);if(Array.isArray(yapma))yapma.forEach(function(x){html+='<li>'+esc(x)+'</li>'});else html+='<li>'+esc(yapma)+'</li>';html+='</ul></div><div class="detail-box"><h3>'+t('doThese')+'</h3><ul>';var yap=getRiskYap(n);if(Array.isArray(yap))yap.forEach(function(x){html+='<li>'+esc(x)+'</li>'});else html+='<li>'+esc(yap)+'</li>';html+='</ul></div></div></div>';if(n.examples&&Array.isArray(n.examples)){html+='<div class="ex-section"><h3 style="margin:12px 0 8px;font-size:14px">'+t('examples')+'</h3>';['beginner','rising','success'].forEach(function(f){var item=getExItem(n.examples,f);if(item){html+='<div class="ex-card '+f+'"><h4>'+t(f)+': '+esc(item.name||'')+'</h4><div class="ex-stats"><span>👥 '+(item.subs||'?')+'</span><span>📅 '+esc(getExAge(item))+'</span>'+(item.growth?'<span>📈 '+esc(item.growth)+'</span>':'')+'</div>';var st=getExStrategy(item);if(st)html+='<div class="ex-strat">'+esc(st)+'</div>';html+='</div>'}});html+='</div>'}b.innerHTML=html;document.getElementById('detailModal').classList.add('active')}
 
 function closeModal(){document.getElementById('detailModal').classList.remove('active')}
 
-var API_KEY="BURAYA_KENDI_API_KEYIN";
-function loadTrending(){
-var q=document.getElementById('trendingSearch').value.trim();
-var r=document.getElementById('trendingRegion').value;
-var ck='trend_'+r+'_'+q;
-var cached=cacheGet(ck);
-if(cached){renderTrending(cached);trendingLoaded=true;return}
-var grid=document.getElementById('trendingGrid');
-grid.innerHTML='<div class="t-loading"><div class="spinner"></div><p>Loading...</p></div>';
-var url;
-if(q){url='https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q='+encodeURIComponent(q)+'&regionCode='+r+'&maxResults=12&key='+API_KEY}
-else{url='https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&chart=mostPopular&regionCode='+r+'&maxResults=12&key='+API_KEY}
-fetch(url).then(function(r){return r.json()}).then(function(d){
-if(!d.items){grid.innerHTML='<div class="empty">No data</div>';return}
-var ids=d.items.map(function(v){return v.id.videoId||v.id}).join(',');
-fetch('https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id='+ids+'&key='+API_KEY).then(function(r){return r.json()}).then(function(vd){
-trendingData=vd.items||[];
-cacheSet(ck,trendingData);
-renderTrending(trendingData);
-trendingLoaded=true;
-});
-}).catch(function(e){grid.innerHTML='<div class="empty">Error: '+e.message+'</div>'});
-}
+function loadTrending(){var q=document.getElementById('trendingSearch').value.trim();var r=document.getElementById('trendingRegion').value;var ck='trend_'+r+'_'+q;var cached=cacheGet(ck);if(cached){renderTrending(cached);trendingLoaded=true;return}var grid=document.getElementById('trendingGrid');grid.innerHTML='<div class="t-loading"><div class="spinner"></div><p>Loading...</p></div>';var url;if(q){url='https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q='+encodeURIComponent(q)+'&regionCode='+r+'&maxResults=12&key='+API_KEY}else{url='https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&chart=mostPopular&regionCode='+r+'&maxResults=12&key='+API_KEY}fetch(url).then(function(r){return r.json()}).then(function(d){if(!d.items){grid.innerHTML='<div class="empty">No data - Check API key</div>';return}if(q){var ids=d.items.map(function(v){return v.id.videoId||v.id}).join(',');fetch('https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id='+ids+'&key='+API_KEY).then(function(r){return r.json()}).then(function(vd){cacheSet(ck,vd.items||[]);renderTrending(vd.items||[]);trendingLoaded=true})}else{cacheSet(ck,d.items);renderTrending(d.items);trendingLoaded=true}}).catch(function(e){grid.innerHTML='<div class="empty">Error: '+e.message+'</div>'})}
 
-function renderTrending(items){
-var grid=document.getElementById('trendingGrid');
-if(!items||!items.length){grid.innerHTML='<div class="empty">No videos</div>';return}
-var html='<div class="results-grid">';
-items.forEach(function(v,i){
-var s=v.snippet,st=v.statistics||{};
-html+='<div class="t-card" onclick="openChannelById(\''+s.channelId+'\')">';
-html+='<div class="t-thumb"><img src="'+(s.thumbnails.medium?s.thumbnails.medium.url:s.thumbnails.default.url)+'" alt=""/>';
-html+='<div class="live">LIVE</div><div class="rank">'+(i+1)+'</div></div>';
-html+='<div class="t-info"><h3>'+esc(s.title.substring(0,60))+'</h3>';
-html+='<div class="t-stats"><span>👁️ '+formatNumber(parseInt(st.viewCount||0))+'</span><span>👍 '+formatNumber(parseInt(st.likeCount||0))+'</span></div>';
-html+='<div class="t-ch"><img src="https://ui-avatars.com/api/?name='+encodeURIComponent(s.channelTitle)+'&background=4da3ff&color=fff" alt=""/>';
-html+='<div><div class="t-ch-name">'+esc(s.channelTitle)+'</div><div class="t-ch-subs">'+s.publishedAt.substring(0,10)+'</div></div></div>';
-html+='<div class="t-actions"><button class="btn btn-primary btn-small" onclick="event.stopPropagation();openChannelById(\''+s.channelId+'\')">📊</button></div>';
-html+='</div></div>';
-});
-html+='</div>';
-grid.innerHTML=html;
-}
+function renderTrending(items){var grid=document.getElementById('trendingGrid');if(!items||!items.length){grid.innerHTML='<div class="empty">No videos</div>';return}var html='<div class="results-grid">';items.forEach(function(v,i){var s=v.snippet,st=v.statistics||{};html+='<div class="t-card" onclick="openChannelById(\''+s.channelId+'\')"><div class="t-thumb"><img src="'+(s.thumbnails.medium?s.thumbnails.medium.url:s.thumbnails.default.url)+'" alt=""/><div class="live">LIVE</div><div class="rank">'+(i+1)+'</div></div><div class="t-info"><h3>'+esc(s.title.substring(0,60))+'</h3><div class="t-stats"><span>👁️ '+formatNumber(parseInt(st.viewCount||0))+'</span><span>👍 '+formatNumber(parseInt(st.likeCount||0))+'</span></div><div class="t-ch"><img src="https://ui-avatars.com/api/?name='+encodeURIComponent(s.channelTitle)+'&background=4da3ff&color=fff" alt=""/><div><div class="t-ch-name">'+esc(s.channelTitle)+'</div><div class="t-ch-subs">'+s.publishedAt.substring(0,10)+'</div></div></div><div class="t-actions"><button class="btn btn-primary btn-small" onclick="event.stopPropagation();openChannelById(\''+s.channelId+'\')">📊</button></div></div></div>'});html+='</div>';grid.innerHTML=html}
 
-function openChannelByName(name){
-document.getElementById('analyticsSearch').value=name;
-goPage('analytics');
-setTimeout(searchChannel,300);
-}ng');setTimeout(loadTrending,300)}function openChannelById(channelId){
-var ck='ch_'+channelId;
-var cached=cacheGet(ck);
-if(cached){renderChannelModal(cached);return}
-document.getElementById('chModalTitle').textContent='Loading...';
-document.getElementById('chModalBody').innerHTML='<div class="t-loading"><div class="spinner"></div><p>Loading...</p></div>';
-document.getElementById('channelModal').classList.add('active');
-fetch('https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics,brandingSettings&id='+channelId+'&key='+API_KEY).then(function(r){return r.json()}).then(function(d){
-if(!d.items||!d.items.length){document.getElementById('chModalBody').innerHTML='<div class="empty">Channel not found</div>';return}
-var ch=d.items[0];
-cacheSet(ck,ch);
-renderChannelModal(ch);
-}).catch(function(e){document.getElementById('chModalBody').innerHTML='<div class="empty">Error: '+e.message+'</div>'});
-}
+function openChannelByName(name){document.getElementById('analyticsSearch').value=name;goPage('analytics');setTimeout(searchChannel,300)}
 
-function searchChannel(){
-var q=document.getElementById('analyticsSearch').value.trim();
-if(!q)return;
-var ck='chsearch_'+q;
-var cached=cacheGet(ck);
-if(cached){openChannelById(cached);return}
-document.getElementById('analyticsResult').innerHTML='<div class="t-loading"><div class="spinner"></div><p>Searching...</p></div>';
-fetch('https://www.googleapis.com/youtube/v3/search?part=snippet&type=channel&q='+encodeURIComponent(q)+'&maxResults=1&key='+API_KEY).then(function(r){return r.json()}).then(function(d){
-if(!d.items||!d.items.length){document.getElementById('analyticsResult').innerHTML='<div class="empty">Not found</div>';return}
-var cid=d.items[0].snippet.channelId||d.items[0].id.channelId;
-cacheSet(ck,cid);
-document.getElementById('analyticsResult').innerHTML='';
-openChannelById(cid);
-}).catch(function(e){document.getElementById('analyticsResult').innerHTML='<div class="empty">Error: '+e.message+'</div>'});
-}
+function openChannelById(channelId){var ck='ch_'+channelId;var cached=cacheGet(ck);if(cached){renderChannelModal(cached);return}document.getElementById('chModalTitle').textContent='Loading...';document.getElementById('chModalBody').innerHTML='<div class="t-loading"><div class="spinner"></div><p>Loading...</p></div>';document.getElementById('channelModal').classList.add('active');fetch('https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics,brandingSettings&id='+channelId+'&key='+API_KEY).then(function(r){return r.json()}).then(function(d){if(!d.items||!d.items.length){document.getElementById('chModalBody').innerHTML='<div class="empty">Channel not found</div>';return}var ch=d.items[0];cacheSet(ck,ch);renderChannelModal(ch)}).catch(function(e){document.getElementById('chModalBody').innerHTML='<div class="empty">Error: '+e.message+'</div>'})}
 
-function renderChannelModal(ch){
-var s=ch.snippet,st=ch.statistics;
-var subs=parseInt(st.subscriberCount||0);
-var views=parseInt(st.viewCount||0);
-var vids=parseInt(st.videoCount||0);
-var avgViews=vids>0?Math.round(views/vids):0;
-var rpm=2.5;
-var monthlyViews=avgViews*4;
-var earnLow=Math.round(monthlyViews*rpm*0.5/1000);
-var earnHigh=Math.round(monthlyViews*rpm*1.5/1000);
-var earnAvg=Math.round((earnLow+earnHigh)/2);
-document.getElementById('chModalTitle').textContent='📊 '+s.title;
-document.getElementById('chModalSub').textContent=formatNumber(subs)+' '+t('subs');
-var html='<div class="a-header">';
-html+='<img src="'+(s.thumbnails.high?s.thumbnails.high.url:s.thumbnails.default.url)+'" alt=""/>';
-html+='<div><h2>'+esc(s.title)+'</h2><p style="color:var(--muted);font-size:12px">'+formatNumber(subs)+' '+t('subs')+' · '+formatNumber(vids)+' videos</p>';
-html+='<span class="trend-ind up">'+t('trendUp')+'</span></div></div>';
-html+='<div class="a-grid">';
-html+='<div class="a-box"><h3>'+t('chStats')+'</h3>';
-html+='<div class="a-stat"><span>👥 '+t('subs')+'</span><strong>'+formatNumber(subs)+'</strong></div>';
-html+='<div class="a-stat"><span>👁️ Total Views</span><strong>'+formatNumber(views)+'</strong></div>';
-html+='<div class="a-stat"><span>📹 Videos</span><strong>'+formatNumber(vids)+'</strong></div>';
-html+='<div class="a-stat"><span>📊 Avg Views</span><strong>'+formatNumber(avgViews)+'</strong></div></div>';
-html+='<div class="a-box earn-box"><h3>'+t('chEarn')+'</h3>';
-html+='<div class="earn-amount">$'+formatNumber(earnAvg)+'/mo</div>';
-html+='<div class="earn-range">$'+formatNumber(earnLow)+' - $'+formatNumber(earnHigh)+'</div></div>';
-html+='<div class="a-box"><h3>'+t('chGrowth')+'</h3>';
-var months=[t('thisMonth'),t('lastMonth'),t('twoMonths'),t('threeMonths')];
-var growth=[100,85,72,60];
-months.forEach(function(m,i){
-html+='<div class="g-bar"><div class="lbl">'+m+'</div><div class="trk"><div class="gfill" style="width:'+growth[i]+'%"></div></div><div class="val">'+formatNumber(Math.round(avgViews*growth[i]/100))+'</div></div>';
-});
-html+='</div>';
-html+='<div class="a-box"><h3>'+t('chGender')+'</h3>';
-html+='<div class="d-bar"><div class="d-bar-label"><span>'+t('chMale')+'</span><span>62%</span></div><div class="d-bar-track"><div class="d-bar-fill male" style="width:62%"></div></div></div>';
-html+='<div class="d-bar"><div class="d-bar-label"><span>'+t('chFemale')+'</span><span>38%</span></div><div class="d-bar-track"><div class="d-bar-fill female" style="width:38%"></div></div></div></div>';
-html+='<div class="a-box"><h3>'+t('chAge')+'</h3>';
-var ages=[['13-17',12],['18-24',35],['25-34',28],['35-44',15],['45+',10]];
-ages.forEach(function(a){html+='<div class="c-row"><span>'+a[0]+'</span><strong>'+a[1]+'%</strong></div>'});
-html+='</div>';
-html+='<div class="a-box"><h3>'+t('chCountry')+'</h3>';
-var country=s.country||'US';
-var countries=[['🇺🇸 USA',35],['🇬🇧 UK',15],['🇩🇪 Germany',10],['🇹🇷 Turkey',8],['🌍 Other',32]];
-countries.forEach(function(c){html+='<div class="c-row"><span>'+c[0]+'</span><strong>'+c[1]+'%</strong></div>'});
-html+='</div></div>';
-html+='<div style="text-align:center;margin-top:12px"><a href="https://youtube.com/channel/'+ch.id+'" target="_blank" class="btn btn-primary">'+t('chGoChannel')+'</a></div>';
-html+='<div class="disclaimer">'+t('chDisclaimer')+'</div>';
-document.getElementById('chModalBody').innerHTML=html;
-}
+function searchChannel(){var q=document.getElementById('analyticsSearch').value.trim();if(!q)return;var ck='chsearch_'+q;var cached=cacheGet(ck);if(cached){openChannelById(cached);return}document.getElementById('analyticsResult').innerHTML='<div class="t-loading"><div class="spinner"></div><p>Searching...</p></div>';fetch('https://www.googleapis.com/youtube/v3/search?part=snippet&type=channel&q='+encodeURIComponent(q)+'&maxResults=1&key='+API_KEY).then(function(r){return r.json()}).then(function(d){if(!d.items||!d.items.length){document.getElementById('analyticsResult').innerHTML='<div class="empty">Not found</div>';return}var cid=d.items[0].snippet.channelId||d.items[0].id.channelId;cacheSet(ck,cid);document.getElementById('analyticsResult').innerHTML='';openChannelById(cid)}).catch(function(e){document.getElementById('analyticsResult').innerHTML='<div class="empty">Error: '+e.message+'</div>'})}
+
+function renderChannelModal(ch){var s=ch.snippet,st=ch.statistics;var subs=parseInt(st.subscriberCount||0);var views=parseInt(st.viewCount||0);var vids=parseInt(st.videoCount||0);var avgViews=vids>0?Math.round(views/vids):0;var rpm=2.5;var monthlyViews=avgViews*4;var earnLow=Math.round(monthlyViews*rpm*0.5/1000);var earnHigh=Math.round(monthlyViews*rpm*1.5/1000);var earnAvg=Math.round((earnLow+earnHigh)/2);document.getElementById('chModalTitle').textContent='📊 '+s.title;document.getElementById('chModalSub').textContent=formatNumber(subs)+' '+t('subs');var html='<div class="a-header"><img src="'+(s.thumbnails.high?s.thumbnails.high.url:s.thumbnails.default.url)+'" alt=""/><div><h2>'+esc(s.title)+'</h2><p style="color:var(--muted);font-size:12px">'+formatNumber(subs)+' '+t('subs')+' · '+formatNumber(vids)+' videos</p><span class="trend-ind up">'+t('trendUp')+'</span></div></div><div class="a-grid"><div class="a-box"><h3>'+t('chStats')+'</h3><div class="a-stat"><span>👥 '+t('subs')+'</span><strong>'+formatNumber(subs)+'</strong></div><div class="a-stat"><span>👁️ Total Views</span><strong>'+formatNumber(views)+'</strong></div><div class="a-stat"><span>📹 Videos</span><strong>'+formatNumber(vids)+'</strong></div><div class="a-stat"><span>📊 Avg Views</span><strong>'+formatNumber(avgViews)+'</strong></div></div><div class="a-box earn-box"><h3>'+t('chEarn')+'</h3><div class="earn-amount">$'+formatNumber(earnAvg)+'/mo</div><div class="earn-range">$'+formatNumber(earnLow)+' - $'+formatNumber(earnHigh)+'</div></div><div class="a-box"><h3>'+t('chGrowth')+'</h3>';var months=[t('thisMonth'),t('lastMonth'),t('twoMonths'),t('threeMonths')];var growth=[100,85,72,60];months.forEach(function(m,i){html+='<div class="g-bar"><div class="lbl">'+m+'</div><div class="trk"><div class="gfill" style="width:'+growth[i]+'%"></div></div><div class="val">'+formatNumber(Math.round(avgViews*growth[i]/100))+'</div></div>'});html+='</div><div class="a-box"><h3>'+t('chGender')+'</h3><div class="d-bar"><div class="d-bar-label"><span>'+t('chMale')+'</span><span>62%</span></div><div class="d-bar-track"><div class="d-bar-fill male" style="width:62%"></div></div></div><div class="d-bar"><div class="d-bar-label"><span>'+t('chFemale')+'</span><span>38%</span></div><div class="d-bar-track"><div class="d-bar-fill female" style="width:38%"></div></div></div></div><div class="a-box"><h3>'+t('chAge')+'</h3>';var ages=[['13-17',12],['18-24',35],['25-34',28],['35-44',15],['45+',10]];ages.forEach(function(a){html+='<div class="c-row"><span>'+a[0]+'</span><strong>'+a[1]+'%</strong></div>'});html+='</div><div class="a-box"><h3>'+t('chCountry')+'</h3>';var countries=[['🇺🇸 USA',35],['🇬🇧 UK',15],['🇩🇪 Germany',10],['🇹🇷 Turkey',8],['🌍 Other',32]];countries.forEach(function(c){html+='<div class="c-row"><span>'+c[0]+'</span><strong>'+c[1]+'%</strong></div>'});html+='</div></div><div style="text-align:center;margin-top:12px"><a href="https://youtube.com/channel/'+ch.id+'" target="_blank" class="btn btn-primary">'+t('chGoChannel')+'</a></div><div class="disclaimer">'+t('chDisclaimer')+'</div>';document.getElementById('chModalBody').innerHTML=html}
 
 function closeChannelModal(){document.getElementById('channelModal').classList.remove('active')}
+function toggleAI(){var chat=document.getElementById('aiChat');var btn=document.getElementById('aiBotBtn');chat.classList.toggle('active');btn.classList.toggle('active');btn.textContent=chat.classList.contains('active')?'✕':'🤖'}
+function askAI(qKey){var msgs=document.getElementById('aiMessages');var question=t(qKey);var answer=t('a'+qKey.substring(1));msgs.innerHTML+='<div class="ai-msg user">'+esc(question)+'</div>';setTimeout(function(){msgs.innerHTML+='<div class="ai-msg bot">'+esc(answer).replace(/\n/g,'<br>')+'</div>';msgs.scrollTop=msgs.scrollHeight},400);msgs.scrollTop=msgs.scrollHeight}
 
-function toggleAI(){
-var chat=document.getElementById('aiChat');
-var btn=document.getElementById('aiBotBtn');
-chat.classList.toggle('active');
-btn.classList.toggle('active');
-btn.textContent=chat.classList.contains('active')?'✕':'🤖';
-}
-
-function askAI(qKey){
-var msgs=document.getElementById('aiMessages');
-var question=t(qKey);
-var answer=t('a'+qKey.substring(1));
-msgs.innerHTML+='<div class="ai-msg user">'+esc(question)+'</div>';
-setTimeout(function(){
-msgs.innerHTML+='<div class="ai-msg bot">'+esc(answer).replace(/\n/g,'<br>')+'</div>';
-msgs.scrollTop=msgs.scrollHeight;
-},400);
-msgs.scrollTop=msgs.scrollHeight;
-}
-
-if(isAdmin){
-document.getElementById('adminBanner').classList.add('active');
-document.getElementById('adminTotal').textContent=NICHES.length;
-}
+if(isAdmin){document.getElementById('adminBanner').classList.add('active');document.getElementById('adminTotal').textContent=NICHES.length}
 
 document.getElementById('searchInput').addEventListener('input',render);
 document.getElementById('langFilter').addEventListener('change',render);
@@ -756,18 +431,12 @@ document.getElementById('facelessOnly').addEventListener('change',render);
 document.getElementById('trendingSearch').addEventListener('keypress',function(e){if(e.key==='Enter')loadTrending()});
 document.getElementById('analyticsSearch').addEventListener('keypress',function(e){if(e.key==='Enter')searchChannel()});
 document.getElementById('quickSearch').addEventListener('keypress',function(e){if(e.key==='Enter')quickSearch()});
-
 document.getElementById('detailModal').addEventListener('click',function(e){if(e.target===this)closeModal()});
 document.getElementById('channelModal').addEventListener('click',function(e){if(e.target===this)closeChannelModal()});
-
 document.getElementById('lang-'+lang).classList.add('active');
 document.querySelectorAll('.lang-btn').forEach(function(b){if(b.id!=='lang-'+lang)b.classList.remove('active')});
 
-applyAll();
-render();
-loadRising();
-renderTopN();
-
+applyAll();render();loadRising();renderTopN();
 </script>
 </body>
 </html>
