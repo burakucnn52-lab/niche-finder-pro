@@ -132,7 +132,6 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:var(--bg);c
 .d-bar-fill.female{background:linear-gradient(90deg,#ff5c7a,#a78bfa)}
 .c-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid var(--line);font-size:11px}
 .c-row:last-child{border:0}
-.g-chart{margin-top:8px}
 .g-bar{display:flex;align-items:center;gap:5px;margin:4px 0}
 .g-bar .lbl{width:65px;font-size:9px;color:var(--muted);text-align:right}
 .g-bar .trk{flex:1;height:8px;background:rgba(255,255,255,.06);border-radius:999px;overflow:hidden}
@@ -367,7 +366,7 @@ de:{welcome:"👋 Willkommen bei NICHIFY!",totalLabel:"📊 Analysiert",statHidd
 var lang=localStorage.getItem("nf_lang")||"tr";
 var isAdmin=new URLSearchParams(window.location.search).get('admin')==='1';
 var trendingLoaded=false;var currentPage='home';
-var API_KEY="BURAYA_KENDI_API_KEYIN";
+var API_KEY="AIzaSyDpcD6A7Bq89M0UFEOXiU714C6W4SxP_ZM";
 
 function t(k){return(T[lang]||T.tr)[k]||k}
 function setLang(l){lang=l;localStorage.setItem("nf_lang",l);document.querySelectorAll(".lang-btn").forEach(function(b){b.classList.remove("active")});document.getElementById("lang-"+l).classList.add("active");applyAll();render();loadRising();renderTopN()}
