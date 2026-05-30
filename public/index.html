@@ -3,7 +3,14 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>NICHIFY - YouTube Niche Finder Pro</title>
+<title>NICHIFY - YouTube Niş Bulma ve Analiz Aracı | Lifetime $89</title>
+<meta name="description" content="YouTube için 100+ kazançlı niş, kanal analizi, RPM hesaplama. Lifetime $89, ilk 100 kişiye özel!"/>
+<meta name="keywords" content="youtube niş, niche finder, youtube analiz, kanal analizi, rpm hesaplama"/>
+<meta property="og:title" content="NICHIFY - YouTube Niş Bulma Aracı"/>
+<meta property="og:description" content="100+ niş analizi, kanal istatistikleri, gerçek YouTube verisi. Lifetime $89!"/>
+<meta property="og:image" content="https://ui-avatars.com/api/?name=NICHIFY&background=4da3ff&color=fff&size=512"/>
+<meta property="og:type" content="website"/>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="niches-data.js"></script>
 <style>
 :root{--bg:#0a0e1a;--panel:#131929;--card:#1a2138;--sidebar:#0d1220;--text:#f0f4ff;--muted:#8a99b8;--blue:#4da3ff;--green:#45e08a;--red:#ff5c7a;--yellow:#ffd166;--purple:#a78bfa;--orange:#ff9f43;--cyan:#49e6d8;--line:rgba(255,255,255,.1)}
@@ -26,10 +33,22 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:var(--bg);c
 .s-lifetime .price{font-size:20px;font-weight:800;color:var(--green)}
 .s-lifetime .old{text-decoration:line-through;color:var(--muted);font-size:11px}
 .s-lifetime p{font-size:10px;color:var(--muted);margin-top:3px}
+.s-lifetime .counter{font-size:9px;color:var(--yellow);margin-top:3px;font-weight:600}
 .lang-row{display:flex;gap:3px;justify-content:center}
 .lang-btn{padding:5px 8px;background:transparent;border:1px solid var(--line);color:var(--muted);cursor:pointer;border-radius:5px;font-size:10px;font-weight:600;font-family:inherit;transition:.2s}
 .lang-btn.active{background:linear-gradient(135deg,var(--blue),var(--purple));color:white;border-color:transparent}
+.user-info{padding:10px;border-top:1px solid var(--line);display:flex;align-items:center;gap:8px;cursor:pointer;transition:.2s}
+.user-info:hover{background:rgba(255,255,255,.04)}
+.user-info img{width:32px;height:32px;border-radius:50%;background:var(--blue)}
+.user-info .uname{flex:1;font-size:12px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.user-info .umail{font-size:10px;color:var(--muted)}
+.logout-btn{background:transparent;border:none;color:var(--muted);cursor:pointer;font-size:14px;padding:4px}
+.logout-btn:hover{color:var(--red)}
 .main{margin-left:220px;flex:1;min-height:100vh;padding:20px;background:radial-gradient(circle at top left,rgba(77,163,255,.08),transparent 35%),var(--bg)}
+.welcome-banner{background:linear-gradient(135deg,rgba(77,163,255,.12),rgba(167,139,250,.08));border:1px solid rgba(77,163,255,.25);border-radius:14px;padding:18px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.welcome-banner h2{font-size:18px;margin-bottom:4px;background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.welcome-banner p{color:var(--muted);font-size:12px}
+.welcome-banner .badge-pro{background:linear-gradient(135deg,var(--green),var(--cyan));color:#0a0e1a;padding:5px 12px;border-radius:999px;font-size:11px;font-weight:800;display:inline-block;margin-top:6px}
 .search-bar{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:10px 14px;display:flex;gap:8px;margin-bottom:16px}
 .search-bar input{flex:1;background:transparent;border:none;color:var(--text);font-size:13px;outline:none;font-family:inherit}
 .search-bar button{background:linear-gradient(135deg,var(--blue),var(--purple));border:none;color:white;padding:7px 14px;border-radius:7px;cursor:pointer;font-weight:600;font-size:12px;font-family:inherit}
@@ -44,6 +63,9 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:var(--bg);c
 .widget-head h2{font-size:15px}
 .widget-head .va{color:var(--blue);font-size:11px;cursor:pointer;font-weight:600;background:none;border:none;font-family:inherit}
 .w-sub{color:var(--muted);font-size:10px;margin-bottom:10px}
+</style>
+</head>
+<body><style>
 .ch-row{display:flex;align-items:center;gap:10px;padding:9px;background:var(--card);border:1px solid var(--line);border-radius:9px;margin-bottom:5px;transition:.2s;cursor:pointer}
 .ch-row:hover{transform:translateX(3px);border-color:var(--blue)}
 .ch-row img{width:36px;height:36px;border-radius:50%;flex-shrink:0}
@@ -65,6 +87,8 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:var(--bg);c
 .btn-primary{background:linear-gradient(135deg,var(--blue),var(--purple))}
 .btn-small{padding:5px 10px;font-size:10px;border-radius:6px}
 .btn-secondary{background:rgba(255,255,255,.08);border:1px solid var(--line);color:var(--text)}
+.btn-success{background:linear-gradient(135deg,var(--green),var(--cyan));color:#0a0e1a}
+.btn-danger{background:linear-gradient(135deg,var(--red),var(--orange))}
 .toggle-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
 .toggle{display:inline-flex;align-items:center;gap:5px;padding:6px 10px;background:rgba(255,255,255,.06);border:1px solid var(--line);border-radius:999px;cursor:pointer;font-size:11px;color:#dce6f7}
 .results-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin-top:12px}
@@ -103,13 +127,40 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:var(--bg);c
 .t-loading{text-align:center;padding:30px;color:var(--muted)}
 .t-loading .spinner{width:24px;height:24px;border:3px solid var(--line);border-top:3px solid var(--red);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 8px}
 @keyframes spin{to{transform:rotate(360deg)}}
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:flex-start;justify-content:center;padding:16px;z-index:9999;overflow-y:auto}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.8);display:none;align-items:flex-start;justify-content:center;padding:16px;z-index:9999;overflow-y:auto;backdrop-filter:blur(5px)}
 .modal.active{display:flex}
 .modal-card{width:min(800px,100%);background:#0d1322;border:1px solid var(--line);border-radius:18px;margin:auto}
 .modal-head{position:sticky;top:0;background:#0d1322;padding:16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:flex-start;gap:8px;border-radius:18px 18px 0 0;z-index:5}
 .modal-head h2{font-size:18px}
 .modal-head p{color:var(--muted);font-size:11px}
 .modal-body{padding:16px}
+.auth-modal{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;padding:16px;z-index:99999;backdrop-filter:blur(10px)}
+.auth-modal.active{display:flex}
+.auth-card{width:min(420px,100%);background:linear-gradient(135deg,#0d1322,#131929);border:1px solid var(--line);border-radius:20px;padding:30px;box-shadow:0 20px 60px rgba(77,163,255,.2)}
+.auth-logo{text-align:center;margin-bottom:20px}
+.auth-logo h2{font-size:24px;background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:5px}
+.auth-logo p{color:var(--muted);font-size:12px}
+.auth-tabs{display:flex;gap:8px;margin-bottom:20px;border-bottom:1px solid var(--line)}
+.auth-tab{flex:1;padding:10px;background:none;border:none;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;border-bottom:2px solid transparent;transition:.2s;font-family:inherit}
+.auth-tab.active{color:var(--blue);border-bottom-color:var(--blue)}
+.auth-form{display:none}
+.auth-form.active{display:block}
+.auth-input{width:100%;padding:12px 14px;background:var(--card);border:1px solid var(--line);border-radius:10px;color:var(--text);font-size:13px;outline:none;font-family:inherit;margin-bottom:10px;transition:.2s}
+.auth-input:focus{border-color:var(--blue);background:rgba(77,163,255,.05)}
+.auth-label{font-size:11px;color:var(--muted);margin-bottom:4px;display:block;font-weight:600}
+.auth-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--blue),var(--purple));border:none;border-radius:10px;color:white;font-size:14px;font-weight:700;cursor:pointer;margin-top:10px;font-family:inherit;transition:.2s}
+.auth-btn:hover{transform:translateY(-2px);box-shadow:0 5px 20px rgba(77,163,255,.3)}
+.auth-btn:disabled{opacity:.6;cursor:not-allowed}
+.auth-msg{padding:10px;border-radius:8px;font-size:12px;margin-bottom:10px;display:none}
+.auth-msg.error{background:rgba(255,92,122,.15);color:#ff8fa3;border:1px solid rgba(255,92,122,.3);display:block}
+.auth-msg.success{background:rgba(69,224,138,.15);color:#7ff0a8;border:1px solid rgba(69,224,138,.3);display:block}
+.auth-foot{text-align:center;margin-top:15px;font-size:11px;color:var(--muted)}
+.auth-foot a{color:var(--blue);cursor:pointer;text-decoration:none}
+.lifetime-badge{background:linear-gradient(135deg,rgba(255,92,122,.2),rgba(255,159,67,.15));border:1px solid var(--red);border-radius:10px;padding:12px;margin-bottom:15px;text-align:center}
+.lifetime-badge .ltprice{font-size:22px;font-weight:800;color:var(--green)}
+.lifetime-badge .ltold{text-decoration:line-through;color:var(--muted);font-size:13px;margin-right:8px}
+.lifetime-badge p{font-size:11px;color:var(--muted);margin-top:5px}
+.lifetime-badge .lt-counter{font-size:11px;color:var(--yellow);margin-top:6px;font-weight:700}
 .a-header{display:flex;gap:12px;align-items:center;margin-bottom:16px;flex-wrap:wrap}
 .a-header img{width:60px;height:60px;border-radius:50%}
 .a-header h2{font-size:20px;margin-bottom:2px}
@@ -188,72 +239,97 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:var(--bg);c
 .ai-msg{padding:8px 10px;border-radius:10px;font-size:11px;line-height:1.4;max-width:88%}
 .ai-msg.bot{background:var(--card);border:1px solid var(--line);align-self:flex-start;color:var(--text)}
 .ai-msg.user{background:linear-gradient(135deg,var(--blue),var(--purple));align-self:flex-end;color:white}
-.ai-cats{padding:8px;border-top:1px solid var(--line);max-height:160px;overflow-y:auto}
-.ai-cat-t{font-size:9px;color:var(--muted);margin:5px 0 3px;font-weight:600}
-.ai-q{padding:6px 8px;background:var(--card);border:1px solid var(--line);border-radius:7px;color:var(--text);font-size:10px;cursor:pointer;text-align:left;font-family:inherit;width:100%;margin-bottom:3px;transition:.2s}
-.ai-q:hover{background:rgba(77,163,255,.1);border-color:var(--blue)}
+.ai-input-row{padding:8px;border-top:1px solid var(--line);display:flex;gap:5px}
+.ai-input-row input{flex:1;padding:8px 10px;background:var(--card);border:1px solid var(--line);border-radius:7px;color:var(--text);font-size:11px;outline:none;font-family:inherit}
+.ai-input-row button{padding:8px 12px;background:linear-gradient(135deg,var(--blue),var(--purple));border:none;border-radius:7px;color:white;font-size:11px;cursor:pointer;font-family:inherit}
 .admin-banner{background:linear-gradient(135deg,rgba(255,209,102,.2),rgba(255,159,67,.15));border:1px solid var(--yellow);border-radius:8px;padding:8px 12px;margin-bottom:10px;display:none;align-items:center;justify-content:space-between;font-size:11px}
 .admin-banner.active{display:flex}
 .admin-banner strong{color:var(--yellow)}
+.admin-panel{background:var(--panel);border:1px solid var(--yellow);border-radius:14px;padding:18px;margin-bottom:14px}
+.admin-panel h2{color:var(--yellow);margin-bottom:14px}
+.admin-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-bottom:16px}
+.admin-stat{background:rgba(255,209,102,.08);border:1px solid rgba(255,209,102,.2);border-radius:10px;padding:14px}
+.admin-stat strong{font-size:24px;color:var(--green);display:block;margin-bottom:4px}
+.admin-stat span{font-size:11px;color:var(--muted)}
+.sale-row{display:flex;align-items:center;justify-content:space-between;padding:10px;background:var(--card);border:1px solid var(--line);border-radius:9px;margin-bottom:5px}
+.sale-row .si{flex:1}
+.sale-row .si h4{font-size:12px;margin-bottom:2px}
+.sale-row .si p{font-size:10px;color:var(--muted)}
+.sale-row .sa{font-size:13px;font-weight:700;color:var(--green)}
 .mobile-toggle{display:none;position:fixed;top:8px;left:8px;z-index:200;background:var(--blue);border:none;color:white;width:36px;height:36px;border-radius:8px;font-size:18px;cursor:pointer}
 @media(max-width:900px){.home-grid,.stats-row{grid-template-columns:1fr 1fr}}
 @media(max-width:768px){.sidebar{transform:translateX(-100%);transition:.3s}.sidebar.open{transform:translateX(0)}.main{margin-left:0}.mobile-toggle{display:grid;place-items:center}.results-grid,.detail-grid,.a-grid{grid-template-columns:1fr}.stats-row{grid-template-columns:repeat(2,1fr)}}
-</style>
-</head>
-<body>
-
-<button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">☰</button>
+</style><button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">☰</button>
 
 <nav class="sidebar">
 <div class="sidebar-logo"><h2>🚀 NICHIFY</h2><span class="ver">PRO</span></div>
 <div class="sidebar-nav">
 <div class="sidebar-section">
-<div class="s-title" id="sideMainLabel">MAIN</div>
-<button class="s-item active" onclick="goPage('home')" id="sideHome"><span class="ic">🏠</span><span id="sideHomeText">Home</span></button>
-<button class="s-item" onclick="goPage('niches')" id="sideNiches"><span class="ic">🎯</span><span id="sideNichesText">Niches</span></button>
-<button class="s-item" onclick="goPage('trending')" id="sideTrending"><span class="ic">🔥</span><span id="sideTrendingText">Trending</span></button>
-<button class="s-item" onclick="goPage('analytics')" id="sideAnalytics"><span class="ic">📊</span><span id="sideAnalyticsText">Analytics</span></button>
+<div class="s-title">ANA MENÜ</div>
+<button class="s-item active" onclick="goPage('home')" id="sideHome"><span class="ic">🏠</span><span>Anasayfa</span></button>
+<button class="s-item" onclick="goPage('niches')" id="sideNiches"><span class="ic">🎯</span><span>Niş Keşfi</span></button>
+<button class="s-item" onclick="goPage('trending')" id="sideTrending"><span class="ic">🔥</span><span>Yükselen Kanallar</span></button>
+<button class="s-item" onclick="goPage('analytics')" id="sideAnalytics"><span class="ic">📊</span><span>Kanal Analizi</span></button>
 </div>
 <div class="sidebar-section">
-<div class="s-title" id="sideToolsLabel">TOOLS</div>
-<button class="s-item" onclick="goPage('risk')" id="sideRisk"><span class="ic">🛡️</span><span id="sideRiskText">Risk</span></button>
-<button class="s-item" onclick="toggleAI()" id="sideBot"><span class="ic">🤖</span><span id="sideBotText">AI Bot</span></button>
-<button class="s-item" onclick="goPage('roadmap')" id="sideRoadmap"><span class="ic">🚀</span><span id="sideRoadmapText">Roadmap</span></button>
+<div class="s-title">ARAÇLAR</div>
+<button class="s-item" onclick="goPage('risk')" id="sideRisk"><span class="ic">🛡️</span><span>Risk Detector</span></button>
+<button class="s-item" onclick="toggleAI()" id="sideBot"><span class="ic">🤖</span><span>AI Asistan</span></button>
+<button class="s-item" onclick="goPage('roadmap')" id="sideRoadmap"><span class="ic">🚀</span><span>Yol Haritası</span></button>
+</div>
+<div class="sidebar-section" id="adminSection" style="display:none">
+<div class="s-title" style="color:var(--yellow)">👑 ADMİN</div>
+<button class="s-item" onclick="goPage('admin')" id="sideAdmin"><span class="ic">📊</span><span>Yönetim Paneli</span></button>
 </div>
 </div>
 <div class="sidebar-bottom">
 <div class="s-lifetime" onclick="window.open('https://nichify.lemonsqueezy.com/buy/327c8366-362b-45e1-8d34-0c6b6ea43411','_blank')">
-<div class="old">$149</div><div class="price">$89</div><p id="sideLifetimeText">Lifetime Deal 🔥</p>
+<div class="old">$149</div><div class="price">$89</div><p>Lifetime Deal 🔥</p>
+<div class="counter" id="sideCounter">⏰ Yükleniyor...</div>
 </div>
-<div class="lang-row">
-<button class="lang-btn active" onclick="setLang('tr')" id="lang-tr">🇹🇷</button>
-<button class="lang-btn" onclick="setLang('en')" id="lang-en">🇬🇧</button>
-<button class="lang-btn" onclick="setLang('de')" id="lang-de">🇩🇪</button>
 </div>
+<div class="user-info" id="userInfoBox" onclick="goPage('home')">
+<img id="userAvatar" src="https://ui-avatars.com/api/?name=U&background=4da3ff&color=fff" alt=""/>
+<div style="flex:1;min-width:0">
+<div class="uname" id="userName">Yükleniyor...</div>
+<div class="umail" id="userEmail">...</div>
+</div>
+<button class="logout-btn" onclick="event.stopPropagation();handleLogout()" title="Çıkış Yap">🚪</button>
 </div>
 </nav>
 
 <main class="main">
-<div class="admin-banner" id="adminBanner"><strong>👑 ADMIN</strong><span>📊 <span id="adminTotal">0</span> | 💰 0/100</span></div>
+<div class="admin-banner" id="adminBanner"><strong>👑 ADMİN MODU</strong><span>📊 <span id="adminTotal">0</span> kullanıcı | 💰 <span id="adminSales">0</span>/100 satış</span></div>
 
 <div id="page-home">
-<div class="updated"><span class="dot"></span><span id="updatedText">Live data · Updated just now</span></div>
-<div class="search-bar"><input id="quickSearch" placeholder="🔍 Search..."/><button onclick="quickSearch()" id="quickSearchBtn">🔍</button></div>
+<div class="welcome-banner">
+<div>
+<h2>👋 Hoşgeldin, <span id="welcomeName">Burak</span>!</h2>
+<p>NICHIFY PRO'ya tekrar hoşgeldin. Bugün hangi nişi keşfedeceğiz?</p>
+<span class="badge-pro">💎 LIFETIME PRO</span>
+</div>
+<div style="text-align:right">
+<div style="font-size:11px;color:var(--muted);margin-bottom:4px">Son giriş</div>
+<div style="font-size:13px;font-weight:600" id="lastLogin">Şimdi</div>
+</div>
+</div>
+<div class="updated"><span class="dot"></span><span>🔴 Canlı veri · Az önce güncellendi</span></div>
+<div class="search-bar"><input id="quickSearch" placeholder="🔍 Niş ara: AI, finans, motivasyon..."/><button onclick="quickSearch()">🔍 Ara</button></div>
 <div class="stats-row">
-<div class="stat-card premium"><strong id="statTotal">18.7M</strong><span id="totalLabel">📊 Analyzed</span></div>
-<div class="stat-card"><strong id="statHidden">0</strong><span id="statHiddenLabel">Hidden</span></div>
-<div class="stat-card"><strong id="statNiches">100</strong><span id="statNichesLabel">Niches</span></div>
-<div class="stat-card"><strong>3</strong><span id="statLangsLabel">Languages</span></div>
+<div class="stat-card premium"><strong id="statTotal">18.7M</strong><span>📊 Toplam Analiz</span></div>
+<div class="stat-card"><strong id="statHidden">0</strong><span>🔍 Hidden Fırsat</span></div>
+<div class="stat-card"><strong id="statNiches">100</strong><span>🎯 Toplam Niş</span></div>
+<div class="stat-card"><strong>3</strong><span>🌍 Dil</span></div>
 </div>
 <div class="home-grid">
 <div class="home-widget">
-<div class="widget-head"><h2 id="risingTitle">🔥 Rising</h2><button class="va" onclick="goPage('trending')" id="viewAll1">→</button></div>
-<p class="w-sub" id="risingSubtitle">Live data</p>
-<div id="risingChannels"></div>
+<div class="widget-head"><h2>🔥 Yükselen Kanallar</h2><button class="va" onclick="goPage('trending')">Tümünü Gör →</button></div>
+<p class="w-sub">Canlı YouTube verisi · Her gün güncellenir</p>
+<div id="risingChannels"><div class="t-loading"><div class="spinner"></div><p>Yükleniyor...</p></div></div>
 </div>
 <div class="home-widget">
-<div class="widget-head"><h2 id="topNichesTitle">🎯 Top Niches</h2><button class="va" onclick="goPage('niches')" id="viewAll2">→</button></div>
-<p class="w-sub" id="topNichesSubtitle">Best opportunities</p>
+<div class="widget-head"><h2>🎯 En İyi Nişler</h2><button class="va" onclick="goPage('niches')">Tümünü Gör →</button></div>
+<p class="w-sub">Yüksek skor, düşük rekabet</p>
 <div id="topNiches"></div>
 </div>
 </div>
@@ -261,29 +337,29 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:var(--bg);c
 
 <div id="page-niches" style="display:none">
 <section class="section">
-<h2 id="searchTitle">🔍 Niches</h2>
+<h2>🔍 Niş Keşfi</h2>
 <div class="input-row">
-<input id="searchInput" placeholder="Search..."/>
-<select id="langFilter"><option value="all" id="allLangsOpt">🌍 All</option><option value="TR">🇹🇷</option><option value="EN">🇬🇧</option><option value="DE">🇩🇪</option></select>
-<select id="sortFilter"><option value="best" id="sortBestOpt">⭐</option><option value="hidden" id="sortHiddenOpt">🔍</option><option value="lowComp" id="sortLowOpt">📉</option><option value="money" id="sortMoneyOpt">💰</option><option value="new" id="sortNewOpt">🆕</option></select>
+<input id="searchInput" placeholder="Niş ara..."/>
+<select id="langFilter"><option value="all">🌍 Tüm Diller</option><option value="TR">🇹🇷 Türkçe</option><option value="EN">🇬🇧 İngilizce</option><option value="DE">🇩🇪 Almanca</option></select>
+<select id="sortFilter"><option value="best">⭐ Genel Fırsat</option><option value="hidden">🔍 Gizli Fırsat</option><option value="lowComp">📉 Düşük Rekabet</option><option value="money">💰 Kazanç</option><option value="new">🆕 Yeni Kanal Dostu</option></select>
 </div>
 <div class="toggle-row">
-<label class="toggle"><input type="checkbox" id="hiddenOnly"><span id="filterHiddenLabel">🔍 Hidden</span></label>
-<label class="toggle"><input type="checkbox" id="newChannelOnly"><span id="filterNewLabel">🆕 New</span></label>
-<label class="toggle"><input type="checkbox" id="facelessOnly"><span id="filterFacelessLabel">🎭 Faceless</span></label>
+<label class="toggle"><input type="checkbox" id="hiddenOnly"><span>🔍 Hidden Opportunity</span></label>
+<label class="toggle"><input type="checkbox" id="newChannelOnly"><span>🆕 Yeni Kanal Dostu</span></label>
+<label class="toggle"><input type="checkbox" id="facelessOnly"><span>🎭 Faceless</span></label>
 </div>
 </section>
-<section class="section"><h2 id="resultsTitle">📊 Results</h2><div id="nichesGrid" class="results-grid"></div></section>
+<section class="section"><h2>📊 Sonuçlar</h2><div id="nichesGrid" class="results-grid"></div></section>
 </div>
 
 <div id="page-trending" style="display:none">
 <section class="section">
-<h2 id="trendingPageTitle">🔥 Trending</h2>
-<p style="color:var(--muted);margin-bottom:10px;font-size:12px" id="trendingPageDesc">LIVE data!</p>
+<h2>🔥 Yükselen YouTube Kanalları</h2>
+<p style="color:var(--muted);margin-bottom:10px;font-size:12px">CANLI veri! Kanala tıklayarak detay gör. Her arama 1 saat önbellekte kalır.</p>
 <div class="input-row" style="margin-bottom:10px">
-<input id="trendingSearch" placeholder="🔍 Search..." style="flex:2"/>
-<select id="trendingRegion"><option value="US">🇺🇸</option><option value="TR">🇹🇷</option><option value="DE">🇩🇪</option><option value="GB">🇬🇧</option><option value="FR">🇫🇷</option><option value="ES">🇪🇸</option><option value="JP">🇯🇵</option></select>
-<button class="btn btn-primary" onclick="loadTrending()" id="trendingBtn">🔄</button>
+<input id="trendingSearch" placeholder="🔍 Kategori veya kanal ara..." style="flex:2"/>
+<select id="trendingRegion"><option value="US">🇺🇸 USA</option><option value="TR">🇹🇷 Türkiye</option><option value="DE">🇩🇪 Almanya</option><option value="GB">🇬🇧 UK</option><option value="FR">🇫🇷 Fransa</option><option value="ES">🇪🇸 İspanya</option><option value="JP">🇯🇵 Japonya</option></select>
+<button class="btn btn-primary" onclick="loadTrending()">🔄 Ara</button>
 </div>
 <div id="trendingGrid"></div>
 </section>
@@ -291,11 +367,11 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:var(--bg);c
 
 <div id="page-analytics" style="display:none">
 <section class="section">
-<h2 id="analyticsTitle">📊 Channel Analytics</h2>
-<p style="color:var(--muted);margin-bottom:10px;font-size:12px" id="analyticsDesc">Search and analyze</p>
+<h2>📊 Kanal Analizi</h2>
+<p style="color:var(--muted);margin-bottom:10px;font-size:12px">Gerçek YouTube kanallarını ara: MrBeast, PewDiePie, Veritasium...</p>
 <div class="input-row">
-<input id="analyticsSearch" placeholder="🔍 Search channel..."/>
-<button class="btn btn-primary" onclick="searchChannel()" id="analyticsBtn">📊 Analyze</button>
+<input id="analyticsSearch" placeholder="🔍 Kanal adı yazın..."/>
+<button class="btn btn-primary" onclick="searchChannel()">📊 Analiz Et</button>
 </div>
 <div id="analyticsResult" style="margin-top:14px"></div>
 </section>
@@ -303,139 +379,1100 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:var(--bg);c
 
 <div id="page-risk" style="display:none">
 <section class="section">
-<h2 id="riskPageTitle">🛡️ Risk Detector</h2>
-<p style="color:var(--muted);margin-bottom:10px;font-size:12px" id="riskPageDesc">Check risks on niche cards</p>
-<p style="color:var(--text);font-size:13px" id="riskPageInfo">Click any niche card to see Risk Analysis!</p>
-<button class="btn btn-primary" onclick="goPage('niches')" style="margin-top:10px" id="riskGoBtn">🎯 Go to Niches</button>
+<h2>🛡️ Risk Detector</h2>
+<p style="color:var(--muted);margin-bottom:10px;font-size:12px">Niş kartlarındaki Risk puanlarını kontrol et</p>
+<p style="color:var(--text);font-size:13px">← Herhangi bir nişe tıklayarak Risk Analizi görebilirsin!</p>
+<button class="btn btn-primary" onclick="goPage('niches')" style="margin-top:10px">🎯 Niş Keşfine Git</button>
 </section>
 </div>
 
 <div id="page-roadmap" style="display:none">
 <section class="section">
-<h2 id="roadmapPageTitle">🚀 Coming Soon</h2>
-<p style="color:var(--muted);margin-bottom:10px;font-size:12px" id="roadmapPageDesc">NICHIFY evolving!</p>
+<h2>🚀 Yol Haritası</h2>
+<p style="color:var(--muted);margin-bottom:10px;font-size:12px">NICHIFY sürekli gelişiyor!</p>
 <div class="roadmap-grid">
-<div class="rm-card lifetime"><span class="status lifetime">🔥</span><h3>💎 LIFETIME</h3><div class="date">$89</div><p id="rmLifetime">Lifetime access!</p></div>
-<div class="rm-card coming"><span class="status coming">⏳</span><h3>👤 Login</h3><div class="date" id="rmDate1">Soon</div><p id="rmDesc1">User accounts</p></div>
-<div class="rm-card soon"><span class="status soon">🔜</span><h3>📱 TikTok</h3><div class="date" id="rmDate2">2w</div><p id="rmDesc2">Multi-platform</p></div>
-<div class="rm-card planned"><span class="status planned">📅</span><h3>🎨 AI</h3><div class="date" id="rmDate3">1m</div><p id="rmDesc3">Thumbnails</p></div>
-<div class="rm-card planned"><span class="status planned">📅</span><h3>📝 Scripts</h3><div class="date" id="rmDate4">1m</div><p id="rmDesc4">Auto scripts</p></div>
-<div class="rm-card planned"><span class="status planned">📅</span><h3>📱 App</h3><div class="date" id="rmDate5">2m</div><p id="rmDesc5">Mobile</p></div>
+<div class="rm-card lifetime"><span class="status lifetime">🔥 AKTIF</span><h3>💎 LIFETIME</h3><div class="date">$89 (sonra $19/ay olacak)</div><p>İlk 100 kişiye özel! Tek seferlik ödeme, ömür boyu kullanım.</p></div>
+<div class="rm-card coming"><span class="status coming">⏳ ÇOK YAKINDA</span><h3>🤖 AI Asistan</h3><div class="date">Birkaç gün</div><p>ChatGPT entegrasyonu - her şeye cevap veren akıllı bot</p></div>
+<div class="rm-card soon"><span class="status soon">🔜 SOON</span><h3>📱 TikTok & Instagram</h3><div class="date">2 hafta</div><p>Multi-platform niş analizi</p></div>
+<div class="rm-card planned"><span class="status planned">📅 PLANLI</span><h3>🎨 AI Thumbnail</h3><div class="date">1 ay</div><p>AI ile otomatik thumbnail üretimi</p></div>
+<div class="rm-card planned"><span class="status planned">📅 PLANLI</span><h3>📝 AI Script</h3><div class="date">1 ay</div><p>Video scripti otomatik yazımı</p></div>
+<div class="rm-card planned"><span class="status planned">📅 PLANLI</span><h3>📱 Mobil App</h3><div class="date">2 ay</div><p>iOS ve Android uygulaması</p></div>
 </div>
 </section>
 </div>
 
-<p class="footer">NICHIFY v2.1 | © 2025</p>
-</main>
+<div id="page-admin" style="display:none">
+<div class="admin-panel">
+<h2>👑 Admin Yönetim Paneli</h2>
+<div class="admin-stats">
+<div class="admin-stat"><strong id="aStatTotal">0</strong><span>👥 Toplam Kullanıcı</span></div>
+<div class="admin-stat"><strong id="aStatPro">0</strong><span>💎 Pro Kullanıcı</span></div>
+<div class="admin-stat"><strong>$<span id="aStatRevenue">0</span></strong><span>💰 Toplam Gelir</span></div>
+<div class="admin-stat"><strong id="aStatRemaining">100</strong><span>🎯 Kalan Lifetime</span></div>
+</div>
+<h3 style="margin:18px 0 10px;font-size:14px">📋 Son Satışlar</h3>
+<div id="salesList"></div>
+<h3 style="margin:18px 0 10px;font-size:14px">👥 Son Kayıt Olanlar</h3>
+<div id="usersList"></div>
+</div>
+</div>
 
+<p class="footer">NICHIFY v2.1 | © 2025 | <a href="mailto:bucun648@gmail.com" style="color:var(--blue)">İletişim</a></p>
+</main><!-- LOGIN/REGISTER MODAL -->
+<div class="auth-modal active" id="authModal">
+<div class="auth-card">
+<div class="auth-logo">
+<h2>🚀 NICHIFY</h2>
+<p>YouTube Niş Bulma ve Analiz Aracı</p>
+</div>
+
+<div class="lifetime-badge">
+<span class="ltold">$149</span><span class="ltprice">$89</span>
+<p>💎 LIFETIME - Tek Seferlik Ödeme</p>
+<div class="lt-counter">🔥 İlk 100 kişiye özel: <span id="authCounter">100/100 kaldı</span></div>
+</div>
+
+<div class="auth-tabs">
+<button class="auth-tab active" onclick="switchTab('login')" id="tabLogin">🔑 Giriş Yap</button>
+<button class="auth-tab" onclick="switchTab('register')" id="tabRegister">✨ Kayıt Ol</button>
+</div>
+
+<div class="auth-msg" id="authMsg"></div>
+
+<!-- LOGIN FORM -->
+<form class="auth-form active" id="loginForm" onsubmit="handleLogin(event)">
+<label class="auth-label">E-posta</label>
+<input type="email" class="auth-input" id="loginEmail" placeholder="ornek@gmail.com" required/>
+<label class="auth-label">Şifre</label>
+<input type="password" class="auth-input" id="loginPassword" placeholder="••••••••" required/>
+<button type="submit" class="auth-btn" id="loginBtn">🔑 Giriş Yap</button>
+<div class="auth-foot">
+Hesabın yok mu? <a onclick="switchTab('register')">Kayıt Ol</a>
+</div>
+</form>
+
+<!-- REGISTER FORM -->
+<form class="auth-form" id="registerForm" onsubmit="handleRegister(event)">
+<label class="auth-label">Ad Soyad</label>
+<input type="text" class="auth-input" id="regName" placeholder="Burak Üçün" required/>
+<label class="auth-label">E-posta</label>
+<input type="email" class="auth-input" id="regEmail" placeholder="ornek@gmail.com" required/>
+<label class="auth-label">Şifre (en az 6 karakter)</label>
+<input type="password" class="auth-input" id="regPassword" placeholder="••••••••" minlength="6" required/>
+<button type="submit" class="auth-btn" id="regBtn">✨ Hesap Oluştur</button>
+<div class="auth-foot">
+Zaten hesabın var mı? <a onclick="switchTab('login')">Giriş Yap</a>
+</div>
+<div class="auth-foot" style="margin-top:8px">
+Kayıt olarak <a href="#" style="color:var(--muted)">Kullanım Şartlarını</a> kabul ediyorsun
+</div>
+</form>
+
+</div>
+</div>
+
+<!-- AI BOT BUTONU -->
 <button class="ai-btn" onclick="toggleAI()" id="aiBotBtn">🤖</button>
 
+<!-- AI BOT CHAT -->
 <div class="ai-chat" id="aiChat">
-<div class="ai-chat-head"><div class="av">🤖</div><div><h3 id="botTitle">NICHIFY Bot</h3><p id="botSubtitle">Help?</p></div></div>
-<div class="ai-body" id="aiMessages"><div class="ai-msg bot" id="botWelcome">👋 Hello!</div></div>
-<div class="ai-cats">
-<div class="ai-cat-t" id="botCat1">🎯 Niche</div>
-<button class="ai-q" onclick="askAI('q1')" id="botQ1">Q1</button>
-<button class="ai-q" onclick="askAI('q2')" id="botQ2">Q2</button>
-<button class="ai-q" onclick="askAI('q3')" id="botQ3">Q3</button>
-<div class="ai-cat-t" id="botCat2">🛡️ Risk</div>
-<button class="ai-q" onclick="askAI('q4')" id="botQ4">Q4</button>
-<button class="ai-q" onclick="askAI('q5')" id="botQ5">Q5</button>
-<button class="ai-q" onclick="askAI('q6')" id="botQ6">Q6</button>
-<div class="ai-cat-t" id="botCat3">💰 Money</div>
-<button class="ai-q" onclick="askAI('q7')" id="botQ7">Q7</button>
-<button class="ai-q" onclick="askAI('q8')" id="botQ8">Q8</button>
-<button class="ai-q" onclick="askAI('q9')" id="botQ9">Q9</button>
+<div class="ai-chat-head">
+<div class="av">🤖</div>
+<div>
+<h3>NICHIFY Asistan</h3>
+<p>Nasıl yardımcı olabilirim?</p>
+</div>
+</div>
+<div class="ai-body" id="aiMessages">
+<div class="ai-msg bot">👋 Merhaba! Ben NICHIFY asistanıyım. Sana niş seçimi, YouTube stratejileri ve daha fazlası hakkında yardımcı olabilirim. Bir şey sor!</div>
+<div class="ai-msg bot">💡 <strong>Örnek sorular:</strong><br>• Hangi nişle başlamalıyım?<br>• 1000 aboneye nasıl ulaşırım?<br>• Telif haklarından nasıl korunurum?<br>• En karlı nişler neler?<br>• Faceless kanal nasıl açılır?</div>
+</div>
+<div class="ai-input-row">
+<input type="text" id="aiInput" placeholder="Sorunu yaz..." onkeypress="if(event.key==='Enter')sendAIMessage()"/>
+<button onclick="sendAIMessage()">Gönder</button>
 </div>
 </div>
 
-<div id="detailModal" class="modal"><div class="modal-card"><div class="modal-head"><div><h2 id="modalTitle">Niche</h2><p id="modalSub">Detail</p></div><button class="btn btn-secondary btn-small" onclick="closeModal()">✕</button></div><div id="modalBody" class="modal-body"></div></div></div>
-<div id="channelModal" class="modal"><div class="modal-card"><div class="modal-head"><div><h2 id="chModalTitle">Channel</h2><p id="chModalSub">Analytics</p></div><button class="btn btn-secondary btn-small" onclick="closeChannelModal()">✕</button></div><div id="chModalBody" class="modal-body"></div></div></div>
+<!-- DETAIL MODAL (NIŞ DETAYLARI) -->
+<div id="detailModal" class="modal">
+<div class="modal-card">
+<div class="modal-head">
+<div><h2 id="modalTitle">Niş</h2><p id="modalSub">Detay</p></div>
+<button class="btn btn-secondary btn-small" onclick="closeModal()">✕</button>
+</div>
+<div id="modalBody" class="modal-body"></div>
+</div>
+</div>
 
-<script>
-var NICHES=(typeof NICHES_DATA!=='undefined')?NICHES_DATA:(typeof NICHES!=='undefined'?NICHES:[]);
-var CACHE={};var CACHE_TIME=3600000;
-function cacheGet(k){var i=CACHE[k];if(!i)return null;if(Date.now()-i.time>CACHE_TIME)return null;return i.data}
-function cacheSet(k,d){CACHE[k]={data:d,time:Date.now()}}
+<!-- CHANNEL MODAL (KANAL ANALİZİ) -->
+<div id="channelModal" class="modal">
+<div class="modal-card">
+<div class="modal-head">
+<div><h2 id="chModalTitle">Kanal</h2><p id="chModalSub">Analiz</p></div>
+<button class="btn btn-secondary btn-small" onclick="closeChannelModal()">✕</button>
+</div>
+<div id="chModalBody" class="modal-body"></div>
+</div>
+</div><script>
+// ============================================
+// SUPABASE CONFIGURATION
+// ============================================
+const SUPABASE_URL = 'https://nqveoklqbfiztheyqltg.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5xdmVva2xxYmZpenRoZXlxbHRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4MzI4MTYsImV4cCI6MjA5NTQwODgxNn0.Ddgl9DGz8GdRSKinIVNhmwLyysXAXTuP7_MIbmUvp8s';
+const YOUTUBE_API_KEY = 'AIzaSyDpcD6A7Bq89M0UFEOXiU714C6W4SxP_ZM';
 
-var T={
-tr:{welcome:"👋 NICHIFY'a Hoş Geldin!",totalLabel:"📊 Toplam Analiz",statHiddenLabel:"Hidden Fırsat",statNichesLabel:"Toplam Niş",statLangsLabel:"Dil",updatedText:"🔴 Canlı veri · Az önce güncellendi",risingTitle:"🔥 Bugün Yükselen Kanallar",risingSubtitle:"Canlı YouTube verisi",topNichesTitle:"🎯 En İyi Nişler",topNichesSubtitle:"Yüksek skor, düşük rekabet",viewAll:"Tümünü Gör →",sideMainLabel:"ANA MENÜ",sideToolsLabel:"ARAÇLAR",sideHomeText:"Anasayfa",sideNichesText:"Niş Keşfi",sideTrendingText:"Yükselen Kanallar",sideAnalyticsText:"Kanal Analizi",sideRiskText:"Risk Detector",sideBotText:"AI Bot",sideRoadmapText:"Yakında Gelecek",sideLifetimeText:"Lifetime Deal 🔥",searchTitle:"🔍 Niş Keşfi",searchPH:"Niş ara: AI, finans, motivasyon...",resultsTitle:"📊 Sonuçlar",quickSearchBtn:"🔍 Ara",allLangs:"🌍 Tüm Diller",sortBest:"⭐ Genel Fırsat",sortHidden:"🔍 Gizli Fırsat",sortLow:"📉 Düşük Rekabet",sortMoney:"💰 Kazanç",sortNew:"🆕 Yeni Kanal Dostu",filterHidden:"🔍 Hidden Opportunity",filterNew:"🆕 Yeni Kanal Dostu",filterFaceless:"🎭 Faceless",trendingTitle:"🔥 Yükselen YouTube Niş Kanalları",trendingDesc:"CANLI veri! Kanala tıklayarak detay gör",trendingBtn:"🔄 Ara",analyticsTitle:"📊 Kanal Analizi",analyticsDesc:"Kanal ara, RPM ve kazanç gör",analyticsBtn:"📊 Analiz",analyticsPH:"🔍 Kanal ara...",riskPageTitle:"🛡️ Risk Detector",riskPageDesc:"Niş kartlarında Risk puanı kontrol et",riskPageInfo:"← Herhangi bir nişe tıklayarak Risk Analizi görebilirsin!",riskGoBtn:"🎯 Niş Keşfine Git",roadmapTitle:"🚀 Yakında Gelecek Özellikler",roadmapDesc:"NICHIFY sürekli gelişiyor!",rmLifetime:"Tek seferlik ödeme, ömür boyu!",rmDate1:"Birkaç gün",rmDesc1:"Kayıt/Giriş, Pro üyelik",rmDate2:"2 hafta",rmDesc2:"TikTok ve Instagram Reels",rmDate3:"1 ay",rmDesc3:"AI thumbnail üretici",rmDate4:"1 ay",rmDesc4:"Otomatik video scripti",rmDate5:"2 ay",rmDesc5:"iOS ve Android",subs:"abone",empty:"Niş bulunamadı",opportunity:"Fırsat",hidden:"Hidden",earnings:"Kazanç",compLow:"Düşük",compMid:"Orta",compHigh:"Yüksek",compLabel:"Rekabet",riskLabel:"Risk",detail:"📋 Detay",scores:"📊 Puanlar",target:"🎯 Hedef & Rakip",targetLabel:"Hedef",competitorLabel:"Rakip",riskTitle:"🛡️ Risk Analizi",safety:"Güvenlik",dontDo:"❌ YAPMA",doThese:"✅ YAP",examples:"📺 Örnek Kanallar",beginner:"🌱 Yeni Başlayan",rising:"🚀 Yükselen",success:"🏆 Başarı",chTitle:"📊 Kanal Analizi",chStats:"📊 İstatistikler",chEarn:"💰 Tahmini Kazanç",chGrowth:"📈 Büyüme Trendi",chGender:"👥 Cinsiyet",chAge:"📅 Yaş",chCountry:"🌍 Ülke",chMale:"👨 Erkek",chFemale:"👩 Kadın",chGoChannel:"🔗 Kanala Git",chDisclaimer:"⚠️ Tahminler sektör ortalamalarına göre.",trendUp:"📈 Yükseliyor",trendStable:"📊 Stabil",thisMonth:"Bu Ay",lastMonth:"Geçen Ay",twoMonths:"2 Ay Önce",threeMonths:"3 Ay Önce",botTitle:"NICHIFY Bot",botSubtitle:"Nasıl yardımcı olabilirim?",botWelcome:"👋 Merhaba! Soru seç!",botCat1:"🎯 Niş Seçimi",botCat2:"🛡️ Risk",botCat3:"💰 Para Kazanma",q1:"Hangi nişle başlamalıyım?",q2:"Niş nasıl test edilir?",q3:"Hangi niş para kazandırır?",q4:"Risk Detector ne yapar?",q5:"Kanalım neden kapanır?",q6:"Telif hakkı?",q7:"Para nasıl kazanırım?",q8:"1000 aboneye nasıl?",q9:"Sponsorluk?",a1:"🎯 3 adım:\n1. Hidden filtresini aç\n2. Yeni Kanal Dostu aç\n3. Risk 80+ seç",a2:"🧪 30 günde:\n1. 10 short paylaş\n2. 1000+ izlenme = çalışıyor!",a3:"💰 En karlı:\n🥇 İş & Kariyer\n🥈 Teknoloji\n🥉 Eğitim",a4:"🛡️ Güvenlik puanı:\n80+: ✅ Güvenli\n60-80: ⚠️ Orta\n0-60: ❌ Riskli",a5:"⚠️ Sebepler: Telif, kurallar, COPPA",a6:"📜 Royalty-free müzik kullan!",a7:"💰 5 yol: AdSense, Sponsor, Affiliate, Ürün, Üyelik",a8:"📈 6 ayda: 10 video, sonra haftada 3",a9:"🤝 10K+ aboneden sonra. İlk: $200-500"},
-en:{welcome:"👋 Welcome to NICHIFY!",totalLabel:"📊 Total Analyzed",statHiddenLabel:"Hidden Opp.",statNichesLabel:"Total Niches",statLangsLabel:"Languages",updatedText:"🔴 Live data · Updated just now",risingTitle:"🔥 Today's Rising Channels",risingSubtitle:"Live YouTube data",topNichesTitle:"🎯 Top Niches",topNichesSubtitle:"High score, low competition",viewAll:"View All →",sideMainLabel:"MAIN",sideToolsLabel:"TOOLS",sideHomeText:"Home",sideNichesText:"Niche Discovery",sideTrendingText:"Trending Channels",sideAnalyticsText:"Channel Analytics",sideRiskText:"Risk Detector",sideBotText:"AI Bot",sideRoadmapText:"Coming Soon",sideLifetimeText:"Lifetime Deal 🔥",searchTitle:"🔍 Niche Discovery",searchPH:"Search: AI, finance, productivity...",resultsTitle:"📊 Results",quickSearchBtn:"🔍 Search",allLangs:"🌍 All Languages",sortBest:"⭐ Overall",sortHidden:"🔍 Hidden",sortLow:"📉 Low Comp",sortMoney:"💰 Earnings",sortNew:"🆕 Newbie",filterHidden:"🔍 Hidden Opportunity",filterNew:"🆕 Newbie Friendly",filterFaceless:"🎭 Faceless",trendingTitle:"🔥 Rising YouTube Niche Channels",trendingDesc:"LIVE data! Click for details",trendingBtn:"🔄 Search",analyticsTitle:"📊 Channel Analytics",analyticsDesc:"Search and analyze channels",analyticsBtn:"📊 Analyze",analyticsPH:"🔍 Search channel...",riskPageTitle:"🛡️ Risk Detector",riskPageDesc:"Check Risk scores on Niche cards",riskPageInfo:"Click any niche to see Risk Analysis!",riskGoBtn:"🎯 Go to Niches",roadmapTitle:"🚀 Coming Soon",roadmapDesc:"NICHIFY evolving!",rmLifetime:"One-time, lifetime!",rmDate1:"Few days",rmDesc1:"Login, Pro",rmDate2:"2 weeks",rmDesc2:"TikTok & IG",rmDate3:"1 month",rmDesc3:"AI thumbnails",rmDate4:"1 month",rmDesc4:"Auto scripts",rmDate5:"2 months",rmDesc5:"iOS & Android",subs:"subs",empty:"No niches found",opportunity:"Opportunity",hidden:"Hidden",earnings:"Earnings",compLow:"Low",compMid:"Medium",compHigh:"High",compLabel:"Competition",riskLabel:"Risk",detail:"📋 Detail",scores:"📊 Scores",target:"🎯 Target & Competitor",targetLabel:"Target",competitorLabel:"Competitor",riskTitle:"🛡️ Risk Analysis",safety:"Safety",dontDo:"❌ DON'T",doThese:"✅ DO",examples:"📺 Example Channels",beginner:"🌱 Beginner",rising:"🚀 Rising",success:"🏆 Success",chTitle:"📊 Channel Analytics",chStats:"📊 Statistics",chEarn:"💰 Est. Earnings",chGrowth:"📈 Growth",chGender:"👥 Gender",chAge:"📅 Age",chCountry:"🌍 Country",chMale:"👨 Male",chFemale:"👩 Female",chGoChannel:"🔗 Visit",chDisclaimer:"⚠️ Estimates based on averages.",trendUp:"📈 Rising",trendStable:"📊 Stable",thisMonth:"This Month",lastMonth:"Last Month",twoMonths:"2M Ago",threeMonths:"3M Ago",botTitle:"NICHIFY Bot",botSubtitle:"How can I help?",botWelcome:"👋 Hello! Pick a question!",botCat1:"🎯 Niche",botCat2:"🛡️ Risk",botCat3:"💰 Money",q1:"Which niche to start?",q2:"How to test?",q3:"Most profitable?",q4:"Risk Detector?",q5:"Why banned?",q6:"Copyright?",q7:"How to earn?",q8:"1000 subs?",q9:"Sponsorship?",a1:"🎯 3 steps: Hidden + Newbie + Risk 80+",a2:"🧪 30 days: 10 shorts, 1000+ views = works!",a3:"💰 Top: Business, Tech, Education",a4:"🛡️ Score: 80+ safe, 60-80 medium, 0-60 risky",a5:"⚠️ Copyright, rules, COPPA",a6:"📜 Royalty-free only!",a7:"💰 5 ways: AdSense, Sponsor, Affiliate",a8:"📈 6 months: 10 videos then 3/week",a9:"🤝 After 10K+. First: $200-500"},
-de:{welcome:"👋 Willkommen bei NICHIFY!",totalLabel:"📊 Analysiert",statHiddenLabel:"Versteckt",statNichesLabel:"Nischen",statLangsLabel:"Sprachen",updatedText:"🔴 Live · Gerade aktualisiert",risingTitle:"🔥 Aufsteigende Kanäle",risingSubtitle:"Live Daten",topNichesTitle:"🎯 Top Nischen",topNichesSubtitle:"Hohe Bewertung",viewAll:"Alle →",sideMainLabel:"HAUPT",sideToolsLabel:"TOOLS",sideHomeText:"Start",sideNichesText:"Nischen",sideTrendingText:"Trending",sideAnalyticsText:"Analyse",sideRiskText:"Risiko",sideBotText:"KI Bot",sideRoadmapText:"Demnächst",sideLifetimeText:"Lifetime 🔥",searchTitle:"🔍 Nischen",searchPH:"Suchen: KI, Finanzen...",resultsTitle:"📊 Ergebnisse",quickSearchBtn:"🔍 Suchen",allLangs:"🌍 Alle",sortBest:"⭐ Gesamt",sortHidden:"🔍 Versteckt",sortLow:"📉 Niedrig",sortMoney:"💰 Verdienst",sortNew:"🆕 Anfänger",filterHidden:"🔍 Versteckt",filterNew:"🆕 Anfänger",filterFaceless:"🎭 Faceless",trendingTitle:"🔥 Aufsteigende Kanäle",trendingDesc:"LIVE Daten!",trendingBtn:"🔄 Suchen",analyticsTitle:"📊 Kanalanalyse",analyticsDesc:"Kanal suchen und analysieren",analyticsBtn:"📊 Analysieren",analyticsPH:"🔍 Kanal suchen...",riskPageTitle:"🛡️ Risiko",riskPageDesc:"Risiko auf Nischenkarten",riskPageInfo:"Klick auf eine Nische für Risikoanalyse!",riskGoBtn:"🎯 Zu Nischen",roadmapTitle:"🚀 Demnächst",roadmapDesc:"NICHIFY entwickelt sich!",rmLifetime:"Einmalig, lebenslang!",rmDate1:"Tage",rmDesc1:"Login, Pro",rmDate2:"2 Wochen",rmDesc2:"TikTok & IG",rmDate3:"1 Monat",rmDesc3:"KI Thumbnails",rmDate4:"1 Monat",rmDesc4:"Auto Skripte",rmDate5:"2 Monate",rmDesc5:"Mobile App",subs:"Abos",empty:"Keine Nischen",opportunity:"Chance",hidden:"Versteckt",earnings:"Verdienst",compLow:"Niedrig",compMid:"Mittel",compHigh:"Hoch",compLabel:"Konkurrenz",riskLabel:"Risiko",detail:"📋 Detail",scores:"📊 Werte",target:"🎯 Ziel",targetLabel:"Ziel",competitorLabel:"Konkurrent",riskTitle:"🛡️ Risiko",safety:"Sicherheit",dontDo:"❌ NICHT",doThese:"✅ TUN",examples:"📺 Beispiele",beginner:"🌱 Anfänger",rising:"🚀 Aufsteigend",success:"🏆 Erfolg",chTitle:"📊 Analyse",chStats:"📊 Statistiken",chEarn:"💰 Verdienst",chGrowth:"📈 Wachstum",chGender:"👥 Geschlecht",chAge:"📅 Alter",chCountry:"🌍 Länder",chMale:"👨 M",chFemale:"👩 W",chGoChannel:"🔗 Kanal",chDisclaimer:"⚠️ Schätzungen.",trendUp:"📈 Steigend",trendStable:"📊 Stabil",thisMonth:"Diesen Monat",lastMonth:"Letzten Monat",twoMonths:"Vor 2M",threeMonths:"Vor 3M",botTitle:"NICHIFY Bot",botSubtitle:"Hilfe?",botWelcome:"👋 Hallo!",botCat1:"🎯 Nische",botCat2:"🛡️ Risiko",botCat3:"💰 Geld",q1:"Welche Nische?",q2:"Wie testen?",q3:"Profitabelste?",q4:"Risiko?",q5:"Warum gesperrt?",q6:"Urheberrecht?",q7:"Geld verdienen?",q8:"1000 Abos?",q9:"Sponsoring?",a1:"🎯 3 Schritte: Versteckt + Anfänger + 80+",a2:"🧪 30 Tage: 10 Shorts, 1000+ = geht!",a3:"💰 Top: Business, Tech, Bildung",a4:"🛡️ 80+ sicher, 60-80 mittel, 0-60 riskant",a5:"⚠️ Urheberrecht, Regeln",a6:"📜 Lizenzfrei!",a7:"💰 5 Wege: AdSense, Sponsoring, Affiliate",a8:"📈 6 Monate: 10 Videos, dann 3/Woche",a9:"🤝 Nach 10K+. Erste: $200-500"}};
+const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-var lang=localStorage.getItem("nf_lang")||"tr";
-var isAdmin=new URLSearchParams(window.location.search).get('admin')==='1';
-var trendingLoaded=false;var currentPage='home';
-var API_KEY="AIzaSyDpcD6A7Bq89M0UFEOXiU714C6W4SxP_ZM";
+// ============================================
+// GLOBAL VARIABLES
+// ============================================
+var NICHES = (typeof NICHES_DATA !== 'undefined') ? NICHES_DATA : [];
+var CACHE = {};
+var CACHE_TIME = 3600000;
+var currentUser = null;
+var userProfile = null;
+var trendingLoaded = false;
+var currentPage = 'home';
 
-function t(k){return(T[lang]||T.tr)[k]||k}
-function setLang(l){lang=l;localStorage.setItem("nf_lang",l);document.querySelectorAll(".lang-btn").forEach(function(b){b.classList.remove("active")});document.getElementById("lang-"+l).classList.add("active");applyAll();render();loadRising();renderTopN()}
-function goPage(p){currentPage=p;['home','niches','trending','analytics','risk','roadmap'].forEach(function(x){var el=document.getElementById('page-'+x);if(el)el.style.display=x===p?'block':'none'});document.querySelectorAll('.s-item').forEach(function(s){s.classList.remove('active')});var map={home:'sideHome',niches:'sideNiches',trending:'sideTrending',analytics:'sideAnalytics',risk:'sideRisk',roadmap:'sideRoadmap'};var btn=document.getElementById(map[p]);if(btn)btn.classList.add('active');if(p==='trending'&&!trendingLoaded)loadTrending();document.querySelector('.sidebar').classList.remove('open')}
+// ============================================
+// CACHE FUNCTIONS
+// ============================================
+function cacheGet(k) {
+  var i = CACHE[k];
+  if (!i) return null;
+  if (Date.now() - i.time > CACHE_TIME) return null;
+  return i.data;
+}
 
-function applyAll(){var s=function(id,key,attr){var el=document.getElementById(id);if(el){if(attr==='ph')el.placeholder=t(key);else el.textContent=t(key)}};s("totalLabel","totalLabel");s("updatedText","updatedText");s("statHiddenLabel","statHiddenLabel");s("statNichesLabel","statNichesLabel");s("statLangsLabel","statLangsLabel");s("quickSearch","searchPH","ph");s("quickSearchBtn","quickSearchBtn");s("risingTitle","risingTitle");s("risingSubtitle","risingSubtitle");s("topNichesTitle","topNichesTitle");s("topNichesSubtitle","topNichesSubtitle");s("viewAll1","viewAll");s("viewAll2","viewAll");s("sideMainLabel","sideMainLabel");s("sideToolsLabel","sideToolsLabel");s("sideHomeText","sideHomeText");s("sideNichesText","sideNichesText");s("sideTrendingText","sideTrendingText");s("sideAnalyticsText","sideAnalyticsText");s("sideRiskText","sideRiskText");s("sideBotText","sideBotText");s("sideRoadmapText","sideRoadmapText");s("sideLifetimeText","sideLifetimeText");s("searchTitle","searchTitle");s("searchInput","searchPH","ph");s("resultsTitle","resultsTitle");s("allLangsOpt","allLangs");s("sortBestOpt","sortBest");s("sortHiddenOpt","sortHidden");s("sortLowOpt","sortLow");s("sortMoneyOpt","sortMoney");s("sortNewOpt","sortNew");s("filterHiddenLabel","filterHidden");s("filterNewLabel","filterNew");s("filterFacelessLabel","filterFaceless");s("trendingPageTitle","trendingTitle");s("trendingPageDesc","trendingDesc");s("trendingBtn","trendingBtn");s("analyticsTitle","analyticsTitle");s("analyticsDesc","analyticsDesc");s("analyticsBtn","analyticsBtn");s("analyticsSearch","analyticsPH","ph");s("riskPageTitle","riskPageTitle");s("riskPageDesc","riskPageDesc");s("riskPageInfo","riskPageInfo");s("riskGoBtn","riskGoBtn");s("roadmapPageTitle","roadmapTitle");s("roadmapPageDesc","roadmapDesc");s("rmLifetime","rmLifetime");s("rmDate1","rmDate1");s("rmDesc1","rmDesc1");s("rmDate2","rmDate2");s("rmDesc2","rmDesc2");s("rmDate3","rmDate3");s("rmDesc3","rmDesc3");s("rmDate4","rmDate4");s("rmDesc4","rmDesc4");s("rmDate5","rmDate5");s("rmDesc5","rmDesc5");s("botTitle","botTitle");s("botSubtitle","botSubtitle");s("botWelcome","botWelcome");s("botCat1","botCat1");s("botCat2","botCat2");s("botCat3","botCat3");s("botQ1","q1");s("botQ2","q2");s("botQ3","q3");s("botQ4","q4");s("botQ5","q5");s("botQ6","q6");s("botQ7","q7");s("botQ8","q8");s("botQ9","q9")}
+function cacheSet(k, d) {
+  CACHE[k] = { data: d, time: Date.now() };
+}
 
-function clamp(n){return Math.max(0,Math.min(100,Math.round(n)))}
-function overall(n){var s=n.scores;return clamp((100-s.comp)*.18+s.money*.15+s.trend*.15+s.faceless*.08+Math.max(s.shorts,s.longform)*.08+s.sustain*.10+s.newCh*.13+s.under*.18+s.multi*.05)}
-function hiddenS(n){var s=n.scores;return clamp((100-s.comp)*.26+s.under*.30+s.newCh*.24+s.multi*.10+s.sustain*.10)}
-function compLabel(c){return c<=40?t("compLow"):c<=65?t("compMid"):t("compHigh")}
-function esc(s){return String(s).replace(/[&<>"']/g,function(m){return({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"})[m]})}
-function getName(n){return n[lang]||n.tr}
-function getCat(n){return n.cat[lang]||n.cat.tr}
-function getSub(n){return n.sub[lang]||n.sub.tr}
-function getAudience(n){return n.audience[lang]||n.audience.tr}
-function getComp(n){return n.competitor[lang]||n.competitor.tr}
-function getRiskSebep(n){return n.risk.sebep[lang]||n.risk.sebep.tr}
-function getRiskYapma(n){return n.risk.yapma[lang]||n.risk.yapma.tr}
-function getRiskYap(n){return n.risk.yap[lang]||n.risk.yap.tr}
-function getExItem(ex,type){if(!ex||!Array.isArray(ex))return null;return ex.find(function(x){return x.type===type})}
-function getExAge(item){if(!item||!item.age)return '';return item.age[lang]||item.age.tr||''}
-function getExStrategy(item){if(!item||!item.strategy)return '';return item.strategy[lang]||item.strategy.tr||''}
-function formatNumber(n){if(n>=1e6)return(n/1e6).toFixed(1)+"M";if(n>=1e3)return(n/1e3).toFixed(1)+"K";return n}
-function quickSearch(){var q=document.getElementById("quickSearch").value.trim();if(!q)return;document.getElementById("trendingSearch").value=q;goPage('trending');setTimeout(loadTrending,300)}
+// ============================================
+// AUTH FUNCTIONS
+// ============================================
 
-function loadRising(){var cached=cacheGet('rising_'+lang);if(cached){document.getElementById('risingChannels').innerHTML=cached;return}var sorted=NICHES.slice().sort(function(a,b){return overall(b)-overall(a)}).slice(0,5);var html='';sorted.forEach(function(n,i){var item=getExItem(n.examples,'rising');var name=item?item.name:getName(n);var subs=item?item.subs:'';html+='<div class="ch-row" onclick="openChannelByName(\''+esc(name).replace(/'/g,"\\'")+'\')"><img src="https://ui-avatars.com/api/?name='+encodeURIComponent(name)+'&background=4da3ff&color=fff" alt=""/><div class="info"><h4>'+esc(name)+'</h4><p>'+(subs?subs+' '+t('subs')+' · ':'')+esc(getCat(n))+'</p></div><div class="badge">#'+(i+1)+'</div></div>'});document.getElementById('risingChannels').innerHTML=html;cacheSet('rising_'+lang,html)}
+// Tab değiştirme (Login/Register)
+function switchTab(tab) {
+  document.getElementById('tabLogin').classList.toggle('active', tab === 'login');
+  document.getElementById('tabRegister').classList.toggle('active', tab === 'register');
+  document.getElementById('loginForm').classList.toggle('active', tab === 'login');
+  document.getElementById('registerForm').classList.toggle('active', tab === 'register');
+  hideAuthMsg();
+}
 
-function renderTopN(){var sorted=NICHES.slice().sort(function(a,b){return overall(b)-overall(a)}).slice(0,5);var html='';sorted.forEach(function(n){var idx=NICHES.indexOf(n);html+='<div class="n-row" onclick="openModal('+idx+')"><div class="ic">'+(n.icon||'🎯')+'</div><div class="info"><h4>'+esc(getName(n))+'</h4><p>'+t('opportunity')+': '+overall(n)+' · '+esc(getCat(n))+'</p></div><div class="badge">'+overall(n)+'</div></div>'});document.getElementById('topNiches').innerHTML=html}
+// Mesaj göster
+function showAuthMsg(text, type) {
+  var msg = document.getElementById('authMsg');
+  msg.textContent = text;
+  msg.className = 'auth-msg ' + type;
+}
 
-function render(){var q=(document.getElementById("searchInput").value||"").toLowerCase().trim();var lf=document.getElementById("langFilter").value;var sf=document.getElementById("sortFilter").value;var hOnly=document.getElementById("hiddenOnly").checked;var nOnly=document.getElementById("newChannelOnly").checked;var fOnly=document.getElementById("facelessOnly").checked;var list=NICHES.filter(function(n){if(q&&getName(n).toLowerCase().indexOf(q)<0&&getCat(n).toLowerCase().indexOf(q)<0)return false;if(lf!=='all'&&n.langs&&n.langs.indexOf(lf)<0)return false;if(hOnly&&hiddenS(n)<70)return false;if(nOnly&&n.scores.newCh<70)return false;if(fOnly&&n.scores.faceless<70)return false;return true});if(sf==='hidden')list.sort(function(a,b){return hiddenS(b)-hiddenS(a)});else if(sf==='lowComp')list.sort(function(a,b){return a.scores.comp-b.scores.comp});else if(sf==='money')list.sort(function(a,b){return b.scores.money-a.scores.money});else if(sf==='new')list.sort(function(a,b){return b.scores.newCh-a.scores.newCh});else list.sort(function(a,b){return overall(b)-overall(a)});document.getElementById('statHidden').textContent=NICHES.filter(function(n){return hiddenS(n)>=70}).length;document.getElementById('statNiches').textContent=NICHES.length;var g=document.getElementById('nichesGrid');if(list.length===0){g.innerHTML='<div class="empty">'+t('empty')+'</div>';return}var html='';list.forEach(function(n){var o=overall(n),h=hiddenS(n),i=NICHES.indexOf(n);html+='<div class="niche-card" onclick="openModal('+i+')"><div class="niche-head"><h3>'+(n.icon||'🎯')+' '+esc(getName(n))+'</h3><div class="score-badge">'+o+'</div></div><div class="niche-category">'+esc(getCat(n))+' · '+esc(getSub(n))+'</div><div class="chips">';if(h>=70)html+='<span class="chip green">🔍 '+t('hidden')+' '+h+'</span>';if(n.scores.newCh>=70)html+='<span class="chip blue">🆕</span>';if(n.scores.faceless>=70)html+='<span class="chip yellow">🎭</span>';html+='<span class="chip '+(n.scores.comp<=40?'green':n.scores.comp<=65?'yellow':'red')+'">'+compLabel(n.scores.comp)+'</span></div><div class="bars"><div class="bar-row"><span>💰 '+t('earnings')+'</span><div class="bar"><div class="fill" style="width:'+n.scores.money+'%"></div></div><span>'+n.scores.money+'</span></div><div class="bar-row"><span>📈 Trend</span><div class="bar"><div class="fill" style="width:'+n.scores.trend+'%"></div></div><span>'+n.scores.trend+'</span></div><div class="bar-row"><span>🛡️ '+t('safety')+'</span><div class="bar"><div class="fill" style="width:'+(n.risk.score||80)+'%"></div></div><span>'+(n.risk.score||80)+'</span></div></div><div class="card-actions"><button class="btn btn-primary btn-small" onclick="event.stopPropagation();openModal('+i+')">📋 '+t('detail')+'</button></div></div>'});g.innerHTML=html}
+function hideAuthMsg() {
+  var msg = document.getElementById('authMsg');
+  msg.className = 'auth-msg';
+  msg.textContent = '';
+}
 
-function openModal(idx){var n=NICHES[idx];document.getElementById('modalTitle').textContent=(n.icon||'🎯')+' '+getName(n);document.getElementById('modalSub').textContent=getCat(n)+' · '+getSub(n);var b=document.getElementById('modalBody');var html='<div class="detail-grid"><div class="detail-box"><h3>'+t('scores')+'</h3><div class="d-bar"><div class="d-bar-label"><span>⭐ '+t('opportunity')+'</span><span>'+overall(n)+'</span></div><div class="d-bar-track"><div class="d-bar-fill" style="width:'+overall(n)+'%"></div></div></div><div class="d-bar"><div class="d-bar-label"><span>🔍 Hidden</span><span>'+hiddenS(n)+'</span></div><div class="d-bar-track"><div class="d-bar-fill" style="width:'+hiddenS(n)+'%"></div></div></div><div class="d-bar"><div class="d-bar-label"><span>💰 '+t('earnings')+'</span><span>'+n.scores.money+'</span></div><div class="d-bar-track"><div class="d-bar-fill" style="width:'+n.scores.money+'%"></div></div></div><div class="d-bar"><div class="d-bar-label"><span>📉 '+t('compLabel')+'</span><span>'+n.scores.comp+'</span></div><div class="d-bar-track"><div class="d-bar-fill" style="width:'+n.scores.comp+'%"></div></div></div></div><div class="detail-box"><h3>'+t('target')+'</h3><p><strong>'+t('targetLabel')+':</strong> '+esc(getAudience(n))+'</p><p><strong>'+t('competitorLabel')+':</strong> '+esc(getComp(n))+'</p></div></div><div class="risk-section"><h3>'+t('riskTitle')+' · '+t('safety')+': '+(n.risk.score||80)+'/100</h3><p style="color:#cfd9ea;font-size:11px;margin-bottom:8px">'+esc(getRiskSebep(n))+'</p><div class="detail-grid"><div class="detail-box"><h3>'+t('dontDo')+'</h3><ul>';var yapma=getRiskYapma(n);if(Array.isArray(yapma))yapma.forEach(function(x){html+='<li>'+esc(x)+'</li>'});else html+='<li>'+esc(yapma)+'</li>';html+='</ul></div><div class="detail-box"><h3>'+t('doThese')+'</h3><ul>';var yap=getRiskYap(n);if(Array.isArray(yap))yap.forEach(function(x){html+='<li>'+esc(x)+'</li>'});else html+='<li>'+esc(yap)+'</li>';html+='</ul></div></div></div>';if(n.examples&&Array.isArray(n.examples)){html+='<div class="ex-section"><h3 style="margin:12px 0 8px;font-size:14px">'+t('examples')+'</h3>';['beginner','rising','success'].forEach(function(f){var item=getExItem(n.examples,f);if(item){html+='<div class="ex-card '+f+'"><h4>'+t(f)+': '+esc(item.name||'')+'</h4><div class="ex-stats"><span>👥 '+(item.subs||'?')+'</span><span>📅 '+esc(getExAge(item))+'</span>'+(item.growth?'<span>📈 '+esc(item.growth)+'</span>':'')+'</div>';var st=getExStrategy(item);if(st)html+='<div class="ex-strat">'+esc(st)+'</div>';html+='</div>'}});html+='</div>'}b.innerHTML=html;document.getElementById('detailModal').classList.add('active')}
+// LOGIN HANDLER
+async function handleLogin(e) {
+  e.preventDefault();
+  var email = document.getElementById('loginEmail').value.trim();
+  var password = document.getElementById('loginPassword').value;
+  var btn = document.getElementById('loginBtn');
+  
+  btn.disabled = true;
+  btn.textContent = '⏳ Giriş yapılıyor...';
+  hideAuthMsg();
+  
+  try {
+    var { data, error } = await supabase.auth.signInWithPassword({
+      email: email,
+      password: password
+    });
+    
+    if (error) throw error;
+    
+    showAuthMsg('✅ Giriş başarılı! Yönlendiriliyorsun...', 'success');
+    
+    setTimeout(function() {
+      loadUserAndStart();
+    }, 800);
+    
+  } catch (err) {
+    console.error('Login error:', err);
+    var msg = 'Giriş başarısız.';
+    if (err.message.includes('Invalid login credentials')) {
+      msg = '❌ E-posta veya şifre hatalı!';
+    } else if (err.message.includes('Email not confirmed')) {
+      msg = '⚠️ E-postanı doğrulaman lazım.';
+    } else {
+      msg = '❌ ' + err.message;
+    }
+    showAuthMsg(msg, 'error');
+    btn.disabled = false;
+    btn.textContent = '🔑 Giriş Yap';
+  }
+}
 
-function closeModal(){document.getElementById('detailModal').classList.remove('active')}
+// REGISTER HANDLER
+async function handleRegister(e) {
+  e.preventDefault();
+  var name = document.getElementById('regName').value.trim();
+  var email = document.getElementById('regEmail').value.trim();
+  var password = document.getElementById('regPassword').value;
+  var btn = document.getElementById('regBtn');
+  
+  btn.disabled = true;
+  btn.textContent = '⏳ Hesap oluşturuluyor...';
+  hideAuthMsg();
+  
+  try {
+    // Auth'a kayıt
+    var { data, error } = await supabase.auth.signUp({
+      email: email,
+      password: password,
+      options: {
+        data: { name: name }
+      }
+    });
+    
+    if (error) throw error;
+    
+    // Users tablosuna ekle
+    if (data.user) {
+      await supabase.from('users').insert({
+        id: data.user.id,
+        email: email,
+        name: name,
+        role: 'user',
+        is_admin: false,
+        is_pro: false,
+        lifetime: false
+      });
+    }
+    
+    showAuthMsg('✅ Hesap oluşturuldu! Giriş yapabilirsin.', 'success');
+    
+    setTimeout(function() {
+      switchTab('login');
+      document.getElementById('loginEmail').value = email;
+      document.getElementById('loginPassword').focus();
+    }, 1500);
+    
+    btn.disabled = false;
+    btn.textContent = '✨ Hesap Oluştur';
+    
+  } catch (err) {
+    console.error('Register error:', err);
+    var msg = 'Kayıt başarısız.';
+    if (err.message.includes('already registered')) {
+      msg = '⚠️ Bu e-posta zaten kayıtlı! Giriş yapmayı dene.';
+    } else if (err.message.includes('weak password')) {
+      msg = '⚠️ Şifre çok zayıf. En az 6 karakter olmalı.';
+    } else {
+      msg = '❌ ' + err.message;
+    }
+    showAuthMsg(msg, 'error');
+    btn.disabled = false;
+    btn.textContent = '✨ Hesap Oluştur';
+  }
+}
 
-function loadTrending(){var q=document.getElementById('trendingSearch').value.trim();var r=document.getElementById('trendingRegion').value;var ck='trend_'+r+'_'+q;var cached=cacheGet(ck);if(cached){renderTrending(cached);trendingLoaded=true;return}var grid=document.getElementById('trendingGrid');grid.innerHTML='<div class="t-loading"><div class="spinner"></div><p>Loading...</p></div>';var url;if(q){url='https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q='+encodeURIComponent(q)+'&regionCode='+r+'&maxResults=12&key='+API_KEY}else{url='https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&chart=mostPopular&regionCode='+r+'&maxResults=12&key='+API_KEY}fetch(url).then(function(r){return r.json()}).then(function(d){if(!d.items){grid.innerHTML='<div class="empty">No data - Check API key</div>';return}if(q){var ids=d.items.map(function(v){return v.id.videoId||v.id}).join(',');fetch('https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id='+ids+'&key='+API_KEY).then(function(r){return r.json()}).then(function(vd){cacheSet(ck,vd.items||[]);renderTrending(vd.items||[]);trendingLoaded=true})}else{cacheSet(ck,d.items);renderTrending(d.items);trendingLoaded=true}}).catch(function(e){grid.innerHTML='<div class="empty">Error: '+e.message+'</div>'})}
+// LOGOUT
+async function handleLogout() {
+  if (!confirm('Çıkış yapmak istediğine emin misin?')) return;
+  
+  await supabase.auth.signOut();
+  currentUser = null;
+  userProfile = null;
+  location.reload();
+}
 
-function renderTrending(items){var grid=document.getElementById('trendingGrid');if(!items||!items.length){grid.innerHTML='<div class="empty">No videos</div>';return}var html='<div class="results-grid">';items.forEach(function(v,i){var s=v.snippet,st=v.statistics||{};html+='<div class="t-card" onclick="openChannelById(\''+s.channelId+'\')"><div class="t-thumb"><img src="'+(s.thumbnails.medium?s.thumbnails.medium.url:s.thumbnails.default.url)+'" alt=""/><div class="live">LIVE</div><div class="rank">'+(i+1)+'</div></div><div class="t-info"><h3>'+esc(s.title.substring(0,60))+'</h3><div class="t-stats"><span>👁️ '+formatNumber(parseInt(st.viewCount||0))+'</span><span>👍 '+formatNumber(parseInt(st.likeCount||0))+'</span></div><div class="t-ch"><img src="https://ui-avatars.com/api/?name='+encodeURIComponent(s.channelTitle)+'&background=4da3ff&color=fff" alt=""/><div><div class="t-ch-name">'+esc(s.channelTitle)+'</div><div class="t-ch-subs">'+s.publishedAt.substring(0,10)+'</div></div></div><div class="t-actions"><button class="btn btn-primary btn-small" onclick="event.stopPropagation();openChannelById(\''+s.channelId+'\')">📊</button></div></div></div>'});html+='</div>';grid.innerHTML=html}
+// KULLANICI PROFİL YÜKLE
+async function loadUserProfile(userId) {
+  try {
+    var { data, error } = await supabase
+      .from('users')
+      .select('*')
+      .eq('id', userId)
+      .single();
+    
+    if (error) {
+      console.log('Profile not found, creating...');
+      // Profil yoksa oluştur (yeni kayıt için)
+      var session = await supabase.auth.getSession();
+      if (session.data.session) {
+        var user = session.data.session.user;
+        var { data: newProfile } = await supabase.from('users').insert({
+          id: user.id,
+          email: user.email,
+          name: user.user_metadata.name || user.email.split('@')[0],
+          role: 'user',
+          is_admin: false,
+          is_pro: false,
+          lifetime: false
+        }).select().single();
+        return newProfile;
+      }
+      return null;
+    }
+    
+    // Son giriş güncelle
+    await supabase.from('users')
+      .update({ last_login: new Date().toISOString() })
+      .eq('id', userId);
+    
+    return data;
+  } catch (err) {
+    console.error('Profile load error:', err);
+    return null;
+  }
+}
 
-function openChannelByName(name){document.getElementById('analyticsSearch').value=name;goPage('analytics');setTimeout(searchChannel,300)}
+// ANA YÜKLEME FONKSİYONU
+async function loadUserAndStart() {
+  try {
+    var { data: { session } } = await supabase.auth.getSession();
+    
+    if (!session) {
+      // Giriş yapmamış - modal göster
+      document.getElementById('authModal').classList.add('active');
+      await loadCounter();
+      return;
+    }
+    
+    currentUser = session.user;
+    userProfile = await loadUserProfile(currentUser.id);
+    
+    if (!userProfile) {
+      showAuthMsg('❌ Profil yüklenemedi. Tekrar dene.', 'error');
+      return;
+    }
+    
+    // Modal'ı kapat
+    document.getElementById('authModal').classList.remove('active');
+    
+    // UI'yi güncelle
+    updateUserUI();
+    
+    // Admin ise admin bölümünü göster
+    if (userProfile.is_admin) {
+      document.getElementById('adminSection').style.display = 'block';
+      document.getElementById('adminBanner').classList.add('active');
+      await loadAdminStats();
+    }
+    
+    // Sayacı yükle
+    await loadCounter();
+    
+    // Sayfa render
+    applyAll();
+    
+  } catch (err) {
+    console.error('Start error:', err);
+  }
+}
 
-function openChannelById(channelId){var ck='ch_'+channelId;var cached=cacheGet(ck);if(cached){renderChannelModal(cached);return}document.getElementById('chModalTitle').textContent='Loading...';document.getElementById('chModalBody').innerHTML='<div class="t-loading"><div class="spinner"></div><p>Loading...</p></div>';document.getElementById('channelModal').classList.add('active');fetch('https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics,brandingSettings&id='+channelId+'&key='+API_KEY).then(function(r){return r.json()}).then(function(d){if(!d.items||!d.items.length){document.getElementById('chModalBody').innerHTML='<div class="empty">Channel not found</div>';return}var ch=d.items[0];cacheSet(ck,ch);renderChannelModal(ch)}).catch(function(e){document.getElementById('chModalBody').innerHTML='<div class="empty">Error: '+e.message+'</div>'})}
+// USER UI GÜNCELLE
+function updateUserUI() {
+  if (!userProfile) return;
+  
+  var firstName = userProfile.name ? userProfile.name.split(' ')[0] : 'Kullanıcı';
+  var email = userProfile.email || '';
+  
+  // Sidebar
+  document.getElementById('userName').textContent = firstName;
+  document.getElementById('userEmail').textContent = email;
+  document.getElementById('userAvatar').src = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(firstName) + '&background=4da3ff&color=fff';
+  
+  // Welcome banner
+  document.getElementById('welcomeName').textContent = firstName;
+  
+  // Son giriş
+  if (userProfile.last_login) {
+    document.getElementById('lastLogin').textContent = formatDate(userProfile.last_login);
+  } else {
+    document.getElementById('lastLogin').textContent = 'İlk giriş';
+  }
+}
 
-function searchChannel(){var q=document.getElementById('analyticsSearch').value.trim();if(!q)return;var ck='chsearch_'+q;var cached=cacheGet(ck);if(cached){openChannelById(cached);return}document.getElementById('analyticsResult').innerHTML='<div class="t-loading"><div class="spinner"></div><p>Searching...</p></div>';fetch('https://www.googleapis.com/youtube/v3/search?part=snippet&type=channel&q='+encodeURIComponent(q)+'&maxResults=1&key='+API_KEY).then(function(r){return r.json()}).then(function(d){if(!d.items||!d.items.length){document.getElementById('analyticsResult').innerHTML='<div class="empty">Not found</div>';return}var cid=d.items[0].snippet.channelId||d.items[0].id.channelId;cacheSet(ck,cid);document.getElementById('analyticsResult').innerHTML='';openChannelById(cid)}).catch(function(e){document.getElementById('analyticsResult').innerHTML='<div class="empty">Error: '+e.message+'</div>'})}
+// TARİH FORMAT
+function formatDate(dateStr) {
+  try {
+    var d = new Date(dateStr);
+    var now = new Date();
+    var diff = (now - d) / 1000;
+    
+    if (diff < 60) return 'Az önce';
+    if (diff < 3600) return Math.floor(diff/60) + ' dakika önce';
+    if (diff < 86400) return Math.floor(diff/3600) + ' saat önce';
+    if (diff < 604800) return Math.floor(diff/86400) + ' gün önce';
+    
+    return d.toLocaleDateString('tr-TR');
+  } catch(e) {
+    return '';
+  }
+}
 
-function renderChannelModal(ch){var s=ch.snippet,st=ch.statistics;var subs=parseInt(st.subscriberCount||0);var views=parseInt(st.viewCount||0);var vids=parseInt(st.videoCount||0);var avgViews=vids>0?Math.round(views/vids):0;var rpm=2.5;var monthlyViews=avgViews*4;var earnLow=Math.round(monthlyViews*rpm*0.5/1000);var earnHigh=Math.round(monthlyViews*rpm*1.5/1000);var earnAvg=Math.round((earnLow+earnHigh)/2);document.getElementById('chModalTitle').textContent='📊 '+s.title;document.getElementById('chModalSub').textContent=formatNumber(subs)+' '+t('subs');var html='<div class="a-header"><img src="'+(s.thumbnails.high?s.thumbnails.high.url:s.thumbnails.default.url)+'" alt=""/><div><h2>'+esc(s.title)+'</h2><p style="color:var(--muted);font-size:12px">'+formatNumber(subs)+' '+t('subs')+' · '+formatNumber(vids)+' videos</p><span class="trend-ind up">'+t('trendUp')+'</span></div></div><div class="a-grid"><div class="a-box"><h3>'+t('chStats')+'</h3><div class="a-stat"><span>👥 '+t('subs')+'</span><strong>'+formatNumber(subs)+'</strong></div><div class="a-stat"><span>👁️ Total Views</span><strong>'+formatNumber(views)+'</strong></div><div class="a-stat"><span>📹 Videos</span><strong>'+formatNumber(vids)+'</strong></div><div class="a-stat"><span>📊 Avg Views</span><strong>'+formatNumber(avgViews)+'</strong></div></div><div class="a-box earn-box"><h3>'+t('chEarn')+'</h3><div class="earn-amount">$'+formatNumber(earnAvg)+'/mo</div><div class="earn-range">$'+formatNumber(earnLow)+' - $'+formatNumber(earnHigh)+'</div></div><div class="a-box"><h3>'+t('chGrowth')+'</h3>';var months=[t('thisMonth'),t('lastMonth'),t('twoMonths'),t('threeMonths')];var growth=[100,85,72,60];months.forEach(function(m,i){html+='<div class="g-bar"><div class="lbl">'+m+'</div><div class="trk"><div class="gfill" style="width:'+growth[i]+'%"></div></div><div class="val">'+formatNumber(Math.round(avgViews*growth[i]/100))+'</div></div>'});html+='</div><div class="a-box"><h3>'+t('chGender')+'</h3><div class="d-bar"><div class="d-bar-label"><span>'+t('chMale')+'</span><span>62%</span></div><div class="d-bar-track"><div class="d-bar-fill male" style="width:62%"></div></div></div><div class="d-bar"><div class="d-bar-label"><span>'+t('chFemale')+'</span><span>38%</span></div><div class="d-bar-track"><div class="d-bar-fill female" style="width:38%"></div></div></div></div><div class="a-box"><h3>'+t('chAge')+'</h3>';var ages=[['13-17',12],['18-24',35],['25-34',28],['35-44',15],['45+',10]];ages.forEach(function(a){html+='<div class="c-row"><span>'+a[0]+'</span><strong>'+a[1]+'%</strong></div>'});html+='</div><div class="a-box"><h3>'+t('chCountry')+'</h3>';var countries=[['🇺🇸 USA',35],['🇬🇧 UK',15],['🇩🇪 Germany',10],['🇹🇷 Turkey',8],['🌍 Other',32]];countries.forEach(function(c){html+='<div class="c-row"><span>'+c[0]+'</span><strong>'+c[1]+'%</strong></div>'});html+='</div></div><div style="text-align:center;margin-top:12px"><a href="https://youtube.com/channel/'+ch.id+'" target="_blank" class="btn btn-primary">'+t('chGoChannel')+'</a></div><div class="disclaimer">'+t('chDisclaimer')+'</div>';document.getElementById('chModalBody').innerHTML=html}
+// SAYACI YÜKLE (Lifetime sayacı)
+async function loadCounter() {
+  try {
+    var { count } = await supabase
+      .from('users')
+      .select('*', { count: 'exact', head: true })
+      .eq('lifetime', true);
+    
+    var sold = count || 0;
+    var remaining = Math.max(0, 100 - sold);
+    
+    document.getElementById('sideCounter').textContent = '🔥 ' + remaining + '/100 kaldı';
+    document.getElementById('authCounter').textContent = remaining + '/100 kaldı';
+  } catch (err) {
+    console.error('Counter error:', err);
+  }
+}
 
-function closeChannelModal(){document.getElementById('channelModal').classList.remove('active')}
-function toggleAI(){var chat=document.getElementById('aiChat');var btn=document.getElementById('aiBotBtn');chat.classList.toggle('active');btn.classList.toggle('active');btn.textContent=chat.classList.contains('active')?'✕':'🤖'}
-function askAI(qKey){var msgs=document.getElementById('aiMessages');var question=t(qKey);var answer=t('a'+qKey.substring(1));msgs.innerHTML+='<div class="ai-msg user">'+esc(question)+'</div>';setTimeout(function(){msgs.innerHTML+='<div class="ai-msg bot">'+esc(answer).replace(/\n/g,'<br>')+'</div>';msgs.scrollTop=msgs.scrollHeight},400);msgs.scrollTop=msgs.scrollHeight}
+// ADMIN İSTATİSTİKLERİNİ YÜKLE
+async function loadAdminStats() {
+  try {
+    // Toplam kullanıcı
+    var { count: totalUsers } = await supabase
+      .from('users')
+      .select('*', { count: 'exact', head: true });
+    
+    // Pro kullanıcı (lifetime)
+    var { count: proUsers } = await supabase
+      .from('users')
+      .select('*', { count: 'exact', head: true })
+      .eq('lifetime', true);
+    
+    // Satışlar
+    var { data: sales } = await supabase
+      .from('sales')
+      .select('*')
+      .order('created_at', { ascending: false });
+    
+    var totalRevenue = sales ? sales.reduce((sum, s) => sum + (parseFloat(s.amount) || 0), 0) : 0;
+    
+    // UI güncelle
+    document.getElementById('adminTotal').textContent = totalUsers || 0;
+    document.getElementById('adminSales').textContent = proUsers || 0;
+    document.getElementById('aStatTotal').textContent = totalUsers || 0;
+    document.getElementById('aStatPro').textContent = proUsers || 0;
+    document.getElementById('aStatRevenue').textContent = totalRevenue.toFixed(0);
+    document.getElementById('aStatRemaining').textContent = Math.max(0, 100 - (proUsers || 0));
+    
+    // Satış listesi
+    var salesHtml = '';
+    if (sales && sales.length) {
+      sales.slice(0, 10).forEach(function(s) {
+        salesHtml += '<div class="sale-row"><div class="si"><h4>' + (s.email || '?') + '</h4><p>' + (s.product || 'Lifetime') + ' · ' + formatDate(s.created_at) + '</p></div><div class="sa">$' + (s.amount || 89) + '</div></div>';
+      });
+    } else {
+      salesHtml = '<div class="empty">Henüz satış yok</div>';
+    }
+    document.getElementById('salesList').innerHTML = salesHtml;
+    
+    // Son kullanıcılar
+    var { data: recentUsers } = await supabase
+      .from('users')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(10);
+    
+    var usersHtml = '';
+    if (recentUsers && recentUsers.length) {
+      recentUsers.forEach(function(u) {
+        var badge = u.lifetime ? '💎 PRO' : (u.is_admin ? '👑 ADMIN' : '🆓 FREE');
+        usersHtml += '<div class="sale-row"><div class="si"><h4>' + (u.name || '?') + '</h4><p>' + u.email + ' · ' + formatDate(u.created_at) + '</p></div><div class="sa" style="font-size:11px">' + badge + '</div></div>';
+      });
+    } else {
+      usersHtml = '<div class="empty">Henüz kullanıcı yok</div>';
+    }
+    document.getElementById('usersList').innerHTML = usersHtml;
+    
+  } catch (err) {
+    console.error('Admin stats error:', err);
+  }
+}
 
-if(isAdmin){document.getElementById('adminBanner').classList.add('active');document.getElementById('adminTotal').textContent=NICHES.length}
+// ============================================
+// PAGE NAVIGATION
+// ============================================
+function goPage(p) {
+  currentPage = p;
+  ['home','niches','trending','analytics','risk','roadmap','admin'].forEach(function(x) {
+    var el = document.getElementById('page-' + x);
+    if (el) el.style.display = x === p ? 'block' : 'none';
+  });
+  document.querySelectorAll('.s-item').forEach(function(s) { s.classList.remove('active'); });
+  var map = {home:'sideHome',niches:'sideNiches',trending:'sideTrending',analytics:'sideAnalytics',risk:'sideRisk',roadmap:'sideRoadmap',admin:'sideAdmin'};
+  var btn = document.getElementById(map[p]);
+  if (btn) btn.classList.add('active');
+  if (p === 'trending' && !trendingLoaded) loadTrending();
+  if (p === 'admin' && userProfile && userProfile.is_admin) loadAdminStats();
+  document.querySelector('.sidebar').classList.remove('open');
+}
 
-document.getElementById('searchInput').addEventListener('input',render);
-document.getElementById('langFilter').addEventListener('change',render);
-document.getElementById('sortFilter').addEventListener('change',render);
-document.getElementById('hiddenOnly').addEventListener('change',render);
-document.getElementById('newChannelOnly').addEventListener('change',render);
-document.getElementById('facelessOnly').addEventListener('change',render);
-document.getElementById('trendingSearch').addEventListener('keypress',function(e){if(e.key==='Enter')loadTrending()});
-document.getElementById('analyticsSearch').addEventListener('keypress',function(e){if(e.key==='Enter')searchChannel()});
-document.getElementById('quickSearch').addEventListener('keypress',function(e){if(e.key==='Enter')quickSearch()});
-document.getElementById('detailModal').addEventListener('click',function(e){if(e.target===this)closeModal()});
-document.getElementById('channelModal').addEventListener('click',function(e){if(e.target===this)closeChannelModal()});
-document.getElementById('lang-'+lang).classList.add('active');
-document.querySelectorAll('.lang-btn').forEach(function(b){if(b.id!=='lang-'+lang)b.classList.remove('active')});
+// ============================================
+// INITIALIZE
+// ============================================
+window.addEventListener('DOMContentLoaded', function() {
+  loadUserAndStart();
+});
 
-applyAll();render();loadRising();renderTopN();
+// Auth state değişikliğini dinle
+supabase.auth.onAuthStateChange(function(event, session) {
+  if (event === 'SIGNED_OUT') {
+    currentUser = null;
+    userProfile = null;
+    location.reload();
+  }
+});
+</script><script>
+// ============================================
+// HELPER FUNCTIONS
+// ============================================
+function clamp(n) { return Math.max(0, Math.min(100, Math.round(n))); }
+
+function overall(n) {
+  var s = n.scores;
+  return clamp((100-s.comp)*.18 + s.money*.15 + s.trend*.15 + s.faceless*.08 + Math.max(s.shorts,s.longform)*.08 + s.sustain*.10 + s.newCh*.13 + s.under*.18 + s.multi*.05);
+}
+
+function hiddenS(n) {
+  var s = n.scores;
+  return clamp((100-s.comp)*.26 + s.under*.30 + s.newCh*.24 + s.multi*.10 + s.sustain*.10);
+}
+
+function compLabel(c) {
+  return c <= 40 ? 'Düşük' : c <= 65 ? 'Orta' : 'Yüksek';
+}
+
+function esc(s) {
+  return String(s).replace(/[&<>"']/g, function(m) {
+    return ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"})[m];
+  });
+}
+
+function getName(n) { return n.tr || n.en; }
+function getCat(n) { return (n.cat && n.cat.tr) || ''; }
+function getSub(n) { return (n.sub && n.sub.tr) || ''; }
+function getAudience(n) { return (n.audience && n.audience.tr) || ''; }
+function getComp(n) { return (n.competitor && n.competitor.tr) || ''; }
+function getRiskSebep(n) { return (n.risk && n.risk.sebep && n.risk.sebep.tr) || ''; }
+function getRiskYapma(n) { return (n.risk && n.risk.yapma && n.risk.yapma.tr) || []; }
+function getRiskYap(n) { return (n.risk && n.risk.yap && n.risk.yap.tr) || []; }
+function getExItem(ex, type) {
+  if (!ex || !Array.isArray(ex)) return null;
+  return ex.find(function(x) { return x.type === type; });
+}
+function getExAge(item) {
+  if (!item || !item.age) return '';
+  return item.age.tr || '';
+}
+function getExStrategy(item) {
+  if (!item || !item.strategy) return '';
+  return item.strategy.tr || '';
+}
+
+function formatNumber(n) {
+  if (n >= 1e6) return (n/1e6).toFixed(1) + 'M';
+  if (n >= 1e3) return (n/1e3).toFixed(1) + 'K';
+  return n;
+}
+
+function applyAll() {
+  render();
+  loadRising();
+  renderTopN();
+}
+
+// ============================================
+// SEARCH
+// ============================================
+function quickSearch() {
+  var q = document.getElementById('quickSearch').value.trim();
+  if (!q) return;
+  document.getElementById('searchInput').value = q;
+  goPage('niches');
+  setTimeout(render, 200);
+}
+
+// ============================================
+// RISING CHANNELS (Anasayfa widget - GERÇEK)
+// ============================================
+async function loadRising() {
+  var cached = cacheGet('rising_real');
+  if (cached) {
+    document.getElementById('risingChannels').innerHTML = cached;
+    return;
+  }
+  
+  // Supabase cache kontrol
+  try {
+    var { data: dbCache } = await supabase
+      .from('search_cache')
+      .select('*')
+      .eq('query', '__rising__')
+      .eq('region', 'GLOBAL')
+      .single();
+    
+    if (dbCache && dbCache.results) {
+      var ageSec = (Date.now() - new Date(dbCache.created_at).getTime()) / 1000;
+      if (ageSec < 3600) {
+        renderRising(dbCache.results);
+        return;
+      }
+    }
+  } catch(e) {}
+  
+  // YouTube API'den çek
+  try {
+    var queries = ['technology', 'finance', 'education', 'business', 'productivity'];
+    var randomQ = queries[Math.floor(Math.random() * queries.length)];
+    
+    var url = 'https://www.googleapis.com/youtube/v3/search?part=snippet&type=channel&q=' + randomQ + '&maxResults=20&order=relevance&key=' + YOUTUBE_API_KEY;
+    var resp = await fetch(url);
+    var data = await resp.json();
+    
+    if (!data.items) throw new Error('No data');
+    
+    var channels = data.items.slice(0, 5);
+    
+    // Cache'e kaydet
+    try {
+      await supabase.from('search_cache').upsert({
+        query: '__rising__',
+        region: 'GLOBAL',
+        results: channels,
+        created_at: new Date().toISOString()
+      });
+    } catch(e) {}
+    
+    renderRising(channels);
+    
+  } catch (err) {
+    console.error('Rising error:', err);
+    // Fallback - niche datadan göster
+    var fallback = NICHES.slice().sort(function(a,b) { return overall(b)-overall(a); }).slice(0,5);
+    var html = '';
+    fallback.forEach(function(n,i) {
+      var item = getExItem(n.examples, 'rising');
+      var name = item ? item.name : getName(n);
+      html += '<div class="ch-row"><img src="https://ui-avatars.com/api/?name=' + encodeURIComponent(name) + '&background=4da3ff&color=fff"/><div class="info"><h4>' + esc(name) + '</h4><p>' + esc(getCat(n)) + '</p></div><div class="badge">#' + (i+1) + '</div></div>';
+    });
+    document.getElementById('risingChannels').innerHTML = html;
+  }
+}
+
+function renderRising(channels) {
+  var html = '';
+  channels.forEach(function(ch, i) {
+    var s = ch.snippet || ch;
+    var thumb = s.thumbnails && s.thumbnails.default ? s.thumbnails.default.url : ('https://ui-avatars.com/api/?name=' + encodeURIComponent(s.title || 'C') + '&background=4da3ff&color=fff');
+    var channelId = s.channelId || (ch.id && ch.id.channelId) || ch.id;
+    html += '<div class="ch-row" onclick="openChannelById(\'' + channelId + '\')"><img src="' + thumb + '" alt=""/><div class="info"><h4>' + esc(s.title || s.channelTitle || '?') + '</h4><p>' + esc((s.description || '').substring(0, 40)) + '...</p></div><div class="badge">#' + (i+1) + '</div></div>';
+  });
+  document.getElementById('risingChannels').innerHTML = html;
+  cacheSet('rising_real', html);
+}
+
+// ============================================
+// TOP NICHES (Anasayfa widget)
+// ============================================
+function renderTopN() {
+  var sorted = NICHES.slice().sort(function(a,b) { return overall(b)-overall(a); }).slice(0,5);
+  var html = '';
+  sorted.forEach(function(n) {
+    var idx = NICHES.indexOf(n);
+    html += '<div class="n-row" onclick="openModal(' + idx + ')"><div class="ic">' + (n.icon || '🎯') + '</div><div class="info"><h4>' + esc(getName(n)) + '</h4><p>Fırsat: ' + overall(n) + ' · ' + esc(getCat(n)) + '</p></div><div class="badge">' + overall(n) + '</div></div>';
+  });
+  document.getElementById('topNiches').innerHTML = html;
+}
+
+// ============================================
+// NICHES RENDER
+// ============================================
+function render() {
+  var q = (document.getElementById('searchInput').value || '').toLowerCase().trim();
+  var lf = document.getElementById('langFilter').value;
+  var sf = document.getElementById('sortFilter').value;
+  var hOnly = document.getElementById('hiddenOnly').checked;
+  var nOnly = document.getElementById('newChannelOnly').checked;
+  var fOnly = document.getElementById('facelessOnly').checked;
+  
+  var list = NICHES.filter(function(n) {
+    if (q && getName(n).toLowerCase().indexOf(q) < 0 && getCat(n).toLowerCase().indexOf(q) < 0) return false;
+    if (lf !== 'all' && n.langs && n.langs.indexOf(lf) < 0) return false;
+    if (hOnly && hiddenS(n) < 70) return false;
+    if (nOnly && n.scores.newCh < 70) return false;
+    if (fOnly && n.scores.faceless < 70) return false;
+    return true;
+  });
+  
+  if (sf === 'hidden') list.sort(function(a,b) { return hiddenS(b)-hiddenS(a); });
+  else if (sf === 'lowComp') list.sort(function(a,b) { return a.scores.comp-b.scores.comp; });
+  else if (sf === 'money') list.sort(function(a,b) { return b.scores.money-a.scores.money; });
+  else if (sf === 'new') list.sort(function(a,b) { return b.scores.newCh-a.scores.newCh; });
+  else list.sort(function(a,b) { return overall(b)-overall(a); });
+  
+  document.getElementById('statHidden').textContent = NICHES.filter(function(n) { return hiddenS(n) >= 70; }).length;
+  document.getElementById('statNiches').textContent = NICHES.length;
+  
+  var g = document.getElementById('nichesGrid');
+  if (list.length === 0) { g.innerHTML = '<div class="empty">Niş bulunamadı</div>'; return; }
+  
+  var html = '';
+  list.forEach(function(n) {
+    var o = overall(n), h = hiddenS(n), i = NICHES.indexOf(n);
+    html += '<div class="niche-card" onclick="openModal(' + i + ')"><div class="niche-head"><h3>' + (n.icon || '🎯') + ' ' + esc(getName(n)) + '</h3><div class="score-badge">' + o + '</div></div><div class="niche-category">' + esc(getCat(n)) + ' · ' + esc(getSub(n)) + '</div><div class="chips">';
+    if (h >= 70) html += '<span class="chip green">🔍 Hidden ' + h + '</span>';
+    if (n.scores.newCh >= 70) html += '<span class="chip blue">🆕 Yeni Dostu</span>';
+    if (n.scores.faceless >= 70) html += '<span class="chip yellow">🎭 Faceless</span>';
+    html += '<span class="chip ' + (n.scores.comp <= 40 ? 'green' : n.scores.comp <= 65 ? 'yellow' : 'red') + '">' + compLabel(n.scores.comp) + ' Rekabet</span></div><div class="bars"><div class="bar-row"><span>💰 Kazanç</span><div class="bar"><div class="fill" style="width:' + n.scores.money + '%"></div></div><span>' + n.scores.money + '</span></div><div class="bar-row"><span>📈 Trend</span><div class="bar"><div class="fill" style="width:' + n.scores.trend + '%"></div></div><span>' + n.scores.trend + '</span></div><div class="bar-row"><span>🛡️ Güvenlik</span><div class="bar"><div class="fill" style="width:' + (n.risk.score || 80) + '%"></div></div><span>' + (n.risk.score || 80) + '</span></div></div><div class="card-actions"><button class="btn btn-primary btn-small" onclick="event.stopPropagation();openModal(' + i + ')">📋 Detay</button></div></div>';
+  });
+  g.innerHTML = html;
+}
+
+// ============================================
+// NICHE DETAIL MODAL
+// ============================================
+function openModal(idx) {
+  var n = NICHES[idx];
+  document.getElementById('modalTitle').textContent = (n.icon || '🎯') + ' ' + getName(n);
+  document.getElementById('modalSub').textContent = getCat(n) + ' · ' + getSub(n);
+  
+  var html = '<div class="detail-grid"><div class="detail-box"><h3>📊 Puanlar</h3>';
+  html += '<div class="d-bar"><div class="d-bar-label"><span>⭐ Fırsat</span><span>' + overall(n) + '</span></div><div class="d-bar-track"><div class="d-bar-fill" style="width:' + overall(n) + '%"></div></div></div>';
+  html += '<div class="d-bar"><div class="d-bar-label"><span>🔍 Hidden</span><span>' + hiddenS(n) + '</span></div><div class="d-bar-track"><div class="d-bar-fill" style="width:' + hiddenS(n) + '%"></div></div></div>';
+  html += '<div class="d-bar"><div class="d-bar-label"><span>💰 Kazanç</span><span>' + n.scores.money + '</span></div><div class="d-bar-track"><div class="d-bar-fill" style="width:' + n.scores.money + '%"></div></div></div>';
+  html += '<div class="d-bar"><div class="d-bar-label"><span>📉 Rekabet</span><span>' + n.scores.comp + '</span></div><div class="d-bar-track"><div class="d-bar-fill" style="width:' + n.scores.comp + '%"></div></div></div></div>';
+  html += '<div class="detail-box"><h3>🎯 Hedef & Rakip</h3><p><strong>Hedef:</strong> ' + esc(getAudience(n)) + '</p><p><strong>Rakip:</strong> ' + esc(getComp(n)) + '</p></div></div>';
+  html += '<div class="risk-section"><h3>🛡️ Risk Analizi · Güvenlik: ' + (n.risk.score || 80) + '/100</h3><p style="color:#cfd9ea;font-size:11px;margin-bottom:8px">' + esc(getRiskSebep(n)) + '</p><div class="detail-grid"><div class="detail-box"><h3>❌ YAPMA</h3><ul>';
+  
+  var yapma = getRiskYapma(n);
+  if (Array.isArray(yapma)) yapma.forEach(function(x) { html += '<li>' + esc(x) + '</li>'; });
+  else html += '<li>' + esc(yapma) + '</li>';
+  
+  html += '</ul></div><div class="detail-box"><h3>✅ YAP</h3><ul>';
+  
+  var yap = getRiskYap(n);
+  if (Array.isArray(yap)) yap.forEach(function(x) { html += '<li>' + esc(x) + '</li>'; });
+  else html += '<li>' + esc(yap) + '</li>';
+  
+  html += '</ul></div></div></div>';
+  
+  if (n.examples && Array.isArray(n.examples)) {
+    html += '<div class="ex-section"><h3 style="margin:12px 0 8px;font-size:14px">📺 Örnek Kanallar</h3>';
+    ['beginner','rising','success'].forEach(function(f) {
+      var item = getExItem(n.examples, f);
+      if (item) {
+        var ftext = f === 'beginner' ? '🌱 Yeni Başlayan' : f === 'rising' ? '🚀 Yükselen' : '🏆 Başarı';
+        html += '<div class="ex-card ' + f + '"><h4>' + ftext + ': ' + esc(item.name || '') + '</h4><div class="ex-stats"><span>👥 ' + (item.subs || '?') + '</span><span>📅 ' + esc(getExAge(item)) + '</span>' + (item.growth ? '<span>📈 ' + esc(item.growth) + '</span>' : '') + '</div>';
+        var st = getExStrategy(item);
+        if (st) html += '<div class="ex-strat">' + esc(st) + '</div>';
+        html += '</div>';
+      }
+    });
+    html += '</div>';
+  }
+  
+  document.getElementById('modalBody').innerHTML = html;
+  document.getElementById('detailModal').classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('detailModal').classList.remove('active');
+}
+
+// ============================================
+// TRENDING (YouTube API - GERÇEK)
+// ============================================
+async function loadTrending() {
+  var q = document.getElementById('trendingSearch').value.trim();
+  var r = document.getElementById('trendingRegion').value;
+  var ck = 'trend_' + r + '_' + q;
+  
+  // Local cache
+  var cached = cacheGet(ck);
+  if (cached) { renderTrending(cached); trendingLoaded = true; return; }
+  
+  var grid = document.getElementById('trendingGrid');
+  grid.innerHTML = '<div class="t-loading"><div class="spinner"></div><p>Yükleniyor...</p></div>';
+  
+  // Supabase cache
+  try {
+    var { data: dbCache } = await supabase
+      .from('search_cache')
+      .select('*')
+      .eq('query', q || '__trending__')
+      .eq('region', r)
+      .single();
+    
+    if (dbCache && dbCache.results) {
+      var ageSec = (Date.now() - new Date(dbCache.created_at).getTime()) / 1000;
+      if (ageSec < 3600) {
+        cacheSet(ck, dbCache.results);
+        renderTrending(dbCache.results);
+        trendingLoaded = true;
+        return;
+      }
+    }
+  } catch(e) {}
+  
+  // YouTube API
+  try {
+    var url;
+    if (q) {
+      url = 'https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=' + encodeURIComponent(q) + '&regionCode=' + r + '&maxResults=20&key=' + YOUTUBE_API_KEY;
+    } else {
+      url = 'https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&chart=mostPopular&regionCode=' + r + '&maxResults=20&key=' + YOUTUBE_API_KEY;
+    }
+    
+    var resp = await fetch(url);
+    var data = await resp.json();
+    
+    if (!data.items) {
+      grid.innerHTML = '<div class="empty">Veri bulunamadı - API key kontrol et</div>';
+      return;
+    }
+    
+    var items;
+    if (q) {
+      var ids = data.items.map(function(v) { return v.id.videoId || v.id; }).join(',');
+      var vresp = await fetch('https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=' + ids + '&key=' + YOUTUBE_API_KEY);
+      var vdata = await vresp.json();
+      items = vdata.items || [];
+    } else {
+      items = data.items;
+    }
+    
+    // Supabase cache'e kaydet
+    try {
+      await supabase.from('search_cache').upsert({
+        query: q || '__trending__',
+        region: r,
+        results: items,
+        created_at: new Date().toISOString()
+      });
+    } catch(e) {}
+    
+    cacheSet(ck, items);
+    renderTrending(items);
+    trendingLoaded = true;
+    
+  } catch (err) {
+    grid.innerHTML = '<div class="empty">Hata: ' + err.message + '</div>';
+  }
+}
+
+function renderTrending(items) {
+  var grid = document.getElementById('trendingGrid');
+  if (!items || !items.length) { grid.innerHTML = '<div class="empty">Video bulunamadı</div>'; return; }
+  
+  var html = '<div class="results-grid">';
+  items.forEach(function(v, i) {
+    var s = v.snippet, st = v.statistics || {};
+    var thumb = s.thumbnails.medium ? s.thumbnails.medium.url : s.thumbnails.default.url;
+    html += '<div class="t-card" onclick="openChannelById(\'' + s.channelId + '\')"><div class="t-thumb"><img src="' + thumb + '" alt=""/><div class="live">LIVE</div><div class="rank">' + (i+1) + '</div></div><div class="t-info"><h3>' + esc(s.title.substring(0,60)) + '</h3><div class="t-stats"><span>👁️ ' + formatNumber(parseInt(st.viewCount||0)) + '</span><span>👍 ' + formatNumber(parseInt(st.likeCount||0)) + '</span></div><div class="t-ch"><img src="https://ui-avatars.com/api/?name=' + encodeURIComponent(s.channelTitle) + '&background=4da3ff&color=fff"/><div><div class="t-ch-name">' + esc(s.channelTitle) + '</div><div class="t-ch-subs">' + s.publishedAt.substring(0,10) + '</div></div></div><div class="t-actions"><button class="btn btn-primary btn-small" onclick="event.stopPropagation();openChannelById(\'' + s.channelId + '\')">📊 Analiz</button></div></div></div>';
+  });
+  html += '</div>';
+  grid.innerHTML = html;
+}
+
+// ============================================
+// CHANNEL ANALYSIS
+// ============================================
+async function searchChannel() {
+  var q = document.getElementById('analyticsSearch').value.trim();
+  if (!q) return;
+  
+  document.getElementById('analyticsResult').innerHTML = '<div class="t-loading"><div class="spinner"></div><p>Aranıyor...</p></div>';
+  
+  try {
+    var resp = await fetch('https://www.googleapis.com/youtube/v3/search?part=snippet&type=channel&q=' + encodeURIComponent(q) + '&maxResults=1&key=' + YOUTUBE_API_KEY);
+    var data = await resp.json();
+    
+    if (!data.items || !data.items.length) {
+      document.getElementById('analyticsResult').innerHTML = '<div class="empty">Kanal bulunamadı</div>';
+      return;
+    }
+    
+    var cid = data.items[0].snippet.channelId || data.items[0].id.channelId;
+    document.getElementById('analyticsResult').innerHTML = '';
+    openChannelById(cid);
+    
+  } catch (err) {
+    document.getElementById('analyticsResult').innerHTML = '<div class="empty">Hata: ' + err.message + '</div>';
+  }
+}
+
+async function openChannelById(channelId) {
+  document.getElementById('chModalTitle').textContent = 'Yükleniyor...';
+  document.getElementById('chModalBody').innerHTML = '<div class="t-loading"><div class="spinner"></div><p>Yükleniyor...</p></div>';
+  document.getElementById('channelModal').classList.add('active');
+  
+  try {
+    var resp = await fetch('https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics,brandingSettings&id=' + channelId + '&key=' + YOUTUBE_API_KEY);
+    var data = await resp.json();
+    
+    if (!data.items || !data.items.length) {
+      document.getElementById('chModalBody').innerHTML = '<div class="empty">Kanal bulunamadı</div>';
+      return;
+    }
+    
+    renderChannelModal(data.items[0]);
+  } catch (err) {
+    document.getElementById('chModalBody').innerHTML = '<div class="empty">Hata: ' + err.message + '</div>';
+  }
+}
+
+function renderChannelModal(ch) {
+  var s = ch.snippet, st = ch.statistics;
+  var subs = parseInt(st.subscriberCount || 0);
+  var views = parseInt(st.viewCount || 0);
+  var vids = parseInt(st.videoCount || 0);
+  var avgViews = vids > 0 ? Math.round(views/vids) : 0;
+  var rpm = 2.5;
+  var monthlyViews = avgViews * 4;
+  var earnLow = Math.round(monthlyViews * rpm * 0.5 / 1000);
+  var earnHigh = Math.round(monthlyViews * rpm * 1.5 / 1000);
+  var earnAvg = Math.round((earnLow + earnHigh) / 2);
+  
+  document.getElementById('chModalTitle').textContent = '📊 ' + s.title;
+  document.getElementById('chModalSub').textContent = formatNumber(subs) + ' abone';
+  
+  var html = '<div class="a-header"><img src="' + (s.thumbnails.high ? s.thumbnails.high.url : s.thumbnails.default.url) + '"/><div><h2>' + esc(s.title) + '</h2><p style="color:var(--muted);font-size:12px">' + formatNumber(subs) + ' abone · ' + formatNumber(vids) + ' video</p><span class="trend-ind up">📈 Yükseliyor</span></div></div>';
+  html += '<div class="a-grid"><div class="a-box"><h3>📊 İstatistikler</h3><div class="a-stat"><span>👥 Abone</span><strong>' + formatNumber(subs) + '</strong></div><div class="a-stat"><span>👁️ Toplam İzlenme</span><strong>' + formatNumber(views) + '</strong></div><div class="a-stat"><span>📹 Video Sayısı</span><strong>' + formatNumber(vids) + '</strong></div><div class="a-stat"><span>📊 Ortalama İzlenme</span><strong>' + formatNumber(avgViews) + '</strong></div></div>';
+  html += '<div class="a-box earn-box"><h3>💰 Tahmini Aylık Kazanç</h3><div class="earn-amount">$' + formatNumber(earnAvg) + '/ay</div><div class="earn-range">$' + formatNumber(earnLow) + ' - $' + formatNumber(earnHigh) + '</div></div>';
+  html += '<div class="a-box"><h3>📈 Büyüme Trendi</h3>';
+  var months = ['Bu Ay','Geçen Ay','2 Ay Önce','3 Ay Önce'];
+  var growth = [100,85,72,60];
+  months.forEach(function(m,i) {
+    html += '<div class="g-bar"><div class="lbl">' + m + '</div><div class="trk"><div class="gfill" style="width:' + growth[i] + '%"></div></div><div class="val">' + formatNumber(Math.round(avgViews*growth[i]/100)) + '</div></div>';
+  });
+  html += '</div>';
+  html += '<div class="a-box"><h3>👥 Cinsiyet</h3><div class="d-bar"><div class="d-bar-label"><span>👨 Erkek</span><span>62%</span></div><div class="d-bar-track"><div class="d-bar-fill male" style="width:62%"></div></div></div><div class="d-bar"><div class="d-bar-label"><span>👩 Kadın</span><span>38%</span></div><div class="d-bar-track"><div class="d-bar-fill female" style="width:38%"></div></div></div></div>';
+  html += '<div class="a-box"><h3>📅 Yaş</h3>';
+  [['13-17',12],['18-24',35],['25-34',28],['35-44',15],['45+',10]].forEach(function(a) {
+    html += '<div class="c-row"><span>' + a[0] + '</span><strong>' + a[1] + '%</strong></div>';
+  });
+  html += '</div>';
+  html += '<div class="a-box"><h3>🌍 Ülke</h3>';
+  [['🇺🇸 USA',35],['🇬🇧 UK',15],['🇩🇪 Germany',10],['🇹🇷 Turkey',8],['🌍 Diğer',32]].forEach(function(c) {
+    html += '<div class="c-row"><span>' + c[0] + '</span><strong>' + c[1] + '%</strong></div>';
+  });
+  html += '</div></div>';
+  html += '<div style="text-align:center;margin-top:12px"><a href="https://youtube.com/channel/' + ch.id + '" target="_blank" class="btn btn-primary">🔗 Kanala Git</a></div>';
+  html += '<div class="disclaimer">⚠️ Tahminler sektör ortalamalarına göre hesaplanır.</div>';
+  
+  document.getElementById('chModalBody').innerHTML = html;
+}
+
+function closeChannelModal() {
+  document.getElementById('channelModal').classList.remove('active');
+}
+
+// ============================================
+// AI BOT
+// ============================================
+function toggleAI() {
+  var chat = document.getElementById('aiChat');
+  var btn = document.getElementById('aiBotBtn');
+  chat.classList.toggle('active');
+  btn.classList.toggle('active');
+  btn.textContent = chat.classList.contains('active') ? '✕' : '🤖';
+}
+
+function sendAIMessage() {
+  var input = document.getElementById('aiInput');
+  var question = input.value.trim();
+  if (!question) return;
+  
+  var msgs = document.getElementById('aiMessages');
+  msgs.innerHTML += '<div class="ai-msg user">' + esc(question) + '</div>';
+  input.value = '';
+  msgs.scrollTop = msgs.scrollHeight;
+  
+  // Akıllı bot cevap sistemi
+  setTimeout(function() {
+    var answer = getBotAnswer(question.toLowerCase());
+    msgs.innerHTML += '<div class="ai-msg bot">' + answer + '</div>';
+    msgs.scrollTop = msgs.scrollHeight;
+  }, 600);
+}
+
+function getBotAnswer(q) {
+  // Niş ile ilgili
+  if (q.includes('niş') || q.includes('hangi')) {
+    if (q.includes('başla') || q.includes('yeni') || q.includes('başlangıç')) {
+      return '🎯 <strong>Yeni başlayanlar için 3 adım:</strong><br>1. 🔍 Hidden filtresini aç (rekabet az)<br>2. 🆕 Yeni Kanal Dostu seç<br>3. 🛡️ Risk skoru 80+ olanı seç<br><br>💡 Önerilerim: <strong>AI Araçları, Verimlilik, Bilim Anlatımı</strong> - hepsi düşük rekabetli ve karlı!';
+    }
+    if (q.includes('para') || q.includes('kazanç') || q.includes('karlı')) {
+      return '💰 <strong>En karlı nişler:</strong><br>🥇 İş & Kariyer (RPM $8-15)<br>🥈 Teknoloji & AI (RPM $6-12)<br>🥉 Eğitim & Bilim (RPM $4-8)<br>🏅 Finans (yatırım tavsiyesi YASAK ama eğitim olabilir)<br><br>⚠️ Yüksek RPM = yüksek rekabet. Hidden filtresi kullan!';
+    }
+    return '🎯 <strong>Niş seçerken dikkat et:</strong><br>• Tutku + para birlikte olmalı<br>• Rekabet < 60, Risk > 70 ideal<br>• Faceless istiyorsan Faceless filtresini aç<br>• 50+ niş incele, sonra karar ver<br><br>📊 Niş Keşfi sayfasından başlayabilirsin!';
+  }
+  
+  // Abone artırma
+  if (q.includes('abone') || q.includes('1000') || q.includes('büyüt')) {
+    return '📈 <strong>1000 aboneye ulaşma stratejisi:</strong><br>1. İlk 30 gün: 10 Shorts paylaş<br>2. Her gün <strong>tek niş</strong>te derinleş<br>3. Thumbnail + başlık çok önemli<br>4. İlk 15 saniyede izleyiciyi yakala<br>5. Düzenli yayın (haftada 2-3 video)<br><br>⏱️ Ortalama süre: 3-6 ay';
+  }
+  
+  // Telif hakkı
+  if (q.includes('telif') || q.includes('kopya') || q.includes('müzik')) {
+    return '⚠️ <strong>Telif Hakları Rehberi:</strong><br>❌ <strong>YAPMA:</strong><br>• Spotify/Apple müzik kullanma<br>• Film/dizi sahneleri direkt kullanma<br>• Başka YouTuber\'ın videosunu kopyalama<br><br>✅ <strong>YAP:</strong><br>• YouTube Audio Library<br>• Epidemic Sound<br>• Royalty-free müzik (CC0)<br>• Kendi oluşturduğun içerik';
+  }
+  
+  // Faceless
+  if (q.includes('faceless') || q.includes('yüz') || q.includes('görünmeden')) {
+    return '🎭 <strong>Faceless Kanal Rehberi:</strong><br>1. AI ses (ElevenLabs, Murf)<br>2. Stock video (Pexels, Pixabay)<br>3. Ekran kaydı + voiceover<br>4. Animasyon (Canva, CapCut)<br><br>💎 <strong>En iyi faceless nişler:</strong><br>• AI Araçları<br>• Bilim Anlatımı<br>• Tarih Hikayeleri<br>• Mühendislik<br>• İlginç Bilgiler';
+  }
+  
+  // RPM
+  if (q.includes('rpm') || q.includes('cpm')) {
+    return '💵 <strong>RPM Nedir?</strong><br>RPM = 1000 izlenme başına kazanç<br><br>📊 <strong>Ortalama RPM\'ler:</strong><br>• Finans/Yatırım: $8-15<br>• Tech/Yazılım: $6-12<br>• Eğitim: $4-8<br>• Eğlence: $1-3<br>• Müzik: $0.5-2<br><br>🌍 Ülkeye göre değişir: USA > EU > Asia';
+  }
+  
+  // Genel pozitif
+  if (q.includes('merhaba') || q.includes('selam') || q.includes('hi')) {
+    return '👋 Merhaba! Sana niş seçimi, YouTube stratejileri, kazanç hesaplama, telif hakları ve daha fazlası hakkında yardımcı olabilirim. Ne öğrenmek istersin?';
+  }
+  
+  // Default
+  return '🤔 Bu konuda spesifik bir cevabım yok ama şunları sorabilirsin:<br>• <strong>Hangi nişle başlamalıyım?</strong><br>• <strong>1000 aboneye nasıl ulaşırım?</strong><br>• <strong>En karlı nişler neler?</strong><br>• <strong>Faceless kanal nasıl açılır?</strong><br>• <strong>Telif hakkı nedir?</strong><br>• <strong>RPM nedir?</strong><br><br>💡 Veya sol menüdeki <strong>Niş Keşfi</strong>\'ne bakabilirsin!';
+}
+
+// ============================================
+// EVENT LISTENERS
+// ============================================
+window.addEventListener('DOMContentLoaded', function() {
+  // Search & Filter listeners
+  ['searchInput','langFilter','sortFilter','hiddenOnly','newChannelOnly','facelessOnly'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.addEventListener(el.type === 'checkbox' ? 'change' : 'input', render);
+  });
+  
+  // Enter tuşu
+  var trending = document.getElementById('trendingSearch');
+  if (trending) trending.addEventListener('keypress', function(e) { if (e.key === 'Enter') loadTrending(); });
+  
+  var analytics = document.getElementById('analyticsSearch');
+  if (analytics) analytics.addEventListener('keypress', function(e) { if (e.key === 'Enter') searchChannel(); });
+  
+  var qs = document.getElementById('quickSearch');
+  if (qs) qs.addEventListener('keypress', function(e) { if (e.key === 'Enter') quickSearch(); });
+  
+  // Modal kapatma
+  var dm = document.getElementById('detailModal');
+  if (dm) dm.addEventListener('click', function(e) { if (e.target === this) closeModal(); });
+  
+  var cm = document.getElementById('channelModal');
+  if (cm) cm.addEventListener('click', function(e) { if (e.target === this) closeChannelModal(); });
+});
+
 </script>
 </body>
 </html>
