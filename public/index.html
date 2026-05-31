@@ -804,6 +804,10 @@ function setLang(lang) {
   if (typeof render === 'function') render();
   if (typeof loadRising === 'function') loadRising();
   if (typeof renderTopN === 'function') renderTopN();
+   if (typeof loadNews === 'function') {
+    CACHE['news_v2'] = null;
+    loadNews();
+  }
 }
 
 function applyLang() {
@@ -1284,21 +1288,65 @@ function renderNews(items) {
 }
 
 function renderFallbackNews() {
-  var fallbackNews = [
-    { title: '🎯 YouTube Shorts artık 3 dakikaya kadar uzatıldı', date: 'Yeni', link: 'https://blog.youtube/' },
-    { title: '💰 YouTube Monetization güncellemeleri 2025', date: 'Bu hafta', link: 'https://blog.youtube/' },
-    { title: '🚀 AI ile YouTube videoları nasıl viral olur?', date: 'Yeni', link: 'https://www.tubefilter.com/' },
-    { title: '📊 En çok kazanan YouTube nişleri 2025', date: 'Yeni', link: 'https://www.tubefilter.com/' },
-    { title: '🎨 Faceless kanal trendi büyüyor', date: 'Bu hafta', link: 'https://www.tubefilter.com/' }
-  ];
+  var fallbackNewsAll = {
+    tr: [
+      { title: '🎯 YouTube Shorts artık 3 dakikaya kadar uzatıldı', date: 'Yeni' },
+      { title: '💰 YouTube Monetization güncellemeleri 2025', date: 'Bu hafta' },
+      { title: '🚀 AI ile YouTube videoları nasıl viral olur?', date: 'Yeni' },
+      { title: '📊 En çok kazanan YouTube nişleri 2025', date: 'Yeni' },
+      { title: '🎨 Faceless kanal trendi büyüyor', date: 'Bu hafta' }
+    ],
+    en: [
+      { title: '🎯 YouTube Shorts now extended to 3 minutes', date: 'New' },
+      { title: '💰 YouTube Monetization updates 2025', date: 'This week' },
+      { title: '🚀 How to make YouTube videos viral with AI?', date: 'New' },
+      { title: '📊 Top earning YouTube niches 2025', date: 'New' },
+      { title: '🎨 Faceless channel trend growing', date: 'This week' }
+    ],
+    de: [
+      { title: '🎯 YouTube Shorts jetzt bis zu 3 Minuten', date: 'Neu' },
+      { title: '💰 YouTube Monetarisierungs-Updates 2025', date: 'Diese Woche' },
+      { title: '🚀 Wie macht man YouTube-Videos mit KI viral?', date: 'Neu' },
+      { title: '📊 Top verdienende YouTube-Nischen 2025', date: 'Neu' },
+      { title: '🎨 Gesichtsloser Kanal-Trend wächst', date: 'Diese Woche' }
+    ],
+    es: [
+      { title: '🎯 YouTube Shorts ahora hasta 3 minutos', date: 'Nuevo' },
+      { title: '💰 Actualizaciones de monetización de YouTube 2025', date: 'Esta semana' },
+      { title: '🚀 ¿Cómo hacer videos de YouTube virales con IA?', date: 'Nuevo' },
+      { title: '📊 Nichos de YouTube más rentables 2025', date: 'Nuevo' },
+      { title: '🎨 Tendencia de canales sin rostro crece', date: 'Esta semana' }
+    ],
+    fr: [
+      { title: '🎯 YouTube Shorts maintenant jusqu\'à 3 minutes', date: 'Nouveau' },
+      { title: '💰 Mises à jour de la monétisation YouTube 2025', date: 'Cette semaine' },
+      { title: '🚀 Comment rendre les vidéos YouTube virales avec l\'IA?', date: 'Nouveau' },
+      { title: '📊 Niches YouTube les plus rentables 2025', date: 'Nouveau' },
+      { title: '🎨 Tendance des chaînes sans visage grandit', date: 'Cette semaine' }
+    ]
+  };
+  
+  var disclaimerText = {
+    tr: '⚠️ Canlı haberler yüklenemedi, örnek haberler gösteriliyor.',
+    en: '⚠️ Live news unavailable, showing samples.',
+    de: '⚠️ Live-Nachrichten nicht verfügbar, Beispiele werden angezeigt.',
+    es: '⚠️ Noticias en vivo no disponibles, mostrando ejemplos.',
+    fr: '⚠️ Actualités en direct indisponibles, affichage d\'exemples.'
+  };
+  
+  var fallbackNews = fallbackNewsAll[currentLang] || fallbackNewsAll.tr;
+  var links = ['https://blog.youtube/', 'https://blog.youtube/', 'https://www.tubefilter.com/', 'https://www.tubefilter.com/', 'https://www.tubefilter.com/'];
+  
   var html = '';
-  fallbackNews.forEach(function(n) {
-    html += '<a href="' + n.link + '" target="_blank" rel="noopener" class="news-row">';
+  fallbackNews.forEach(function(n, i) {
+    html += '<a href="' + links[i] + '" target="_blank" rel="noopener" class="news-row">';
     html += '<div class="news-title">' + esc(n.title) + '</div>';
     html += '<div class="news-meta"><span class="news-source">📰 NICHIFY</span><span class="news-date">' + n.date + '</span></div>';
     html += '</a>';
   });
-  html += '<div style="text-align:center;padding:8px;color:var(--muted);font-size:9px;border-top:1px solid var(--line);margin-top:8px">' + (currentLang === 'tr' ? '⚠️ Canlı haberler yüklenemedi, örnek haberler gösteriliyor.' : '⚠️ Live news unavailable, showing samples.') + '</div>';
+  
+  html += '<div style="text-align:center;padding:8px;color:var(--muted);font-size:9px;border-top:1px solid var(--line);margin-top:8px">' + (disclaimerText[currentLang] || disclaimerText.tr) + '</div>';
+  
   document.getElementById('newsWidget').innerHTML = html;
 }
 
