@@ -1231,40 +1231,74 @@ function quickSearch() {
 // RSS NEWS WIDGET - CANLI HABERLER!
 // ============================================
 async function loadNews() {
-  var cached = cacheGet('news');
+  var cached = cacheGet('news_v2');
   if (cached) { renderNews(cached); return; }
   
-  try {
-    var rssUrl = 'https://www.tubefilter.com/feed/';
-    var apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl) + '&count=8';
-    
-    var resp = await fetch(apiUrl);
-    var data = await resp.json();
-    
-    if (data.status === 'ok' && data.items) {
-      cacheSet('news', data.items);
-      renderNews(data.items);
-    } else {
-      throw new Error('No news');
+  var sources = [
+    { name: 'TechCrunch', url: 'https://techcrunch.com/feed/' },
+    { name: 'The Verge', url: 'https://www.theverge.com/rss/index.xml' },
+    { name: 'Tubefilter', url: 'https://www.tubefilter.com/feed/' }
+  ];
+  
+  for (var i = 0; i < sources.length; i++) {
+    try {
+      var src = sources[i];
+      var apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(src.url) + '&count=6';
+      var resp = await fetch(apiUrl);
+      var data = await resp.json();
+      
+      if (data.status === 'ok' && data.items && data.items.length > 0) {
+        var items = data.items.map(function(it) {
+          it.sourceName = src.name;
+          return it;
+        });
+        cacheSet('news_v2', items);
+        renderNews(items);
+        return;
+      }
+    } catch (err) {
+      console.log('Source failed:', sources[i].name);
     }
-  } catch (err) {
-    console.error('News error:', err);
-    document.getElementById('newsWidget').innerHTML = '<div class="empty" style="font-size:11px">📰 ' + (currentLang === 'tr' ? 'Haberler şu an yüklenemedi' : 'News unavailable') + '</div>';
   }
+  
+  renderFallbackNews();
 }
 
 function renderNews(items) {
-  if (!items || !items.length) return;
+  if (!items || !items.length) { renderFallbackNews(); return; }
   var html = '';
   items.slice(0, 6).forEach(function(item) {
     var date = new Date(item.pubDate);
     var dateStr = date.toLocaleDateString(currentLang === 'tr' ? 'tr-TR' : 'en-US', { day: 'numeric', month: 'short' });
     var title = item.title.length > 70 ? item.title.substring(0, 70) + '...' : item.title;
+    var source = item.sourceName || 'News';
     html += '<a href="' + esc(item.link) + '" target="_blank" rel="noopener" class="news-row">';
     html += '<div class="news-title">' + esc(title) + '</div>';
-    html += '<div class="news-meta"><span class="news-source">Tubefilter</span><span class="news-date">' + dateStr + '</span></div>';
+    html += '<div class="news-meta"><span class="news-source">📰 ' + esc(source) + '</span><span class="news-date">' + dateStr + '</span></div>';
     html += '</a>';
   });
+  
+  html += '<div style="text-align:center;padding:8px;color:var(--muted);font-size:9px;border-top:1px solid var(--line);margin-top:8px">' + (currentLang === 'tr' ? '⚠️ Haberler dış kaynaklardan derlenmiştir. Tıklayarak orijinal habere gidin.' : currentLang === 'en' ? '⚠️ News compiled from external sources. Click to read original.' : currentLang === 'de' ? '⚠️ Nachrichten aus externen Quellen. Zum Lesen klicken.' : currentLang === 'es' ? '⚠️ Noticias de fuentes externas. Haz clic para leer.' : '⚠️ Actualités de sources externes. Cliquez pour lire.') + '</div>';
+  
+  document.getElementById('newsWidget').innerHTML = html;
+}
+
+function renderFallbackNews() {
+  var fallbackNews = [
+    { title: '🎯 YouTube Shorts artık 3 dakikaya kadar uzatıldı', date: 'Yeni', link: 'https://blog.youtube/' },
+    { title: '💰 YouTube Monetization güncellemeleri 2025', date: 'Bu hafta', link: 'https://blog.youtube/' },
+    { title: '🚀 AI ile YouTube videoları nasıl viral olur?', date: 'Yeni', link: 'https://www.tubefilter.com/' },
+    { title: '📊 En çok kazanan YouTube nişleri 2025', date: 'Yeni', link: 'https://www.tubefilter.com/' },
+    { title: '🎨 Faceless kanal trendi büyüyor', date: 'Bu hafta', link: 'https://www.tubefilter.com/' }
+  ];
+  var html = '';
+  fallbackNews.forEach(function(n) {
+    html += '<a href="' + n.link + '" target="_blank" rel="noopener" class="news-row">';
+    html += '<div class="news-title">' + esc(n.title) + '</div>';
+    html += '<div class="news-meta"><span class="news-source">📰 NICHIFY</span><span class="news-date">' + n.date + '</span></div>';
+    html += '</a>';
+  });
+  html += '<div style="text-align:center;padding:8px;color:var(--muted);font-size:9px;border-top:1px solid var(--line);margin-top:8px">' + (currentLang === 'tr' ? '⚠️ Canlı haberler yüklenemedi, örnek haberler gösteriliyor.' : '⚠️ Live news unavailable, showing samples.') + '</div>';
   document.getElementById('newsWidget').innerHTML = html;
 }
 
