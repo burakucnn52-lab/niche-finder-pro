@@ -4,11 +4,11 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>NICHIFY - YouTube Niş Bulma ve Analiz Aracı | Lifetime $89</title>
-  <meta name="google-site-verification" content="-dfMecSzIEbD3RHs_-jqSogKJN1mMO3eEPhkS0Zdwi8" />
+<meta name="google-site-verification" content="-dfMecSzIEbD3RHs_-jqSogKJN1mMO3eEPhkS0Zdwi8" />
 <meta name="description" content="YouTube için 100+ kazançlı niş, kanal analizi, RPM hesaplama. Lifetime $89, ilk 100 kişiye özel!"/>
-<meta name="keywords" content="youtube niş, niche finder, youtube analiz, kanal analizi, rpm hesaplama"/>
-<meta property="og:title" content="NICHIFY - YouTube Niş Bulma Aracı"/>
-<meta property="og:description" content="100+ niş analizi, kanal istatistikleri, gerçek YouTube verisi. Lifetime $89!"/>
+<meta name="keywords" content="youtube niş, niche finder, youtube analiz, kanal analizi, rpm hesaplama, youtube niche, niche tools"/>
+<meta property="og:title" content="NICHIFY - YouTube Niche Finder Pro"/>
+<meta property="og:description" content="100+ niche analysis, channel statistics, real YouTube data. Lifetime $89!"/>
 <meta property="og:image" content="https://ui-avatars.com/api/?name=NICHIFY&background=4da3ff&color=fff&size=512"/>
 <meta property="og:type" content="website"/>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -35,8 +35,9 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:var(--bg);c
 .s-lifetime .old{text-decoration:line-through;color:var(--muted);font-size:11px}
 .s-lifetime p{font-size:10px;color:var(--muted);margin-top:3px}
 .s-lifetime .counter{font-size:9px;color:var(--yellow);margin-top:3px;font-weight:600}
-.lang-row{display:flex;gap:3px;justify-content:center}
-.lang-btn{padding:5px 8px;background:transparent;border:1px solid var(--line);color:var(--muted);cursor:pointer;border-radius:5px;font-size:10px;font-weight:600;font-family:inherit;transition:.2s}
+.lang-row{display:flex;gap:3px;justify-content:center;flex-wrap:wrap;margin-top:8px}
+.lang-btn{padding:5px 7px;background:transparent;border:1px solid var(--line);color:var(--muted);cursor:pointer;border-radius:5px;font-size:11px;font-weight:600;font-family:inherit;transition:.2s;min-width:30px}
+.lang-btn:hover{border-color:var(--blue);color:var(--text)}
 .lang-btn.active{background:linear-gradient(135deg,var(--blue),var(--purple));color:white;border-color:transparent}
 .user-info{padding:10px;border-top:1px solid var(--line);display:flex;align-items:center;gap:8px;cursor:pointer;transition:.2s}
 .user-info:hover{background:rgba(255,255,255,.04)}
@@ -58,12 +59,20 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:var(--bg);c
 .stat-card strong{font-size:20px;display:block;margin-bottom:3px}
 .stat-card span{color:var(--muted);font-size:11px}
 .stat-card.premium{background:linear-gradient(135deg,rgba(77,163,255,.12),rgba(167,139,250,.08));border-color:rgba(77,163,255,.25)}
-.home-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px}
+.home-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:16px}
 .home-widget{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}
 .widget-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
 .widget-head h2{font-size:15px}
 .widget-head .va{color:var(--blue);font-size:11px;cursor:pointer;font-weight:600;background:none;border:none;font-family:inherit}
 .w-sub{color:var(--muted);font-size:10px;margin-bottom:10px}
+.news-row{display:flex;flex-direction:column;gap:8px;padding:10px;background:var(--card);border:1px solid var(--line);border-radius:9px;margin-bottom:5px;transition:.2s;cursor:pointer;text-decoration:none;color:inherit}
+.news-row:hover{transform:translateX(3px);border-color:var(--blue);background:rgba(77,163,255,.05)}
+.news-row .news-title{font-size:12px;font-weight:700;color:var(--text);line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.news-row .news-meta{font-size:10px;color:var(--muted);display:flex;justify-content:space-between;align-items:center}
+.news-row .news-source{background:rgba(77,163,255,.15);color:var(--blue);padding:2px 6px;border-radius:4px;font-weight:600;font-size:9px}
+.news-row .news-date{font-size:9px;color:var(--muted)}
+.news-loading{text-align:center;padding:20px;color:var(--muted);font-size:11px}
+.news-loading .spinner{width:20px;height:20px;border:2px solid var(--line);border-top:2px solid var(--blue);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 6px}
 </style>
 </head>
 <body><style>
@@ -157,6 +166,10 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:var(--bg);c
 .auth-msg.success{background:rgba(69,224,138,.15);color:#7ff0a8;border:1px solid rgba(69,224,138,.3);display:block}
 .auth-foot{text-align:center;margin-top:15px;font-size:11px;color:var(--muted)}
 .auth-foot a{color:var(--blue);cursor:pointer;text-decoration:none}
+.auth-lang-row{display:flex;gap:4px;justify-content:center;margin-bottom:15px}
+.auth-lang-btn{padding:4px 8px;background:transparent;border:1px solid var(--line);color:var(--muted);cursor:pointer;border-radius:5px;font-size:11px;font-weight:600;font-family:inherit;transition:.2s}
+.auth-lang-btn:hover{border-color:var(--blue)}
+.auth-lang-btn.active{background:linear-gradient(135deg,var(--blue),var(--purple));color:white;border-color:transparent}
 .lifetime-badge{background:linear-gradient(135deg,rgba(255,92,122,.2),rgba(255,159,67,.15));border:1px solid var(--red);border-radius:10px;padding:12px;margin-bottom:15px;text-align:center}
 .lifetime-badge .ltprice{font-size:22px;font-weight:800;color:var(--green)}
 .lifetime-badge .ltold{text-decoration:line-through;color:var(--muted);font-size:13px;margin-right:8px}
@@ -215,6 +228,7 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:var(--bg);c
 .rm-card.coming{border-left:3px solid var(--yellow)}
 .rm-card.soon{border-left:3px solid var(--blue)}
 .rm-card.planned{border-left:3px solid var(--purple)}
+.rm-card.done{border-left:3px solid var(--green);background:linear-gradient(135deg,rgba(69,224,138,.08),rgba(73,230,216,.04))}
 .rm-card.lifetime{border-left:3px solid var(--red);background:linear-gradient(135deg,rgba(255,92,122,.12),rgba(255,159,67,.06))}
 .rm-card h3{font-size:15px;margin-bottom:5px}
 .rm-card .date{font-size:10px;color:var(--muted);margin-bottom:6px}
@@ -222,6 +236,7 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:var(--bg);c
 .rm-card .status.coming{background:rgba(255,209,102,.15);color:var(--yellow)}
 .rm-card .status.soon{background:rgba(77,163,255,.15);color:var(--blue)}
 .rm-card .status.planned{background:rgba(167,139,250,.15);color:var(--purple)}
+.rm-card .status.done{background:rgba(69,224,138,.15);color:var(--green)}
 .rm-card .status.lifetime{background:rgba(255,92,122,.2);color:var(--red)}
 .rm-card p{color:#cfd9ea;font-size:11px;line-height:1.4}
 .footer{text-align:center;color:var(--muted);margin-top:20px;font-size:10px;padding:14px}
@@ -258,7 +273,8 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:var(--bg);c
 .sale-row .si p{font-size:10px;color:var(--muted)}
 .sale-row .sa{font-size:13px;font-weight:700;color:var(--green)}
 .mobile-toggle{display:none;position:fixed;top:8px;left:8px;z-index:200;background:var(--blue);border:none;color:white;width:36px;height:36px;border-radius:8px;font-size:18px;cursor:pointer}
-@media(max-width:900px){.home-grid,.stats-row{grid-template-columns:1fr 1fr}}
+@media(max-width:1100px){.home-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:900px){.home-grid{grid-template-columns:1fr};.stats-row{grid-template-columns:1fr 1fr}}
 @media(max-width:768px){.sidebar{transform:translateX(-100%);transition:.3s}.sidebar.open{transform:translateX(0)}.main{margin-left:0}.mobile-toggle{display:grid;place-items:center}.results-grid,.detail-grid,.a-grid{grid-template-columns:1fr}.stats-row{grid-template-columns:repeat(2,1fr)}}
 </style><button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">☰</button>
 
@@ -266,27 +282,34 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:var(--bg);c
 <div class="sidebar-logo"><h2>🚀 NICHIFY</h2><span class="ver">PRO</span></div>
 <div class="sidebar-nav">
 <div class="sidebar-section">
-<div class="s-title">ANA MENÜ</div>
-<button class="s-item active" onclick="goPage('home')" id="sideHome"><span class="ic">🏠</span><span>Anasayfa</span></button>
-<button class="s-item" onclick="goPage('niches')" id="sideNiches"><span class="ic">🎯</span><span>Niş Keşfi</span></button>
-<button class="s-item" onclick="goPage('trending')" id="sideTrending"><span class="ic">🔥</span><span>Yükselen Kanallar</span></button>
-<button class="s-item" onclick="goPage('analytics')" id="sideAnalytics"><span class="ic">📊</span><span>Kanal Analizi</span></button>
+<div class="s-title" data-i18n="sideMainLabel">ANA MENÜ</div>
+<button class="s-item active" onclick="goPage('home')" id="sideHome"><span class="ic">🏠</span><span data-i18n="sideHomeText">Anasayfa</span></button>
+<button class="s-item" onclick="goPage('niches')" id="sideNiches"><span class="ic">🎯</span><span data-i18n="sideNichesText">Niş Keşfi</span></button>
+<button class="s-item" onclick="goPage('trending')" id="sideTrending"><span class="ic">🔥</span><span data-i18n="sideTrendingText">Yükselen Kanallar</span></button>
+<button class="s-item" onclick="goPage('analytics')" id="sideAnalytics"><span class="ic">📊</span><span data-i18n="sideAnalyticsText">Kanal Analizi</span></button>
 </div>
 <div class="sidebar-section">
-<div class="s-title">ARAÇLAR</div>
-<button class="s-item" onclick="goPage('risk')" id="sideRisk"><span class="ic">🛡️</span><span>Risk Detector</span></button>
-<button class="s-item" onclick="toggleAI()" id="sideBot"><span class="ic">🤖</span><span>AI Asistan</span></button>
-<button class="s-item" onclick="goPage('roadmap')" id="sideRoadmap"><span class="ic">🚀</span><span>Yol Haritası</span></button>
+<div class="s-title" data-i18n="sideToolsLabel">ARAÇLAR</div>
+<button class="s-item" onclick="goPage('risk')" id="sideRisk"><span class="ic">🛡️</span><span data-i18n="sideRiskText">Risk Detector</span></button>
+<button class="s-item" onclick="toggleAI()" id="sideBot"><span class="ic">🤖</span><span data-i18n="sideBotText">AI Asistan</span></button>
+<button class="s-item" onclick="goPage('roadmap')" id="sideRoadmap"><span class="ic">🚀</span><span data-i18n="sideRoadmapText">Yol Haritası</span></button>
 </div>
 <div class="sidebar-section" id="adminSection" style="display:none">
 <div class="s-title" style="color:var(--yellow)">👑 ADMİN</div>
-<button class="s-item" onclick="goPage('admin')" id="sideAdmin"><span class="ic">📊</span><span>Yönetim Paneli</span></button>
+<button class="s-item" onclick="goPage('admin')" id="sideAdmin"><span class="ic">📊</span><span data-i18n="sideAdminText">Yönetim Paneli</span></button>
 </div>
 </div>
 <div class="sidebar-bottom">
 <div class="s-lifetime" onclick="window.open('https://nichify.lemonsqueezy.com/buy/327c8366-362b-45e1-8d34-0c6b6ea43411','_blank')">
-<div class="old">$149</div><div class="price">$89</div><p>Lifetime Deal 🔥</p>
+<div class="old">$149</div><div class="price">$89</div><p data-i18n="sideLifetimeText">Lifetime Deal 🔥</p>
 <div class="counter" id="sideCounter">⏰ Yükleniyor...</div>
+</div>
+<div class="lang-row">
+<button class="lang-btn active" onclick="setLang('tr')" id="lang-tr" title="Türkçe">🇹🇷</button>
+<button class="lang-btn" onclick="setLang('en')" id="lang-en" title="English">🇬🇧</button>
+<button class="lang-btn" onclick="setLang('de')" id="lang-de" title="Deutsch">🇩🇪</button>
+<button class="lang-btn" onclick="setLang('es')" id="lang-es" title="Español">🇪🇸</button>
+<button class="lang-btn" onclick="setLang('fr')" id="lang-fr" title="Français">🇫🇷</button>
 </div>
 </div>
 <div class="user-info" id="userInfoBox" onclick="goPage('home')">
@@ -300,67 +323,72 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:var(--bg);c
 </nav>
 
 <main class="main">
-<div class="admin-banner" id="adminBanner"><strong>👑 ADMİN MODU</strong><span>📊 <span id="adminTotal">0</span> kullanıcı | 💰 <span id="adminSales">0</span>/100 satış</span></div>
+<div class="admin-banner" id="adminBanner"><strong>👑 <span data-i18n="adminMode">ADMİN MODU</span></strong><span>📊 <span id="adminTotal">0</span> <span data-i18n="adminUsers">kullanıcı</span> | 💰 <span id="adminSales">0</span>/100 <span data-i18n="adminSalesText">satış</span></span></div>
 
 <div id="page-home">
 <div class="welcome-banner">
 <div>
-<h2>👋 Hoşgeldin, <span id="welcomeName">Burak</span>!</h2>
-<p>NICHIFY PRO'ya tekrar hoşgeldin. Bugün hangi nişi keşfedeceğiz?</p>
-<span class="badge-pro">💎 LIFETIME PRO</span>
+<h2><span data-i18n="welcomePrefix">👋 Hoşgeldin,</span> <span id="welcomeName">Burak</span>!</h2>
+<p data-i18n="welcomeSub">NICHIFY PRO'ya tekrar hoşgeldin. Bugün hangi nişi keşfedeceğiz?</p>
+<span class="badge-pro" data-i18n="lifetimePro">💎 LIFETIME PRO</span>
 </div>
 <div style="text-align:right">
-<div style="font-size:11px;color:var(--muted);margin-bottom:4px">Son giriş</div>
+<div style="font-size:11px;color:var(--muted);margin-bottom:4px" data-i18n="lastLoginLabel">Son giriş</div>
 <div style="font-size:13px;font-weight:600" id="lastLogin">Şimdi</div>
 </div>
 </div>
-<div class="updated"><span class="dot"></span><span>🔴 Canlı veri · Az önce güncellendi</span></div>
-<div class="search-bar"><input id="quickSearch" placeholder="🔍 Niş ara: AI, finans, motivasyon..."/><button onclick="quickSearch()">🔍 Ara</button></div>
+<div class="updated"><span class="dot"></span><span data-i18n="updatedText">🔴 Canlı veri · Az önce güncellendi</span></div>
+<div class="search-bar"><input id="quickSearch" data-i18n-ph="searchPH" placeholder="🔍 Niş ara: AI, finans, motivasyon..."/><button onclick="quickSearch()" data-i18n="searchBtn">🔍 Ara</button></div>
 <div class="stats-row">
-<div class="stat-card premium"><strong id="statTotal">18.7M</strong><span>📊 Toplam Analiz</span></div>
-<div class="stat-card"><strong id="statHidden">0</strong><span>🔍 Hidden Fırsat</span></div>
-<div class="stat-card"><strong id="statNiches">100</strong><span>🎯 Toplam Niş</span></div>
-<div class="stat-card"><strong>3</strong><span>🌍 Dil</span></div>
+<div class="stat-card premium"><strong id="statTotal">18.7M</strong><span data-i18n="statTotal">📊 Toplam Analiz</span></div>
+<div class="stat-card"><strong id="statHidden">0</strong><span data-i18n="statHidden">🔍 Hidden Fırsat</span></div>
+<div class="stat-card"><strong id="statNiches">100</strong><span data-i18n="statNiches">🎯 Toplam Niş</span></div>
+<div class="stat-card"><strong>5</strong><span data-i18n="statLangs">🌍 Dil</span></div>
 </div>
 <div class="home-grid">
 <div class="home-widget">
-<div class="widget-head"><h2>🔥 Yükselen Kanallar</h2><button class="va" onclick="goPage('trending')">Tümünü Gör →</button></div>
-<p class="w-sub">Canlı YouTube verisi · Her gün güncellenir</p>
-<div id="risingChannels"><div class="t-loading"><div class="spinner"></div><p>Yükleniyor...</p></div></div>
+<div class="widget-head"><h2 data-i18n="risingTitle">🔥 Yükselen Kanallar</h2><button class="va" onclick="goPage('trending')" data-i18n="viewAll">Tümünü Gör →</button></div>
+<p class="w-sub" data-i18n="risingSub">Canlı YouTube verisi · Her gün güncellenir</p>
+<div id="risingChannels"><div class="t-loading"><div class="spinner"></div><p data-i18n="loading">Yükleniyor...</p></div></div>
 </div>
 <div class="home-widget">
-<div class="widget-head"><h2>🎯 En İyi Nişler</h2><button class="va" onclick="goPage('niches')">Tümünü Gör →</button></div>
-<p class="w-sub">Yüksek skor, düşük rekabet</p>
+<div class="widget-head"><h2 data-i18n="topNichesTitle">🎯 En İyi Nişler</h2><button class="va" onclick="goPage('niches')" data-i18n="viewAll">Tümünü Gör →</button></div>
+<p class="w-sub" data-i18n="topNichesSub">Yüksek skor, düşük rekabet</p>
 <div id="topNiches"></div>
+</div>
+<div class="home-widget">
+<div class="widget-head"><h2 data-i18n="newsTitle">📰 YouTube Haberleri</h2><span style="color:var(--muted);font-size:10px">CANLI</span></div>
+<p class="w-sub" data-i18n="newsSub">YouTube dünyasından son haberler</p>
+<div id="newsWidget"><div class="news-loading"><div class="spinner"></div><p data-i18n="loadingNews">Haberler yükleniyor...</p></div></div>
 </div>
 </div>
 </div>
 
 <div id="page-niches" style="display:none">
 <section class="section">
-<h2>🔍 Niş Keşfi</h2>
+<h2 data-i18n="nichesPageTitle">🔍 Niş Keşfi</h2>
 <div class="input-row">
-<input id="searchInput" placeholder="Niş ara..."/>
-<select id="langFilter"><option value="all">🌍 Tüm Diller</option><option value="TR">🇹🇷 Türkçe</option><option value="EN">🇬🇧 İngilizce</option><option value="DE">🇩🇪 Almanca</option></select>
-<select id="sortFilter"><option value="best">⭐ Genel Fırsat</option><option value="hidden">🔍 Gizli Fırsat</option><option value="lowComp">📉 Düşük Rekabet</option><option value="money">💰 Kazanç</option><option value="new">🆕 Yeni Kanal Dostu</option></select>
+<input id="searchInput" data-i18n-ph="searchNichePH" placeholder="Niş ara..."/>
+<select id="langFilter"><option value="all" data-i18n="allLangs">🌍 Tüm Diller</option><option value="TR">🇹🇷 Türkçe</option><option value="EN">🇬🇧 İngilizce</option><option value="DE">🇩🇪 Almanca</option><option value="ES">🇪🇸 İspanyolca</option><option value="FR">🇫🇷 Fransızca</option></select>
+<select id="sortFilter"><option value="best" data-i18n="sortBest">⭐ Genel Fırsat</option><option value="hidden" data-i18n="sortHidden">🔍 Gizli Fırsat</option><option value="lowComp" data-i18n="sortLowComp">📉 Düşük Rekabet</option><option value="money" data-i18n="sortMoney">💰 Kazanç</option><option value="new" data-i18n="sortNew">🆕 Yeni Kanal Dostu</option></select>
 </div>
 <div class="toggle-row">
-<label class="toggle"><input type="checkbox" id="hiddenOnly"><span>🔍 Hidden Opportunity</span></label>
-<label class="toggle"><input type="checkbox" id="newChannelOnly"><span>🆕 Yeni Kanal Dostu</span></label>
-<label class="toggle"><input type="checkbox" id="facelessOnly"><span>🎭 Faceless</span></label>
+<label class="toggle"><input type="checkbox" id="hiddenOnly"><span data-i18n="filterHidden">🔍 Hidden Opportunity</span></label>
+<label class="toggle"><input type="checkbox" id="newChannelOnly"><span data-i18n="filterNew">🆕 Yeni Kanal Dostu</span></label>
+<label class="toggle"><input type="checkbox" id="facelessOnly"><span data-i18n="filterFaceless">🎭 Faceless</span></label>
 </div>
 </section>
-<section class="section"><h2>📊 Sonuçlar</h2><div id="nichesGrid" class="results-grid"></div></section>
+<section class="section"><h2 data-i18n="resultsTitle">📊 Sonuçlar</h2><div id="nichesGrid" class="results-grid"></div></section>
 </div>
 
 <div id="page-trending" style="display:none">
 <section class="section">
-<h2>🔥 Yükselen YouTube Kanalları</h2>
-<p style="color:var(--muted);margin-bottom:10px;font-size:12px">CANLI veri! Kanala tıklayarak detay gör. Her arama 1 saat önbellekte kalır.</p>
+<h2 data-i18n="trendingPageTitle">🔥 Yükselen YouTube Kanalları</h2>
+<p style="color:var(--muted);margin-bottom:10px;font-size:12px" data-i18n="trendingPageSub">CANLI veri! Kanala tıklayarak detay gör. Her arama 1 saat önbellekte kalır.</p>
 <div class="input-row" style="margin-bottom:10px">
-<input id="trendingSearch" placeholder="🔍 Kategori veya kanal ara..." style="flex:2"/>
+<input id="trendingSearch" data-i18n-ph="trendingSearchPH" placeholder="🔍 Kategori veya kanal ara..." style="flex:2"/>
 <select id="trendingRegion"><option value="US">🇺🇸 USA</option><option value="TR">🇹🇷 Türkiye</option><option value="DE">🇩🇪 Almanya</option><option value="GB">🇬🇧 UK</option><option value="FR">🇫🇷 Fransa</option><option value="ES">🇪🇸 İspanya</option><option value="JP">🇯🇵 Japonya</option></select>
-<button class="btn btn-primary" onclick="loadTrending()">🔄 Ara</button>
+<button class="btn btn-primary" onclick="loadTrending()" data-i18n="searchBtnAlt">🔄 Ara</button>
 </div>
 <div id="trendingGrid"></div>
 </section>
@@ -368,11 +396,11 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:var(--bg);c
 
 <div id="page-analytics" style="display:none">
 <section class="section">
-<h2>📊 Kanal Analizi</h2>
-<p style="color:var(--muted);margin-bottom:10px;font-size:12px">Gerçek YouTube kanallarını ara: MrBeast, PewDiePie, Veritasium...</p>
+<h2 data-i18n="analyticsPageTitle">📊 Kanal Analizi</h2>
+<p style="color:var(--muted);margin-bottom:10px;font-size:12px" data-i18n="analyticsPageSub">Gerçek YouTube kanallarını ara: MrBeast, PewDiePie, Veritasium...</p>
 <div class="input-row">
-<input id="analyticsSearch" placeholder="🔍 Kanal adı yazın..."/>
-<button class="btn btn-primary" onclick="searchChannel()">📊 Analiz Et</button>
+<input id="analyticsSearch" data-i18n-ph="analyticsSearchPH" placeholder="🔍 Kanal adı yazın..."/>
+<button class="btn btn-primary" onclick="searchChannel()" data-i18n="analyzeBtn">📊 Analiz Et</button>
 </div>
 <div id="analyticsResult" style="margin-top:14px"></div>
 </section>
@@ -380,92 +408,103 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:var(--bg);c
 
 <div id="page-risk" style="display:none">
 <section class="section">
-<h2>🛡️ Risk Detector</h2>
-<p style="color:var(--muted);margin-bottom:10px;font-size:12px">Niş kartlarındaki Risk puanlarını kontrol et</p>
-<p style="color:var(--text);font-size:13px">← Herhangi bir nişe tıklayarak Risk Analizi görebilirsin!</p>
-<button class="btn btn-primary" onclick="goPage('niches')" style="margin-top:10px">🎯 Niş Keşfine Git</button>
+<h2 data-i18n="riskPageTitle">🛡️ Risk Detector</h2>
+<p style="color:var(--muted);margin-bottom:10px;font-size:12px" data-i18n="riskPageSub">Niş kartlarındaki Risk puanlarını kontrol et</p>
+<p style="color:var(--text);font-size:13px" data-i18n="riskPageInfo">← Herhangi bir nişe tıklayarak Risk Analizi görebilirsin!</p>
+<button class="btn btn-primary" onclick="goPage('niches')" style="margin-top:10px" data-i18n="goToNiches">🎯 Niş Keşfine Git</button>
 </section>
 </div>
 
 <div id="page-roadmap" style="display:none">
 <section class="section">
-<h2>🚀 Yol Haritası</h2>
-<p style="color:var(--muted);margin-bottom:10px;font-size:12px">NICHIFY sürekli gelişiyor!</p>
+<h2 data-i18n="roadmapPageTitle">🚀 Yol Haritası</h2>
+<p style="color:var(--muted);margin-bottom:10px;font-size:12px" data-i18n="roadmapPageSub">NICHIFY sürekli gelişiyor!</p>
 <div class="roadmap-grid">
-<div class="rm-card lifetime"><span class="status lifetime">🔥 AKTIF</span><h3>💎 LIFETIME</h3><div class="date">$89 (sonra $19/ay olacak)</div><p>İlk 100 kişiye özel! Tek seferlik ödeme, ömür boyu kullanım.</p></div>
-<div class="rm-card coming"><span class="status coming">⏳ ÇOK YAKINDA</span><h3>🤖 AI Asistan</h3><div class="date">Birkaç gün</div><p>ChatGPT entegrasyonu - her şeye cevap veren akıllı bot</p></div>
-<div class="rm-card soon"><span class="status soon">🔜 SOON</span><h3>📱 TikTok & Instagram</h3><div class="date">2 hafta</div><p>Multi-platform niş analizi</p></div>
-<div class="rm-card planned"><span class="status planned">📅 PLANLI</span><h3>🎨 AI Thumbnail</h3><div class="date">1 ay</div><p>AI ile otomatik thumbnail üretimi</p></div>
-<div class="rm-card planned"><span class="status planned">📅 PLANLI</span><h3>📝 AI Script</h3><div class="date">1 ay</div><p>Video scripti otomatik yazımı</p></div>
-<div class="rm-card planned"><span class="status planned">📅 PLANLI</span><h3>📱 Mobil App</h3><div class="date">2 ay</div><p>iOS ve Android uygulaması</p></div>
+<div class="rm-card lifetime"><span class="status lifetime">🔥 AKTİF</span><h3 data-i18n="rmLifetimeTitle">💎 LIFETIME</h3><div class="date" data-i18n="rmLifetimeDate">$89 (sonra $19/ay olacak)</div><p data-i18n="rmLifetimeDesc">İlk 100 kişiye özel! Tek seferlik ödeme, ömür boyu kullanım.</p></div>
+<div class="rm-card done"><span class="status done">✅ TAMAMLANDI</span><h3 data-i18n="rmLoginTitle">🔐 Kayıt & Giriş</h3><div class="date" data-i18n="rmDoneDate">Aktif</div><p data-i18n="rmLoginDesc">Email/Şifre ile güvenli giriş sistemi</p></div>
+<div class="rm-card done"><span class="status done">✅ TAMAMLANDI</span><h3 data-i18n="rm5LangTitle">🌍 5 Dil Desteği</h3><div class="date" data-i18n="rmDoneDate">Aktif</div><p data-i18n="rm5LangDesc">TR, EN, DE, ES, FR - 5 dilde tam çeviri</p></div>
+<div class="rm-card done"><span class="status done">✅ TAMAMLANDI</span><h3 data-i18n="rmNewsTitle">📰 Canlı Haberler</h3><div class="date" data-i18n="rmDoneDate">Aktif</div><p data-i18n="rmNewsDesc">YouTube dünyasından canlı haber akışı</p></div>
+<div class="rm-card coming"><span class="status coming">⏳ ÇOK YAKINDA</span><h3 data-i18n="rmAITitle">🤖 GPT Bot</h3><div class="date" data-i18n="rmAIDate">Birkaç gün</div><p data-i18n="rmAIDesc">ChatGPT entegrasyonu - her şeye cevap veren akıllı bot</p></div>
+<div class="rm-card soon"><span class="status soon">🔜 YAKINDA</span><h3 data-i18n="rmTikTokTitle">📱 TikTok & Instagram</h3><div class="date" data-i18n="rmTikTokDate">2 hafta</div><p data-i18n="rmTikTokDesc">Multi-platform niş analizi</p></div>
+<div class="rm-card planned"><span class="status planned">📅 PLANLI</span><h3 data-i18n="rmThumbTitle">🎨 AI Thumbnail</h3><div class="date" data-i18n="rmThumbDate">1 ay</div><p data-i18n="rmThumbDesc">AI ile otomatik thumbnail üretimi</p></div>
+<div class="rm-card planned"><span class="status planned">📅 PLANLI</span><h3 data-i18n="rmScriptTitle">📝 AI Script</h3><div class="date" data-i18n="rmScriptDate">1 ay</div><p data-i18n="rmScriptDesc">Video scripti otomatik yazımı</p></div>
+<div class="rm-card planned"><span class="status planned">📅 PLANLI</span><h3 data-i18n="rmAppTitle">📱 Mobil App</h3><div class="date" data-i18n="rmAppDate">2 ay</div><p data-i18n="rmAppDesc">iOS ve Android uygulaması</p></div>
 </div>
 </section>
 </div>
 
 <div id="page-admin" style="display:none">
 <div class="admin-panel">
-<h2>👑 Admin Yönetim Paneli</h2>
+<h2 data-i18n="adminPanelTitle">👑 Admin Yönetim Paneli</h2>
 <div class="admin-stats">
-<div class="admin-stat"><strong id="aStatTotal">0</strong><span>👥 Toplam Kullanıcı</span></div>
-<div class="admin-stat"><strong id="aStatPro">0</strong><span>💎 Pro Kullanıcı</span></div>
-<div class="admin-stat"><strong>$<span id="aStatRevenue">0</span></strong><span>💰 Toplam Gelir</span></div>
-<div class="admin-stat"><strong id="aStatRemaining">100</strong><span>🎯 Kalan Lifetime</span></div>
+<div class="admin-stat"><strong id="aStatTotal">0</strong><span data-i18n="adminTotalUsers">👥 Toplam Kullanıcı</span></div>
+<div class="admin-stat"><strong id="aStatPro">0</strong><span data-i18n="adminProUsers">💎 Pro Kullanıcı</span></div>
+<div class="admin-stat"><strong>$<span id="aStatRevenue">0</span></strong><span data-i18n="adminRevenue">💰 Toplam Gelir</span></div>
+<div class="admin-stat"><strong id="aStatRemaining">100</strong><span data-i18n="adminRemaining">🎯 Kalan Lifetime</span></div>
 </div>
-<h3 style="margin:18px 0 10px;font-size:14px">📋 Son Satışlar</h3>
+<h3 style="margin:18px 0 10px;font-size:14px" data-i18n="adminLastSales">📋 Son Satışlar</h3>
 <div id="salesList"></div>
-<h3 style="margin:18px 0 10px;font-size:14px">👥 Son Kayıt Olanlar</h3>
+<h3 style="margin:18px 0 10px;font-size:14px" data-i18n="adminLastUsers">👥 Son Kayıt Olanlar</h3>
 <div id="usersList"></div>
 </div>
 </div>
 
-<p class="footer">NICHIFY v2.1 | © 2025 | <a href="mailto:bucun648@gmail.com" style="color:var(--blue)">İletişim</a></p>
+<p class="footer">NICHIFY v2.2 | © 2025 | <a href="mailto:bucun648@gmail.com" style="color:var(--blue)" data-i18n="contact">İletişim</a></p>
 </main><!-- LOGIN/REGISTER MODAL -->
 <div class="auth-modal active" id="authModal">
 <div class="auth-card">
 <div class="auth-logo">
 <h2>🚀 NICHIFY</h2>
-<p>YouTube Niş Bulma ve Analiz Aracı</p>
+<p data-i18n="authSubtitle">YouTube Niş Bulma ve Analiz Aracı</p>
+</div>
+
+<div class="auth-lang-row">
+<button class="auth-lang-btn active" onclick="setLang('tr')" id="alang-tr">🇹🇷</button>
+<button class="auth-lang-btn" onclick="setLang('en')" id="alang-en">🇬🇧</button>
+<button class="auth-lang-btn" onclick="setLang('de')" id="alang-de">🇩🇪</button>
+<button class="auth-lang-btn" onclick="setLang('es')" id="alang-es">🇪🇸</button>
+<button class="auth-lang-btn" onclick="setLang('fr')" id="alang-fr">🇫🇷</button>
 </div>
 
 <div class="lifetime-badge">
 <span class="ltold">$149</span><span class="ltprice">$89</span>
-<p>💎 LIFETIME - Tek Seferlik Ödeme</p>
-<div class="lt-counter">🔥 İlk 100 kişiye özel: <span id="authCounter">100/100 kaldı</span></div>
+<p data-i18n="lifetimeText">💎 LIFETIME - Tek Seferlik Ödeme</p>
+<div class="lt-counter">🔥 <span data-i18n="lifetimeCounter">İlk 100 kişiye özel:</span> <span id="authCounter">100/100</span> <span data-i18n="kaldi">kaldı</span></div>
 </div>
 
 <div class="auth-tabs">
-<button class="auth-tab active" onclick="switchTab('login')" id="tabLogin">🔑 Giriş Yap</button>
-<button class="auth-tab" onclick="switchTab('register')" id="tabRegister">✨ Kayıt Ol</button>
+<button class="auth-tab active" onclick="switchTab('login')" id="tabLogin" data-i18n="loginTab">🔑 Giriş Yap</button>
+<button class="auth-tab" onclick="switchTab('register')" id="tabRegister" data-i18n="registerTab">✨ Kayıt Ol</button>
 </div>
 
 <div class="auth-msg" id="authMsg"></div>
 
 <!-- LOGIN FORM -->
 <form class="auth-form active" id="loginForm" onsubmit="handleLogin(event)">
-<label class="auth-label">E-posta</label>
-<input type="email" class="auth-input" id="loginEmail" placeholder="ornek@gmail.com" required/>
-<label class="auth-label">Şifre</label>
+<label class="auth-label" data-i18n="emailLabel">E-posta</label>
+<input type="email" class="auth-input" id="loginEmail" data-i18n-ph="emailPH" placeholder="ornek@gmail.com" required/>
+<label class="auth-label" data-i18n="passwordLabel">Şifre</label>
 <input type="password" class="auth-input" id="loginPassword" placeholder="••••••••" required/>
-<button type="submit" class="auth-btn" id="loginBtn">🔑 Giriş Yap</button>
+<button type="submit" class="auth-btn" id="loginBtn" data-i18n="loginBtnText">🔑 Giriş Yap</button>
 <div class="auth-foot">
-Hesabın yok mu? <a onclick="switchTab('register')">Kayıt Ol</a>
+<span data-i18n="noAccount">Hesabın yok mu?</span> <a onclick="switchTab('register')" data-i18n="registerLink">Kayıt Ol</a>
 </div>
 </form>
 
 <!-- REGISTER FORM -->
 <form class="auth-form" id="registerForm" onsubmit="handleRegister(event)">
-<label class="auth-label">Ad Soyad</label>
-<input type="text" class="auth-input" id="regName" placeholder="Burak Üçün" required/>
-<label class="auth-label">E-posta</label>
-<input type="email" class="auth-input" id="regEmail" placeholder="ornek@gmail.com" required/>
-<label class="auth-label">Şifre (en az 6 karakter)</label>
+<label class="auth-label" data-i18n="nameLabel">Ad Soyad</label>
+<input type="text" class="auth-input" id="regName" data-i18n-ph="namePH" placeholder="Burak Üçün" required/>
+<label class="auth-label" data-i18n="emailLabel">E-posta</label>
+<input type="email" class="auth-input" id="regEmail" data-i18n-ph="emailPH" placeholder="ornek@gmail.com" required/>
+<label class="auth-label" data-i18n="passwordMinLabel">Şifre (en az 6 karakter)</label>
 <input type="password" class="auth-input" id="regPassword" placeholder="••••••••" minlength="6" required/>
-<button type="submit" class="auth-btn" id="regBtn">✨ Hesap Oluştur</button>
+<button type="submit" class="auth-btn" id="regBtn" data-i18n="registerBtnText">✨ Hesap Oluştur</button>
 <div class="auth-foot">
-Zaten hesabın var mı? <a onclick="switchTab('login')">Giriş Yap</a>
+<span data-i18n="haveAccount">Zaten hesabın var mı?</span> <a onclick="switchTab('login')" data-i18n="loginLink">Giriş Yap</a>
 </div>
 <div class="auth-foot" style="margin-top:8px">
-Kayıt olarak <a href="#" style="color:var(--muted)">Kullanım Şartlarını</a> kabul ediyorsun
+<span data-i18n="termsText">Kayıt olarak Kullanım Şartlarını kabul ediyorsun</span>
 </div>
 </form>
 
@@ -480,17 +519,17 @@ Kayıt olarak <a href="#" style="color:var(--muted)">Kullanım Şartlarını</a>
 <div class="ai-chat-head">
 <div class="av">🤖</div>
 <div>
-<h3>NICHIFY Asistan</h3>
-<p>Nasıl yardımcı olabilirim?</p>
+<h3 data-i18n="botName">NICHIFY Asistan</h3>
+<p data-i18n="botSub">Nasıl yardımcı olabilirim?</p>
 </div>
 </div>
 <div class="ai-body" id="aiMessages">
-<div class="ai-msg bot">👋 Merhaba! Ben NICHIFY asistanıyım. Sana niş seçimi, YouTube stratejileri ve daha fazlası hakkında yardımcı olabilirim. Bir şey sor!</div>
-<div class="ai-msg bot">💡 <strong>Örnek sorular:</strong><br>• Hangi nişle başlamalıyım?<br>• 1000 aboneye nasıl ulaşırım?<br>• Telif haklarından nasıl korunurum?<br>• En karlı nişler neler?<br>• Faceless kanal nasıl açılır?</div>
+<div class="ai-msg bot" data-i18n="botWelcome">👋 Merhaba! Ben NICHIFY asistanıyım. Sana niş seçimi, YouTube stratejileri ve daha fazlası hakkında yardımcı olabilirim. Bir şey sor!</div>
+<div class="ai-msg bot" data-i18n="botExamples">💡 <strong>Örnek sorular:</strong><br>• Hangi nişle başlamalıyım?<br>• 1000 aboneye nasıl ulaşırım?<br>• Telif haklarından nasıl korunurum?<br>• En karlı nişler neler?<br>• Faceless kanal nasıl açılır?</div>
 </div>
 <div class="ai-input-row">
-<input type="text" id="aiInput" placeholder="Sorunu yaz..." onkeypress="if(event.key==='Enter')sendAIMessage()"/>
-<button onclick="sendAIMessage()">Gönder</button>
+<input type="text" id="aiInput" data-i18n-ph="botInputPH" placeholder="Sorunu yaz..." onkeypress="if(event.key==='Enter')sendAIMessage()"/>
+<button onclick="sendAIMessage()" data-i18n="botSendBtn">Gönder</button>
 </div>
 </div>
 
@@ -520,7 +559,7 @@ Kayıt olarak <a href="#" style="color:var(--muted)">Kullanım Şartlarını</a>
 // ============================================
 const SUPABASE_URL = 'https://nqveoklqbfiztheyqltg.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5xdmVva2xxYmZpenRoZXlxbHRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4MzI4MTYsImV4cCI6MjA5NTQwODgxNn0.Ddgl9DGz8GdRSKinIVNhmwLyysXAXTuP7_MIbmUvp8s';
-const YOUTUBE_API_KEY = 'AIzaSyDpcD6A7Bq89M0UFEOXiU714C6W4SxP_ZM';
+const YOUTUBE_API_KEY = 'AIzaSyDpcD6A7XBURADAKENDIKEYINIYAPISTIR';
 
 window.supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
@@ -534,7 +573,183 @@ var currentUser = null;
 var userProfile = null;
 var trendingLoaded = false;
 var currentPage = 'home';
+var currentLang = 'tr';
 
+// ============================================
+// 5 DİL ÇEVİRİLERİ (TR/EN/DE/ES/FR)
+// ============================================
+var T = {
+tr: {
+sideMainLabel: "ANA MENÜ", sideToolsLabel: "ARAÇLAR", sideHomeText: "Anasayfa", sideNichesText: "Niş Keşfi", sideTrendingText: "Yükselen Kanallar", sideAnalyticsText: "Kanal Analizi", sideRiskText: "Risk Detector", sideBotText: "AI Asistan", sideRoadmapText: "Yol Haritası", sideAdminText: "Yönetim Paneli", sideLifetimeText: "Lifetime Deal 🔥",
+welcomePrefix: "👋 Hoşgeldin,", welcomeSub: "NICHIFY PRO'ya tekrar hoşgeldin. Bugün hangi nişi keşfedeceğiz?", lifetimePro: "💎 LIFETIME PRO", lastLoginLabel: "Son giriş", updatedText: "🔴 Canlı veri · Az önce güncellendi",
+searchPH: "🔍 Niş ara: AI, finans, motivasyon...", searchBtn: "🔍 Ara",
+statTotal: "📊 Toplam Analiz", statHidden: "🔍 Hidden Fırsat", statNiches: "🎯 Toplam Niş", statLangs: "🌍 Dil",
+risingTitle: "🔥 Yükselen Kanallar", risingSub: "Canlı YouTube verisi · Her gün güncellenir", topNichesTitle: "🎯 En İyi Nişler", topNichesSub: "Yüksek skor, düşük rekabet", newsTitle: "📰 YouTube Haberleri", newsSub: "YouTube dünyasından son haberler", viewAll: "Tümünü Gör →", loading: "Yükleniyor...", loadingNews: "Haberler yükleniyor...",
+nichesPageTitle: "🔍 Niş Keşfi", searchNichePH: "Niş ara...", resultsTitle: "📊 Sonuçlar",
+allLangs: "🌍 Tüm Diller", sortBest: "⭐ Genel Fırsat", sortHidden: "🔍 Gizli Fırsat", sortLowComp: "📉 Düşük Rekabet", sortMoney: "💰 Kazanç", sortNew: "🆕 Yeni Kanal Dostu",
+filterHidden: "🔍 Hidden Opportunity", filterNew: "🆕 Yeni Kanal Dostu", filterFaceless: "🎭 Faceless",
+trendingPageTitle: "🔥 Yükselen YouTube Kanalları", trendingPageSub: "CANLI veri! Kanala tıklayarak detay gör. Her arama 1 saat önbellekte kalır.", trendingSearchPH: "🔍 Kategori veya kanal ara...", searchBtnAlt: "🔄 Ara",
+analyticsPageTitle: "📊 Kanal Analizi", analyticsPageSub: "Gerçek YouTube kanallarını ara: MrBeast, PewDiePie, Veritasium...", analyticsSearchPH: "🔍 Kanal adı yazın...", analyzeBtn: "📊 Analiz Et",
+riskPageTitle: "🛡️ Risk Detector", riskPageSub: "Niş kartlarındaki Risk puanlarını kontrol et", riskPageInfo: "← Herhangi bir nişe tıklayarak Risk Analizi görebilirsin!", goToNiches: "🎯 Niş Keşfine Git",
+roadmapPageTitle: "🚀 Yol Haritası", roadmapPageSub: "NICHIFY sürekli gelişiyor!",
+rmLifetimeTitle: "💎 LIFETIME", rmLifetimeDate: "$89 (sonra $19/ay olacak)", rmLifetimeDesc: "İlk 100 kişiye özel! Tek seferlik ödeme, ömür boyu kullanım.",
+rmLoginTitle: "🔐 Kayıt & Giriş", rmDoneDate: "Aktif", rmLoginDesc: "Email/Şifre ile güvenli giriş sistemi",
+rm5LangTitle: "🌍 5 Dil Desteği", rm5LangDesc: "TR, EN, DE, ES, FR - 5 dilde tam çeviri",
+rmNewsTitle: "📰 Canlı Haberler", rmNewsDesc: "YouTube dünyasından canlı haber akışı",
+rmAITitle: "🤖 GPT Bot", rmAIDate: "Birkaç gün", rmAIDesc: "ChatGPT entegrasyonu - her şeye cevap veren akıllı bot",
+rmTikTokTitle: "📱 TikTok & Instagram", rmTikTokDate: "2 hafta", rmTikTokDesc: "Multi-platform niş analizi",
+rmThumbTitle: "🎨 AI Thumbnail", rmThumbDate: "1 ay", rmThumbDesc: "AI ile otomatik thumbnail üretimi",
+rmScriptTitle: "📝 AI Script", rmScriptDate: "1 ay", rmScriptDesc: "Video scripti otomatik yazımı",
+rmAppTitle: "📱 Mobil App", rmAppDate: "2 ay", rmAppDesc: "iOS ve Android uygulaması",
+adminMode: "ADMİN MODU", adminUsers: "kullanıcı", adminSalesText: "satış",
+adminPanelTitle: "👑 Admin Yönetim Paneli", adminTotalUsers: "👥 Toplam Kullanıcı", adminProUsers: "💎 Pro Kullanıcı", adminRevenue: "💰 Toplam Gelir", adminRemaining: "🎯 Kalan Lifetime", adminLastSales: "📋 Son Satışlar", adminLastUsers: "👥 Son Kayıt Olanlar",
+authSubtitle: "YouTube Niş Bulma ve Analiz Aracı", lifetimeText: "💎 LIFETIME - Tek Seferlik Ödeme", lifetimeCounter: "İlk 100 kişiye özel:", kaldi: "kaldı",
+loginTab: "🔑 Giriş Yap", registerTab: "✨ Kayıt Ol", emailLabel: "E-posta", emailPH: "ornek@gmail.com", passwordLabel: "Şifre", loginBtnText: "🔑 Giriş Yap", noAccount: "Hesabın yok mu?", registerLink: "Kayıt Ol",
+nameLabel: "Ad Soyad", namePH: "Burak Üçün", passwordMinLabel: "Şifre (en az 6 karakter)", registerBtnText: "✨ Hesap Oluştur", haveAccount: "Zaten hesabın var mı?", loginLink: "Giriş Yap", termsText: "Kayıt olarak Kullanım Şartlarını kabul ediyorsun",
+botName: "NICHIFY Asistan", botSub: "Nasıl yardımcı olabilirim?", botWelcome: "👋 Merhaba! Ben NICHIFY asistanıyım. Sana niş seçimi, YouTube stratejileri ve daha fazlası hakkında yardımcı olabilirim. Bir şey sor!", botExamples: "💡 <strong>Örnek sorular:</strong><br>• Hangi nişle başlamalıyım?<br>• 1000 aboneye nasıl ulaşırım?<br>• Telif haklarından nasıl korunurum?<br>• En karlı nişler neler?<br>• Faceless kanal nasıl açılır?", botInputPH: "Sorunu yaz...", botSendBtn: "Gönder",
+contact: "İletişim", scores: "Puanlar", target: "Hedef & Rakip", targetLabel: "Hedef", competitorLabel: "Rakip", riskAnalysis: "Risk Analizi", safety: "Güvenlik", dontDo: "❌ YAPMA", doThis: "✅ YAP", examples: "📺 Örnek Kanallar", beginner: "🌱 Yeni Başlayan", rising: "🚀 Yükselen", success: "🏆 Başarı", opportunity: "Fırsat", hidden: "Hidden", earnings: "Kazanç", competition: "Rekabet", lowComp: "Düşük", mediumComp: "Orta", highComp: "Yüksek", detailBtn: "📋 Detay", noNiches: "Niş bulunamadı",
+chTitle: "📊 Kanal Analizi", chStats: "📊 İstatistikler", chSubs: "Abone", chTotalViews: "Toplam İzlenme", chVideos: "Video Sayısı", chAvgViews: "Ortalama İzlenme", chEarn: "💰 Tahmini Aylık Kazanç", chGrowth: "📈 Büyüme Trendi", chGender: "👥 Cinsiyet", chMale: "👨 Erkek", chFemale: "👩 Kadın", chAge: "📅 Yaş", chCountry: "🌍 Ülke", chGoChannel: "🔗 Kanala Git", chDisclaimer: "⚠️ Tahminler sektör ortalamalarına göre hesaplanır.",
+trendUp: "📈 Yükseliyor", thisMonth: "Bu Ay", lastMonth: "Geçen Ay", twoMonthsAgo: "2 Ay Önce", threeMonthsAgo: "3 Ay Önce",
+notFound: "Bulunamadı", searching: "Aranıyor...", error: "Hata"
+},
+en: {
+sideMainLabel: "MAIN MENU", sideToolsLabel: "TOOLS", sideHomeText: "Home", sideNichesText: "Niche Discovery", sideTrendingText: "Trending Channels", sideAnalyticsText: "Channel Analytics", sideRiskText: "Risk Detector", sideBotText: "AI Assistant", sideRoadmapText: "Roadmap", sideAdminText: "Admin Panel", sideLifetimeText: "Lifetime Deal 🔥",
+welcomePrefix: "👋 Welcome,", welcomeSub: "Welcome back to NICHIFY PRO. Which niche shall we discover today?", lifetimePro: "💎 LIFETIME PRO", lastLoginLabel: "Last login", updatedText: "🔴 Live data · Updated just now",
+searchPH: "🔍 Search niche: AI, finance, motivation...", searchBtn: "🔍 Search",
+statTotal: "📊 Total Analysis", statHidden: "🔍 Hidden Opportunities", statNiches: "🎯 Total Niches", statLangs: "🌍 Languages",
+risingTitle: "🔥 Trending Channels", risingSub: "Live YouTube data · Updated daily", topNichesTitle: "🎯 Top Niches", topNichesSub: "High score, low competition", newsTitle: "📰 YouTube News", newsSub: "Latest news from YouTube world", viewAll: "View All →", loading: "Loading...", loadingNews: "Loading news...",
+nichesPageTitle: "🔍 Niche Discovery", searchNichePH: "Search niche...", resultsTitle: "📊 Results",
+allLangs: "🌍 All Languages", sortBest: "⭐ Overall Opportunity", sortHidden: "🔍 Hidden Gem", sortLowComp: "📉 Low Competition", sortMoney: "💰 Earnings", sortNew: "🆕 Newbie Friendly",
+filterHidden: "🔍 Hidden Opportunity", filterNew: "🆕 Newbie Friendly", filterFaceless: "🎭 Faceless",
+trendingPageTitle: "🔥 Trending YouTube Channels", trendingPageSub: "LIVE data! Click channel for details. Each search cached for 1 hour.", trendingSearchPH: "🔍 Search category or channel...", searchBtnAlt: "🔄 Search",
+analyticsPageTitle: "📊 Channel Analytics", analyticsPageSub: "Search real YouTube channels: MrBeast, PewDiePie, Veritasium...", analyticsSearchPH: "🔍 Enter channel name...", analyzeBtn: "📊 Analyze",
+riskPageTitle: "🛡️ Risk Detector", riskPageSub: "Check Risk scores on niche cards", riskPageInfo: "← Click any niche to see Risk Analysis!", goToNiches: "🎯 Go to Niche Discovery",
+roadmapPageTitle: "🚀 Roadmap", roadmapPageSub: "NICHIFY is constantly evolving!",
+rmLifetimeTitle: "💎 LIFETIME", rmLifetimeDate: "$89 (later $19/month)", rmLifetimeDesc: "Exclusive to first 100 users! One-time payment, lifetime access.",
+rmLoginTitle: "🔐 Sign Up & Login", rmDoneDate: "Active", rmLoginDesc: "Secure login system with email/password",
+rm5LangTitle: "🌍 5 Language Support", rm5LangDesc: "TR, EN, DE, ES, FR - Full translation in 5 languages",
+rmNewsTitle: "📰 Live News", rmNewsDesc: "Live news feed from YouTube world",
+rmAITitle: "🤖 GPT Bot", rmAIDate: "Few days", rmAIDesc: "ChatGPT integration - smart bot that answers everything",
+rmTikTokTitle: "📱 TikTok & Instagram", rmTikTokDate: "2 weeks", rmTikTokDesc: "Multi-platform niche analysis",
+rmThumbTitle: "🎨 AI Thumbnail", rmThumbDate: "1 month", rmThumbDesc: "Automatic thumbnail generation with AI",
+rmScriptTitle: "📝 AI Script", rmScriptDate: "1 month", rmScriptDesc: "Automatic video script generation",
+rmAppTitle: "📱 Mobile App", rmAppDate: "2 months", rmAppDesc: "iOS and Android application",
+adminMode: "ADMIN MODE", adminUsers: "users", adminSalesText: "sales",
+adminPanelTitle: "👑 Admin Management Panel", adminTotalUsers: "👥 Total Users", adminProUsers: "💎 Pro Users", adminRevenue: "💰 Total Revenue", adminRemaining: "🎯 Lifetime Remaining", adminLastSales: "📋 Latest Sales", adminLastUsers: "👥 Latest Signups",
+authSubtitle: "YouTube Niche Finding and Analysis Tool", lifetimeText: "💎 LIFETIME - One-Time Payment", lifetimeCounter: "Exclusive to first 100 users:", kaldi: "left",
+loginTab: "🔑 Login", registerTab: "✨ Sign Up", emailLabel: "Email", emailPH: "example@gmail.com", passwordLabel: "Password", loginBtnText: "🔑 Login", noAccount: "Don't have an account?", registerLink: "Sign Up",
+nameLabel: "Full Name", namePH: "John Doe", passwordMinLabel: "Password (min 6 characters)", registerBtnText: "✨ Create Account", haveAccount: "Already have an account?", loginLink: "Login", termsText: "By signing up, you accept the Terms of Service",
+botName: "NICHIFY Assistant", botSub: "How can I help?", botWelcome: "👋 Hello! I'm NICHIFY assistant. I can help you with niche selection, YouTube strategies and more. Ask me anything!", botExamples: "💡 <strong>Example questions:</strong><br>• Which niche should I start with?<br>• How to reach 1000 subscribers?<br>• How to protect from copyright?<br>• What are the most profitable niches?<br>• How to start a faceless channel?", botInputPH: "Type your question...", botSendBtn: "Send",
+contact: "Contact", scores: "Scores", target: "Target & Competitor", targetLabel: "Target", competitorLabel: "Competitor", riskAnalysis: "Risk Analysis", safety: "Safety", dontDo: "❌ DON'T", doThis: "✅ DO", examples: "📺 Example Channels", beginner: "🌱 Beginner", rising: "🚀 Rising", success: "🏆 Success", opportunity: "Opportunity", hidden: "Hidden", earnings: "Earnings", competition: "Competition", lowComp: "Low", mediumComp: "Medium", highComp: "High", detailBtn: "📋 Detail", noNiches: "No niches found",
+chTitle: "📊 Channel Analytics", chStats: "📊 Statistics", chSubs: "Subscribers", chTotalViews: "Total Views", chVideos: "Video Count", chAvgViews: "Average Views", chEarn: "💰 Estimated Monthly Earnings", chGrowth: "📈 Growth Trend", chGender: "👥 Gender", chMale: "👨 Male", chFemale: "👩 Female", chAge: "📅 Age", chCountry: "🌍 Country", chGoChannel: "🔗 Visit Channel", chDisclaimer: "⚠️ Estimates calculated based on industry averages.",
+trendUp: "📈 Rising", thisMonth: "This Month", lastMonth: "Last Month", twoMonthsAgo: "2 Months Ago", threeMonthsAgo: "3 Months Ago",
+notFound: "Not found", searching: "Searching...", error: "Error"
+},
+de: {
+sideMainLabel: "HAUPTMENÜ", sideToolsLabel: "WERKZEUGE", sideHomeText: "Startseite", sideNichesText: "Nischen-Suche", sideTrendingText: "Trendige Kanäle", sideAnalyticsText: "Kanal-Analyse", sideRiskText: "Risiko-Detektor", sideBotText: "KI-Assistent", sideRoadmapText: "Roadmap", sideAdminText: "Admin-Panel", sideLifetimeText: "Lifetime Deal 🔥",
+welcomePrefix: "👋 Willkommen,", welcomeSub: "Willkommen zurück bei NICHIFY PRO. Welche Nische entdecken wir heute?", lifetimePro: "💎 LIFETIME PRO", lastLoginLabel: "Letzte Anmeldung", updatedText: "🔴 Live-Daten · Soeben aktualisiert",
+searchPH: "🔍 Nische suchen: KI, Finanzen, Motivation...", searchBtn: "🔍 Suchen",
+statTotal: "📊 Gesamtanalyse", statHidden: "🔍 Versteckte Chancen", statNiches: "🎯 Gesamtnischen", statLangs: "🌍 Sprachen",
+risingTitle: "🔥 Trendige Kanäle", risingSub: "Live YouTube-Daten · Täglich aktualisiert", topNichesTitle: "🎯 Top Nischen", topNichesSub: "Hohe Punktzahl, geringe Konkurrenz", newsTitle: "📰 YouTube News", newsSub: "Neueste Nachrichten aus der YouTube-Welt", viewAll: "Alle anzeigen →", loading: "Wird geladen...", loadingNews: "News werden geladen...",
+nichesPageTitle: "🔍 Nischen-Suche", searchNichePH: "Nische suchen...", resultsTitle: "📊 Ergebnisse",
+allLangs: "🌍 Alle Sprachen", sortBest: "⭐ Gesamtchance", sortHidden: "🔍 Verstecktes Juwel", sortLowComp: "📉 Geringe Konkurrenz", sortMoney: "💰 Verdienst", sortNew: "🆕 Anfängerfreundlich",
+filterHidden: "🔍 Versteckte Chance", filterNew: "🆕 Anfängerfreundlich", filterFaceless: "🎭 Gesichtslos",
+trendingPageTitle: "🔥 Trendige YouTube-Kanäle", trendingPageSub: "LIVE-Daten! Klicken Sie auf einen Kanal für Details. Jede Suche wird 1 Stunde zwischengespeichert.", trendingSearchPH: "🔍 Kategorie oder Kanal suchen...", searchBtnAlt: "🔄 Suchen",
+analyticsPageTitle: "📊 Kanal-Analyse", analyticsPageSub: "Suchen Sie nach echten YouTube-Kanälen: MrBeast, PewDiePie, Veritasium...", analyticsSearchPH: "🔍 Kanalname eingeben...", analyzeBtn: "📊 Analysieren",
+riskPageTitle: "🛡️ Risiko-Detektor", riskPageSub: "Überprüfen Sie die Risikobewertungen auf Nischenkarten", riskPageInfo: "← Klicken Sie auf eine Nische, um die Risikoanalyse zu sehen!", goToNiches: "🎯 Zur Nischen-Suche",
+roadmapPageTitle: "🚀 Roadmap", roadmapPageSub: "NICHIFY entwickelt sich ständig weiter!",
+rmLifetimeTitle: "💎 LIFETIME", rmLifetimeDate: "89$ (später 19$/Monat)", rmLifetimeDesc: "Exklusiv für die ersten 100 Nutzer! Einmalige Zahlung, lebenslanger Zugang.",
+rmLoginTitle: "🔐 Anmeldung & Login", rmDoneDate: "Aktiv", rmLoginDesc: "Sicheres Anmeldesystem mit E-Mail/Passwort",
+rm5LangTitle: "🌍 5 Sprachen Support", rm5LangDesc: "TR, EN, DE, ES, FR - Vollständige Übersetzung in 5 Sprachen",
+rmNewsTitle: "📰 Live-News", rmNewsDesc: "Live-Nachrichtenfeed aus der YouTube-Welt",
+rmAITitle: "🤖 GPT Bot", rmAIDate: "Wenige Tage", rmAIDesc: "ChatGPT-Integration - intelligenter Bot, der alles beantwortet",
+rmTikTokTitle: "📱 TikTok & Instagram", rmTikTokDate: "2 Wochen", rmTikTokDesc: "Multi-Plattform-Nischenanalyse",
+rmThumbTitle: "🎨 KI-Thumbnail", rmThumbDate: "1 Monat", rmThumbDesc: "Automatische Thumbnail-Generierung mit KI",
+rmScriptTitle: "📝 KI-Skript", rmScriptDate: "1 Monat", rmScriptDesc: "Automatische Video-Skript-Generierung",
+rmAppTitle: "📱 Mobile App", rmAppDate: "2 Monate", rmAppDesc: "iOS und Android Anwendung",
+adminMode: "ADMIN-MODUS", adminUsers: "Nutzer", adminSalesText: "Verkäufe",
+adminPanelTitle: "👑 Admin-Verwaltungspanel", adminTotalUsers: "👥 Gesamtnutzer", adminProUsers: "💎 Pro-Nutzer", adminRevenue: "💰 Gesamtumsatz", adminRemaining: "🎯 Verbleibende Lifetime", adminLastSales: "📋 Letzte Verkäufe", adminLastUsers: "👥 Neueste Anmeldungen",
+authSubtitle: "YouTube Nischen-Findung und Analyse-Tool", lifetimeText: "💎 LIFETIME - Einmalige Zahlung", lifetimeCounter: "Exklusiv für die ersten 100 Nutzer:", kaldi: "übrig",
+loginTab: "🔑 Anmelden", registerTab: "✨ Registrieren", emailLabel: "E-Mail", emailPH: "beispiel@gmail.com", passwordLabel: "Passwort", loginBtnText: "🔑 Anmelden", noAccount: "Kein Konto?", registerLink: "Registrieren",
+nameLabel: "Vollständiger Name", namePH: "Max Mustermann", passwordMinLabel: "Passwort (mind. 6 Zeichen)", registerBtnText: "✨ Konto erstellen", haveAccount: "Hast du bereits ein Konto?", loginLink: "Anmelden", termsText: "Mit der Registrierung akzeptierst du die Nutzungsbedingungen",
+botName: "NICHIFY Assistent", botSub: "Wie kann ich helfen?", botWelcome: "👋 Hallo! Ich bin NICHIFY-Assistent. Ich kann dir bei der Nischenauswahl, YouTube-Strategien und mehr helfen. Frag mich alles!", botExamples: "💡 <strong>Beispielfragen:</strong><br>• Mit welcher Nische soll ich beginnen?<br>• Wie erreiche ich 1000 Abonnenten?<br>• Wie schütze ich mich vor Urheberrechtsverletzungen?<br>• Was sind die profitabelsten Nischen?<br>• Wie starte ich einen gesichtslosen Kanal?", botInputPH: "Stelle deine Frage...", botSendBtn: "Senden",
+contact: "Kontakt", scores: "Bewertungen", target: "Ziel & Konkurrent", targetLabel: "Ziel", competitorLabel: "Konkurrent", riskAnalysis: "Risikoanalyse", safety: "Sicherheit", dontDo: "❌ NICHT", doThis: "✅ TUN", examples: "📺 Beispielkanäle", beginner: "🌱 Anfänger", rising: "🚀 Aufsteigend", success: "🏆 Erfolg", opportunity: "Chance", hidden: "Versteckt", earnings: "Verdienst", competition: "Konkurrenz", lowComp: "Niedrig", mediumComp: "Mittel", highComp: "Hoch", detailBtn: "📋 Detail", noNiches: "Keine Nischen gefunden",
+chTitle: "📊 Kanal-Analyse", chStats: "📊 Statistiken", chSubs: "Abonnenten", chTotalViews: "Gesamtaufrufe", chVideos: "Videoanzahl", chAvgViews: "Durchschnittliche Aufrufe", chEarn: "💰 Geschätzter monatlicher Verdienst", chGrowth: "📈 Wachstumstrend", chGender: "👥 Geschlecht", chMale: "👨 Männlich", chFemale: "👩 Weiblich", chAge: "📅 Alter", chCountry: "🌍 Land", chGoChannel: "🔗 Kanal besuchen", chDisclaimer: "⚠️ Schätzungen werden basierend auf Branchendurchschnitten berechnet.",
+trendUp: "📈 Steigend", thisMonth: "Diesen Monat", lastMonth: "Letzten Monat", twoMonthsAgo: "Vor 2 Monaten", threeMonthsAgo: "Vor 3 Monaten",
+notFound: "Nicht gefunden", searching: "Suche läuft...", error: "Fehler"
+},
+es: {
+sideMainLabel: "MENÚ PRINCIPAL", sideToolsLabel: "HERRAMIENTAS", sideHomeText: "Inicio", sideNichesText: "Descubrir Nichos", sideTrendingText: "Canales en Tendencia", sideAnalyticsText: "Análisis de Canal", sideRiskText: "Detector de Riesgo", sideBotText: "Asistente IA", sideRoadmapText: "Hoja de Ruta", sideAdminText: "Panel Admin", sideLifetimeText: "Oferta Lifetime 🔥",
+welcomePrefix: "👋 Bienvenido,", welcomeSub: "Bienvenido de nuevo a NICHIFY PRO. ¿Qué nicho descubriremos hoy?", lifetimePro: "💎 LIFETIME PRO", lastLoginLabel: "Último acceso", updatedText: "🔴 Datos en vivo · Actualizado ahora",
+searchPH: "🔍 Buscar nicho: IA, finanzas, motivación...", searchBtn: "🔍 Buscar",
+statTotal: "📊 Análisis Total", statHidden: "🔍 Oportunidades Ocultas", statNiches: "🎯 Nichos Totales", statLangs: "🌍 Idiomas",
+risingTitle: "🔥 Canales en Tendencia", risingSub: "Datos de YouTube en vivo · Actualizado diariamente", topNichesTitle: "🎯 Mejores Nichos", topNichesSub: "Puntuación alta, baja competencia", newsTitle: "📰 Noticias de YouTube", newsSub: "Últimas noticias del mundo YouTube", viewAll: "Ver Todo →", loading: "Cargando...", loadingNews: "Cargando noticias...",
+nichesPageTitle: "🔍 Descubrir Nichos", searchNichePH: "Buscar nicho...", resultsTitle: "📊 Resultados",
+allLangs: "🌍 Todos los Idiomas", sortBest: "⭐ Oportunidad General", sortHidden: "🔍 Joya Oculta", sortLowComp: "📉 Baja Competencia", sortMoney: "💰 Ganancias", sortNew: "🆕 Apto para Principiantes",
+filterHidden: "🔍 Oportunidad Oculta", filterNew: "🆕 Apto para Principiantes", filterFaceless: "🎭 Sin Rostro",
+trendingPageTitle: "🔥 Canales de YouTube en Tendencia", trendingPageSub: "¡Datos EN VIVO! Haz clic en un canal para detalles. Cada búsqueda se almacena 1 hora.", trendingSearchPH: "🔍 Buscar categoría o canal...", searchBtnAlt: "🔄 Buscar",
+analyticsPageTitle: "📊 Análisis de Canal", analyticsPageSub: "Busca canales reales de YouTube: MrBeast, PewDiePie, Veritasium...", analyticsSearchPH: "🔍 Ingresa nombre del canal...", analyzeBtn: "📊 Analizar",
+riskPageTitle: "🛡️ Detector de Riesgo", riskPageSub: "Verifica las puntuaciones de Riesgo en las tarjetas de nicho", riskPageInfo: "← ¡Haz clic en cualquier nicho para ver el Análisis de Riesgo!", goToNiches: "🎯 Ir a Descubrir Nichos",
+roadmapPageTitle: "🚀 Hoja de Ruta", roadmapPageSub: "¡NICHIFY está en constante evolución!",
+rmLifetimeTitle: "💎 LIFETIME", rmLifetimeDate: "$89 (luego $19/mes)", rmLifetimeDesc: "¡Exclusivo para los primeros 100 usuarios! Pago único, acceso de por vida.",
+rmLoginTitle: "🔐 Registro e Inicio", rmDoneDate: "Activo", rmLoginDesc: "Sistema de inicio de sesión seguro con email/contraseña",
+rm5LangTitle: "🌍 Soporte 5 Idiomas", rm5LangDesc: "TR, EN, DE, ES, FR - Traducción completa en 5 idiomas",
+rmNewsTitle: "📰 Noticias en Vivo", rmNewsDesc: "Feed de noticias en vivo del mundo YouTube",
+rmAITitle: "🤖 GPT Bot", rmAIDate: "Pocos días", rmAIDesc: "Integración ChatGPT - bot inteligente que responde a todo",
+rmTikTokTitle: "📱 TikTok e Instagram", rmTikTokDate: "2 semanas", rmTikTokDesc: "Análisis de nichos multi-plataforma",
+rmThumbTitle: "🎨 IA Thumbnail", rmThumbDate: "1 mes", rmThumbDesc: "Generación automática de thumbnails con IA",
+rmScriptTitle: "📝 IA Script", rmScriptDate: "1 mes", rmScriptDesc: "Generación automática de scripts de video",
+rmAppTitle: "📱 App Móvil", rmAppDate: "2 meses", rmAppDesc: "Aplicación iOS y Android",
+adminMode: "MODO ADMIN", adminUsers: "usuarios", adminSalesText: "ventas",
+adminPanelTitle: "👑 Panel de Administración", adminTotalUsers: "👥 Usuarios Totales", adminProUsers: "💎 Usuarios Pro", adminRevenue: "💰 Ingresos Totales", adminRemaining: "🎯 Lifetime Restante", adminLastSales: "📋 Últimas Ventas", adminLastUsers: "👥 Últimos Registros",
+authSubtitle: "Herramienta de Búsqueda y Análisis de Nichos de YouTube", lifetimeText: "💎 LIFETIME - Pago Único", lifetimeCounter: "Exclusivo para los primeros 100 usuarios:", kaldi: "restantes",
+loginTab: "🔑 Iniciar Sesión", registerTab: "✨ Registrarse", emailLabel: "Email", emailPH: "ejemplo@gmail.com", passwordLabel: "Contraseña", loginBtnText: "🔑 Iniciar Sesión", noAccount: "¿No tienes cuenta?", registerLink: "Registrarse",
+nameLabel: "Nombre Completo", namePH: "Juan Pérez", passwordMinLabel: "Contraseña (mín. 6 caracteres)", registerBtnText: "✨ Crear Cuenta", haveAccount: "¿Ya tienes una cuenta?", loginLink: "Iniciar Sesión", termsText: "Al registrarte, aceptas los Términos de Servicio",
+botName: "Asistente NICHIFY", botSub: "¿Cómo puedo ayudarte?", botWelcome: "👋 ¡Hola! Soy el asistente NICHIFY. Puedo ayudarte con selección de nichos, estrategias de YouTube y más. ¡Pregúntame lo que sea!", botExamples: "💡 <strong>Preguntas de ejemplo:</strong><br>• ¿Con qué nicho debo empezar?<br>• ¿Cómo llegar a 1000 suscriptores?<br>• ¿Cómo protegerme de derechos de autor?<br>• ¿Cuáles son los nichos más rentables?<br>• ¿Cómo iniciar un canal sin rostro?", botInputPH: "Escribe tu pregunta...", botSendBtn: "Enviar",
+contact: "Contacto", scores: "Puntuaciones", target: "Objetivo y Competidor", targetLabel: "Objetivo", competitorLabel: "Competidor", riskAnalysis: "Análisis de Riesgo", safety: "Seguridad", dontDo: "❌ NO HACER", doThis: "✅ HACER", examples: "📺 Canales de Ejemplo", beginner: "🌱 Principiante", rising: "🚀 En Ascenso", success: "🏆 Éxito", opportunity: "Oportunidad", hidden: "Oculto", earnings: "Ganancias", competition: "Competencia", lowComp: "Baja", mediumComp: "Media", highComp: "Alta", detailBtn: "📋 Detalle", noNiches: "No se encontraron nichos",
+chTitle: "📊 Análisis de Canal", chStats: "📊 Estadísticas", chSubs: "Suscriptores", chTotalViews: "Vistas Totales", chVideos: "Cantidad de Videos", chAvgViews: "Vistas Promedio", chEarn: "💰 Ganancias Mensuales Estimadas", chGrowth: "📈 Tendencia de Crecimiento", chGender: "👥 Género", chMale: "👨 Hombre", chFemale: "👩 Mujer", chAge: "📅 Edad", chCountry: "🌍 País", chGoChannel: "🔗 Visitar Canal", chDisclaimer: "⚠️ Las estimaciones se calculan según promedios de la industria.",
+trendUp: "📈 En Ascenso", thisMonth: "Este Mes", lastMonth: "Mes Pasado", twoMonthsAgo: "Hace 2 Meses", threeMonthsAgo: "Hace 3 Meses",
+notFound: "No encontrado", searching: "Buscando...", error: "Error"
+},
+fr: {
+sideMainLabel: "MENU PRINCIPAL", sideToolsLabel: "OUTILS", sideHomeText: "Accueil", sideNichesText: "Découverte de Niches", sideTrendingText: "Chaînes Tendance", sideAnalyticsText: "Analyse de Chaîne", sideRiskText: "Détecteur de Risque", sideBotText: "Assistant IA", sideRoadmapText: "Feuille de Route", sideAdminText: "Panel Admin", sideLifetimeText: "Offre Lifetime 🔥",
+welcomePrefix: "👋 Bienvenue,", welcomeSub: "Bienvenue sur NICHIFY PRO. Quelle niche découvrirons-nous aujourd'hui?", lifetimePro: "💎 LIFETIME PRO", lastLoginLabel: "Dernière connexion", updatedText: "🔴 Données en direct · Mis à jour à l'instant",
+searchPH: "🔍 Rechercher niche: IA, finance, motivation...", searchBtn: "🔍 Rechercher",
+statTotal: "📊 Analyse Totale", statHidden: "🔍 Opportunités Cachées", statNiches: "🎯 Niches Totales", statLangs: "🌍 Langues",
+risingTitle: "🔥 Chaînes Tendance", risingSub: "Données YouTube en direct · Mis à jour quotidiennement", topNichesTitle: "🎯 Meilleures Niches", topNichesSub: "Score élevé, faible concurrence", newsTitle: "📰 Actualités YouTube", newsSub: "Dernières nouvelles du monde YouTube", viewAll: "Voir Tout →", loading: "Chargement...", loadingNews: "Chargement actualités...",
+nichesPageTitle: "🔍 Découverte de Niches", searchNichePH: "Rechercher niche...", resultsTitle: "📊 Résultats",
+allLangs: "🌍 Toutes les Langues", sortBest: "⭐ Opportunité Globale", sortHidden: "🔍 Joyau Caché", sortLowComp: "📉 Faible Concurrence", sortMoney: "💰 Gains", sortNew: "🆕 Adapté aux Débutants",
+filterHidden: "🔍 Opportunité Cachée", filterNew: "🆕 Adapté aux Débutants", filterFaceless: "🎭 Sans Visage",
+trendingPageTitle: "🔥 Chaînes YouTube Tendance", trendingPageSub: "Données EN DIRECT! Cliquez sur une chaîne pour détails. Chaque recherche est mise en cache 1 heure.", trendingSearchPH: "🔍 Rechercher catégorie ou chaîne...", searchBtnAlt: "🔄 Rechercher",
+analyticsPageTitle: "📊 Analyse de Chaîne", analyticsPageSub: "Recherchez de vraies chaînes YouTube: MrBeast, PewDiePie, Veritasium...", analyticsSearchPH: "🔍 Entrez le nom de la chaîne...", analyzeBtn: "📊 Analyser",
+riskPageTitle: "🛡️ Détecteur de Risque", riskPageSub: "Vérifiez les scores de Risque sur les cartes de niches", riskPageInfo: "← Cliquez sur n'importe quelle niche pour voir l'Analyse de Risque!", goToNiches: "🎯 Aller à Découverte de Niches",
+roadmapPageTitle: "🚀 Feuille de Route", roadmapPageSub: "NICHIFY évolue constamment!",
+rmLifetimeTitle: "💎 LIFETIME", rmLifetimeDate: "89$ (puis 19$/mois)", rmLifetimeDesc: "Exclusif aux 100 premiers utilisateurs! Paiement unique, accès à vie.",
+rmLoginTitle: "🔐 Inscription & Connexion", rmDoneDate: "Actif", rmLoginDesc: "Système de connexion sécurisé avec email/mot de passe",
+rm5LangTitle: "🌍 Support 5 Langues", rm5LangDesc: "TR, EN, DE, ES, FR - Traduction complète en 5 langues",
+rmNewsTitle: "📰 Actualités en Direct", rmNewsDesc: "Flux d'actualités en direct du monde YouTube",
+rmAITitle: "🤖 GPT Bot", rmAIDate: "Quelques jours", rmAIDesc: "Intégration ChatGPT - bot intelligent qui répond à tout",
+rmTikTokTitle: "📱 TikTok & Instagram", rmTikTokDate: "2 semaines", rmTikTokDesc: "Analyse de niches multi-plateforme",
+rmThumbTitle: "🎨 IA Thumbnail", rmThumbDate: "1 mois", rmThumbDesc: "Génération automatique de miniatures avec IA",
+rmScriptTitle: "📝 IA Script", rmScriptDate: "1 mois", rmScriptDesc: "Génération automatique de scripts vidéo",
+rmAppTitle: "📱 App Mobile", rmAppDate: "2 mois", rmAppDesc: "Application iOS et Android",
+adminMode: "MODE ADMIN", adminUsers: "utilisateurs", adminSalesText: "ventes",
+adminPanelTitle: "👑 Panneau d'Administration", adminTotalUsers: "👥 Utilisateurs Totaux", adminProUsers: "💎 Utilisateurs Pro", adminRevenue: "💰 Revenu Total", adminRemaining: "🎯 Lifetime Restant", adminLastSales: "📋 Dernières Ventes", adminLastUsers: "👥 Dernières Inscriptions",
+authSubtitle: "Outil de Recherche et d'Analyse de Niches YouTube", lifetimeText: "💎 LIFETIME - Paiement Unique", lifetimeCounter: "Exclusif aux 100 premiers utilisateurs:", kaldi: "restants",
+loginTab: "🔑 Connexion", registerTab: "✨ Inscription", emailLabel: "Email", emailPH: "exemple@gmail.com", passwordLabel: "Mot de passe", loginBtnText: "🔑 Connexion", noAccount: "Pas de compte?", registerLink: "S'inscrire",
+nameLabel: "Nom Complet", namePH: "Jean Dupont", passwordMinLabel: "Mot de passe (min. 6 caractères)", registerBtnText: "✨ Créer un Compte", haveAccount: "Vous avez déjà un compte?", loginLink: "Connexion", termsText: "En vous inscrivant, vous acceptez les Conditions d'Utilisation",
+botName: "Assistant NICHIFY", botSub: "Comment puis-je aider?", botWelcome: "👋 Bonjour! Je suis l'assistant NICHIFY. Je peux vous aider avec la sélection de niches, les stratégies YouTube et plus. Posez-moi n'importe quelle question!", botExamples: "💡 <strong>Questions exemples:</strong><br>• Avec quelle niche dois-je commencer?<br>• Comment atteindre 1000 abonnés?<br>• Comment se protéger des droits d'auteur?<br>• Quelles sont les niches les plus rentables?<br>• Comment lancer une chaîne sans visage?", botInputPH: "Tapez votre question...", botSendBtn: "Envoyer",
+contact: "Contact", scores: "Scores", target: "Cible & Concurrent", targetLabel: "Cible", competitorLabel: "Concurrent", riskAnalysis: "Analyse de Risque", safety: "Sécurité", dontDo: "❌ NE PAS FAIRE", doThis: "✅ FAIRE", examples: "📺 Chaînes Exemples", beginner: "🌱 Débutant", rising: "🚀 En Ascension", success: "🏆 Succès", opportunity: "Opportunité", hidden: "Caché", earnings: "Gains", competition: "Concurrence", lowComp: "Faible", mediumComp: "Moyen", highComp: "Élevé", detailBtn: "📋 Détail", noNiches: "Aucune niche trouvée",
+chTitle: "📊 Analyse de Chaîne", chStats: "📊 Statistiques", chSubs: "Abonnés", chTotalViews: "Vues Totales", chVideos: "Nombre de Vidéos", chAvgViews: "Vues Moyennes", chEarn: "💰 Gains Mensuels Estimés", chGrowth: "📈 Tendance de Croissance", chGender: "👥 Genre", chMale: "👨 Homme", chFemale: "👩 Femme", chAge: "📅 Âge", chCountry: "🌍 Pays", chGoChannel: "🔗 Visiter la Chaîne", chDisclaimer: "⚠️ Estimations calculées selon les moyennes du secteur.",
+trendUp: "📈 En Ascension", thisMonth: "Ce Mois", lastMonth: "Mois Dernier", twoMonthsAgo: "Il y a 2 Mois", threeMonthsAgo: "Il y a 3 Mois",
+notFound: "Introuvable", searching: "Recherche...", error: "Erreur"
+}
+};
+
+function t(key) {
+  return (T[currentLang] || T.tr)[key] || (T.tr[key] || key);
+}
+</script><script>
 // ============================================
 // CACHE FUNCTIONS
 // ============================================
@@ -550,10 +765,73 @@ function cacheSet(k, d) {
 }
 
 // ============================================
+// LANGUAGE FUNCTIONS
+// ============================================
+function detectLang() {
+  var saved = localStorage.getItem('nichify_lang');
+  if (saved && T[saved]) return saved;
+  
+  var browser = (navigator.language || 'tr').substring(0, 2).toLowerCase();
+  if (T[browser]) return browser;
+  return 'tr';
+}
+
+function setLang(lang) {
+  if (!T[lang]) return;
+  currentLang = lang;
+  localStorage.setItem('nichify_lang', lang);
+  
+  // Sidebar dil butonları
+  document.querySelectorAll('.lang-btn').forEach(function(b) {
+    b.classList.remove('active');
+  });
+  var btn = document.getElementById('lang-' + lang);
+  if (btn) btn.classList.add('active');
+  
+  // Auth modal dil butonları
+  document.querySelectorAll('.auth-lang-btn').forEach(function(b) {
+    b.classList.remove('active');
+  });
+  var abtn = document.getElementById('alang-' + lang);
+  if (abtn) abtn.classList.add('active');
+  
+  // HTML lang attribute
+  document.documentElement.setAttribute('lang', lang);
+  
+  applyLang();
+  
+  // Sayfayı yeniden render
+  if (typeof render === 'function') render();
+  if (typeof loadRising === 'function') loadRising();
+  if (typeof renderTopN === 'function') renderTopN();
+}
+
+function applyLang() {
+  // data-i18n attribute'lu tüm elementler
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n');
+    var translation = t(key);
+    if (translation) {
+      el.innerHTML = translation;
+    }
+  });
+  
+  // data-i18n-ph attribute'lu placeholder'lar
+  document.querySelectorAll('[data-i18n-ph]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n-ph');
+    var translation = t(key);
+    if (translation) {
+      el.setAttribute('placeholder', translation);
+    }
+  });
+  
+  // Sayaç güncellenmesi
+  loadCounter();
+}
+
+// ============================================
 // AUTH FUNCTIONS
 // ============================================
-
-// Tab değiştirme (Login/Register)
 function switchTab(tab) {
   document.getElementById('tabLogin').classList.toggle('active', tab === 'login');
   document.getElementById('tabRegister').classList.toggle('active', tab === 'register');
@@ -562,7 +840,6 @@ function switchTab(tab) {
   hideAuthMsg();
 }
 
-// Mesaj göster
 function showAuthMsg(text, type) {
   var msg = document.getElementById('authMsg');
   msg.textContent = text;
@@ -575,7 +852,6 @@ function hideAuthMsg() {
   msg.textContent = '';
 }
 
-// LOGIN HANDLER
 async function handleLogin(e) {
   e.preventDefault();
   var email = document.getElementById('loginEmail').value.trim();
@@ -583,18 +859,18 @@ async function handleLogin(e) {
   var btn = document.getElementById('loginBtn');
   
   btn.disabled = true;
-  btn.textContent = '⏳ Giriş yapılıyor...';
+  btn.textContent = '⏳ ' + t('loginBtnText');
   hideAuthMsg();
   
   try {
-    var { data, error } = await supabase.auth.signInWithPassword({
+    var { data, error } = await window.supabase.auth.signInWithPassword({
       email: email,
       password: password
     });
     
     if (error) throw error;
     
-    showAuthMsg('✅ Giriş başarılı! Yönlendiriliyorsun...', 'success');
+    showAuthMsg('✅ ' + t('loginBtnText'), 'success');
     
     setTimeout(function() {
       loadUserAndStart();
@@ -602,21 +878,18 @@ async function handleLogin(e) {
     
   } catch (err) {
     console.error('Login error:', err);
-    var msg = 'Giriş başarısız.';
+    var msg = t('error');
     if (err.message.includes('Invalid login credentials')) {
-      msg = '❌ E-posta veya şifre hatalı!';
-    } else if (err.message.includes('Email not confirmed')) {
-      msg = '⚠️ E-postanı doğrulaman lazım.';
+      msg = '❌ ' + (currentLang === 'tr' ? 'E-posta veya şifre hatalı!' : currentLang === 'en' ? 'Email or password incorrect!' : currentLang === 'de' ? 'E-Mail oder Passwort falsch!' : currentLang === 'es' ? '¡Email o contraseña incorrectos!' : 'Email ou mot de passe incorrect!');
     } else {
       msg = '❌ ' + err.message;
     }
     showAuthMsg(msg, 'error');
     btn.disabled = false;
-    btn.textContent = '🔑 Giriş Yap';
+    btn.textContent = t('loginBtnText');
   }
 }
 
-// REGISTER HANDLER
 async function handleRegister(e) {
   e.preventDefault();
   var name = document.getElementById('regName').value.trim();
@@ -625,24 +898,20 @@ async function handleRegister(e) {
   var btn = document.getElementById('regBtn');
   
   btn.disabled = true;
-  btn.textContent = '⏳ Hesap oluşturuluyor...';
+  btn.textContent = '⏳ ' + t('registerBtnText');
   hideAuthMsg();
   
   try {
-    // Auth'a kayıt
-    var { data, error } = await supabase.auth.signUp({
+    var { data, error } = await window.supabase.auth.signUp({
       email: email,
       password: password,
-      options: {
-        data: { name: name }
-      }
+      options: { data: { name: name } }
     });
     
     if (error) throw error;
     
-    // Users tablosuna ekle
     if (data.user) {
-      await supabase.from('users').insert({
+      await window.supabase.from('users').insert({
         id: data.user.id,
         email: email,
         name: name,
@@ -653,7 +922,8 @@ async function handleRegister(e) {
       });
     }
     
-    showAuthMsg('✅ Hesap oluşturuldu! Giriş yapabilirsin.', 'success');
+    var successMsg = currentLang === 'tr' ? '✅ Hesap oluşturuldu! Giriş yapabilirsin.' : currentLang === 'en' ? '✅ Account created! You can login now.' : currentLang === 'de' ? '✅ Konto erstellt! Sie können sich anmelden.' : currentLang === 'es' ? '✅ ¡Cuenta creada! Puedes iniciar sesión.' : '✅ Compte créé! Vous pouvez vous connecter.';
+    showAuthMsg(successMsg, 'success');
     
     setTimeout(function() {
       switchTab('login');
@@ -662,50 +932,40 @@ async function handleRegister(e) {
     }, 1500);
     
     btn.disabled = false;
-    btn.textContent = '✨ Hesap Oluştur';
+    btn.textContent = t('registerBtnText');
     
   } catch (err) {
     console.error('Register error:', err);
-    var msg = 'Kayıt başarısız.';
+    var msg = t('error');
     if (err.message.includes('already registered')) {
-      msg = '⚠️ Bu e-posta zaten kayıtlı! Giriş yapmayı dene.';
-    } else if (err.message.includes('weak password')) {
-      msg = '⚠️ Şifre çok zayıf. En az 6 karakter olmalı.';
+      msg = '⚠️ ' + (currentLang === 'tr' ? 'Bu e-posta zaten kayıtlı!' : currentLang === 'en' ? 'This email is already registered!' : currentLang === 'de' ? 'Diese E-Mail ist bereits registriert!' : currentLang === 'es' ? '¡Este email ya está registrado!' : 'Cet email est déjà enregistré!');
     } else {
       msg = '❌ ' + err.message;
     }
     showAuthMsg(msg, 'error');
     btn.disabled = false;
-    btn.textContent = '✨ Hesap Oluştur';
+    btn.textContent = t('registerBtnText');
   }
 }
 
-// LOGOUT
 async function handleLogout() {
-  if (!confirm('Çıkış yapmak istediğine emin misin?')) return;
+  if (!confirm(currentLang === 'tr' ? 'Çıkış yapmak istediğine emin misin?' : currentLang === 'en' ? 'Are you sure you want to logout?' : currentLang === 'de' ? 'Möchten Sie sich wirklich abmelden?' : currentLang === 'es' ? '¿Estás seguro de cerrar sesión?' : 'Êtes-vous sûr de vouloir vous déconnecter?')) return;
   
-  await supabase.auth.signOut();
+  await window.supabase.auth.signOut();
   currentUser = null;
   userProfile = null;
   location.reload();
 }
 
-// KULLANICI PROFİL YÜKLE
 async function loadUserProfile(userId) {
   try {
-    var { data, error } = await supabase
-      .from('users')
-      .select('*')
-      .eq('id', userId)
-      .single();
+    var { data, error } = await window.supabase.from('users').select('*').eq('id', userId).single();
     
     if (error) {
-      console.log('Profile not found, creating...');
-      // Profil yoksa oluştur (yeni kayıt için)
-      var session = await supabase.auth.getSession();
+      var session = await window.supabase.auth.getSession();
       if (session.data.session) {
         var user = session.data.session.user;
-        var { data: newProfile } = await supabase.from('users').insert({
+        var { data: newProfile } = await window.supabase.from('users').insert({
           id: user.id,
           email: user.email,
           name: user.user_metadata.name || user.email.split('@')[0],
@@ -719,11 +979,7 @@ async function loadUserProfile(userId) {
       return null;
     }
     
-    // Son giriş güncelle
-    await supabase.from('users')
-      .update({ last_login: new Date().toISOString() })
-      .eq('id', userId);
-    
+    await window.supabase.from('users').update({ last_login: new Date().toISOString() }).eq('id', userId);
     return data;
   } catch (err) {
     console.error('Profile load error:', err);
@@ -731,13 +987,11 @@ async function loadUserProfile(userId) {
   }
 }
 
-// ANA YÜKLEME FONKSİYONU
 async function loadUserAndStart() {
   try {
-    var { data: { session } } = await supabase.auth.getSession();
+    var { data: { session } } = await window.supabase.auth.getSession();
     
     if (!session) {
-      // Giriş yapmamış - modal göster
       document.getElementById('authModal').classList.add('active');
       await loadCounter();
       return;
@@ -747,27 +1001,20 @@ async function loadUserAndStart() {
     userProfile = await loadUserProfile(currentUser.id);
     
     if (!userProfile) {
-      showAuthMsg('❌ Profil yüklenemedi. Tekrar dene.', 'error');
+      showAuthMsg('❌ Profile error', 'error');
       return;
     }
     
-    // Modal'ı kapat
     document.getElementById('authModal').classList.remove('active');
-    
-    // UI'yi güncelle
     updateUserUI();
     
-    // Admin ise admin bölümünü göster
     if (userProfile.is_admin) {
       document.getElementById('adminSection').style.display = 'block';
       document.getElementById('adminBanner').classList.add('active');
       await loadAdminStats();
     }
     
-    // Sayacı yükle
     await loadCounter();
-    
-    // Sayfa render
     applyAll();
     
   } catch (err) {
@@ -775,111 +1022,91 @@ async function loadUserAndStart() {
   }
 }
 
-// USER UI GÜNCELLE
 function updateUserUI() {
   if (!userProfile) return;
   
-  var firstName = userProfile.name ? userProfile.name.split(' ')[0] : 'Kullanıcı';
+  var firstName = userProfile.name ? userProfile.name.split(' ')[0] : 'User';
   var email = userProfile.email || '';
   
-  // Sidebar
   document.getElementById('userName').textContent = firstName;
   document.getElementById('userEmail').textContent = email;
   document.getElementById('userAvatar').src = 'https://ui-avatars.com/api/?name=' + encodeURIComponent(firstName) + '&background=4da3ff&color=fff';
-  
-  // Welcome banner
   document.getElementById('welcomeName').textContent = firstName;
   
-  // Son giriş
   if (userProfile.last_login) {
     document.getElementById('lastLogin').textContent = formatDate(userProfile.last_login);
   } else {
-    document.getElementById('lastLogin').textContent = 'İlk giriş';
+    document.getElementById('lastLogin').textContent = t('loading');
   }
 }
 
-// TARİH FORMAT
 function formatDate(dateStr) {
   try {
     var d = new Date(dateStr);
     var now = new Date();
     var diff = (now - d) / 1000;
     
-    if (diff < 60) return 'Az önce';
-    if (diff < 3600) return Math.floor(diff/60) + ' dakika önce';
-    if (diff < 86400) return Math.floor(diff/3600) + ' saat önce';
-    if (diff < 604800) return Math.floor(diff/86400) + ' gün önce';
+    var translations = {
+      tr: {now: 'Az önce', min: ' dakika önce', hour: ' saat önce', day: ' gün önce'},
+      en: {now: 'Just now', min: ' minutes ago', hour: ' hours ago', day: ' days ago'},
+      de: {now: 'Gerade eben', min: ' Minuten her', hour: ' Stunden her', day: ' Tage her'},
+      es: {now: 'Ahora mismo', min: ' minutos atrás', hour: ' horas atrás', day: ' días atrás'},
+      fr: {now: 'À l\'instant', min: ' minutes', hour: ' heures', day: ' jours'}
+    };
+    var tr = translations[currentLang] || translations.tr;
     
-    return d.toLocaleDateString('tr-TR');
+    if (diff < 60) return tr.now;
+    if (diff < 3600) return Math.floor(diff/60) + tr.min;
+    if (diff < 86400) return Math.floor(diff/3600) + tr.hour;
+    if (diff < 604800) return Math.floor(diff/86400) + tr.day;
+    
+    return d.toLocaleDateString(currentLang === 'tr' ? 'tr-TR' : currentLang === 'de' ? 'de-DE' : currentLang === 'es' ? 'es-ES' : currentLang === 'fr' ? 'fr-FR' : 'en-US');
   } catch(e) {
     return '';
   }
 }
 
-// SAYACI YÜKLE (Lifetime sayacı)
 async function loadCounter() {
   try {
-     var { count } = await supabase
-      .from('sales')
-      .select('*', { count: 'exact', head: true });
+    var { count } = await window.supabase.from('sales').select('*', { count: 'exact', head: true });
     var sold = count || 0;
     var remaining = Math.max(0, 100 - sold);
     
-    document.getElementById('sideCounter').textContent = '🔥 ' + remaining + '/100 kaldı';
-    document.getElementById('authCounter').textContent = remaining + '/100 kaldı';
+    var sideC = document.getElementById('sideCounter');
+    var authC = document.getElementById('authCounter');
+    if (sideC) sideC.textContent = '🔥 ' + remaining + '/100 ' + t('kaldi');
+    if (authC) authC.textContent = remaining + '/100';
   } catch (err) {
     console.error('Counter error:', err);
   }
 }
 
-// ADMIN İSTATİSTİKLERİNİ YÜKLE
 async function loadAdminStats() {
   try {
-    // Toplam kullanıcı
-    var { count: totalUsers } = await supabase
-      .from('users')
-      .select('*', { count: 'exact', head: true });
+    var { count: totalUsers } = await window.supabase.from('users').select('*', { count: 'exact', head: true });
+    var { count: proUsers } = await window.supabase.from('users').select('*', { count: 'exact', head: true }).eq('lifetime', true);
+    var { data: sales } = await window.supabase.from('sales').select('*').order('created_at', { ascending: false });
     
-    // Pro kullanıcı (lifetime)
-    var { count: proUsers } = await supabase
-      .from('users')
-      .select('*', { count: 'exact', head: true })
-      .eq('lifetime', true);
+    var totalRevenue = sales ? sales.reduce(function(sum, s) { return sum + (parseFloat(s.amount) || 0); }, 0) : 0;
     
-    // Satışlar
-    var { data: sales } = await supabase
-      .from('sales')
-      .select('*')
-      .order('created_at', { ascending: false });
-    
-    var totalRevenue = sales ? sales.reduce((sum, s) => sum + (parseFloat(s.amount) || 0), 0) : 0;
-    
-    // UI güncelle
     document.getElementById('adminTotal').textContent = totalUsers || 0;
-    document.getElementById('adminSales').textContent = proUsers || 0;
+    document.getElementById('adminSales').textContent = sales ? sales.length : 0;
     document.getElementById('aStatTotal').textContent = totalUsers || 0;
     document.getElementById('aStatPro').textContent = proUsers || 0;
     document.getElementById('aStatRevenue').textContent = totalRevenue.toFixed(0);
-    document.getElementById('aStatRemaining').textContent = Math.max(0, 100 - (proUsers || 0));
+    document.getElementById('aStatRemaining').textContent = Math.max(0, 100 - (sales ? sales.length : 0));
     
-    // Satış listesi
     var salesHtml = '';
     if (sales && sales.length) {
       sales.slice(0, 10).forEach(function(s) {
         salesHtml += '<div class="sale-row"><div class="si"><h4>' + (s.email || '?') + '</h4><p>' + (s.product || 'Lifetime') + ' · ' + formatDate(s.created_at) + '</p></div><div class="sa">$' + (s.amount || 89) + '</div></div>';
       });
     } else {
-      salesHtml = '<div class="empty">Henüz satış yok</div>';
+      salesHtml = '<div class="empty">No sales yet</div>';
     }
     document.getElementById('salesList').innerHTML = salesHtml;
     
-    // Son kullanıcılar
-    var { data: recentUsers } = await supabase
-      .from('users')
-      .select('*')
-      .order('created_at', { ascending: false })
-      .limit(10);
-    
+    var { data: recentUsers } = await window.supabase.from('users').select('*').order('created_at', { ascending: false }).limit(10);
     var usersHtml = '';
     if (recentUsers && recentUsers.length) {
       recentUsers.forEach(function(u) {
@@ -887,7 +1114,7 @@ async function loadAdminStats() {
         usersHtml += '<div class="sale-row"><div class="si"><h4>' + (u.name || '?') + '</h4><p>' + u.email + ' · ' + formatDate(u.created_at) + '</p></div><div class="sa" style="font-size:11px">' + badge + '</div></div>';
       });
     } else {
-      usersHtml = '<div class="empty">Henüz kullanıcı yok</div>';
+      usersHtml = '<div class="empty">No users yet</div>';
     }
     document.getElementById('usersList').innerHTML = usersHtml;
     
@@ -918,11 +1145,13 @@ function goPage(p) {
 // INITIALIZE
 // ============================================
 window.addEventListener('DOMContentLoaded', function() {
+  currentLang = detectLang();
+  setLang(currentLang);
   loadUserAndStart();
+  loadNews();
 });
 
-// Auth state değişikliğini dinle
-supabase.auth.onAuthStateChange(function(event, session) {
+window.supabase.auth.onAuthStateChange(function(event, session) {
   if (event === 'SIGNED_OUT') {
     currentUser = null;
     userProfile = null;
@@ -946,7 +1175,9 @@ function hiddenS(n) {
 }
 
 function compLabel(c) {
-  return c <= 40 ? 'Düşük' : c <= 65 ? 'Orta' : 'Yüksek';
+  if (c <= 40) return t('lowComp');
+  if (c <= 65) return t('mediumComp');
+  return t('highComp');
 }
 
 function esc(s) {
@@ -955,25 +1186,25 @@ function esc(s) {
   });
 }
 
-function getName(n) { return n.tr || n.en; }
-function getCat(n) { return (n.cat && n.cat.tr) || ''; }
-function getSub(n) { return (n.sub && n.sub.tr) || ''; }
-function getAudience(n) { return (n.audience && n.audience.tr) || ''; }
-function getComp(n) { return (n.competitor && n.competitor.tr) || ''; }
-function getRiskSebep(n) { return (n.risk && n.risk.sebep && n.risk.sebep.tr) || ''; }
-function getRiskYapma(n) { return (n.risk && n.risk.yapma && n.risk.yapma.tr) || []; }
-function getRiskYap(n) { return (n.risk && n.risk.yap && n.risk.yap.tr) || []; }
+function getName(n) { return n[currentLang] || n.tr || n.en; }
+function getCat(n) { return (n.cat && (n.cat[currentLang] || n.cat.tr)) || ''; }
+function getSub(n) { return (n.sub && (n.sub[currentLang] || n.sub.tr)) || ''; }
+function getAudience(n) { return (n.audience && (n.audience[currentLang] || n.audience.tr)) || ''; }
+function getComp(n) { return (n.competitor && (n.competitor[currentLang] || n.competitor.tr)) || ''; }
+function getRiskSebep(n) { return (n.risk && n.risk.sebep && (n.risk.sebep[currentLang] || n.risk.sebep.tr)) || ''; }
+function getRiskYapma(n) { return (n.risk && n.risk.yapma && (n.risk.yapma[currentLang] || n.risk.yapma.tr)) || []; }
+function getRiskYap(n) { return (n.risk && n.risk.yap && (n.risk.yap[currentLang] || n.risk.yap.tr)) || []; }
 function getExItem(ex, type) {
   if (!ex || !Array.isArray(ex)) return null;
   return ex.find(function(x) { return x.type === type; });
 }
 function getExAge(item) {
   if (!item || !item.age) return '';
-  return item.age.tr || '';
+  return item.age[currentLang] || item.age.tr || '';
 }
 function getExStrategy(item) {
   if (!item || !item.strategy) return '';
-  return item.strategy.tr || '';
+  return item.strategy[currentLang] || item.strategy.tr || '';
 }
 
 function formatNumber(n) {
@@ -988,9 +1219,6 @@ function applyAll() {
   renderTopN();
 }
 
-// ============================================
-// SEARCH
-// ============================================
 function quickSearch() {
   var q = document.getElementById('quickSearch').value.trim();
   if (!q) return;
@@ -1000,61 +1228,76 @@ function quickSearch() {
 }
 
 // ============================================
-// RISING CHANNELS (Anasayfa widget - GERÇEK)
+// RSS NEWS WIDGET - CANLI HABERLER!
+// ============================================
+async function loadNews() {
+  var cached = cacheGet('news');
+  if (cached) { renderNews(cached); return; }
+  
+  try {
+    var rssUrl = 'https://www.tubefilter.com/feed/';
+    var apiUrl = 'https://api.rss2json.com/v1/api.json?rss_url=' + encodeURIComponent(rssUrl) + '&count=8';
+    
+    var resp = await fetch(apiUrl);
+    var data = await resp.json();
+    
+    if (data.status === 'ok' && data.items) {
+      cacheSet('news', data.items);
+      renderNews(data.items);
+    } else {
+      throw new Error('No news');
+    }
+  } catch (err) {
+    console.error('News error:', err);
+    document.getElementById('newsWidget').innerHTML = '<div class="empty" style="font-size:11px">📰 ' + (currentLang === 'tr' ? 'Haberler şu an yüklenemedi' : 'News unavailable') + '</div>';
+  }
+}
+
+function renderNews(items) {
+  if (!items || !items.length) return;
+  var html = '';
+  items.slice(0, 6).forEach(function(item) {
+    var date = new Date(item.pubDate);
+    var dateStr = date.toLocaleDateString(currentLang === 'tr' ? 'tr-TR' : 'en-US', { day: 'numeric', month: 'short' });
+    var title = item.title.length > 70 ? item.title.substring(0, 70) + '...' : item.title;
+    html += '<a href="' + esc(item.link) + '" target="_blank" rel="noopener" class="news-row">';
+    html += '<div class="news-title">' + esc(title) + '</div>';
+    html += '<div class="news-meta"><span class="news-source">Tubefilter</span><span class="news-date">' + dateStr + '</span></div>';
+    html += '</a>';
+  });
+  document.getElementById('newsWidget').innerHTML = html;
+}
+
+// ============================================
+// RISING CHANNELS (Anasayfa)
 // ============================================
 async function loadRising() {
-  var cached = cacheGet('rising_real');
+  var cached = cacheGet('rising_real_' + currentLang);
   if (cached) {
     document.getElementById('risingChannels').innerHTML = cached;
     return;
   }
   
-  // Supabase cache kontrol
-  try {
-    var { data: dbCache } = await supabase
-      .from('search_cache')
-      .select('*')
-      .eq('query', '__rising__')
-      .eq('region', 'GLOBAL')
-      .single();
-    
-    if (dbCache && dbCache.results) {
-      var ageSec = (Date.now() - new Date(dbCache.created_at).getTime()) / 1000;
-      if (ageSec < 3600) {
-        renderRising(dbCache.results);
-        return;
-      }
-    }
-  } catch(e) {}
-  
-  // YouTube API'den çek
   try {
     var queries = ['technology', 'finance', 'education', 'business', 'productivity'];
     var randomQ = queries[Math.floor(Math.random() * queries.length)];
-    
-    var url = 'https://www.googleapis.com/youtube/v3/search?part=snippet&type=channel&q=' + randomQ + '&maxResults=20&order=relevance&key=' + YOUTUBE_API_KEY;
+    var url = 'https://www.googleapis.com/youtube/v3/search?part=snippet&type=channel&q=' + randomQ + '&maxResults=5&order=relevance&key=' + YOUTUBE_API_KEY;
     var resp = await fetch(url);
     var data = await resp.json();
     
     if (!data.items) throw new Error('No data');
     
-    var channels = data.items.slice(0, 5);
+    var html = '';
+    data.items.forEach(function(ch, i) {
+      var s = ch.snippet;
+      var thumb = s.thumbnails && s.thumbnails.default ? s.thumbnails.default.url : 'https://ui-avatars.com/api/?name=' + encodeURIComponent(s.title || 'C') + '&background=4da3ff&color=fff';
+      var channelId = s.channelId || ch.id.channelId;
+      html += '<div class="ch-row" onclick="openChannelById(\'' + channelId + '\')"><img src="' + thumb + '" alt=""/><div class="info"><h4>' + esc(s.title || '?') + '</h4><p>' + esc((s.description || '').substring(0, 40)) + '...</p></div><div class="badge">#' + (i+1) + '</div></div>';
+    });
     
-    // Cache'e kaydet
-    try {
-      await supabase.from('search_cache').upsert({
-        query: '__rising__',
-        region: 'GLOBAL',
-        results: channels,
-        created_at: new Date().toISOString()
-      });
-    } catch(e) {}
-    
-    renderRising(channels);
-    
+    document.getElementById('risingChannels').innerHTML = html;
+    cacheSet('rising_real_' + currentLang, html);
   } catch (err) {
-    console.error('Rising error:', err);
-    // Fallback - niche datadan göster
     var fallback = NICHES.slice().sort(function(a,b) { return overall(b)-overall(a); }).slice(0,5);
     var html = '';
     fallback.forEach(function(n,i) {
@@ -1066,27 +1309,15 @@ async function loadRising() {
   }
 }
 
-function renderRising(channels) {
-  var html = '';
-  channels.forEach(function(ch, i) {
-    var s = ch.snippet || ch;
-    var thumb = s.thumbnails && s.thumbnails.default ? s.thumbnails.default.url : ('https://ui-avatars.com/api/?name=' + encodeURIComponent(s.title || 'C') + '&background=4da3ff&color=fff');
-    var channelId = s.channelId || (ch.id && ch.id.channelId) || ch.id;
-    html += '<div class="ch-row" onclick="openChannelById(\'' + channelId + '\')"><img src="' + thumb + '" alt=""/><div class="info"><h4>' + esc(s.title || s.channelTitle || '?') + '</h4><p>' + esc((s.description || '').substring(0, 40)) + '...</p></div><div class="badge">#' + (i+1) + '</div></div>';
-  });
-  document.getElementById('risingChannels').innerHTML = html;
-  cacheSet('rising_real', html);
-}
-
 // ============================================
-// TOP NICHES (Anasayfa widget)
+// TOP NICHES (Anasayfa)
 // ============================================
 function renderTopN() {
   var sorted = NICHES.slice().sort(function(a,b) { return overall(b)-overall(a); }).slice(0,5);
   var html = '';
   sorted.forEach(function(n) {
     var idx = NICHES.indexOf(n);
-    html += '<div class="n-row" onclick="openModal(' + idx + ')"><div class="ic">' + (n.icon || '🎯') + '</div><div class="info"><h4>' + esc(getName(n)) + '</h4><p>Fırsat: ' + overall(n) + ' · ' + esc(getCat(n)) + '</p></div><div class="badge">' + overall(n) + '</div></div>';
+    html += '<div class="n-row" onclick="openModal(' + idx + ')"><div class="ic">' + (n.icon || '🎯') + '</div><div class="info"><h4>' + esc(getName(n)) + '</h4><p>' + t('opportunity') + ': ' + overall(n) + ' · ' + esc(getCat(n)) + '</p></div><div class="badge">' + overall(n) + '</div></div>';
   });
   document.getElementById('topNiches').innerHTML = html;
 }
@@ -1121,16 +1352,16 @@ function render() {
   document.getElementById('statNiches').textContent = NICHES.length;
   
   var g = document.getElementById('nichesGrid');
-  if (list.length === 0) { g.innerHTML = '<div class="empty">Niş bulunamadı</div>'; return; }
+  if (list.length === 0) { g.innerHTML = '<div class="empty">' + t('noNiches') + '</div>'; return; }
   
   var html = '';
   list.forEach(function(n) {
     var o = overall(n), h = hiddenS(n), i = NICHES.indexOf(n);
     html += '<div class="niche-card" onclick="openModal(' + i + ')"><div class="niche-head"><h3>' + (n.icon || '🎯') + ' ' + esc(getName(n)) + '</h3><div class="score-badge">' + o + '</div></div><div class="niche-category">' + esc(getCat(n)) + ' · ' + esc(getSub(n)) + '</div><div class="chips">';
-    if (h >= 70) html += '<span class="chip green">🔍 Hidden ' + h + '</span>';
-    if (n.scores.newCh >= 70) html += '<span class="chip blue">🆕 Yeni Dostu</span>';
-    if (n.scores.faceless >= 70) html += '<span class="chip yellow">🎭 Faceless</span>';
-    html += '<span class="chip ' + (n.scores.comp <= 40 ? 'green' : n.scores.comp <= 65 ? 'yellow' : 'red') + '">' + compLabel(n.scores.comp) + ' Rekabet</span></div><div class="bars"><div class="bar-row"><span>💰 Kazanç</span><div class="bar"><div class="fill" style="width:' + n.scores.money + '%"></div></div><span>' + n.scores.money + '</span></div><div class="bar-row"><span>📈 Trend</span><div class="bar"><div class="fill" style="width:' + n.scores.trend + '%"></div></div><span>' + n.scores.trend + '</span></div><div class="bar-row"><span>🛡️ Güvenlik</span><div class="bar"><div class="fill" style="width:' + (n.risk.score || 80) + '%"></div></div><span>' + (n.risk.score || 80) + '</span></div></div><div class="card-actions"><button class="btn btn-primary btn-small" onclick="event.stopPropagation();openModal(' + i + ')">📋 Detay</button></div></div>';
+    if (h >= 70) html += '<span class="chip green">🔍 ' + t('hidden') + ' ' + h + '</span>';
+    if (n.scores.newCh >= 70) html += '<span class="chip blue">🆕</span>';
+    if (n.scores.faceless >= 70) html += '<span class="chip yellow">🎭</span>';
+    html += '<span class="chip ' + (n.scores.comp <= 40 ? 'green' : n.scores.comp <= 65 ? 'yellow' : 'red') + '">' + compLabel(n.scores.comp) + '</span></div><div class="bars"><div class="bar-row"><span>💰 ' + t('earnings') + '</span><div class="bar"><div class="fill" style="width:' + n.scores.money + '%"></div></div><span>' + n.scores.money + '</span></div><div class="bar-row"><span>📈 Trend</span><div class="bar"><div class="fill" style="width:' + n.scores.trend + '%"></div></div><span>' + n.scores.trend + '</span></div><div class="bar-row"><span>🛡️ ' + t('safety') + '</span><div class="bar"><div class="fill" style="width:' + (n.risk.score || 80) + '%"></div></div><span>' + (n.risk.score || 80) + '</span></div></div><div class="card-actions"><button class="btn btn-primary btn-small" onclick="event.stopPropagation();openModal(' + i + ')">' + t('detailBtn') + '</button></div></div>';
   });
   g.innerHTML = html;
 }
@@ -1143,19 +1374,19 @@ function openModal(idx) {
   document.getElementById('modalTitle').textContent = (n.icon || '🎯') + ' ' + getName(n);
   document.getElementById('modalSub').textContent = getCat(n) + ' · ' + getSub(n);
   
-  var html = '<div class="detail-grid"><div class="detail-box"><h3>📊 Puanlar</h3>';
-  html += '<div class="d-bar"><div class="d-bar-label"><span>⭐ Fırsat</span><span>' + overall(n) + '</span></div><div class="d-bar-track"><div class="d-bar-fill" style="width:' + overall(n) + '%"></div></div></div>';
-  html += '<div class="d-bar"><div class="d-bar-label"><span>🔍 Hidden</span><span>' + hiddenS(n) + '</span></div><div class="d-bar-track"><div class="d-bar-fill" style="width:' + hiddenS(n) + '%"></div></div></div>';
-  html += '<div class="d-bar"><div class="d-bar-label"><span>💰 Kazanç</span><span>' + n.scores.money + '</span></div><div class="d-bar-track"><div class="d-bar-fill" style="width:' + n.scores.money + '%"></div></div></div>';
-  html += '<div class="d-bar"><div class="d-bar-label"><span>📉 Rekabet</span><span>' + n.scores.comp + '</span></div><div class="d-bar-track"><div class="d-bar-fill" style="width:' + n.scores.comp + '%"></div></div></div></div>';
-  html += '<div class="detail-box"><h3>🎯 Hedef & Rakip</h3><p><strong>Hedef:</strong> ' + esc(getAudience(n)) + '</p><p><strong>Rakip:</strong> ' + esc(getComp(n)) + '</p></div></div>';
-  html += '<div class="risk-section"><h3>🛡️ Risk Analizi · Güvenlik: ' + (n.risk.score || 80) + '/100</h3><p style="color:#cfd9ea;font-size:11px;margin-bottom:8px">' + esc(getRiskSebep(n)) + '</p><div class="detail-grid"><div class="detail-box"><h3>❌ YAPMA</h3><ul>';
+  var html = '<div class="detail-grid"><div class="detail-box"><h3>📊 ' + t('scores') + '</h3>';
+  html += '<div class="d-bar"><div class="d-bar-label"><span>⭐ ' + t('opportunity') + '</span><span>' + overall(n) + '</span></div><div class="d-bar-track"><div class="d-bar-fill" style="width:' + overall(n) + '%"></div></div></div>';
+  html += '<div class="d-bar"><div class="d-bar-label"><span>🔍 ' + t('hidden') + '</span><span>' + hiddenS(n) + '</span></div><div class="d-bar-track"><div class="d-bar-fill" style="width:' + hiddenS(n) + '%"></div></div></div>';
+  html += '<div class="d-bar"><div class="d-bar-label"><span>💰 ' + t('earnings') + '</span><span>' + n.scores.money + '</span></div><div class="d-bar-track"><div class="d-bar-fill" style="width:' + n.scores.money + '%"></div></div></div>';
+  html += '<div class="d-bar"><div class="d-bar-label"><span>📉 ' + t('competition') + '</span><span>' + n.scores.comp + '</span></div><div class="d-bar-track"><div class="d-bar-fill" style="width:' + n.scores.comp + '%"></div></div></div></div>';
+  html += '<div class="detail-box"><h3>🎯 ' + t('target') + '</h3><p><strong>' + t('targetLabel') + ':</strong> ' + esc(getAudience(n)) + '</p><p><strong>' + t('competitorLabel') + ':</strong> ' + esc(getComp(n)) + '</p></div></div>';
+  html += '<div class="risk-section"><h3>🛡️ ' + t('riskAnalysis') + ' · ' + t('safety') + ': ' + (n.risk.score || 80) + '/100</h3><p style="color:#cfd9ea;font-size:11px;margin-bottom:8px">' + esc(getRiskSebep(n)) + '</p><div class="detail-grid"><div class="detail-box"><h3>' + t('dontDo') + '</h3><ul>';
   
   var yapma = getRiskYapma(n);
   if (Array.isArray(yapma)) yapma.forEach(function(x) { html += '<li>' + esc(x) + '</li>'; });
   else html += '<li>' + esc(yapma) + '</li>';
   
-  html += '</ul></div><div class="detail-box"><h3>✅ YAP</h3><ul>';
+  html += '</ul></div><div class="detail-box"><h3>' + t('doThis') + '</h3><ul>';
   
   var yap = getRiskYap(n);
   if (Array.isArray(yap)) yap.forEach(function(x) { html += '<li>' + esc(x) + '</li>'; });
@@ -1164,12 +1395,11 @@ function openModal(idx) {
   html += '</ul></div></div></div>';
   
   if (n.examples && Array.isArray(n.examples)) {
-    html += '<div class="ex-section"><h3 style="margin:12px 0 8px;font-size:14px">📺 Örnek Kanallar</h3>';
+    html += '<div class="ex-section"><h3 style="margin:12px 0 8px;font-size:14px">' + t('examples') + '</h3>';
     ['beginner','rising','success'].forEach(function(f) {
       var item = getExItem(n.examples, f);
       if (item) {
-        var ftext = f === 'beginner' ? '🌱 Yeni Başlayan' : f === 'rising' ? '🚀 Yükselen' : '🏆 Başarı';
-        html += '<div class="ex-card ' + f + '"><h4>' + ftext + ': ' + esc(item.name || '') + '</h4><div class="ex-stats"><span>👥 ' + (item.subs || '?') + '</span><span>📅 ' + esc(getExAge(item)) + '</span>' + (item.growth ? '<span>📈 ' + esc(item.growth) + '</span>' : '') + '</div>';
+        html += '<div class="ex-card ' + f + '"><h4>' + t(f) + ': ' + esc(item.name || '') + '</h4><div class="ex-stats"><span>👥 ' + (item.subs || '?') + '</span><span>📅 ' + esc(getExAge(item)) + '</span>' + (item.growth ? '<span>📈 ' + esc(item.growth) + '</span>' : '') + '</div>';
         var st = getExStrategy(item);
         if (st) html += '<div class="ex-strat">' + esc(st) + '</div>';
         html += '</div>';
@@ -1187,41 +1417,19 @@ function closeModal() {
 }
 
 // ============================================
-// TRENDING (YouTube API - GERÇEK)
+// TRENDING (YouTube API)
 // ============================================
 async function loadTrending() {
   var q = document.getElementById('trendingSearch').value.trim();
   var r = document.getElementById('trendingRegion').value;
   var ck = 'trend_' + r + '_' + q;
   
-  // Local cache
   var cached = cacheGet(ck);
   if (cached) { renderTrending(cached); trendingLoaded = true; return; }
   
   var grid = document.getElementById('trendingGrid');
-  grid.innerHTML = '<div class="t-loading"><div class="spinner"></div><p>Yükleniyor...</p></div>';
+  grid.innerHTML = '<div class="t-loading"><div class="spinner"></div><p>' + t('loading') + '</p></div>';
   
-  // Supabase cache
-  try {
-    var { data: dbCache } = await supabase
-      .from('search_cache')
-      .select('*')
-      .eq('query', q || '__trending__')
-      .eq('region', r)
-      .single();
-    
-    if (dbCache && dbCache.results) {
-      var ageSec = (Date.now() - new Date(dbCache.created_at).getTime()) / 1000;
-      if (ageSec < 3600) {
-        cacheSet(ck, dbCache.results);
-        renderTrending(dbCache.results);
-        trendingLoaded = true;
-        return;
-      }
-    }
-  } catch(e) {}
-  
-  // YouTube API
   try {
     var url;
     if (q) {
@@ -1233,10 +1441,7 @@ async function loadTrending() {
     var resp = await fetch(url);
     var data = await resp.json();
     
-    if (!data.items) {
-      grid.innerHTML = '<div class="empty">Veri bulunamadı - API key kontrol et</div>';
-      return;
-    }
+    if (!data.items) { grid.innerHTML = '<div class="empty">' + t('notFound') + '</div>'; return; }
     
     var items;
     if (q) {
@@ -1248,34 +1453,23 @@ async function loadTrending() {
       items = data.items;
     }
     
-    // Supabase cache'e kaydet
-    try {
-      await supabase.from('search_cache').upsert({
-        query: q || '__trending__',
-        region: r,
-        results: items,
-        created_at: new Date().toISOString()
-      });
-    } catch(e) {}
-    
     cacheSet(ck, items);
     renderTrending(items);
     trendingLoaded = true;
-    
   } catch (err) {
-    grid.innerHTML = '<div class="empty">Hata: ' + err.message + '</div>';
+    grid.innerHTML = '<div class="empty">' + t('error') + ': ' + err.message + '</div>';
   }
 }
 
 function renderTrending(items) {
   var grid = document.getElementById('trendingGrid');
-  if (!items || !items.length) { grid.innerHTML = '<div class="empty">Video bulunamadı</div>'; return; }
+  if (!items || !items.length) { grid.innerHTML = '<div class="empty">' + t('notFound') + '</div>'; return; }
   
   var html = '<div class="results-grid">';
   items.forEach(function(v, i) {
     var s = v.snippet, st = v.statistics || {};
     var thumb = s.thumbnails.medium ? s.thumbnails.medium.url : s.thumbnails.default.url;
-    html += '<div class="t-card" onclick="openChannelById(\'' + s.channelId + '\')"><div class="t-thumb"><img src="' + thumb + '" alt=""/><div class="live">LIVE</div><div class="rank">' + (i+1) + '</div></div><div class="t-info"><h3>' + esc(s.title.substring(0,60)) + '</h3><div class="t-stats"><span>👁️ ' + formatNumber(parseInt(st.viewCount||0)) + '</span><span>👍 ' + formatNumber(parseInt(st.likeCount||0)) + '</span></div><div class="t-ch"><img src="https://ui-avatars.com/api/?name=' + encodeURIComponent(s.channelTitle) + '&background=4da3ff&color=fff"/><div><div class="t-ch-name">' + esc(s.channelTitle) + '</div><div class="t-ch-subs">' + s.publishedAt.substring(0,10) + '</div></div></div><div class="t-actions"><button class="btn btn-primary btn-small" onclick="event.stopPropagation();openChannelById(\'' + s.channelId + '\')">📊 Analiz</button></div></div></div>';
+    html += '<div class="t-card" onclick="openChannelById(\'' + s.channelId + '\')"><div class="t-thumb"><img src="' + thumb + '" alt=""/><div class="live">LIVE</div><div class="rank">' + (i+1) + '</div></div><div class="t-info"><h3>' + esc(s.title.substring(0,60)) + '</h3><div class="t-stats"><span>👁️ ' + formatNumber(parseInt(st.viewCount||0)) + '</span><span>👍 ' + formatNumber(parseInt(st.likeCount||0)) + '</span></div><div class="t-ch"><img src="https://ui-avatars.com/api/?name=' + encodeURIComponent(s.channelTitle) + '&background=4da3ff&color=fff"/><div><div class="t-ch-name">' + esc(s.channelTitle) + '</div><div class="t-ch-subs">' + s.publishedAt.substring(0,10) + '</div></div></div><div class="t-actions"><button class="btn btn-primary btn-small" onclick="event.stopPropagation();openChannelById(\'' + s.channelId + '\')">' + t('analyzeBtn') + '</button></div></div></div>';
   });
   html += '</div>';
   grid.innerHTML = html;
@@ -1288,29 +1482,28 @@ async function searchChannel() {
   var q = document.getElementById('analyticsSearch').value.trim();
   if (!q) return;
   
-  document.getElementById('analyticsResult').innerHTML = '<div class="t-loading"><div class="spinner"></div><p>Aranıyor...</p></div>';
+  document.getElementById('analyticsResult').innerHTML = '<div class="t-loading"><div class="spinner"></div><p>' + t('searching') + '</p></div>';
   
   try {
     var resp = await fetch('https://www.googleapis.com/youtube/v3/search?part=snippet&type=channel&q=' + encodeURIComponent(q) + '&maxResults=1&key=' + YOUTUBE_API_KEY);
     var data = await resp.json();
     
     if (!data.items || !data.items.length) {
-      document.getElementById('analyticsResult').innerHTML = '<div class="empty">Kanal bulunamadı</div>';
+      document.getElementById('analyticsResult').innerHTML = '<div class="empty">' + t('notFound') + '</div>';
       return;
     }
     
     var cid = data.items[0].snippet.channelId || data.items[0].id.channelId;
     document.getElementById('analyticsResult').innerHTML = '';
     openChannelById(cid);
-    
   } catch (err) {
-    document.getElementById('analyticsResult').innerHTML = '<div class="empty">Hata: ' + err.message + '</div>';
+    document.getElementById('analyticsResult').innerHTML = '<div class="empty">' + t('error') + ': ' + err.message + '</div>';
   }
 }
 
 async function openChannelById(channelId) {
-  document.getElementById('chModalTitle').textContent = 'Yükleniyor...';
-  document.getElementById('chModalBody').innerHTML = '<div class="t-loading"><div class="spinner"></div><p>Yükleniyor...</p></div>';
+  document.getElementById('chModalTitle').textContent = t('loading');
+  document.getElementById('chModalBody').innerHTML = '<div class="t-loading"><div class="spinner"></div><p>' + t('loading') + '</p></div>';
   document.getElementById('channelModal').classList.add('active');
   
   try {
@@ -1318,13 +1511,13 @@ async function openChannelById(channelId) {
     var data = await resp.json();
     
     if (!data.items || !data.items.length) {
-      document.getElementById('chModalBody').innerHTML = '<div class="empty">Kanal bulunamadı</div>';
+      document.getElementById('chModalBody').innerHTML = '<div class="empty">' + t('notFound') + '</div>';
       return;
     }
     
     renderChannelModal(data.items[0]);
   } catch (err) {
-    document.getElementById('chModalBody').innerHTML = '<div class="empty">Hata: ' + err.message + '</div>';
+    document.getElementById('chModalBody').innerHTML = '<div class="empty">' + t('error') + ': ' + err.message + '</div>';
   }
 }
 
@@ -1341,31 +1534,31 @@ function renderChannelModal(ch) {
   var earnAvg = Math.round((earnLow + earnHigh) / 2);
   
   document.getElementById('chModalTitle').textContent = '📊 ' + s.title;
-  document.getElementById('chModalSub').textContent = formatNumber(subs) + ' abone';
+  document.getElementById('chModalSub').textContent = formatNumber(subs) + ' ' + t('chSubs');
   
-  var html = '<div class="a-header"><img src="' + (s.thumbnails.high ? s.thumbnails.high.url : s.thumbnails.default.url) + '"/><div><h2>' + esc(s.title) + '</h2><p style="color:var(--muted);font-size:12px">' + formatNumber(subs) + ' abone · ' + formatNumber(vids) + ' video</p><span class="trend-ind up">📈 Yükseliyor</span></div></div>';
-  html += '<div class="a-grid"><div class="a-box"><h3>📊 İstatistikler</h3><div class="a-stat"><span>👥 Abone</span><strong>' + formatNumber(subs) + '</strong></div><div class="a-stat"><span>👁️ Toplam İzlenme</span><strong>' + formatNumber(views) + '</strong></div><div class="a-stat"><span>📹 Video Sayısı</span><strong>' + formatNumber(vids) + '</strong></div><div class="a-stat"><span>📊 Ortalama İzlenme</span><strong>' + formatNumber(avgViews) + '</strong></div></div>';
-  html += '<div class="a-box earn-box"><h3>💰 Tahmini Aylık Kazanç</h3><div class="earn-amount">$' + formatNumber(earnAvg) + '/ay</div><div class="earn-range">$' + formatNumber(earnLow) + ' - $' + formatNumber(earnHigh) + '</div></div>';
-  html += '<div class="a-box"><h3>📈 Büyüme Trendi</h3>';
-  var months = ['Bu Ay','Geçen Ay','2 Ay Önce','3 Ay Önce'];
+  var html = '<div class="a-header"><img src="' + (s.thumbnails.high ? s.thumbnails.high.url : s.thumbnails.default.url) + '"/><div><h2>' + esc(s.title) + '</h2><p style="color:var(--muted);font-size:12px">' + formatNumber(subs) + ' ' + t('chSubs') + ' · ' + formatNumber(vids) + ' ' + t('chVideos') + '</p><span class="trend-ind up">' + t('trendUp') + '</span></div></div>';
+  html += '<div class="a-grid"><div class="a-box"><h3>' + t('chStats') + '</h3><div class="a-stat"><span>👥 ' + t('chSubs') + '</span><strong>' + formatNumber(subs) + '</strong></div><div class="a-stat"><span>👁️ ' + t('chTotalViews') + '</span><strong>' + formatNumber(views) + '</strong></div><div class="a-stat"><span>📹 ' + t('chVideos') + '</span><strong>' + formatNumber(vids) + '</strong></div><div class="a-stat"><span>📊 ' + t('chAvgViews') + '</span><strong>' + formatNumber(avgViews) + '</strong></div></div>';
+  html += '<div class="a-box earn-box"><h3>' + t('chEarn') + '</h3><div class="earn-amount">$' + formatNumber(earnAvg) + '/mo</div><div class="earn-range">$' + formatNumber(earnLow) + ' - $' + formatNumber(earnHigh) + '</div></div>';
+  html += '<div class="a-box"><h3>' + t('chGrowth') + '</h3>';
+  var months = [t('thisMonth'), t('lastMonth'), t('twoMonthsAgo'), t('threeMonthsAgo')];
   var growth = [100,85,72,60];
   months.forEach(function(m,i) {
     html += '<div class="g-bar"><div class="lbl">' + m + '</div><div class="trk"><div class="gfill" style="width:' + growth[i] + '%"></div></div><div class="val">' + formatNumber(Math.round(avgViews*growth[i]/100)) + '</div></div>';
   });
   html += '</div>';
-  html += '<div class="a-box"><h3>👥 Cinsiyet</h3><div class="d-bar"><div class="d-bar-label"><span>👨 Erkek</span><span>62%</span></div><div class="d-bar-track"><div class="d-bar-fill male" style="width:62%"></div></div></div><div class="d-bar"><div class="d-bar-label"><span>👩 Kadın</span><span>38%</span></div><div class="d-bar-track"><div class="d-bar-fill female" style="width:38%"></div></div></div></div>';
-  html += '<div class="a-box"><h3>📅 Yaş</h3>';
+  html += '<div class="a-box"><h3>' + t('chGender') + '</h3><div class="d-bar"><div class="d-bar-label"><span>' + t('chMale') + '</span><span>62%</span></div><div class="d-bar-track"><div class="d-bar-fill male" style="width:62%"></div></div></div><div class="d-bar"><div class="d-bar-label"><span>' + t('chFemale') + '</span><span>38%</span></div><div class="d-bar-track"><div class="d-bar-fill female" style="width:38%"></div></div></div></div>';
+  html += '<div class="a-box"><h3>' + t('chAge') + '</h3>';
   [['13-17',12],['18-24',35],['25-34',28],['35-44',15],['45+',10]].forEach(function(a) {
     html += '<div class="c-row"><span>' + a[0] + '</span><strong>' + a[1] + '%</strong></div>';
   });
   html += '</div>';
-  html += '<div class="a-box"><h3>🌍 Ülke</h3>';
-  [['🇺🇸 USA',35],['🇬🇧 UK',15],['🇩🇪 Germany',10],['🇹🇷 Turkey',8],['🌍 Diğer',32]].forEach(function(c) {
+  html += '<div class="a-box"><h3>' + t('chCountry') + '</h3>';
+  [['🇺🇸 USA',35],['🇬🇧 UK',15],['🇩🇪 Germany',10],['🇹🇷 Turkey',8],['🌍 Other',32]].forEach(function(c) {
     html += '<div class="c-row"><span>' + c[0] + '</span><strong>' + c[1] + '%</strong></div>';
   });
   html += '</div></div>';
-  html += '<div style="text-align:center;margin-top:12px"><a href="https://youtube.com/channel/' + ch.id + '" target="_blank" class="btn btn-primary">🔗 Kanala Git</a></div>';
-  html += '<div class="disclaimer">⚠️ Tahminler sektör ortalamalarına göre hesaplanır.</div>';
+  html += '<div style="text-align:center;margin-top:12px"><a href="https://youtube.com/channel/' + ch.id + '" target="_blank" class="btn btn-primary">' + t('chGoChannel') + '</a></div>';
+  html += '<div class="disclaimer">' + t('chDisclaimer') + '</div>';
   
   document.getElementById('chModalBody').innerHTML = html;
 }
@@ -1395,7 +1588,6 @@ function sendAIMessage() {
   input.value = '';
   msgs.scrollTop = msgs.scrollHeight;
   
-  // Akıllı bot cevap sistemi
   setTimeout(function() {
     var answer = getBotAnswer(question.toLowerCase());
     msgs.innerHTML += '<div class="ai-msg bot">' + answer + '</div>';
@@ -1404,57 +1596,48 @@ function sendAIMessage() {
 }
 
 function getBotAnswer(q) {
-  // Niş ile ilgili
-  if (q.includes('niş') || q.includes('hangi')) {
-    if (q.includes('başla') || q.includes('yeni') || q.includes('başlangıç')) {
-      return '🎯 <strong>Yeni başlayanlar için 3 adım:</strong><br>1. 🔍 Hidden filtresini aç (rekabet az)<br>2. 🆕 Yeni Kanal Dostu seç<br>3. 🛡️ Risk skoru 80+ olanı seç<br><br>💡 Önerilerim: <strong>AI Araçları, Verimlilik, Bilim Anlatımı</strong> - hepsi düşük rekabetli ve karlı!';
+  var answers = {
+    tr: {
+      niche: '🎯 <strong>Yeni başlayanlar için 3 adım:</strong><br>1. 🔍 Hidden filtresini aç<br>2. 🆕 Yeni Kanal Dostu seç<br>3. 🛡️ Risk skoru 80+ olanı seç<br><br>💡 Önerilerim: <strong>AI Araçları, Verimlilik, Bilim Anlatımı</strong>',
+      money: '💰 <strong>En karlı nişler:</strong><br>🥇 İş & Kariyer ($8-15)<br>🥈 Teknoloji & AI ($6-12)<br>🥉 Eğitim & Bilim ($4-8)<br><br>⚠️ Hidden filtresi kullan!',
+      subs: '📈 <strong>1000 aboneye:</strong><br>1. İlk 30 gün 10 Shorts<br>2. Tek nişte derinleş<br>3. Thumbnail önemli<br>4. İlk 15 sn izleyiciyi yakala<br>5. Düzenli yayın<br><br>⏱️ 3-6 ay',
+      copyright: '⚠️ <strong>Telif:</strong><br>❌ Spotify müzik, film sahnesi<br>✅ YouTube Audio Library, Epidemic Sound, Royalty-free',
+      faceless: '🎭 <strong>Faceless Kanal:</strong><br>1. AI ses (ElevenLabs)<br>2. Stock video (Pexels)<br>3. Ekran kaydı<br>4. Animasyon<br><br>💎 En iyi nişler: AI, Bilim, Tarih, Mühendislik',
+      hello: '👋 Merhaba! Niş seçimi, YouTube stratejileri, kazanç ve daha fazlası için bana sor!',
+      default: '🤔 Sorabileceğin örnek sorular:<br>• Hangi nişle başlamalıyım?<br>• 1000 aboneye nasıl ulaşırım?<br>• En karlı nişler?<br>• Faceless kanal?<br>• Telif hakkı?'
+    },
+    en: {
+      niche: '🎯 <strong>3 steps for beginners:</strong><br>1. 🔍 Enable Hidden filter<br>2. 🆕 Select Newbie Friendly<br>3. 🛡️ Choose Risk 80+<br><br>💡 Recommendations: <strong>AI Tools, Productivity, Science</strong>',
+      money: '💰 <strong>Most profitable:</strong><br>🥇 Business & Career ($8-15)<br>🥈 Tech & AI ($6-12)<br>🥉 Education ($4-8)<br><br>⚠️ Use Hidden filter!',
+      subs: '📈 <strong>To 1000 subs:</strong><br>1. 10 Shorts in 30 days<br>2. Focus one niche<br>3. Thumbnails matter<br>4. Hook in 15 sec<br>5. Be consistent<br><br>⏱️ 3-6 months',
+      copyright: '⚠️ <strong>Copyright:</strong><br>❌ Spotify music, movie clips<br>✅ YouTube Audio Library, Epidemic Sound, Royalty-free',
+      faceless: '🎭 <strong>Faceless Channel:</strong><br>1. AI voice (ElevenLabs)<br>2. Stock video (Pexels)<br>3. Screen recording<br>4. Animation<br><br>💎 Best niches: AI, Science, History, Engineering',
+      hello: '👋 Hello! Ask me about niche selection, YouTube strategies, earnings and more!',
+      default: '🤔 Example questions:<br>• Which niche to start with?<br>• How to reach 1000 subs?<br>• Most profitable niches?<br>• Faceless channel?<br>• Copyright?'
     }
-    if (q.includes('para') || q.includes('kazanç') || q.includes('karlı')) {
-      return '💰 <strong>En karlı nişler:</strong><br>🥇 İş & Kariyer (RPM $8-15)<br>🥈 Teknoloji & AI (RPM $6-12)<br>🥉 Eğitim & Bilim (RPM $4-8)<br>🏅 Finans (yatırım tavsiyesi YASAK ama eğitim olabilir)<br><br>⚠️ Yüksek RPM = yüksek rekabet. Hidden filtresi kullan!';
-    }
-    return '🎯 <strong>Niş seçerken dikkat et:</strong><br>• Tutku + para birlikte olmalı<br>• Rekabet < 60, Risk > 70 ideal<br>• Faceless istiyorsan Faceless filtresini aç<br>• 50+ niş incele, sonra karar ver<br><br>📊 Niş Keşfi sayfasından başlayabilirsin!';
-  }
+  };
   
-  // Abone artırma
-  if (q.includes('abone') || q.includes('1000') || q.includes('büyüt')) {
-    return '📈 <strong>1000 aboneye ulaşma stratejisi:</strong><br>1. İlk 30 gün: 10 Shorts paylaş<br>2. Her gün <strong>tek niş</strong>te derinleş<br>3. Thumbnail + başlık çok önemli<br>4. İlk 15 saniyede izleyiciyi yakala<br>5. Düzenli yayın (haftada 2-3 video)<br><br>⏱️ Ortalama süre: 3-6 ay';
-  }
+  var lang = T[currentLang] ? (currentLang === 'tr' ? 'tr' : 'en') : 'tr';
+  var a = answers[lang];
   
-  // Telif hakkı
-  if (q.includes('telif') || q.includes('kopya') || q.includes('müzik')) {
-    return '⚠️ <strong>Telif Hakları Rehberi:</strong><br>❌ <strong>YAPMA:</strong><br>• Spotify/Apple müzik kullanma<br>• Film/dizi sahneleri direkt kullanma<br>• Başka YouTuber\'ın videosunu kopyalama<br><br>✅ <strong>YAP:</strong><br>• YouTube Audio Library<br>• Epidemic Sound<br>• Royalty-free müzik (CC0)<br>• Kendi oluşturduğun içerik';
-  }
-  
-  // Faceless
-  if (q.includes('faceless') || q.includes('yüz') || q.includes('görünmeden')) {
-    return '🎭 <strong>Faceless Kanal Rehberi:</strong><br>1. AI ses (ElevenLabs, Murf)<br>2. Stock video (Pexels, Pixabay)<br>3. Ekran kaydı + voiceover<br>4. Animasyon (Canva, CapCut)<br><br>💎 <strong>En iyi faceless nişler:</strong><br>• AI Araçları<br>• Bilim Anlatımı<br>• Tarih Hikayeleri<br>• Mühendislik<br>• İlginç Bilgiler';
-  }
-  
-  // RPM
-  if (q.includes('rpm') || q.includes('cpm')) {
-    return '💵 <strong>RPM Nedir?</strong><br>RPM = 1000 izlenme başına kazanç<br><br>📊 <strong>Ortalama RPM\'ler:</strong><br>• Finans/Yatırım: $8-15<br>• Tech/Yazılım: $6-12<br>• Eğitim: $4-8<br>• Eğlence: $1-3<br>• Müzik: $0.5-2<br><br>🌍 Ülkeye göre değişir: USA > EU > Asia';
-  }
-  
-  // Genel pozitif
-  if (q.includes('merhaba') || q.includes('selam') || q.includes('hi')) {
-    return '👋 Merhaba! Sana niş seçimi, YouTube stratejileri, kazanç hesaplama, telif hakları ve daha fazlası hakkında yardımcı olabilirim. Ne öğrenmek istersin?';
-  }
-  
-  // Default
-  return '🤔 Bu konuda spesifik bir cevabım yok ama şunları sorabilirsin:<br>• <strong>Hangi nişle başlamalıyım?</strong><br>• <strong>1000 aboneye nasıl ulaşırım?</strong><br>• <strong>En karlı nişler neler?</strong><br>• <strong>Faceless kanal nasıl açılır?</strong><br>• <strong>Telif hakkı nedir?</strong><br>• <strong>RPM nedir?</strong><br><br>💡 Veya sol menüdeki <strong>Niş Keşfi</strong>\'ne bakabilirsin!';
+  if (q.includes('niş') || q.includes('niche') || q.includes('başla') || q.includes('start')) return a.niche;
+  if (q.includes('para') || q.includes('money') || q.includes('kazanç') || q.includes('earn') || q.includes('karlı') || q.includes('profit')) return a.money;
+  if (q.includes('abone') || q.includes('subs') || q.includes('1000')) return a.subs;
+  if (q.includes('telif') || q.includes('copyright') || q.includes('müzik') || q.includes('music')) return a.copyright;
+  if (q.includes('faceless') || q.includes('yüz') || q.includes('face')) return a.faceless;
+  if (q.includes('merhaba') || q.includes('selam') || q.includes('hello') || q.includes('hi')) return a.hello;
+  return a.default;
 }
 
 // ============================================
 // EVENT LISTENERS
 // ============================================
 window.addEventListener('DOMContentLoaded', function() {
-  // Search & Filter listeners
   ['searchInput','langFilter','sortFilter','hiddenOnly','newChannelOnly','facelessOnly'].forEach(function(id) {
     var el = document.getElementById(id);
     if (el) el.addEventListener(el.type === 'checkbox' ? 'change' : 'input', render);
   });
   
-  // Enter tuşu
   var trending = document.getElementById('trendingSearch');
   if (trending) trending.addEventListener('keypress', function(e) { if (e.key === 'Enter') loadTrending(); });
   
@@ -1464,14 +1647,12 @@ window.addEventListener('DOMContentLoaded', function() {
   var qs = document.getElementById('quickSearch');
   if (qs) qs.addEventListener('keypress', function(e) { if (e.key === 'Enter') quickSearch(); });
   
-  // Modal kapatma
   var dm = document.getElementById('detailModal');
   if (dm) dm.addEventListener('click', function(e) { if (e.target === this) closeModal(); });
   
   var cm = document.getElementById('channelModal');
   if (cm) cm.addEventListener('click', function(e) { if (e.target === this) closeChannelModal(); });
 });
-
 </script>
 </body>
 </html>
