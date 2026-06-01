@@ -1512,7 +1512,7 @@ async function loadTrending() {
   var q = document.getElementById('trendingSearch').value.trim();
   var r = document.getElementById('trendingRegion').value;
   var sortBy = document.getElementById('trendingSort').value;
-  var ck = 'trend_' + r + '_' + q + '_' + currentLang + '_' + sortBy;
+  var ck = 'trend_v3_' + r + '_' + q + '_' + currentLang + '_' + sortBy;
   
   var cached = cacheGet(ck);
   if (cached) { renderTrending(cached); trendingLoaded = true; return; }
@@ -1531,7 +1531,7 @@ async function loadTrending() {
   try {
     var url;
     if (q) {
-      url = 'https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=' + encodeURIComponent(q) + '&regionCode=' + r + '&relevanceLanguage=' + relLang + '&maxResults=50&order=' + apiOrder + '&key=' + YOUTUBE_API_KEY;
+      url = 'https://www.googleapis.com/youtube/v3/search?part=snippet&type=channel&q=' + encodeURIComponent(q) + '&regionCode=' + r + '&relevanceLanguage=' + relLang + '&maxResults=50&order=' + apiOrder + '&key=' + YOUTUBE_API_KEY;
     } else {
       url = 'https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&chart=mostPopular&regionCode=' + r + '&maxResults=50&key=' + YOUTUBE_API_KEY;
     }
@@ -1543,20 +1543,45 @@ async function loadTrending() {
     
     var items;
     if (q) {
-      var ids = data.items.map(function(v) { return v.id.videoId || v.id; }).join(',');
-      var vresp = await fetch('https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&id=' + ids + '&key=' + YOUTUBE_API_KEY);
-      var vdata = await vresp.json();
-      items = vdata.items || [];
+      var channelIds = data.items.map(function(v) { return v.snippet.channelId || v.id.channelId; }).filter(Boolean).slice(0, 50).join(',');
+      
+      if (!channelIds) {
+        grid.innerHTML = '<div class="empty">' + t('notFound') + '</div>';
+        return;
+      }
+      
+      var cresp = await fetch('https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=' + channelIds + '&key=' + YOUTUBE_API_KEY);
+      var cdata = await cresp.json();
+      items = cdata.items || [];
+      
+      var blacklist = ['bank', 'banka', 'reklam', 'official', 'resmi'];
+      items = items.filter(function(ch) {
+        var title = (ch.snippet.title || '').toLowerCase();
+        for (var i = 0; i < blacklist.length; i++) {
+          if (title.indexOf(blacklist[i]) > -1) return false;
+        }
+        return true;
+      });
+      
+      if (sortBy === 'hidden') {
+        items.sort(function(a, b) {
+          var aSubs = parseInt((a.statistics && a.statistics.subscriberCount) || 0);
+          var bSubs = parseInt((b.statistics && b.statistics.subscriberCount) || 0);
+          return aSubs - bSubs;
+        });
+      } else if (sortBy === 'viewCount') {
+        items.sort(function(a, b) {
+          var aSubs = parseInt((a.statistics && a.statistics.subscriberCount) || 0);
+          var bSubs = parseInt((b.statistics && b.statistics.subscriberCount) || 0);
+          return bSubs - aSubs;
+        });
+      } else if (sortBy === 'date') {
+        items.sort(function(a, b) {
+          return new Date(b.snippet.publishedAt) - new Date(a.snippet.publishedAt);
+        });
+      }
     } else {
       items = data.items;
-    }
-    
-    if (sortBy === 'hidden') {
-      items.sort(function(a, b) {
-        var aViews = parseInt((a.statistics && a.statistics.viewCount) || 0);
-        var bViews = parseInt((b.statistics && b.statistics.viewCount) || 0);
-        return aViews - bViews;
-      });
     }
     
     cacheSet(ck, items);
@@ -1573,9 +1598,28 @@ function renderTrending(items) {
   
   var html = '<div class="results-grid">';
   items.forEach(function(v, i) {
-    var s = v.snippet, st = v.statistics || {};
-    var thumb = s.thumbnails.medium ? s.thumbnails.medium.url : s.thumbnails.default.url;
-    html += '<div class="t-card" onclick="openChannelById(\'' + s.channelId + '\')"><div class="t-thumb"><img src="' + thumb + '" alt=""/><div class="live">LIVE</div><div class="rank">' + (i+1) + '</div></div><div class="t-info"><h3>' + esc(s.title.substring(0,60)) + '</h3><div class="t-stats"><span>👁️ ' + formatNumber(parseInt(st.viewCount||0)) + '</span><span>👍 ' + formatNumber(parseInt(st.likeCount||0)) + '</span></div><div class="t-ch"><img src="https://ui-avatars.com/api/?name=' + encodeURIComponent(s.channelTitle) + '&background=4da3ff&color=fff"/><div><div class="t-ch-name">' + esc(s.channelTitle) + '</div><div class="t-ch-subs">' + s.publishedAt.substring(0,10) + '</div></div></div><div class="t-actions"><button class="btn btn-primary btn-small" onclick="event.stopPropagation();openChannelById(\'' + s.channelId + '\')">' + t('analyzeBtn') + '</button></div></div></div>';
+    if (v.snippet && v.statistics && v.statistics.subscriberCount !== undefined) {
+      var s = v.snippet;
+      var st = v.statistics;
+      var subs = parseInt(st.subscriberCount || 0);
+      var views = parseInt(st.viewCount || 0);
+      var vids = parseInt(st.videoCount || 0);
+      var thumb = s.thumbnails.medium ? s.thumbnails.medium.url : s.thumbnails.default.url;
+      var chId = v.id;
+      
+      html += '<div class="t-card" onclick="openChannelById(\'' + chId + '\')">';
+      html += '<div class="t-thumb" style="background:linear-gradient(135deg,#4da3ff,#a78bfa);display:grid;place-items:center"><img src="' + thumb + '" alt="" style="width:80px;height:80px;border-radius:50%;object-fit:cover"/><div class="rank">' + (i+1) + '</div></div>';
+      html += '<div class="t-info"><h3>' + esc(s.title) + '</h3>';
+      html += '<div class="t-stats"><span>👥 ' + formatNumber(subs) + '</span><span>👁️ ' + formatNumber(views) + '</span><span>📹 ' + formatNumber(vids) + '</span></div>';
+      html += '<div class="t-ch"><img src="' + thumb + '"/><div><div class="t-ch-name">' + esc(s.title) + '</div><div class="t-ch-subs">' + (s.country || 'Global') + ' · ' + s.publishedAt.substring(0,10) + '</div></div></div>';
+      html += '<div class="t-actions"><button class="btn btn-primary btn-small" onclick="event.stopPropagation();openChannelById(\'' + chId + '\')">📊 ' + t('analyzeBtn') + '</button></div>';
+      html += '</div></div>';
+    } else if (v.snippet) {
+      var s = v.snippet;
+      var st = v.statistics || {};
+      var thumb = s.thumbnails.medium ? s.thumbnails.medium.url : s.thumbnails.default.url;
+      html += '<div class="t-card" onclick="openChannelById(\'' + s.channelId + '\')"><div class="t-thumb"><img src="' + thumb + '" alt=""/><div class="live">LIVE</div><div class="rank">' + (i+1) + '</div></div><div class="t-info"><h3>' + esc(s.title.substring(0,60)) + '</h3><div class="t-stats"><span>👁️ ' + formatNumber(parseInt(st.viewCount||0)) + '</span><span>👍 ' + formatNumber(parseInt(st.likeCount||0)) + '</span></div><div class="t-ch"><img src="https://ui-avatars.com/api/?name=' + encodeURIComponent(s.channelTitle) + '&background=4da3ff&color=fff"/><div><div class="t-ch-name">' + esc(s.channelTitle) + '</div><div class="t-ch-subs">' + s.publishedAt.substring(0,10) + '</div></div></div><div class="t-actions"><button class="btn btn-primary btn-small" onclick="event.stopPropagation();openChannelById(\'' + s.channelId + '\')">' + t('analyzeBtn') + '</button></div></div></div>';
+    }
   });
   html += '</div>';
   grid.innerHTML = html;
