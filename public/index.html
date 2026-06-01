@@ -388,6 +388,13 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:var(--bg);c
 <div class="input-row" style="margin-bottom:10px">
 <input id="trendingSearch" data-i18n-ph="trendingSearchPH" placeholder="🔍 Kategori veya kanal ara..." style="flex:2"/>
 <select id="trendingRegion"><option value="US">🇺🇸 USA</option><option value="TR">🇹🇷 Türkiye</option><option value="DE">🇩🇪 Almanya</option><option value="GB">🇬🇧 UK</option><option value="FR">🇫🇷 Fransa</option><option value="ES">🇪🇸 İspanya</option><option value="JP">🇯🇵 Japonya</option></select>
+<select id="trendingSort">
+<option value="viewCount">🔥 En Çok İzlenen</option>
+<option value="date">🆕 En Yeni</option>
+<option value="rating">👍 En Beğenilen</option>
+<option value="relevance">📊 İlgi Düzeyi</option>
+<option value="hidden">💎 Gizli Fırsat (Az İzlenen)</option>
+</select>
 <button class="btn btn-primary" onclick="loadTrending()" data-i18n="searchBtnAlt">🔄 Ara</button>
 </div>
 <div id="trendingGrid"></div>
@@ -1504,7 +1511,8 @@ function closeModal() {
 async function loadTrending() {
   var q = document.getElementById('trendingSearch').value.trim();
   var r = document.getElementById('trendingRegion').value;
-  var ck = 'trend_' + r + '_' + q;
+  var sortBy = document.getElementById('trendingSort').value;
+  var ck = 'trend_' + r + '_' + q + '_' + currentLang + '_' + sortBy;
   
   var cached = cacheGet(ck);
   if (cached) { renderTrending(cached); trendingLoaded = true; return; }
@@ -1512,12 +1520,20 @@ async function loadTrending() {
   var grid = document.getElementById('trendingGrid');
   grid.innerHTML = '<div class="t-loading"><div class="spinner"></div><p>' + t('loading') + '</p></div>';
   
+  var regionLangMap = {
+    'TR': 'tr', 'US': 'en', 'GB': 'en', 'DE': 'de',
+    'FR': 'fr', 'ES': 'es', 'JP': 'ja'
+  };
+  var relLang = regionLangMap[r] || 'en';
+  
+  var apiOrder = sortBy === 'hidden' ? 'viewCount' : sortBy;
+  
   try {
     var url;
     if (q) {
-      url = 'https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=' + encodeURIComponent(q) + '&regionCode=' + r + '&maxResults=20&key=' + YOUTUBE_API_KEY;
+      url = 'https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&q=' + encodeURIComponent(q) + '&regionCode=' + r + '&relevanceLanguage=' + relLang + '&maxResults=50&order=' + apiOrder + '&key=' + YOUTUBE_API_KEY;
     } else {
-      url = 'https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&chart=mostPopular&regionCode=' + r + '&maxResults=20&key=' + YOUTUBE_API_KEY;
+      url = 'https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&chart=mostPopular&regionCode=' + r + '&maxResults=50&key=' + YOUTUBE_API_KEY;
     }
     
     var resp = await fetch(url);
@@ -1533,6 +1549,14 @@ async function loadTrending() {
       items = vdata.items || [];
     } else {
       items = data.items;
+    }
+    
+    if (sortBy === 'hidden') {
+      items.sort(function(a, b) {
+        var aViews = parseInt((a.statistics && a.statistics.viewCount) || 0);
+        var bViews = parseInt((b.statistics && b.statistics.viewCount) || 0);
+        return aViews - bViews;
+      });
     }
     
     cacheSet(ck, items);
