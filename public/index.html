@@ -440,21 +440,52 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:var(--bg);c
 
 <div id="page-trending" style="display:none">
 <section class="section">
-<h2 data-i18n="trendingPageTitle">🔥 Yükselen YouTube Kanalları</h2>
-<p style="color:var(--muted);margin-bottom:10px;font-size:12px" data-i18n="trendingPageSub">CANLI veri! Kanala tıklayarak detay gör. Her arama 1 saat önbellekte kalır.</p>
+<h2 data-i18n="trendingPageTitle">🔥 YouTube Kanalları Keşfet</h2>
+<p style="color:var(--muted);margin-bottom:10px;font-size:12px" data-i18n="trendingPageSub">CANLI veri + Akıllı database! Tüm kanallar otomatik kaydedilir, sonsuza dek hızlı erişim.</p>
+
 <div class="input-row" style="margin-bottom:10px">
 <input id="trendingSearch" data-i18n-ph="trendingSearchPH" placeholder="🔍 Kategori veya kanal ara..." style="flex:2"/>
-<select id="trendingRegion"><option value="US">🇺🇸 USA</option><option value="TR">🇹🇷 Türkiye</option><option value="DE">🇩🇪 Almanya</option><option value="GB">🇬🇧 UK</option><option value="FR">🇫🇷 Fransa</option><option value="ES">🇪🇸 İspanya</option><option value="JP">🇯🇵 Japonya</option></select>
+<select id="trendingRegion">
+<option value="US">🇺🇸 USA</option>
+<option value="TR">🇹🇷 Türkiye</option>
+<option value="DE">🇩🇪 Almanya</option>
+<option value="GB">🇬🇧 UK</option>
+<option value="FR">🇫🇷 Fransa</option>
+<option value="ES">🇪🇸 İspanya</option>
+<option value="JP">🇯🇵 Japonya</option>
+</select>
 <select id="trendingSort">
 <option value="viewCount">🔥 En Çok İzlenen</option>
 <option value="date">🆕 En Yeni</option>
 <option value="rating">👍 En Beğenilen</option>
 <option value="relevance">📊 İlgi Düzeyi</option>
-<option value="hidden">💎 Gizli Fırsat (Az İzlenen)</option>
+<option value="hidden">💎 Gizli Fırsat</option>
 </select>
 <button class="btn btn-primary" onclick="loadTrending()" data-i18n="searchBtnAlt">🔄 Ara</button>
 </div>
+
+<div class="filter-bar">
+<button class="filter-chip active" onclick="setVideoTypeFilter('all')" id="vtFilter-all">📺 Tüm Kanallar</button>
+<button class="filter-chip" onclick="setVideoTypeFilter('long')" id="vtFilter-long">🎬 Long-Form</button>
+<button class="filter-chip" onclick="setVideoTypeFilter('shorts')" id="vtFilter-shorts">📱 Shorts</button>
+<button class="filter-chip" onclick="setSizeFilter('all')" id="sFilter-all">👥 Tüm Boyutlar</button>
+<button class="filter-chip" onclick="setSizeFilter('micro')" id="sFilter-micro">🌱 Mikro (<10K)</button>
+<button class="filter-chip" onclick="setSizeFilter('small')" id="sFilter-small">🟢 Küçük (10K-100K)</button>
+<button class="filter-chip" onclick="setSizeFilter('medium')" id="sFilter-medium">🟡 Orta (100K-1M)</button>
+<button class="filter-chip" onclick="setSizeFilter('large')" id="sFilter-large">🔴 Büyük (1M+)</button>
+<button class="filter-chip" onclick="setSpecialFilter('outliers')" id="spFilter-outliers">🏆 Outliers</button>
+<button class="filter-chip" onclick="setSpecialFilter('faceless')" id="spFilter-faceless">🎭 Faceless</button>
+<button class="filter-chip" onclick="setSpecialFilter('hidden')" id="spFilter-hidden">💎 Hidden Gems</button>
+</div>
+
+<div id="searchResultsInfo" class="search-results-info" style="display:none">
+<span><strong id="resultsCount">0</strong> kanal gösteriliyor</span>
+<span id="cacheStatus"></span>
+</div>
+
 <div id="trendingGrid"></div>
+
+<button id="loadMoreBtn" class="load-more-btn" style="display:none" onclick="loadMoreChannels()">📥 Daha Fazla Yükle (50+)</button>
 </section>
 </div>
 
@@ -1566,121 +1597,398 @@ function closeModal() {
 // ============================================
 // TRENDING (YouTube API)
 // ============================================
+// ============================================
+// NICHIFY 2.0 - SMART TRENDING (Database + Pagination + Filters)
+// ============================================
+var trendingChannels = [];
+var nextPageToken = null;
+var currentSearchQuery = '';
+var currentRegion = '';
+var currentSortBy = '';
+var currentVideoType = 'all';
+var currentSizeFilter = 'all';
+var currentSpecialFilter = 'all';
+var loadingMore = false;
+
 async function loadTrending() {
   var q = document.getElementById('trendingSearch').value.trim();
   var r = document.getElementById('trendingRegion').value;
   var sortBy = document.getElementById('trendingSort').value;
-  var ck = 'trend_v3_' + r + '_' + q + '_' + currentLang + '_' + sortBy;
   
-  var cached = cacheGet(ck);
-  if (cached) { renderTrending(cached); trendingLoaded = true; return; }
+  currentSearchQuery = q;
+  currentRegion = r;
+  currentSortBy = sortBy;
+  nextPageToken = null;
+  trendingChannels = [];
   
   var grid = document.getElementById('trendingGrid');
   grid.innerHTML = '<div class="t-loading"><div class="spinner"></div><p>' + t('loading') + '</p></div>';
+  document.getElementById('loadMoreBtn').style.display = 'none';
+  document.getElementById('searchResultsInfo').style.display = 'none';
   
-  var regionLangMap = {
-    'TR': 'tr', 'US': 'en', 'GB': 'en', 'DE': 'de',
-    'FR': 'fr', 'ES': 'es', 'JP': 'ja'
-  };
-  var relLang = regionLangMap[r] || 'en';
+  if (q && q.length > 2) {
+    var dbResults = await searchInDatabase(q, 50);
+    if (dbResults && dbResults.length >= 30) {
+      trendingChannels = dbResults;
+      renderChannels(dbResults, true);
+      showResultsInfo(dbResults.length, true);
+      document.getElementById('loadMoreBtn').style.display = 'block';
+      return;
+    }
+  }
   
-  var apiOrder = sortBy === 'hidden' ? 'viewCount' : sortBy;
+  await fetchFromYouTube();
+}
+
+async function searchInDatabase(query, limit) {
+  try {
+    var { data } = await window.supabase
+      .from('channels_db')
+      .select('*')
+      .ilike('title', '%' + query + '%')
+      .order('subscribers', { ascending: false })
+      .limit(limit);
+    return data || [];
+  } catch (err) {
+    console.log('DB search error:', err);
+    return [];
+  }
+}
+
+async function fetchFromYouTube() {
+  var grid = document.getElementById('trendingGrid');
+  var regionLangMap = {'TR':'tr','US':'en','GB':'en','DE':'de','FR':'fr','ES':'es','JP':'ja'};
+  var relLang = regionLangMap[currentRegion] || 'en';
+  var apiOrder = currentSortBy === 'hidden' ? 'viewCount' : currentSortBy;
   
   try {
     var url;
-    if (q) {
-      url = 'https://www.googleapis.com/youtube/v3/search?part=snippet&type=channel&q=' + encodeURIComponent(q) + '&regionCode=' + r + '&relevanceLanguage=' + relLang + '&maxResults=50&order=' + apiOrder + '&key=' + YOUTUBE_API_KEY;
+    if (currentSearchQuery) {
+      url = 'https://www.googleapis.com/youtube/v3/search?part=snippet&type=channel&q=' + encodeURIComponent(currentSearchQuery) + '&regionCode=' + currentRegion + '&relevanceLanguage=' + relLang + '&maxResults=50&order=' + apiOrder + '&key=' + YOUTUBE_API_KEY;
+      if (nextPageToken) url += '&pageToken=' + nextPageToken;
     } else {
-      url = 'https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&chart=mostPopular&regionCode=' + r + '&maxResults=50&key=' + YOUTUBE_API_KEY;
+      url = 'https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&chart=mostPopular&regionCode=' + currentRegion + '&maxResults=50&key=' + YOUTUBE_API_KEY;
+      if (nextPageToken) url += '&pageToken=' + nextPageToken;
     }
     
     var resp = await fetch(url);
     var data = await resp.json();
     
-    if (!data.items) { grid.innerHTML = '<div class="empty">' + t('notFound') + '</div>'; return; }
-    
-    var items;
-    if (q) {
-      var channelIds = data.items.map(function(v) { return v.snippet.channelId || v.id.channelId; }).filter(Boolean).slice(0, 50).join(',');
-      
-      if (!channelIds) {
+    if (!data.items || !data.items.length) {
+      if (trendingChannels.length === 0) {
         grid.innerHTML = '<div class="empty">' + t('notFound') + '</div>';
-        return;
       }
-      
-      var cresp = await fetch('https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=' + channelIds + '&key=' + YOUTUBE_API_KEY);
-      var cdata = await cresp.json();
-      items = cdata.items || [];
-      
-      var blacklist = ['bank', 'banka', 'reklam', 'official', 'resmi'];
-      items = items.filter(function(ch) {
-        var title = (ch.snippet.title || '').toLowerCase();
-        for (var i = 0; i < blacklist.length; i++) {
-          if (title.indexOf(blacklist[i]) > -1) return false;
-        }
-        return true;
-      });
-      
-      if (sortBy === 'hidden') {
-        items.sort(function(a, b) {
-          var aSubs = parseInt((a.statistics && a.statistics.subscriberCount) || 0);
-          var bSubs = parseInt((b.statistics && b.statistics.subscriberCount) || 0);
-          return aSubs - bSubs;
+      document.getElementById('loadMoreBtn').style.display = 'none';
+      return;
+    }
+    
+    nextPageToken = data.nextPageToken || null;
+    
+    var items = [];
+    if (currentSearchQuery) {
+      var channelIds = data.items.map(function(v) { return v.snippet.channelId || v.id.channelId; }).filter(Boolean).slice(0, 50).join(',');
+      if (channelIds) {
+        var cresp = await fetch('https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=' + channelIds + '&key=' + YOUTUBE_API_KEY);
+        var cdata = await cresp.json();
+        items = cdata.items || [];
+        
+        var blacklist = ['bank', 'banka', 'reklam', 'official', 'resmi'];
+        items = items.filter(function(ch) {
+          var title = (ch.snippet.title || '').toLowerCase();
+          for (var i = 0; i < blacklist.length; i++) {
+            if (title.indexOf(blacklist[i]) > -1) return false;
+          }
+          return true;
         });
-      } else if (sortBy === 'viewCount') {
-        items.sort(function(a, b) {
-          var aSubs = parseInt((a.statistics && a.statistics.subscriberCount) || 0);
-          var bSubs = parseInt((b.statistics && b.statistics.subscriberCount) || 0);
-          return bSubs - aSubs;
-        });
-      } else if (sortBy === 'date') {
-        items.sort(function(a, b) {
-          return new Date(b.snippet.publishedAt) - new Date(a.snippet.publishedAt);
-        });
+        
+        await saveChannelsToDatabase(items);
       }
     } else {
       items = data.items;
     }
     
-    cacheSet(ck, items);
-    renderTrending(items);
-    trendingLoaded = true;
+    if (currentSortBy === 'hidden') {
+      items.sort(function(a, b) {
+        var aSubs = parseInt((a.statistics && a.statistics.subscriberCount) || 0);
+        var bSubs = parseInt((b.statistics && b.statistics.subscriberCount) || 0);
+        return aSubs - bSubs;
+      });
+    } else if (currentSortBy === 'viewCount') {
+      items.sort(function(a, b) {
+        var aSubs = parseInt((a.statistics && a.statistics.subscriberCount) || 0);
+        var bSubs = parseInt((b.statistics && b.statistics.subscriberCount) || 0);
+        return bSubs - aSubs;
+      });
+    }
+    
+    if (loadingMore) {
+      trendingChannels = trendingChannels.concat(items);
+    } else {
+      trendingChannels = items;
+    }
+    
+    renderChannels(trendingChannels, false);
+    showResultsInfo(trendingChannels.length, false);
+    
+    if (nextPageToken && trendingChannels.length < 200) {
+      document.getElementById('loadMoreBtn').style.display = 'block';
+    } else {
+      document.getElementById('loadMoreBtn').style.display = 'none';
+    }
+    
+    loadingMore = false;
+    
   } catch (err) {
     grid.innerHTML = '<div class="empty">' + t('error') + ': ' + err.message + '</div>';
   }
 }
 
-function renderTrending(items) {
-  var grid = document.getElementById('trendingGrid');
-  if (!items || !items.length) { grid.innerHTML = '<div class="empty">' + t('notFound') + '</div>'; return; }
-  
-  var html = '<div class="results-grid">';
-  items.forEach(function(v, i) {
-    if (v.snippet && v.statistics && v.statistics.subscriberCount !== undefined) {
-      var s = v.snippet;
-      var st = v.statistics;
+async function saveChannelsToDatabase(channels) {
+  try {
+    for (var i = 0; i < channels.length; i++) {
+      var ch = channels[i];
+      var s = ch.snippet;
+      var st = ch.statistics || {};
       var subs = parseInt(st.subscriberCount || 0);
       var views = parseInt(st.viewCount || 0);
       var vids = parseInt(st.videoCount || 0);
-      var thumb = s.thumbnails.medium ? s.thumbnails.medium.url : s.thumbnails.default.url;
-      var chId = v.id;
+      var avgViews = vids > 0 ? Math.round(views/vids) : 0;
+      var publishedDate = new Date(s.publishedAt);
+      var daysSince = Math.floor((Date.now() - publishedDate.getTime()) / (1000*60*60*24));
+      var outlierScore = (vids > 0 && subs > 0) ? Math.round((avgViews / subs) * 100) / 100 : 0;
+      var isFaceless = !s.title.toLowerCase().match(/(podcast|interview|vlog|reaction)/);
       
-      html += '<div class="t-card" onclick="openChannelById(\'' + chId + '\')">';
-      html += '<div class="t-thumb" style="background:linear-gradient(135deg,#4da3ff,#a78bfa);display:grid;place-items:center"><img src="' + thumb + '" alt="" style="width:80px;height:80px;border-radius:50%;object-fit:cover"/><div class="rank">' + (i+1) + '</div></div>';
-      html += '<div class="t-info"><h3>' + esc(s.title) + '</h3>';
-      html += '<div class="t-stats"><span>👥 ' + formatNumber(subs) + '</span><span>👁️ ' + formatNumber(views) + '</span><span>📹 ' + formatNumber(vids) + '</span></div>';
-      html += '<div class="t-ch"><img src="' + thumb + '"/><div><div class="t-ch-name">' + esc(s.title) + '</div><div class="t-ch-subs">' + (s.country || 'Global') + ' · ' + s.publishedAt.substring(0,10) + '</div></div></div>';
-      html += '<div class="t-actions"><button class="btn btn-primary btn-small" onclick="event.stopPropagation();openChannelById(\'' + chId + '\')">📊 ' + t('analyzeBtn') + '</button></div>';
-      html += '</div></div>';
-    } else if (v.snippet) {
-      var s = v.snippet;
-      var st = v.statistics || {};
-      var thumb = s.thumbnails.medium ? s.thumbnails.medium.url : s.thumbnails.default.url;
-      html += '<div class="t-card" onclick="openChannelById(\'' + s.channelId + '\')"><div class="t-thumb"><img src="' + thumb + '" alt=""/><div class="live">LIVE</div><div class="rank">' + (i+1) + '</div></div><div class="t-info"><h3>' + esc(s.title.substring(0,60)) + '</h3><div class="t-stats"><span>👁️ ' + formatNumber(parseInt(st.viewCount||0)) + '</span><span>👍 ' + formatNumber(parseInt(st.likeCount||0)) + '</span></div><div class="t-ch"><img src="https://ui-avatars.com/api/?name=' + encodeURIComponent(s.channelTitle) + '&background=4da3ff&color=fff"/><div><div class="t-ch-name">' + esc(s.channelTitle) + '</div><div class="t-ch-subs">' + s.publishedAt.substring(0,10) + '</div></div></div><div class="t-actions"><button class="btn btn-primary btn-small" onclick="event.stopPropagation();openChannelById(\'' + s.channelId + '\')">' + t('analyzeBtn') + '</button></div></div></div>';
+      await window.supabase.from('channels_db').upsert({
+        channel_id: ch.id,
+        title: s.title,
+        description: (s.description || '').substring(0, 500),
+        thumbnail: s.thumbnails.default ? s.thumbnails.default.url : '',
+        subscribers: subs,
+        views: views,
+        videos: vids,
+        published_at: s.publishedAt,
+        country: s.country || null,
+        language: s.defaultLanguage || null,
+        avg_views_per_video: avgViews,
+        days_since_start: daysSince,
+        outlier_score: outlierScore,
+        is_faceless: isFaceless,
+        is_monetized: subs >= 1000,
+        monthly_views: avgViews * 4,
+        estimated_revenue: Math.round(avgViews * 4 * 2.5 / 1000),
+        last_updated: new Date().toISOString()
+      });
     }
+  } catch (err) {
+    console.log('Save error:', err);
+  }
+}
+
+async function loadMoreChannels() {
+  if (loadingMore) return;
+  loadingMore = true;
+  var btn = document.getElementById('loadMoreBtn');
+  btn.disabled = true;
+  btn.textContent = '⏳ Yükleniyor...';
+  
+  await fetchFromYouTube();
+  
+  btn.disabled = false;
+  btn.textContent = '📥 Daha Fazla Yükle (50+)';
+}
+
+function showResultsInfo(count, fromDatabase) {
+  var info = document.getElementById('searchResultsInfo');
+  var resultsCount = document.getElementById('resultsCount');
+  var cacheStatus = document.getElementById('cacheStatus');
+  
+  info.style.display = 'flex';
+  resultsCount.textContent = count;
+  
+  if (fromDatabase) {
+    cacheStatus.innerHTML = '<span class="from-cache-badge">💾 Database\'den (Hızlı!)</span>';
+  } else {
+    cacheStatus.innerHTML = '<span style="color:var(--muted);font-size:11px">📡 YouTube API\'den + 💾 Database\'e kaydedildi</span>';
+  }
+}
+
+function setVideoTypeFilter(type) {
+  currentVideoType = type;
+  document.querySelectorAll('[id^="vtFilter-"]').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('vtFilter-' + type).classList.add('active');
+  applyFilters();
+}
+
+function setSizeFilter(size) {
+  currentSizeFilter = size;
+  document.querySelectorAll('[id^="sFilter-"]').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('sFilter-' + size).classList.add('active');
+  applyFilters();
+}
+
+function setSpecialFilter(filter) {
+  currentSpecialFilter = filter;
+  document.querySelectorAll('[id^="spFilter-"]').forEach(function(b) { b.classList.remove('active'); });
+  document.getElementById('spFilter-' + filter).classList.add('active');
+  applyFilters();
+}
+
+function applyFilters() {
+  var filtered = trendingChannels.slice();
+  
+  if (currentSizeFilter === 'micro') filtered = filtered.filter(function(c) { var s = getSubsCount(c); return s < 10000; });
+  else if (currentSizeFilter === 'small') filtered = filtered.filter(function(c) { var s = getSubsCount(c); return s >= 10000 && s < 100000; });
+  else if (currentSizeFilter === 'medium') filtered = filtered.filter(function(c) { var s = getSubsCount(c); return s >= 100000 && s < 1000000; });
+  else if (currentSizeFilter === 'large') filtered = filtered.filter(function(c) { var s = getSubsCount(c); return s >= 1000000; });
+  
+  if (currentSpecialFilter === 'outliers') filtered = filtered.filter(function(c) { return getOutlierScore(c) > 5; });
+  else if (currentSpecialFilter === 'faceless') filtered = filtered.filter(function(c) { return isFacelessChannel(c); });
+  else if (currentSpecialFilter === 'hidden') filtered = filtered.filter(function(c) { var s = getSubsCount(c); var v = getViewsCount(c); return s < 50000 && v > 100000; });
+  
+  renderChannels(filtered, false);
+  showResultsInfo(filtered.length, false);
+}
+
+function getSubsCount(ch) {
+  if (ch.subscribers !== undefined) return ch.subscribers;
+  if (ch.statistics) return parseInt(ch.statistics.subscriberCount || 0);
+  return 0;
+}
+
+function getViewsCount(ch) {
+  if (ch.views !== undefined) return ch.views;
+  if (ch.statistics) return parseInt(ch.statistics.viewCount || 0);
+  return 0;
+}
+
+function getVideoCount(ch) {
+  if (ch.videos !== undefined) return ch.videos;
+  if (ch.statistics) return parseInt(ch.statistics.videoCount || 0);
+  return 0;
+}
+
+function getOutlierScore(ch) {
+  if (ch.outlier_score !== undefined) return ch.outlier_score;
+  var subs = getSubsCount(ch);
+  var vids = getVideoCount(ch);
+  var views = getViewsCount(ch);
+  if (vids > 0 && subs > 0) return Math.round((views/vids/subs) * 100) / 100;
+  return 0;
+}
+
+function isFacelessChannel(ch) {
+  if (ch.is_faceless !== undefined) return ch.is_faceless;
+  var title = (ch.title || (ch.snippet && ch.snippet.title) || '').toLowerCase();
+  return !title.match(/(podcast|interview|vlog|reaction|talk|show)/);
+}
+
+function getChannelTitle(ch) {
+  return ch.title || (ch.snippet && ch.snippet.title) || '?';
+}
+
+function getChannelThumb(ch) {
+  if (ch.thumbnail) return ch.thumbnail;
+  if (ch.snippet && ch.snippet.thumbnails) {
+    return (ch.snippet.thumbnails.medium && ch.snippet.thumbnails.medium.url) || ch.snippet.thumbnails.default.url;
+  }
+  return 'https://ui-avatars.com/api/?name=' + encodeURIComponent(getChannelTitle(ch));
+}
+
+function getChannelId(ch) {
+  return ch.channel_id || ch.id || (ch.id && ch.id.channelId);
+}
+
+function getDaysSinceStart(ch) {
+  if (ch.days_since_start !== undefined) return ch.days_since_start;
+  if (ch.snippet && ch.snippet.publishedAt) {
+    var d = new Date(ch.snippet.publishedAt);
+    return Math.floor((Date.now() - d.getTime()) / (1000*60*60*24));
+  }
+  return 0;
+}
+
+function getAvgViews(ch) {
+  if (ch.avg_views_per_video !== undefined) return ch.avg_views_per_video;
+  var vids = getVideoCount(ch);
+  var views = getViewsCount(ch);
+  return vids > 0 ? Math.round(views/vids) : 0;
+}
+
+function renderChannels(channels, fromDb) {
+  var grid = document.getElementById('trendingGrid');
+  if (!channels || !channels.length) {
+    grid.innerHTML = '<div class="empty">' + t('notFound') + '</div>';
+    return;
+  }
+  
+  var html = '';
+  channels.forEach(function(ch, i) {
+    var chId = getChannelId(ch);
+    var title = getChannelTitle(ch);
+    var thumb = getChannelThumb(ch);
+    var subs = getSubsCount(ch);
+    var views = getViewsCount(ch);
+    var vids = getVideoCount(ch);
+    var avgViews = getAvgViews(ch);
+    var daysSince = getDaysSinceStart(ch);
+    var outlierScore = getOutlierScore(ch);
+    var isFaceless = isFacelessChannel(ch);
+    var isMonetized = subs >= 1000;
+    var isNew = daysSince < 365;
+    var monthlyRev = Math.round(avgViews * 4 * 2.5 / 1000);
+    
+    html += '<div>';
+    html += '<div class="channel-row" id="ch-' + chId + '" onclick="toggleChannelExpand(\'' + chId + '\')">';
+    html += '<div class="channel-thumb"><img src="' + thumb + '" alt=""/>';
+    if (isMonetized) html += '<div class="channel-badge money">💰</div>';
+    html += '</div>';
+    html += '<div class="channel-info">';
+    html += '<div class="channel-title">' + esc(title);
+    if (outlierScore > 5) html += '<span style="color:var(--purple);font-size:12px">⭐ ' + outlierScore.toFixed(1) + 'x</span>';
+    html += '</div>';
+    html += '<div class="channel-subs"><span>👥 ' + formatNumber(subs) + '</span><span>📅 ' + daysSince + ' gün</span></div>';
+    html += '<div class="channel-badges">';
+    if (isMonetized) html += '<span class="ch-mini-badge monetized">💰 Monetized</span>';
+    if (isFaceless) html += '<span class="ch-mini-badge faceless">🎭 Faceless</span>';
+    if (outlierScore > 5) html += '<span class="ch-mini-badge outlier">🏆 Outlier</span>';
+    if (isNew) html += '<span class="ch-mini-badge new">🆕 Yeni</span>';
+    html += '</div>';
+    html += '</div>';
+    html += '<div class="channel-stats-row">';
+    html += '<div class="ch-stat-box"><div class="ch-stat-label">Avg Views</div><div class="ch-stat-value">' + formatNumber(avgViews) + '</div></div>';
+    html += '<div class="ch-stat-box"><div class="ch-stat-label">Videos</div><div class="ch-stat-value">' + formatNumber(vids) + '</div></div>';
+    html += '<div class="ch-stat-box outlier-score"><div class="ch-stat-label">Outlier</div><div class="ch-stat-value">' + outlierScore.toFixed(1) + 'x</div></div>';
+    html += '</div>';
+    html += '</div>';
+    html += '<div class="channel-expand" id="exp-' + chId + '">';
+    html += '<div class="expand-stats">';
+    html += '<div class="expand-stat"><div class="label">👥 Aboneler</div><div class="value">' + formatNumber(subs) + '</div></div>';
+    html += '<div class="expand-stat"><div class="label">👁️ Total Views</div><div class="value blue">' + formatNumber(views) + '</div></div>';
+    html += '<div class="expand-stat"><div class="label">📹 Videolar</div><div class="value">' + formatNumber(vids) + '</div></div>';
+    html += '<div class="expand-stat"><div class="label">📊 Avg Views</div><div class="value">' + formatNumber(avgViews) + '</div></div>';
+    html += '<div class="expand-stat"><div class="label">📅 Days Since Start</div><div class="value">' + daysSince + '</div></div>';
+    html += '<div class="expand-stat"><div class="label">🏆 Outlier Score</div><div class="value purple">' + outlierScore.toFixed(1) + 'x</div></div>';
+    html += '<div class="expand-stat"><div class="label">💰 Aylık Gelir (Tahmini)</div><div class="value green">$' + formatNumber(monthlyRev) + '</div></div>';
+    html += '<div class="expand-stat"><div class="label">📈 Aylık Views</div><div class="value">' + formatNumber(avgViews * 4) + '</div></div>';
+    html += '</div>';
+    html += '<div class="expand-actions">';
+    html += '<button class="btn btn-primary" onclick="event.stopPropagation();openChannelById(\'' + chId + '\')">📊 Detaylı Analiz</button>';
+    html += '<a href="https://youtube.com/channel/' + chId + '" target="_blank" class="btn btn-secondary" onclick="event.stopPropagation()">🔗 Kanala Git</a>';
+    html += '</div>';
+    html += '</div>';
+    html += '</div>';
   });
-  html += '</div>';
   grid.innerHTML = html;
+}
+
+function toggleChannelExpand(chId) {
+  var row = document.getElementById('ch-' + chId);
+  if (row) row.classList.toggle('expanded');
+}
+
+function renderTrending(items) {
+  trendingChannels = items;
+  renderChannels(items, false);
 }
 
 // ============================================
