@@ -177,6 +177,46 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:var(--bg);c
 .search-results-info{padding:10px 14px;background:rgba(77,163,255,.08);border:1px solid rgba(77,163,255,.2);border-radius:8px;margin-bottom:12px;font-size:12px;color:var(--blue);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
 .from-cache-badge{background:rgba(69,224,138,.15);color:var(--green);padding:3px 8px;border-radius:5px;font-size:10px;font-weight:700}
 @media(max-width:768px){.channel-row{flex-direction:column;align-items:flex-start;text-align:left}.channel-stats-row{width:100%;justify-content:space-between}.ch-stat-box{min-width:60px;padding:6px 8px}.ch-stat-box .ch-stat-value{font-size:12px}}
+.pro-lock-overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 0%,rgba(10,14,26,.85) 50%,rgba(10,14,26,.98) 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:12px;backdrop-filter:blur(2px);z-index:10;padding:30px;text-align:center}
+.pro-lock-overlay .lock-icon{font-size:48px;margin-bottom:15px;animation:bounce 2s infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.pro-lock-overlay h3{font-size:22px;margin-bottom:10px;background:linear-gradient(135deg,var(--green),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.pro-lock-overlay p{color:var(--muted);font-size:13px;margin-bottom:20px;max-width:400px;line-height:1.5}
+.pro-lock-overlay .pro-btn{padding:14px 30px;background:linear-gradient(135deg,var(--green),var(--cyan));color:#0a0e1a;border:none;border-radius:10px;font-size:14px;font-weight:800;cursor:pointer;transition:.2s;font-family:inherit;box-shadow:0 5px 20px rgba(69,224,138,.3)}
+.pro-lock-overlay .pro-btn:hover{transform:translateY(-3px);box-shadow:0 8px 30px rgba(69,224,138,.5)}
+.pro-lock-overlay .pro-price{font-size:11px;color:var(--yellow);margin-top:10px;font-weight:600}
+.channel-row.locked{position:relative;filter:blur(4px);pointer-events:none;opacity:.6}
+.channel-row.locked::after{content:'🔒';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:30px;z-index:5;filter:none;opacity:1}
+.locked-section{position:relative;min-height:200px}
+.locked-content-wrap{position:relative}
+.pro-modal{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:99999;padding:20px;backdrop-filter:blur(10px)}
+.pro-modal.active{display:flex}
+.pro-modal-card{background:linear-gradient(135deg,#0d1322,#131929);border:2px solid var(--green);border-radius:20px;padding:40px;max-width:500px;width:100%;text-align:center;box-shadow:0 20px 60px rgba(69,224,138,.3);position:relative}
+.pro-modal-close{position:absolute;top:15px;right:15px;background:rgba(255,255,255,.05);border:none;color:var(--muted);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:18px;transition:.2s}
+.pro-modal-close:hover{background:rgba(255,92,122,.2);color:var(--red)}
+.pro-modal h2{font-size:28px;margin-bottom:10px;background:linear-gradient(135deg,var(--green),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.pro-modal .pro-emoji{font-size:60px;margin-bottom:15px;animation:bounce 2s infinite}
+.pro-modal-desc{color:var(--text);font-size:14px;margin-bottom:20px;line-height:1.6}
+.pro-features{text-align:left;background:rgba(255,255,255,.03);padding:18px;border-radius:10px;margin-bottom:20px}
+.pro-features li{padding:6px 0;color:#cfd9ea;font-size:13px;list-style:none;display:flex;align-items:center;gap:8px}
+.pro-features li::before{content:'✅';font-size:14px}
+.pro-price-box{background:linear-gradient(135deg,rgba(255,92,122,.2),rgba(255,159,67,.15));border:1px solid var(--red);border-radius:12px;padding:18px;margin-bottom:20px}
+.pro-price-box .old{text-decoration:line-through;color:var(--muted);font-size:14px}
+.pro-price-box .new{font-size:32px;font-weight:800;color:var(--green);margin:5px 0}
+.pro-price-box .info{font-size:11px;color:var(--yellow);font-weight:700}
+.pro-modal-btn{width:100%;padding:16px;background:linear-gradient(135deg,var(--green),var(--cyan));color:#0a0e1a;border:none;border-radius:12px;font-size:16px;font-weight:800;cursor:pointer;transition:.2s;font-family:inherit;margin-bottom:10px;box-shadow:0 5px 20px rgba(69,224,138,.4)}
+.pro-modal-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(69,224,138,.6)}
+.pro-modal-later{width:100%;padding:12px;background:transparent;color:var(--muted);border:1px solid var(--line);border-radius:10px;font-size:12px;cursor:pointer;font-family:inherit}
+.pro-modal-later:hover{color:var(--text);border-color:var(--muted)}
+.pro-badge-locked{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;background:linear-gradient(135deg,var(--green),var(--cyan));color:#0a0e1a;border-radius:5px;font-size:9px;font-weight:800;margin-left:6px}
+.upgrade-banner{background:linear-gradient(135deg,rgba(255,209,102,.15),rgba(255,159,67,.08));border:1px solid var(--yellow);border-radius:10px;padding:14px 18px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+.upgrade-banner .banner-text{flex:1;font-size:13px;color:var(--text)}
+.upgrade-banner .banner-text strong{color:var(--yellow)}
+.upgrade-banner .banner-btn{padding:8px 18px;background:linear-gradient(135deg,var(--green),var(--cyan));color:#0a0e1a;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;transition:.2s;font-family:inherit}
+.upgrade-banner .banner-btn:hover{transform:scale(1.05)}
+.filter-chip.locked-filter{position:relative;opacity:.6}
+.filter-chip.locked-filter::after{content:'🔒';margin-left:4px;font-size:10px}
+.filter-chip.locked-filter:hover{background:rgba(255,209,102,.1);border-color:var(--yellow);color:var(--yellow)}
   .t-card{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:.2s;cursor:pointer}
 .t-card:hover{transform:translateY(-2px);border-color:var(--red)}
 .t-thumb{position:relative;aspect-ratio:16/9;overflow:hidden}
@@ -641,7 +681,40 @@ body{font-family:-apple-system,system-ui,Arial,sans-serif;background:var(--bg);c
 </div>
 
 <!-- CHANNEL MODAL (KANAL ANALİZİ) -->
-<div id="channelModal" class="modal">
+<!-- PRO UPGRADE MODAL -->
+<div id="proModal" class="pro-modal">
+<div class="pro-modal-card">
+<button class="pro-modal-close" onclick="closeProModal()">✕</button>
+<div class="pro-emoji">💎</div>
+<h2 data-i18n="proUnlockTitle">Tüm Özelliklere Eriş!</h2>
+<p class="pro-modal-desc" data-i18n="proUnlockDesc">100+ kanal daha, gizli filtreler ve daha fazlası seni bekliyor!</p>
+
+<ul class="pro-features">
+<li>TÜM 100 niş analizi</li>
+<li>200+ kanal görüntüleme</li>
+<li>🏆 Outliers filtresi</li>
+<li>🎭 Faceless kanal filtresi</li>
+<li>💎 Hidden Gems filtresi</li>
+<li>📊 Detaylı kanal analitiği</li>
+<li>💰 Tahmini gelir hesaplama</li>
+<li>📈 Outlier Score</li>
+<li>🤖 Sınırsız AI Bot</li>
+<li>📰 Canlı YouTube haberleri</li>
+<li>🌍 5 dil desteği</li>
+<li>💎 Ömür boyu erişim</li>
+</ul>
+
+<div class="pro-price-box">
+<div class="old">$149</div>
+<div class="new">$89</div>
+<div class="info" data-i18n="proLifetimePrice">$89 Lifetime - İlk 100 Kişiye Özel</div>
+</div>
+
+<button class="pro-modal-btn" onclick="goToPayment()" data-i18n="proGetNow">💎 Hemen Pro Ol</button>
+<button class="pro-modal-later" onclick="closeProModal()" data-i18n="proLater">Belki Sonra</button>
+</div>
+</div>
+  <div id="channelModal" class="modal">
 <div class="modal-card">
 <div class="modal-head">
 <div><h2 id="chModalTitle">Kanal</h2><p id="chModalSub">Analiz</p></div>
@@ -1994,7 +2067,191 @@ function renderChannels(channels, fromDb) {
   grid.innerHTML = html;
 }
 
-function toggleChannelExpand(chId) {
+// ============================================
+// PREMIUM CONTROL SYSTEM
+// ============================================
+var FREE_LIMITS = {
+  channels: 5,
+  niches: 30,
+  botQuestions: 3,
+  lockedFilters: ['outliers', 'faceless', 'hidden']
+};
+
+function isUserPro() {
+  if (!userProfile) return false;
+  return userProfile.is_pro === true || userProfile.lifetime === true || userProfile.is_admin === true;
+}
+
+function showProModal() {
+  document.getElementById('proModal').classList.add('active');
+}
+
+function closeProModal() {
+  document.getElementById('proModal').classList.remove('active');
+}
+
+function goToPayment() {
+  window.open('https://nichify.lemonsqueezy.com/buy/327c8366-362b-45e1-8d34-0c6b6ea43411', '_blank');
+}
+
+function checkFilterAccess(filterId) {
+  if (isUserPro()) return true;
+  if (FREE_LIMITS.lockedFilters.indexOf(filterId) > -1) {
+    showProModal();
+    return false;
+  }
+  return true;
+}
+
+function getBotQuestionCount() {
+  var today = new Date().toDateString();
+  var data = localStorage.getItem('nichify_bot_count');
+  if (!data) return 0;
+  var parsed = JSON.parse(data);
+  if (parsed.date !== today) return 0;
+  return parsed.count || 0;
+}
+
+function incrementBotQuestionCount() {
+  var today = new Date().toDateString();
+  var count = getBotQuestionCount() + 1;
+  localStorage.setItem('nichify_bot_count', JSON.stringify({date: today, count: count}));
+  return count;
+}
+
+function canAskBot() {
+  if (isUserPro()) return true;
+  return getBotQuestionCount() < FREE_LIMITS.botQuestions;
+}
+
+// Override setSpecialFilter to check premium
+var originalSetSpecialFilter = setSpecialFilter;
+setSpecialFilter = function(filter) {
+  if (filter !== 'all' && !isUserPro()) {
+    showProModal();
+    return;
+  }
+  originalSetSpecialFilter(filter);
+};
+
+// Override renderChannels to add Pro lock
+var originalRenderChannels = renderChannels;
+renderChannels = function(channels, fromDb) {
+  if (!channels || !channels.length) {
+    document.getElementById('trendingGrid').innerHTML = '<div class="empty">' + t('notFound') + '</div>';
+    return;
+  }
+  
+  if (isUserPro()) {
+    originalRenderChannels(channels, fromDb);
+    return;
+  }
+  
+  // Free user - show only first 5 with lock
+  var grid = document.getElementById('trendingGrid');
+  var visibleChannels = channels.slice(0, FREE_LIMITS.channels);
+  var hiddenCount = channels.length - FREE_LIMITS.channels;
+  
+  originalRenderChannels(visibleChannels, fromDb);
+  
+  if (hiddenCount > 0) {
+    var currentHtml = grid.innerHTML;
+    var lockHtml = '<div class="upgrade-banner" style="margin-top:20px">';
+    lockHtml += '<div class="banner-text">🔒 <strong>' + hiddenCount + ' kanal daha</strong> Pro üyelere özel! Hidden Gems, Outliers ve Faceless filtreleriyle <strong>200+ kanal</strong> daha erişin.</div>';
+    lockHtml += '<button class="banner-btn" onclick="showProModal()">💎 Pro Ol $89</button>';
+    lockHtml += '</div>';
+    
+    lockHtml += '<div class="locked-section">';
+    lockHtml += '<div class="pro-lock-overlay">';
+    lockHtml += '<div class="lock-icon">🔒</div>';
+    lockHtml += '<h3>' + hiddenCount + '+ Kanal Daha Var!</h3>';
+    lockHtml += '<p>Tüm kanallara, gizli filtrelere, detaylı analitiğe ve daha fazlasına erişmek için Pro\'ya yükselt!</p>';
+    lockHtml += '<button class="pro-btn" onclick="showProModal()">🚀 Şimdi Yükselt</button>';
+    lockHtml += '<div class="pro-price">💎 $89 Lifetime - İlk 100 Kişiye Özel!</div>';
+    lockHtml += '</div>';
+    lockHtml += '<div style="filter:blur(8px);opacity:.4;pointer-events:none">';
+    
+    // Show 3 blurred channels
+    var blurredChannels = channels.slice(FREE_LIMITS.channels, FREE_LIMITS.channels + 3);
+    blurredChannels.forEach(function(ch) {
+      var title = getChannelTitle(ch);
+      var thumb = getChannelThumb(ch);
+      var subs = getSubsCount(ch);
+      lockHtml += '<div class="channel-row">';
+      lockHtml += '<div class="channel-thumb"><img src="' + thumb + '"/></div>';
+      lockHtml += '<div class="channel-info">';
+      lockHtml += '<div class="channel-title">' + esc(title) + '</div>';
+      lockHtml += '<div class="channel-subs">👥 ' + formatNumber(subs) + '</div>';
+      lockHtml += '</div></div>';
+    });
+    
+    lockHtml += '</div></div>';
+    
+    grid.innerHTML = currentHtml + lockHtml;
+    
+    document.getElementById('loadMoreBtn').style.display = 'none';
+  }
+};
+
+// Override sendAIMessage for bot limit
+var originalSendAIMessage = sendAIMessage;
+sendAIMessage = function() {
+  if (!canAskBot()) {
+    var msgs = document.getElementById('aiMessages');
+    msgs.innerHTML += '<div class="ai-msg bot" style="background:rgba(255,209,102,.1);border-color:var(--yellow)">🔒 Free planda günde sadece ' + FREE_LIMITS.botQuestions + ' soru sorabilirsin. Pro\'ya yükselt, sınırsız sor! <br><br><button onclick="showProModal()" style="background:linear-gradient(135deg,var(--green),var(--cyan));color:#0a0e1a;padding:8px 16px;border:none;border-radius:6px;font-weight:700;cursor:pointer">💎 Pro Ol $89</button></div>';
+    msgs.scrollTop = msgs.scrollHeight;
+    return;
+  }
+  
+  if (!isUserPro()) {
+    incrementBotQuestionCount();
+  }
+  
+  originalSendAIMessage();
+};
+
+// Override render (niş kartları) for niş limit
+var originalRender = render;
+render = function() {
+  originalRender();
+  
+  if (!isUserPro()) {
+    var grid = document.getElementById('nichesGrid');
+    var cards = grid.querySelectorAll('.niche-card');
+    
+    if (cards.length > FREE_LIMITS.niches) {
+      var hiddenNicheCount = cards.length - FREE_LIMITS.niches;
+      
+      for (var i = FREE_LIMITS.niches; i < cards.length; i++) {
+        cards[i].style.display = 'none';
+      }
+      
+      var existingBanner = document.getElementById('nicheLockBanner');
+      if (existingBanner) existingBanner.remove();
+      
+      var banner = document.createElement('div');
+      banner.id = 'nicheLockBanner';
+      banner.className = 'upgrade-banner';
+      banner.style.marginTop = '20px';
+      banner.innerHTML = '<div class="banner-text">🔒 <strong>' + hiddenNicheCount + ' niş daha</strong> Pro üyelere özel! Tüm 100 nişe erişmek için Pro\'ya yükselt.</div><button class="banner-btn" onclick="showProModal()">💎 Pro Ol $89</button>';
+      grid.parentNode.appendChild(banner);
+    }
+  }
+};
+
+// Mark locked filters
+function markLockedFilters() {
+  if (isUserPro()) return;
+  var lockedIds = ['spFilter-outliers', 'spFilter-faceless', 'spFilter-hidden'];
+  lockedIds.forEach(function(id) {
+    var btn = document.getElementById(id);
+    if (btn) btn.classList.add('locked-filter');
+  });
+}
+
+// Mark filters on page load
+setTimeout(markLockedFilters, 2000);
+  function toggleChannelExpand(chId) {
   var row = document.getElementById('ch-' + chId);
   if (row) row.classList.toggle('expanded');
 }
