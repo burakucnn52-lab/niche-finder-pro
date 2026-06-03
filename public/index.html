@@ -1747,15 +1747,21 @@ async function fetchFromYouTube() {
   var relLang = regionLangMap[currentRegion] || 'en';
   var apiOrder = currentSortBy === 'hidden' ? 'viewCount' : currentSortBy;
   
+  var defaultQueries = {
+    'TR': 'türkçe kanal',
+    'US': 'youtube channel',
+    'GB': 'youtube channel',
+    'DE': 'deutscher kanal',
+    'FR': 'chaîne youtube',
+    'ES': 'canal youtube',
+    'JP': 'youtube チャンネル'
+  };
+  
+  var searchQuery = currentSearchQuery || defaultQueries[currentRegion] || 'youtube channel';
+  
   try {
-    var url;
-    if (currentSearchQuery) {
-      url = 'https://www.googleapis.com/youtube/v3/search?part=snippet&type=channel&q=' + encodeURIComponent(currentSearchQuery) + '&regionCode=' + currentRegion + '&relevanceLanguage=' + relLang + '&maxResults=50&order=' + apiOrder + '&key=' + YOUTUBE_API_KEY;
-      if (nextPageToken) url += '&pageToken=' + nextPageToken;
-    } else {
-      url = 'https://www.googleapis.com/youtube/v3/videos?part=snippet,statistics&chart=mostPopular&regionCode=' + currentRegion + '&maxResults=50&key=' + YOUTUBE_API_KEY;
-      if (nextPageToken) url += '&pageToken=' + nextPageToken;
-    }
+    var url = 'https://www.googleapis.com/youtube/v3/search?part=snippet&type=channel&q=' + encodeURIComponent(searchQuery) + '&regionCode=' + currentRegion + '&relevanceLanguage=' + relLang + '&maxResults=50&order=' + apiOrder + '&key=' + YOUTUBE_API_KEY;
+    if (nextPageToken) url += '&pageToken=' + nextPageToken;
     
     var resp = await fetch(url);
     var data = await resp.json();
@@ -1771,26 +1777,33 @@ async function fetchFromYouTube() {
     nextPageToken = data.nextPageToken || null;
     
     var items = [];
-    if (currentSearchQuery) {
-      var channelIds = data.items.map(function(v) { return v.snippet.channelId || v.id.channelId; }).filter(Boolean).slice(0, 50).join(',');
-      if (channelIds) {
-        var cresp = await fetch('https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=' + channelIds + '&key=' + YOUTUBE_API_KEY);
-        var cdata = await cresp.json();
-        items = cdata.items || [];
-        
-        var blacklist = ['bank', 'banka', 'reklam', 'official', 'resmi'];
+    var channelIds = data.items.map(function(v) { return v.snippet.channelId || v.id.channelId; }).filter(Boolean).slice(0, 50).join(',');
+    
+    if (channelIds) {
+      var cresp = await fetch('https://www.googleapis.com/youtube/v3/channels?part=snippet,statistics&id=' + channelIds + '&key=' + YOUTUBE_API_KEY);
+      var cdata = await cresp.json();
+      items = cdata.items || [];
+      
+      var blacklist = ['bank', 'banka', 'reklam', 'official', 'resmi', 'records', 'vevo'];
+      items = items.filter(function(ch) {
+        var title = (ch.snippet.title || '').toLowerCase();
+        var desc = (ch.snippet.description || '').toLowerCase();
+        for (var i = 0; i < blacklist.length; i++) {
+          if (title.indexOf(blacklist[i]) > -1) return false;
+        }
+        if (title.includes('music') && desc.includes('record label')) return false;
+        return true;
+      });
+      
+      if (currentRegion !== 'US' && currentRegion !== 'GB') {
         items = items.filter(function(ch) {
-          var title = (ch.snippet.title || '').toLowerCase();
-          for (var i = 0; i < blacklist.length; i++) {
-            if (title.indexOf(blacklist[i]) > -1) return false;
-          }
-          return true;
+          var country = ch.snippet.country;
+          if (!country) return true;
+          return country === currentRegion;
         });
-        
-        await saveChannelsToDatabase(items);
       }
-    } else {
-      items = data.items;
+      
+      await saveChannelsToDatabase(items);
     }
     
     if (currentSortBy === 'hidden') {
