@@ -1589,6 +1589,111 @@ function renderTopN() {
 // ============================================
 // NICHES RENDER
 // ============================================
+// ============================================
+// CANLI SKOR SİSTEMİ - DATABASE'DEN HESAPLA
+// ============================================
+var liveNicheScores = {};
+var scoresLoaded = false;
+var lastScoreUpdate = 0;
+
+async function loadLiveScores() {
+  // Her 1 saatte bir güncelle
+  if (scoresLoaded && (Date.now() - lastScoreUpdate < 3600000)) {
+    return;
+  }
+  
+  try {
+    var { data: channels } = await window.supabase
+      .from('channels_db')
+      .select('subscribers, estimated_revenue, outlier_score, days_since_start, is_faceless, monthly_views, videos');
+    
+    if (!channels || channels.length === 0) {
+      console.log('Database boş, manuel skorlar kullanılıyor');
+      return;
+    }
+    
+    // Tüm kanal istatistikleri
+    var totalChannels = channels.length;
+    var avgRevenue = channels.reduce(function(s, c) { return s + (c.estimated_revenue || 0); }, 0) / totalChannels;
+    var avgOutlier = channels.reduce(function(s, c) { return s + (parseFloat(c.outlier_score) || 0); }, 0) / totalChannels;
+    var avgSubs = channels.reduce(function(s, c) { return s + (c.subscribers || 0); }, 0) / totalChannels;
+    var newChannels = channels.filter(function(c) { return c.days_since_start < 365; }).length;
+    var facelessChannels = channels.filter(function(c) { return c.is_faceless; }).length;
+    var smallChannels = channels.filter(function(c) { return c.subscribers < 50000; }).length;
+    
+    liveNicheScores = {
+      totalChannels: totalChannels,
+      avgRevenue: avgRevenue,
+      avgOutlier: avgOutlier,
+      avgSubs: avgSubs,
+      newChannelRatio: (newChannels / totalChannels) * 100,
+      facelessRatio: (facelessChannels / totalChannels) * 100,
+      smallChannelRatio: (smallChannels / totalChannels) * 100
+    };
+    
+    scoresLoaded = true;
+    lastScoreUpdate = Date.now();
+    console.log('Canlı skorlar yüklendi:', liveNicheScores);
+    
+  } catch (err) {
+    console.error('Live scores error:', err);
+  }
+}
+
+function getLiveScore(niche, scoreType) {
+  if (!scoresLoaded || !liveNicheScores.totalChannels) {
+    return niche.scores[scoreType] || 0;
+  }
+  
+  var originalScore = niche.scores[scoreType] || 0;
+  var boost = 0;
+  
+  // Database verilerine göre skor ayarla
+  if (scoreType === 'money' && liveNicheScores.avgRevenue > 5000) {
+    boost = Math.min(5, Math.round(liveNicheScores.avgRevenue / 2000));
+  } else if (scoreType === 'trend' && liveNicheScores.avgOutlier > 2) {
+    boost = Math.min(7, Math.round(liveNicheScores.avgOutlier * 2));
+  } else if (scoreType === 'comp' && liveNicheScores.smallChannelRatio > 50) {
+    boost = -Math.min(8, Math.round(liveNicheScores.smallChannelRatio / 10));
+  } else if (scoreType === 'newCh' && liveNicheScores.newChannelRatio > 30) {
+    boost = Math.min(6, Math.round(liveNicheScores.newChannelRatio / 10));
+  } else if (scoreType === 'faceless' && liveNicheScores.facelessRatio > 40) {
+    boost = Math.min(5, Math.round(liveNicheScores.facelessRatio / 15));
+  }
+  
+  return Math.max(0, Math.min(100, originalScore + boost));
+}
+
+function getLiveScores(niche) {
+  return {
+    comp: getLiveScore(niche, 'comp'),
+    money: getLiveScore(niche, 'money'),
+    trend: getLiveScore(niche, 'trend'),
+    faceless: getLiveScore(niche, 'faceless'),
+    shorts: niche.scores.shorts || 0,
+    longform: niche.scores.longform || 0,
+    sustain: niche.scores.sustain || 0,
+    newCh: getLiveScore(niche, 'newCh'),
+    under: niche.scores.under || 0,
+    multi: niche.scores.multi || 0
+  };
+}
+
+// Sayfa açıldığında ve niş sayfasına gelindiğinde yükle
+window.addEventListener('DOMContentLoaded', function() {
+  setTimeout(loadLiveScores, 3000);
+});
+
+// goPage fonksiyonunda niş sayfasına geçilince güncelle
+var originalGoPage = goPage;
+goPage = function(p) {
+  originalGoPage(p);
+  if (p === 'niches') {
+    loadLiveScores().then(function() {
+      if (typeof render === 'function') render();
+    });
+  }
+};
 function render() {
   var q = (document.getElementById('searchInput').value || '').toLowerCase().trim();
   var lf = document.getElementById('langFilter').value;
@@ -1598,36 +1703,80 @@ function render() {
   var fOnly = document.getElementById('facelessOnly').checked;
   
   var list = NICHES.filter(function(n) {
-    if (q && getName(n).toLowerCase().indexOf(q) < 0 && getCat(n).toLowerCase().indexOf(q) < 0) return false;
-    if (lf !== 'all' && n.langs && n.langs.indexOf(lf) < 0) return false;
+    if (q && !getName(n).toLowerCase().includes(q) && !getCat(n).toLowerCase().includes(q)) return false;
+    if (lf !== 'all' && (!n.langs || !n.langs.includes(lf))) return false;
     if (hOnly && hiddenS(n) < 70) return false;
-    if (nOnly && n.scores.newCh < 70) return false;
-    if (fOnly && n.scores.faceless < 70) return false;
+    if (nOnly && (n.scores.newCh || 0) < 70) return false;
+    if (fOnly && (n.scores.faceless || 0) < 70) return false;
     return true;
   });
   
-  if (sf === 'hidden') list.sort(function(a,b) { return hiddenS(b)-hiddenS(a); });
-  else if (sf === 'lowComp') list.sort(function(a,b) { return a.scores.comp-b.scores.comp; });
-  else if (sf === 'money') list.sort(function(a,b) { return b.scores.money-a.scores.money; });
-  else if (sf === 'new') list.sort(function(a,b) { return b.scores.newCh-a.scores.newCh; });
-  else list.sort(function(a,b) { return overall(b)-overall(a); });
-  
-  document.getElementById('statHidden').textContent = NICHES.filter(function(n) { return hiddenS(n) >= 70; }).length;
-  document.getElementById('statNiches').textContent = NICHES.length;
-  
-  var g = document.getElementById('nichesGrid');
-  if (list.length === 0) { g.innerHTML = '<div class="empty">' + t('noNiches') + '</div>'; return; }
+  // Sort - CANLI SKORLAR İLE
+  list.sort(function(a, b) {
+    var aScores = scoresLoaded ? getLiveScores(a) : a.scores;
+    var bScores = scoresLoaded ? getLiveScores(b) : b.scores;
+    
+    if (sf === 'best') return overall({scores: bScores, risk: b.risk}) - overall({scores: aScores, risk: a.risk});
+    if (sf === 'hidden') return hiddenS({scores: bScores, risk: b.risk}) - hiddenS({scores: aScores, risk: a.risk});
+    if (sf === 'lowComp') return aScores.comp - bScores.comp;
+    if (sf === 'money') return bScores.money - aScores.money;
+    if (sf === 'new') return bScores.newCh - aScores.newCh;
+    return 0;
+  });
   
   var html = '';
   list.forEach(function(n) {
-    var o = overall(n), h = hiddenS(n), i = NICHES.indexOf(n);
-    html += '<div class="niche-card" onclick="openModal(' + i + ')"><div class="niche-head"><h3>' + (n.icon || '🎯') + ' ' + esc(getName(n)) + '</h3><div class="score-badge">' + o + '</div></div><div class="niche-category">' + esc(getCat(n)) + ' · ' + esc(getSub(n)) + '</div><div class="chips">';
-    if (h >= 70) html += '<span class="chip green">🔍 ' + t('hidden') + ' ' + h + '</span>';
-    if (n.scores.newCh >= 70) html += '<span class="chip blue">🆕</span>';
-    if (n.scores.faceless >= 70) html += '<span class="chip yellow">🎭</span>';
-    html += '<span class="chip ' + (n.scores.comp <= 40 ? 'green' : n.scores.comp <= 65 ? 'yellow' : 'red') + '">' + compLabel(n.scores.comp) + '</span></div><div class="bars"><div class="bar-row"><span>💰 ' + t('earnings') + '</span><div class="bar"><div class="fill" style="width:' + n.scores.money + '%"></div></div><span>' + n.scores.money + '</span></div><div class="bar-row"><span>📈 Trend</span><div class="bar"><div class="fill" style="width:' + n.scores.trend + '%"></div></div><span>' + n.scores.trend + '</span></div><div class="bar-row"><span>🛡️ ' + t('safety') + '</span><div class="bar"><div class="fill" style="width:' + (n.risk.score || 80) + '%"></div></div><span>' + (n.risk.score || 80) + '</span></div></div><div class="card-actions"><button class="btn btn-primary btn-small" onclick="event.stopPropagation();openModal(' + i + ')">' + t('detailBtn') + '</button></div></div>';
+    var i = NICHES.indexOf(n);
+    var liveScores = scoresLoaded ? getLiveScores(n) : n.scores;
+    var nichePoster = {scores: liveScores, risk: n.risk};
+    var o = overall(nichePoster);
+    var h = hiddenS(nichePoster);
+    var isLive = scoresLoaded ? 'data-live="true"' : '';
+    
+    // Orijinal vs Canlı karşılaştırması
+    var originalOverall = overall(n);
+    var scoreDiff = o - originalOverall;
+    var liveIndicator = '';
+    if (scoresLoaded && Math.abs(scoreDiff) >= 2) {
+      if (scoreDiff > 0) {
+        liveIndicator = '<span style="color:var(--green);font-size:11px;margin-left:5px" title="Canlı veri ile yükseliyor">🔴 +' + scoreDiff + '</span>';
+      } else {
+        liveIndicator = '<span style="color:var(--red);font-size:11px;margin-left:5px" title="Canlı veri ile düşüyor">🔴 ' + scoreDiff + '</span>';
+      }
+    } else if (scoresLoaded) {
+      liveIndicator = '<span style="color:var(--green);font-size:10px;margin-left:5px" title="Canlı veri">🔴</span>';
+    }
+    
+    html += '<div class="niche-card" onclick="openModal(' + i + ')" ' + isLive + '>';
+    html += '<div class="niche-head"><h3>' + esc(getName(n)) + liveIndicator + '</h3>';
+    html += '<div class="score-badge">' + o + '</div></div>';
+    html += '<div class="niche-category">' + esc(getCat(n)) + ' · ' + esc(getSub(n)) + '</div>';
+    
+    var chips = '';
+    if (h >= 70) chips += '<span class="chip green">🔍 Hidden ' + h + '</span>';
+    if (liveScores.newCh >= 70) chips += '<span class="chip blue">🆕</span>';
+    if (liveScores.faceless >= 70) chips += '<span class="chip yellow">🎭</span>';
+    chips += '<span class="chip ' + (liveScores.comp < 40 ? 'green' : liveScores.comp < 70 ? 'yellow' : 'red') + '">' + (liveScores.comp < 40 ? 'Düşük' : liveScores.comp < 70 ? 'Orta' : 'Yüksek') + '</span>';
+    html += '<div class="chips">' + chips + '</div>';
+    
+    html += '<div class="bars">';
+    html += '<div class="bar-row"><span>💰 Kazanç</span><div class="bar"><div class="fill" style="width:' + liveScores.money + '%"></div></div><span>' + liveScores.money + '</span></div>';
+    html += '<div class="bar-row"><span>📈 Trend</span><div class="bar"><div class="fill" style="width:' + liveScores.trend + '%"></div></div><span>' + liveScores.trend + '</span></div>';
+    html += '<div class="bar-row"><span>🛡️ Güvenlik</span><div class="bar"><div class="fill" style="width:' + (n.risk.score || 80) + '%"></div></div><span>' + (n.risk.score || 80) + '</span></div>';
+    html += '</div>';
+    
+    html += '<div class="card-actions"><button class="btn btn-primary btn-small" onclick="event.stopPropagation();openModal(' + i + ')">📋 Detay</button></div>';
+    html += '</div>';
   });
-  g.innerHTML = html;
+  
+  document.getElementById('nichesGrid').innerHTML = html;
+  
+  // İstatistikleri güncelle
+  document.getElementById('statHidden').textContent = NICHES.filter(function(n) {
+    var ls = scoresLoaded ? getLiveScores(n) : n.scores;
+    return hiddenS({scores: ls, risk: n.risk}) >= 70;
+  }).length;
+  document.getElementById('statNiches').textContent = NICHES.length;
 }
 
 // ============================================
