@@ -40,12 +40,24 @@
       "dest": "/public/register.html"
     },
     {
+      "src": "/forgot-password",
+      "dest": "/public/forgot-password.html"
+    },
+    {
+      "src": "/reset-password",
+      "dest": "/public/reset-password.html"
+    },
+    {
       "src": "/dashboard",
       "dest": "/public/dashboard.html"
     },
     {
       "src": "/nis-kesfi",
       "dest": "/public/nis-kesfi.html"
+    },
+    {
+      "src": "/yukselen-kanallar",
+      "dest": "/public/yukselen-kanallar.html"
     },
     {
       "src": "/kanal-analizi",
