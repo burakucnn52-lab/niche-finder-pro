@@ -1,259 +1,279 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Kullanım Şartları | NICHIFY</title>
-<meta name="description" content="NICHIFY Kullanım Şartları"/>
-<style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,system-ui,Arial,sans-serif}
-body{background:#0a0e1a;color:#f0f4ff;min-height:100vh;padding:20px}
-.container{max-width:900px;margin:0 auto;background:#131929;border-radius:14px;padding:40px;border:1px solid rgba(255,255,255,.1)}
-.back-btn{display:inline-block;padding:8px 16px;background:linear-gradient(135deg,#4da3ff,#a78bfa);color:white;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;margin-bottom:20px;transition:.2s}
-.back-btn:hover{transform:translateX(-3px)}
-h1{font-size:28px;margin-bottom:10px;background:linear-gradient(135deg,#4da3ff,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.last-update{color:#8a99b8;font-size:12px;margin-bottom:25px}
-h2{font-size:18px;margin:25px 0 12px;color:#4da3ff;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:8px}
-h3{font-size:15px;margin:18px 0 8px;color:#45e08a}
-p{color:#cfd9ea;font-size:14px;line-height:1.7;margin-bottom:12px}
-ul{margin:10px 0 15px 25px;color:#cfd9ea}
-li{margin-bottom:6px;font-size:14px;line-height:1.6}
-strong{color:#fff}
-.info-box{background:rgba(77,163,255,.08);border-left:3px solid #4da3ff;padding:12px 16px;margin:15px 0;border-radius:6px}
-.info-box p{margin:0;font-size:13px}
-.warning-box{background:rgba(255,209,102,.08);border-left:3px solid #ffd166;padding:14px 18px;margin:15px 0;border-radius:6px}
-.warning-box p{margin:0;font-size:13px;color:#ffe7a8}
-.danger-box{background:rgba(255,92,122,.08);border-left:3px solid #ff5c7a;padding:14px 18px;margin:15px 0;border-radius:6px}
-.danger-box p{margin:0;font-size:13px;color:#ff8fa3}
-.success-box{background:linear-gradient(135deg,rgba(69,224,138,.1),rgba(73,230,216,.05));border:1px solid rgba(69,224,138,.3);padding:18px;border-radius:10px;margin:20px 0}
-.success-box h3{color:#45e08a;margin-top:0}
-.success-box p{font-size:13px;margin:8px 0}
-.plan-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin:20px 0}
-.plan-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:10px;padding:18px}
-.plan-card.free{border-color:rgba(77,163,255,.3)}
-.plan-card.pro{border-color:rgba(255,92,122,.5);background:linear-gradient(135deg,rgba(255,92,122,.08),rgba(255,159,67,.04))}
-.plan-card h3{margin-top:0;font-size:16px}
-.plan-card ul{margin-left:18px;font-size:13px}
-.plan-card li{margin-bottom:5px}
-.contact-box{background:linear-gradient(135deg,rgba(69,224,138,.1),rgba(77,163,255,.1));border:1px solid rgba(69,224,138,.3);padding:20px;border-radius:10px;margin-top:25px}
-.contact-box h3{color:#45e08a;margin-top:0}
-.footer-nav{text-align:center;margin-top:30px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);font-size:12px;color:#8a99b8}
-.footer-nav a{color:#4da3ff;text-decoration:none;margin:0 10px}
-@media(max-width:600px){.plan-grid{grid-template-columns:1fr}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kullanım Şartları - NICHIFY PRO</title>
+  
+  <link rel="stylesheet" href="/css/core.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/landing.css">
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📜</text></svg>">
+  
+  <style>
+    .legal-container { max-width: 800px; margin: 0 auto; padding: var(--space-2xl) var(--space-lg); }
+    .legal-header { text-align: center; margin-bottom: var(--space-2xl); }
+    .legal-header h1 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: var(--space-md); }
+    .legal-meta { display: inline-flex; align-items: center; gap: var(--space-md); padding: 8px 16px; background: var(--glass-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); border-radius: var(--radius-full); font-size: 0.8125rem; color: var(--text-muted); margin-top: var(--space-md); }
+    .legal-content { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-xl); padding: var(--space-2xl); }
+    .legal-content h2 { font-size: 1.5rem; margin: var(--space-2xl) 0 var(--space-md); padding-bottom: var(--space-sm); border-bottom: 2px solid var(--border-color); display: flex; align-items: center; gap: var(--space-sm); color: var(--text-primary); }
+    .legal-content h2:first-child { margin-top: 0; }
+    .legal-content h3 { font-size: 1.125rem; margin: var(--space-xl) 0 var(--space-sm); color: var(--accent-blue); }
+    .legal-content p { color: var(--text-secondary); line-height: 1.8; margin-bottom: var(--space-md); }
+    .legal-content ul { color: var(--text-secondary); line-height: 1.8; margin: var(--space-md) 0 var(--space-md) var(--space-lg); }
+    .legal-content li { margin-bottom: var(--space-sm); }
+    .legal-content strong { color: var(--text-primary); font-weight: 700; }
+    .legal-content a { color: var(--accent-blue); text-decoration: underline; }
+    .legal-back { display: inline-flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-lg); color: var(--text-muted); font-size: 0.875rem; font-weight: 500; text-decoration: none; padding: 8px 16px; border-radius: var(--radius-md); background: var(--bg-card); border: 1px solid var(--border-color); transition: all var(--transition-fast); }
+    .legal-back:hover { color: var(--text-primary); border-color: var(--border-hover); }
+    .warning-box { background: rgba(255, 209, 102, 0.08); border: 1px solid rgba(255, 209, 102, 0.3); border-radius: var(--radius-md); padding: var(--space-md); margin: var(--space-md) 0; color: var(--warning); font-size: 0.875rem; }
+    .danger-box { background: rgba(255, 92, 122, 0.08); border: 1px solid rgba(255, 92, 122, 0.3); border-radius: var(--radius-md); padding: var(--space-md); margin: var(--space-md) 0; color: var(--danger); font-size: 0.875rem; }
+  </style>
 </head>
 <body>
-<div class="container">
-<a href="/" class="back-btn">← Anasayfaya Dön</a>
-
-<h1>📜 Kullanım Şartları</h1>
-<p class="last-update">Son güncelleme: 31 Mayıs 2025</p>
-
-<div class="info-box">
-<p>NICHIFY hizmetini kullanarak aşağıdaki şartları kabul etmiş sayılırsınız. Lütfen dikkatlice okuyun.</p>
-</div>
-
-<h2>1. Hizmet Tanımı</h2>
-<p><strong>NICHIFY</strong>, YouTube içerik üreticileri için niş analizi, kanal istatistikleri ve risk değerlendirmesi sunan bir SaaS platformudur.</p>
-<p><strong>Hizmet Sahibi:</strong> Burak Uçun</p>
-<p><strong>İletişim:</strong> bucun648@gmail.com</p>
-<p><strong>Web Sitesi:</strong> https://niche-finder-pro-cyan.vercel.app</p>
-
-<h2>2. Hesap Oluşturma</h2>
-
-<h3>🆓 Ücretsiz Hesap (Free)</h3>
-<p>Ücretsiz kayıt olarak NICHIFY'ı deneyebilirsiniz:</p>
-<ul>
-<li>İlk 30 niş analizi</li>
-<li>AI Asistan (3 soru/gün)</li>
-<li>Risk Detector (görüntüleme)</li>
-<li>Temel anasayfa özellikleri</li>
-</ul>
-
-<h3>💎 Premium Hesap (Pro Lifetime)</h3>
-<p>Tüm özelliklere erişim için Pro Lifetime satın alabilirsiniz:</p>
-<ul>
-<li>$89 tek seferlik ödeme</li>
-<li>Ömür boyu kullanım</li>
-<li>İlk 100 kullanıcıya özel (sonra $19/ay olacak)</li>
-</ul>
-
-<div class="warning-box">
-<p>⚠️ Hesabınızın güvenliğinden siz sorumlusunuz. Şifrenizi kimseyle paylaşmayın!</p>
-</div>
-
-<h2>3. Plan Karşılaştırması</h2>
-
-<div class="plan-grid">
-<div class="plan-card free">
-<h3>🆓 Free Plan</h3>
-<ul>
-<li>✅ 30 niş analizi</li>
-<li>✅ Bot (3 soru/gün)</li>
-<li>✅ Risk görüntüleme</li>
-<li>❌ Trending sayfası</li>
-<li>❌ Kanal Analytics</li>
-<li>❌ Gelişmiş filtreler</li>
-<li>❌ Tüm 100 niş</li>
-</ul>
-</div>
-<div class="plan-card pro">
-<h3>💎 Pro Lifetime - $89</h3>
-<ul>
-<li>✅ TÜM 100 niş</li>
-<li>✅ Sınırsız Bot</li>
-<li>✅ Tam Risk Analizi</li>
-<li>✅ Trending sayfası</li>
-<li>✅ Kanal Analytics</li>
-<li>✅ Tüm filtreler</li>
-<li>✅ Ömür boyu erişim</li>
-<li>✅ Yeni özellikler önce sana</li>
-</ul>
-</div>
-</div>
-
-<h2>4. Ödeme ve İade Politikası</h2>
-
-<h3>💳 Ödeme</h3>
-<p>Pro Lifetime ödemeleri <strong>Lemonsqueezy</strong> platformu üzerinden güvenle işlenir. NICHIFY kart bilgilerinizi saklamaz.</p>
-
-<div class="success-box">
-<h3>✅ NEDEN İADE YOK?</h3>
-<p><strong>NICHIFY hizmetimizi ÜCRETSİZ DENEYEBİLİRSİNİZ!</strong></p>
-<p>📌 Free kayıt olun</p>
-<p>📌 30 niş + temel özellikleri kullanın</p>
-<p>📌 Beğenirseniz Pro Lifetime satın alın</p>
-<p>Bu sayede satın almadan önce hizmetimizi tam olarak değerlendirebilirsiniz.</p>
-</div>
-
-<div class="danger-box">
-<p>🚫 <strong>İADE KABUL EDİLMEZ:</strong> Pro Lifetime satın aldıktan sonra dijital ürün niteliği gereği iade yapılmaz. Lütfen Pro'ya geçmeden önce Free özelliklerini değerlendiriniz.</p>
-</div>
-
-<h3>📋 İade Yapılmama Sebepleri:</h3>
-<ul>
-<li>Dijital ürün niteliği (anında erişim sağlanır)</li>
-<li>Ücretsiz deneme imkanı sunulur (Free plan)</li>
-<li>Tüm Pro özellikleri Free plan içinde tanıtılır</li>
-<li>Türk Tüketici Kanunu Madde 48 kapsamında "dijital içerik" istisnası</li>
-</ul>
-
-<h2>5. Kullanıcı Sorumlulukları</h2>
-
-<h3>✅ YAPMANIZ GEREKENLER:</h3>
-<ul>
-<li>Gerçek bilgilerle kayıt olmak</li>
-<li>Hesap güvenliğini sağlamak (güçlü şifre)</li>
-<li>Yasal amaçlarla kullanmak</li>
-<li>NICHIFY'ın kurallarına uymak</li>
-</ul>
-
-<h3>❌ YAPILMAYANLAR:</h3>
-<ul>
-<li>Hesabınızı başkasıyla paylaşmak</li>
-<li>NICHIFY içeriğini izinsiz kopyalamak veya satmak</li>
-<li>Sistemi hack'lemeye çalışmak</li>
-<li>Spam veya zararlı içerik üretmek</li>
-<li>Diğer kullanıcılara zarar vermek</li>
-<li>Yasalara aykırı kullanım</li>
-</ul>
-
-<div class="warning-box">
-<p>⚠️ Bu kuralların ihlali durumunda hesabınız <strong>uyarısız iptal edilebilir</strong> ve <strong>ücret iadesi yapılmaz</strong>.</p>
-</div>
-
-<h2>6. Fikri Mülkiyet Hakları</h2>
-<p>NICHIFY'a ait tüm içerik, tasarım, kod ve markalar <strong>Burak Üçün'e</strong> aittir ve telif hakkı ile korunmaktadır.</p>
-<ul>
-<li>İçerikleri izinsiz kopyalayamazsınız</li>
-<li>NICHIFY adını/logosunu izinsiz kullanamazsınız</li>
-<li>Niş verilerini yeniden satamazsınız</li>
-</ul>
-
-<h2>7. Hizmet Kullanım Hakkı</h2>
-<p>Pro Lifetime aldığınızda:</p>
-<ul>
-<li>✅ <strong>Kişisel kullanım hakkı</strong> alırsınız</li>
-<li>✅ Tek hesap üzerinden sınırsız erişim</li>
-<li>✅ Yeni özellikler eklenince otomatik erişim</li>
-<li>❌ Ticari yeniden satış HAKKI YOK</li>
-<li>❌ İçeriği başka platforma aktarma HAKKI YOK</li>
-</ul>
-
-<h2>8. Hizmet Kesintileri</h2>
-<p>NICHIFY, hizmetin sürekliliği için elinden geleni yapar ancak:</p>
-<ul>
-<li>Bakım çalışmaları olabilir</li>
-<li>Üçüncü taraf servislerde sorun olabilir (YouTube API, Supabase)</li>
-<li>Beklenmedik teknik sorunlar yaşanabilir</li>
-</ul>
-<p>Bu durumlarda <strong>tazminat veya iade hakkı doğmaz</strong>.</p>
-
-<h2>9. Hizmet Değişiklikleri</h2>
-<p>NICHIFY, önceden bildirimde bulunarak veya bulunmadan:</p>
-<ul>
-<li>Özellikleri ekleyebilir veya kaldırabilir</li>
-<li>Fiyatları değiştirebilir (mevcut Lifetime alanlar etkilenmez)</li>
-<li>Hizmet şartlarını güncelleyebilir</li>
-<li>Free planın limitlerini değiştirebilir</li>
-</ul>
-
-<div class="info-box">
-<p>📌 <strong>Lifetime alanlar için garanti:</strong> Mevcut özelliklere erişiminiz ömür boyu açık kalacaktır.</p>
-</div>
-
-<h2>10. Sorumluluk Reddi</h2>
-<p>NICHIFY, aşağıdaki konularda sorumluluk kabul etmez:</p>
-<ul>
-<li>YouTube'da kanal açma/büyütme garantisi YOKTUR</li>
-<li>Gelir veya başarı garantisi YOKTUR</li>
-<li>Niş skorları tahmin amaçlıdır, kesinlik garantisi YOK</li>
-<li>YouTube'un kural değişiklikleri NICHIFY sorumluluğunda DEĞİL</li>
-<li>Üçüncü taraf hizmetlerin (Lemonsqueezy, Supabase) hataları</li>
-</ul>
-
-<div class="warning-box">
-<p>⚠️ NICHIFY bir <strong>analiz ve bilgi platformudur</strong>. Kararlarınız size aittir.</p>
-</div>
-
-<h2>11. Yasal Uyumluluk</h2>
-<p>NICHIFY:</p>
-<ul>
-<li>✅ KVKK (Türkiye) uyumludur</li>
-<li>✅ GDPR (AB) uyumludur</li>
-<li>✅ Türk Tüketici Kanunu uyumludur</li>
-<li>✅ Tüm verileriniz Supabase güvenli sunucularda</li>
-</ul>
-
-<h2>12. Anlaşmazlık Çözümü</h2>
-<p>Bu sözleşmeden doğan anlaşmazlıklarda <strong>Ordu Mahkemeleri</strong> ve İcra Müdürlükleri yetkilidir.</p>
-<p>Önce bizimle iletişime geçmenizi öneririz: bucun648@gmail.com</p>
-
-<h2>13. Hesap İptali ve Silme</h2>
-<p>Hesabınızı istediğiniz zaman silebilirsiniz:</p>
-<ul>
-<li>📧 bucun648@gmail.com adresine talep gönderin</li>
-<li>📅 30 gün içinde tüm verileriniz silinir</li>
-<li>💎 Pro Lifetime alanlar: Pro hakkı iptal edilir, iade yapılmaz</li>
-</ul>
-
-<h2>14. Şartların Kabulü</h2>
-<p>NICHIFY'a kayıt olarak veya hizmeti kullanarak yukarıdaki tüm şartları kabul etmiş sayılırsınız.</p>
-
-<div class="contact-box">
-<h3>📧 İletişim</h3>
-<p>Kullanım şartları hakkında sorularınız için:</p>
-<p><strong>E-posta:</strong> bucun648@gmail.com</p>
-<p><strong>Konu:</strong> "Kullanım Şartları Soru"</p>
-</div>
-
-<div class="footer-nav">
-<a href="/">Anasayfa</a> · 
-<a href="/kvkk.html">KVKK</a> · 
-<a href="/gizlilik.html">Gizlilik Politikası</a> · 
-<a href="mailto:bucun648@gmail.com">İletişim</a>
-</div>
-
-</div>
+  
+  <div class="aurora-bg">
+    <div class="aurora-3"></div>
+  </div>
+  
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-wrapper">
+        <a href="/" class="nav-logo">
+          <span class="nav-logo-icon">🎯</span>
+          <span class="nav-logo-text gradient-text-aurora">NICHIFY</span>
+          <span class="badge badge-pro badge-sm">PRO</span>
+        </a>
+        <div class="nav-links hide-mobile">
+          <a href="/#features" class="nav-link">Özellikler</a>
+          <a href="/fiyatlandirma" class="nav-link">Fiyatlandırma</a>
+          <a href="/sss" class="nav-link">SSS</a>
+        </div>
+        <div class="nav-actions">
+          <a href="/login" class="btn btn-ghost btn-sm">Giriş Yap</a>
+          <a href="/register" class="btn btn-primary btn-sm">Ücretsiz Başla<span>→</span></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="legal-container">
+    
+    <a href="/" class="legal-back"><span>←</span><span>Ana Sayfa</span></a>
+    
+    <div class="legal-header">
+      <div style="font-size: 4rem; margin-bottom: var(--space-md);">📜</div>
+      <h1><span class="gradient-text">Kullanım Şartları</span></h1>
+      <p style="color: var(--text-secondary); max-width: 600px; margin: var(--space-md) auto 0;">
+        NICHIFY PRO'yu kullanmaya başlamadan önce lütfen bu şartları dikkatlice okuyun.
+      </p>
+      <div class="legal-meta">
+        <span>📅 Son Güncelleme: <strong>14 Ocak 2025</strong></span>
+      </div>
+    </div>
+    
+    <div class="legal-content">
+      
+      <div class="warning-box">
+        <strong>⚠️ Önemli:</strong> NICHIFY PRO'ya kayıt olarak veya kullanarak bu şartları kabul etmiş sayılırsınız. Şartları kabul etmiyorsanız servisi kullanmamanızı rica ederiz.
+      </div>
+      
+      <h2><span>📋</span><span>1. Genel Hükümler</span></h2>
+      <p><strong>NICHIFY PRO</strong> ("Servis", "Biz", "Platform"), YouTube niş bulma ve kanal analiz aracı olarak hizmet vermektedir. Bu Kullanım Şartları, sizinle ("Kullanıcı", "Siz") aramızdaki yasal sözleşmeyi oluşturur.</p>
+      <ul>
+        <li><strong>Hizmet Sağlayıcı:</strong> NICHIFY PRO</li>
+        <li><strong>Yürürlük Tarihi:</strong> 14 Ocak 2025</li>
+        <li><strong>İletişim:</strong> <a href="mailto:bucun648@gmail.com">bucun648@gmail.com</a></li>
+      </ul>
+      
+      <h2><span>👤</span><span>2. Hesap Oluşturma</span></h2>
+      <ul>
+        <li>NICHIFY PRO'yu kullanmak için <strong>18 yaşından büyük</strong> olmalısınız</li>
+        <li>Verdiğiniz bilgilerin <strong>doğru ve güncel</strong> olduğunu kabul edersiniz</li>
+        <li>Hesabınızın güvenliğinden <strong>siz sorumlusunuz</strong> (şifre paylaşmayın)</li>
+        <li>Bir kişi <strong>sadece bir hesap</strong> oluşturabilir</li>
+        <li>Sahte/hayali bilgi ile hesap açmak yasaktır</li>
+      </ul>
+      
+      <h2><span>✅</span><span>3. Kabul Edilebilir Kullanım</span></h2>
+      <p>NICHIFY PRO'yu aşağıdaki amaçlar için kullanabilirsiniz:</p>
+      <ul>
+        <li>✓ YouTube niş ve kanal analizi</li>
+        <li>✓ Kişisel veya ticari içerik üretimi için araştırma</li>
+        <li>✓ İçerik stratejisi geliştirme</li>
+        <li>✓ Eğitim ve öğrenim amaçları</li>
+      </ul>
+      
+      <h2><span>🚫</span><span>4. Yasaklanan Davranışlar</span></h2>
+      <div class="danger-box">
+        <strong>⛔ Yasaklar:</strong> Aşağıdaki davranışlar kesinlikle yasaktır ve hesap silme + yasal süreç doğurur:
+      </div>
+      <ul>
+        <li>❌ Servis verilerini <strong>scrape etmek</strong> veya kopyalamak</li>
+        <li>❌ Hizmetimizi <strong>yeniden satmak</strong> veya hesabı paylaşmak</li>
+        <li>❌ <strong>Bot, script veya otomatik araç</strong> kullanmak</li>
+        <li>❌ Servise <strong>zarar vermeye çalışmak</strong> (hack, DDoS, vb.)</li>
+        <li>❌ Yasadışı içerik için araştırma yapmak</li>
+        <li>❌ Telif hakkı ihlali yapan içerikleri promosyonu</li>
+        <li>❌ Başkalarının haklarını ihlal etmek</li>
+        <li>❌ Spam veya kötü amaçlı içerik üretmek</li>
+        <li>❌ NICHIFY markasını izinsiz kullanmak</li>
+      </ul>
+      
+      <h2><span>💎</span><span>5. Üyelik ve Ödeme</span></h2>
+      
+      <h3>Lifetime Üyelik ($89)</h3>
+      <ul>
+        <li>İlk 100 kişiye özel <strong>tek seferlik</strong> ödeme</li>
+        <li>Ömür boyu erişim (servis aktif olduğu sürece)</li>
+        <li>Tüm özelliklere sınırsız erişim</li>
+        <li>Gelecek güncellemeler ücretsiz</li>
+      </ul>
+      
+      <h3>Ödeme Sistemi</h3>
+      <ul>
+        <li>Ödemeler <strong>LemonSqueezy</strong> üzerinden yapılır</li>
+        <li>Kredi/banka kartı, PayPal kabul edilir</li>
+        <li>Fatura otomatik email olarak gönderilir</li>
+        <li>Türk Lirası ile ödeme şu an mümkün değildir</li>
+      </ul>
+      
+      <h2><span>🔄</span><span>6. İade Politikası</span></h2>
+      <p>NICHIFY PRO, müşteri memnuniyetini ön planda tutar:</p>
+      <ul>
+        <li>✅ <strong>14 gün koşulsuz iade garantisi</strong></li>
+        <li>✅ Hiçbir gerekçe sormadan iade</li>
+        <li>✅ İade süresi: 7-14 iş günü</li>
+        <li>✅ Tam tutar iadesi (komisyon kesintisi yok)</li>
+      </ul>
+      <p><strong>İade için:</strong> <a href="mailto:bucun648@gmail.com">bucun648@gmail.com</a> adresine email gönderin.</p>
+      
+      <h2><span>📊</span><span>7. Veri Doğruluğu</span></h2>
+      <div class="warning-box">
+        <strong>📌 Bilgi:</strong> NICHIFY PRO, YouTube Data API üzerinden veri alır. Veriler güncel olmakla birlikte:
+      </div>
+      <ul>
+        <li>📊 YouTube'un sağladığı verilerin doğruluğundan sorumlu değiliz</li>
+        <li>📊 Niş skorları <strong>tahminidir</strong>, kesin başarı garantisi vermez</li>
+        <li>📊 Kazanç tahminleri ortalama değerlerdir, gerçekleşme garantili değildir</li>
+        <li>📊 Veriler <strong>6 saatte bir</strong> güncellenir (cache sistemi)</li>
+      </ul>
+      
+      <h2><span>⚖️</span><span>8. Fikri Mülkiyet</span></h2>
+      <ul>
+        <li>NICHIFY PRO'nun <strong>tüm içerikleri, tasarımı ve kodu</strong> bize aittir</li>
+        <li>İzinsiz <strong>kopyalanamaz, dağıtılamaz, satılamaz</strong></li>
+        <li>NICHIFY markası, logo ve grafikleri korumalıdır</li>
+        <li>Servisi kullanmak size hiçbir mülkiyet hakkı kazandırmaz</li>
+      </ul>
+      
+      <h2><span>🔒</span><span>9. Hizmetin Kesintisizliği</span></h2>
+      <p>NICHIFY PRO en yüksek erişilebilirlik için çalışır, ancak:</p>
+      <ul>
+        <li>%100 kesintisiz hizmet garantisi vermiyoruz</li>
+        <li>Bakım çalışmaları için kısa kesintiler olabilir</li>
+        <li>YouTube API kesintilerinden etkilenebiliriz</li>
+        <li>Kesintiler için iade hakkı doğmaz (Lifetime üyeler için)</li>
+      </ul>
+      
+      <h2><span>⚠️</span><span>10. Sorumluluk Sınırlandırması</span></h2>
+      <p>NICHIFY PRO aşağıdaki konularda <strong>sorumluluk kabul etmez</strong>:</p>
+      <ul>
+        <li>YouTube kanalınızın başarısı veya başarısızlığı</li>
+        <li>Kazanç tahminlerinin gerçekleşmemesi</li>
+        <li>Üçüncü taraf hizmetlerden kaynaklanan sorunlar</li>
+        <li>Kullanıcının yanlış kararlarından doğan zararlar</li>
+        <li>Telif/copyright sorunları (siz sorumlusunuz)</li>
+        <li>Veri kaybı (yedek almanızı öneririz)</li>
+      </ul>
+      
+      <h2><span>🚪</span><span>11. Hesap Sonlandırma</span></h2>
+      <p><strong>Sizin tarafınızdan:</strong></p>
+      <ul>
+        <li>İstediğiniz zaman email ile hesap silme talebi yapabilirsiniz</li>
+        <li>7 iş günü içinde tüm veriler silinir</li>
+      </ul>
+      <p><strong>Bizim tarafımızdan:</strong></p>
+      <ul>
+        <li>Şartları ihlal eden hesaplar uyarısız kapatılabilir</li>
+        <li>Yasadışı kullanımda hesap derhal askıya alınır</li>
+        <li>İade hakkı doğmaz</li>
+      </ul>
+      
+      <h2><span>📝</span><span>12. Şartların Değiştirilmesi</span></h2>
+      <p>Bu şartları zaman zaman güncelleyebiliriz:</p>
+      <ul>
+        <li>Önemli değişikliklerde 7 gün önceden email bildirimi yaparız</li>
+        <li>Değişiklik tarihinden sonra kullanıma devam etmek <strong>kabul</strong> anlamına gelir</li>
+        <li>Kabul etmiyorsanız hesabınızı silebilirsiniz</li>
+      </ul>
+      
+      <h2><span>⚖️</span><span>13. Uygulanacak Hukuk</span></h2>
+      <ul>
+        <li><strong>Yetkili Hukuk:</strong> Türkiye Cumhuriyeti yasaları</li>
+        <li><strong>Yetkili Mahkeme:</strong> İstanbul Anadolu Mahkemeleri</li>
+        <li><strong>Uyuşmazlık Çözümü:</strong> Önce arabuluculuk, sonra dava</li>
+      </ul>
+      
+      <h2><span>📞</span><span>14. İletişim</span></h2>
+      <p>Sorularınız veya talepleriniz için:</p>
+      <ul>
+        <li>📧 <strong>Email:</strong> <a href="mailto:bucun648@gmail.com">bucun648@gmail.com</a></li>
+        <li>⏱️ <strong>Yanıt süresi:</strong> 24-48 saat</li>
+        <li>🌐 <strong>Destek:</strong> <a href="/sss">Yardım Merkezi</a></li>
+      </ul>
+      
+      <div class="warning-box" style="margin-top: var(--space-2xl);">
+        <strong>📖 Not:</strong> Bu kullanım şartlarını okuduğunuz için teşekkür ederiz. Sorularınız varsa lütfen kayıt olmadan önce iletişime geçin.
+      </div>
+      
+      <p style="margin-top: var(--space-2xl); padding-top: var(--space-lg); border-top: 2px solid var(--border-color); text-align: center; color: var(--text-muted); font-size: 0.875rem;">
+        Bu şartlar <strong>14 Ocak 2025</strong> tarihinde yürürlüğe girmiştir.<br>
+        © 2025 NICHIFY PRO. Tüm hakları saklıdır.
+      </p>
+      
+    </div>
+    
+  </div>
+  
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="/" class="nav-logo">
+            <span class="nav-logo-icon">🎯</span>
+            <span class="nav-logo-text gradient-text-aurora">NICHIFY</span>
+            <span class="badge badge-pro badge-sm">PRO</span>
+          </a>
+          <p class="footer-desc">YouTube'da kazançlı niş bulmanın en akıllı yolu.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Ürün</h4>
+          <a href="/#features">Özellikler</a>
+          <a href="/fiyatlandirma">Fiyatlandırma</a>
+          <a href="/sss">SSS</a>
+        </div>
+        <div class="footer-col">
+          <h4>Hesap</h4>
+          <a href="/login">Giriş Yap</a>
+          <a href="/register">Kayıt Ol</a>
+          <a href="/dashboard">Dashboard</a>
+        </div>
+        <div class="footer-col">
+          <h4>Yasal</h4>
+          <a href="/gizlilik">Gizlilik Politikası</a>
+          <a href="/kvkk">KVKK</a>
+          <a href="/sartlar">Kullanım Şartları</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 NICHIFY PRO. Tüm hakları saklıdır.</p>
+        <p>Made with ❤️ for YouTube Creators</p>
+      </div>
+    </div>
+  </footer>
+  
 </body>
 </html>
