@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yol Haritası - NICHIFY PRO</title>
+  
+  <link rel="stylesheet" href="/css/core.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/roadmap.css">
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🗺️</text></svg>">
+</head>
+<body>
+  
+  <div class="aurora-bg">
+    <div class="aurora-3"></div>
+  </div>
+  
+  <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  
+  <div class="dash-layout">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <span class="sidebar-logo-icon">🎯</span>
+        <div>
+          <div class="sidebar-logo-text">NICHIFY</div>
+          <div class="sidebar-version">PRO v2.0</div>
+        </div>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Ana Menü</div>
+          <a href="/dashboard" class="sidebar-item">
+            <span class="sidebar-item-icon">🏠</span>
+            <span>Anasayfa</span>
+          </a>
+          <a href="/nis-kesfi" class="sidebar-item">
+            <span class="sidebar-item-icon">🎯</span>
+            <span>Niş Keşfi</span>
+          </a>
+          <a href="/yukselen-kanallar" class="sidebar-item">
+            <span class="sidebar-item-icon">🔥</span>
+            <span>Yükselen Kanallar</span>
+          </a>
+          <a href="/kanal-analizi" class="sidebar-item">
+            <span class="sidebar-item-icon">📊</span>
+            <span>Kanal Analizi</span>
+          </a>
+        </div>
+        
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Araçlar</div>
+          <a href="/risk-detector" class="sidebar-item">
+            <span class="sidebar-item-icon">🛡️</span>
+            <span>Risk Detector</span>
+          </a>
+          <a href="/ai-asistan" class="sidebar-item">
+            <span class="sidebar-item-icon">🤖</span>
+            <span>AI Asistan</span>
+            <span class="badge badge-warning sidebar-item-badge">YAKINDA</span>
+          </a>
+          <a href="/yol-haritasi" class="sidebar-item active">
+            <span class="sidebar-item-icon">🗺️</span>
+            <span>Yol Haritası</span>
+          </a>
+        </div>
+        
+        <div class="sidebar-section" id="adminSection" style="display: none;">
+          <div class="sidebar-section-title">👑 Admin</div>
+          <a href="/admin" class="sidebar-item">
+            <span class="sidebar-item-icon">⚙️</span>
+            <span>Yönetim Paneli</span>
+          </a>
+        </div>
+      </nav>
+      
+      <div class="sidebar-lifetime" id="lifetimeCard">
+        <div class="sidebar-lifetime-old">$149</div>
+        <div class="sidebar-lifetime-price">$89</div>
+        <div class="sidebar-lifetime-label">🔥 Lifetime Deal</div>
+        <a href="/fiyatlandirma" class="btn btn-primary btn-sm btn-block" style="margin-top: 8px;">
+          Şimdi Al
+        </a>
+        <div class="sidebar-lifetime-stock">⚡ <span id="lifetimeStock">88</span>/100 kaldı</div>
+      </div>
+      
+      <div class="sidebar-user">
+        <div class="avatar" id="userAvatar">U</div>
+        <div class="sidebar-user-info">
+          <div class="sidebar-user-name" id="userName">Yükleniyor...</div>
+          <div class="sidebar-user-email" id="userEmail">-</div>
+        </div>
+        <div class="sidebar-user-menu" id="logoutBtn" title="Çıkış Yap">⏻</div>
+      </div>
+    </aside>
+    
+    <!-- MAIN -->
+    <main class="main page-enter">
+      
+      <div class="page-header">
+        <h1>
+          <span>🗺️</span>
+          <span>Yol Haritası</span>
+        </h1>
+        <p>NICHIFY PRO'nun gelişim planı. <strong>Tamamlanan, devam eden ve planlanan</strong> tüm özellikler.</p>
+      </div>
+      
+      <!-- Overview -->
+      <div class="roadmap-overview">
+        <div class="overview-header">
+          <div class="overview-title">
+            <span>📊</span>
+            <span>Genel İlerleme</span>
+          </div>
+          <div class="live-indicator">
+            <span>🟢</span>
+            <span>Aktif Geliştirme</span>
+          </div>
+        </div>
+        
+        <div class="overview-stats">
+          <div class="overview-stat">
+            <div class="overview-stat-value done">✅ 35</div>
+            <div class="overview-stat-label">Tamamlandı</div>
+          </div>
+          <div class="overview-stat">
+            <div class="overview-stat-value progress">⏳ 8</div>
+            <div class="overview-stat-label">Devam Ediyor</div>
+          </div>
+          <div class="overview-stat">
+            <div class="overview-stat-value planned">📋 22</div>
+            <div class="overview-stat-label">Planlandı</div>
+          </div>
+          <div class="overview-stat">
+            <div class="overview-stat-value total">🎯 65</div>
+            <div class="overview-stat-label">Toplam Özellik</div>
+          </div>
+        </div>
+        
+        <div class="overall-progress">
+          <div class="overall-progress-header">
+            <span><strong>Genel İlerleme</strong></span>
+            <span><strong>54%</strong></span>
+          </div>
+          <div class="overall-progress-bar">
+            <div class="overall-progress-fill" style="width: 54%;"></div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Phases -->
+      <div class="phases">
+        
+        <!-- PART 1 - DONE -->
+        <div class="phase done fade-in-up">
+          <div class="phase-header">
+            <div class="phase-title-area">
+              <div class="phase-number">PART 1</div>
+              <div class="phase-title">
+                <span>🎯</span>
+                <span>Temel Niş Motoru</span>
+              </div>
+              <p class="phase-description">Ana niş bulma sistemi ve YouTube veri analizi</p>
+            </div>
+            <span class="phase-status done">
+              <span>✅</span>
+              <span>Tamamlandı</span>
+            </span>
+          </div>
+          
+          <div class="phase-progress">
+            <div class="phase-progress-header">
+              <span>İlerleme</span>
+              <span>17/17 (100%)</span>
+            </div>
+            <div class="phase-progress-bar">
+              <div class="phase-progress-fill done" style="width: 100%;"></div>
+            </div>
+          </div>
+          
+          <div class="features-list">
+            <div class="feature-item done">
+              <span class="feature-item-icon done">✓</span>
+              <span class="feature-item-text">Niş bulucu motoru (75+ niş)</span>
+            </div>
+            <div class="feature-item done">
+              <span class="feature-item-icon done">✓</span>
+              <span class="feature-item-text">Mikro niş üretici</span>
+            </div>
+            <div class="feature-item done">
+              <span class="feature-item-icon done">✓</span>
+              <span class="feature-item-text">Anlık arama kutusu</span>
+            </div>
+            <div class="feature-item done">
+              <span class="feature-item-icon done">✓</span>
+              <span class="feature-item-text">Hidden Opportunity Modu</span>
+            </div>
+            <div class="feature-item done">
+              <span class="feature-item-icon done">✓</span>
+              <span class="feature-item-text">10 Kriterli Puanlama</span>
+            </div>
+            <div class="feature-item done">
+              <span class="feature-item-icon done">✓</span>
+              <span class="feature-item-text">Canlı YouTube Verisi (API)</span>
+            </div>
+            <div class="feature-item done">
+              <span class="feature-item-icon done">✓</span>
+              <span class="feature-item-text">Risk Detector</span>
+            </div>
+            <div class="feature-item done">
+              <span class="feature-item-icon done">✓</span>
+              <span class="feature-item-text">Tahmini Kazanç Gösterimi</span>
+            </div>
+            <div class="feature-item done">
+              <span class="feature-item-icon done">✓</span>
+              <span class="feature-item-text">Kanal Analizi</span>
+            </div>
+            <div class="feature-item done">
+              <span class="feature-item-icon done">✓</span>
+              <span class="feature-item-text">Yükselen Kanallar</span>
+            </div>
+            <div class="feature-item done">
+              <span class="feature-item-icon done">✓</span>
+              <span class="feature-item-text">Profesyonel Tasarım</span>
+            </div>
+            <div class="feature-item done">
+              <span class="feature-item-icon done">✓</span>
+              <span class="feature-item-text">Mobil Uyumlu</span>
+            </div>
+            <div class="feature-item done">
+              <span class="feature-item-icon done">✓</span>
+              <span class="feature-item-text">Cache Sistemi (Kredi Tasarrufu)</span>
+            </div>
+            <div class="feature-item done">
+              <span class="feature-item-icon done">✓</span>
+              <span class="feature-item-text">11 Ülke Trend Verisi</span>
+            </div>
+            <div class="feature-item done">
+              <span class="feature-item-icon done">✓</span>
+              <span class="feature-item-text">10 Kategori Filtreleme</span>
+            </div>
+            <div class="feature-item done">
+              <span class="feature-item-icon done">✓</span>
+              <span class="feature-item-text">Favoriler Sistemi</span>
+            </div>
+            <div class="feature-item done">
+              <span class="feature-item-icon done">✓</span>
+              <span class="feature-item-text">Detaylı Niş Bilgileri</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- PART 2 - IN PROGRESS -->
+        <div class="phase progress fade-in-up">
+          <div class="phase-header">
+            <div class="phase-title-area">
+              <div class="phase-number">PART 2</div>
+              <div class="phase-title">
+                <span>🔵</span>
+                <span>Kullanıcı & Ödeme Sistemi</span>
+              </div>
+              <p class="phase-description">Auth, profil, ödeme entegrasyonu ve admin paneli</p>
+            </div>
+            <span class="phase-status progress">
+              <span>⏳</span>
+              <span>Devam Ediyor</span>
+            </span>
+          </div>
+          
+          <div class="phase-progress">
+            <div class="phase-progress-header">
+              <span>İlerleme</span>
+              <span>10/15 (67%)</span>
+            </div>
+            <div class="phase-progress-bar">
+              <div class="phase-progress-fill progress" style="width: 67%;"></div>
+            </div>
+          </div>
+          
+          <div class="features-list">
+            <div class="feature-item done">
+              <span class="feature-item-icon done">✓</span>
+              <span class="feature-item-text">Kullanıcı Kayıt/Giriş Sistemi</span>
+            </div>
+            <div class="feature-item done">
+              <span class="feature-item-icon done">✓</span>
+              <span class="feature-item-text">Supabase Auth Entegrasyonu</span>
+            </div>
+            <div class="feature-item done">
+              <span class="feature-item-icon done">✓</span>
+              <span class="feature-item-text">Google ile Giriş</span>
+            </div>
+            <div class="feature-item done">
+              <span class="feature-item-icon done">✓</span>
+              <span class="feature-item-text">Kullanıcı Dashboard</span>
+            </div>
+            <div class="feature-item done">
+              <span class="feature-item-icon done">✓</span>
+              <span class="feature-item-text">Landing Page</span>
+            </div>
+            <div class="feature-item done">
+              <span class="feature-item-icon done">✓</span>
+              <span class="feature-item-text">Lifetime $89 Plan Sayacı</span>
+            </div>
+            <div class="feature-item progress">
+              <span class="feature-item-icon progress">⏳</span>
+              <span class="feature-item-text">AI Asistan (Gemini)</span>
+              <span class="feature-item-badge badge-warning">Yakında</span>
+            </div>
+            <div class="feature-item progress">
+              <span class="feature-item-icon progress">⏳</span>
+              <span class="feature-item-text">Profil Sayfası</span>
+            </div>
+            <div class="feature-item progress">
+              <span class="feature-item-icon progress">⏳</span>
+              <span class="feature-item-text">Fiyatlandırma Sayfası</span>
+            </div>
+            <div class="feature-item progress">
+              <span class="feature-item-icon progress">⏳</span>
+              <span class="feature-item-text">SSS Sayfası</span>
+            </div>
+            <div class="feature-item planned">
+              <span class="feature-item-icon planned">○</span>
+              <span class="feature-item-text">LemonSqueezy Ödeme</span>
+            </div>
+            <div class="feature-item planned">
+              <span class="feature-item-icon planned">○</span>
+              <span class="feature-item-text">Admin Paneli</span>
+            </div>
+            <div class="feature-item planned">
+              <span class="feature-item-icon planned">○</span>
+              <span class="feature-item-text">Şifre Sıfırlama</span>
+            </div>
+            <div class="feature-item planned">
+              <span class="feature-item-icon planned">○</span>
+              <span class="feature-item-text">E-posta Sistemi</span>
+            </div>
+            <div class="feature-item planned">
+              <span class="feature-item-icon planned">○</span>
+              <span class="feature-item-text">4 Katmanlı Fiyat Planı</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- PART 3 - PLANNED -->
+        <div class="phase planned fade-in-up">
+          <div class="phase-header">
+            <div class="phase-title-area">
+              <div class="phase-number">PART 3</div>
+              <div class="phase-title">
+                <span>🟡</span>
+                <span>Gelişmiş Araçlar</span>
+              </div>
+              <p class="phase-description">Multi-platform analiz, rakip takibi, gelişmiş AI özellikleri</p>
+            </div>
+            <span class="phase-status planned">
+              <span>📋</span>
+              <span>2-3 Hafta</span>
+            </span>
+          </div>
+          
+          <div class="phase-progress">
+            <div class="phase-progress-header">
+              <span>İlerleme</span>
+              <span>0/13 (0%)</span>
+            </div>
+            <div class="phase-progress-bar">
+              <div class="phase-progress-fill planned" style="width: 0%;"></div>
+            </div>
+          </div>
+          
+          <div class="features-list">
+            <div class="feature-item planned">
+              <span class="feature-item-icon planned">○</span>
+              <span class="feature-item-text">RSS Canlı YouTube Haberleri</span>
+            </div>
+            <div class="feature-item planned">
+              <span class="feature-item-icon planned">○</span>
+              <span class="feature-item-text">Haftalık Trend Raporu</span>
+            </div>
+            <div class="feature-item planned">
+              <span class="feature-item-icon planned">○</span>
+              <span class="feature-item-text">Content Generator (Basit)</span>
+            </div>
+            <div class="feature-item planned">
+              <span class="feature-item-icon planned">○</span>
+              <span class="feature-item-text">Risk Detector Gelişmiş</span>
+            </div>
+            <div class="feature-item planned">
+              <span class="feature-item-icon planned">○</span>
+              <span class="feature-item-text">TikTok Analizi</span>
+            </div>
+            <div class="feature-item planned">
+              <span class="feature-item-icon planned">○</span>
+              <span class="feature-item-text">Instagram Reels Analizi</span>
+            </div>
+            <div class="feature-item planned">
+              <span class="feature-item-icon planned">○</span>
+              <span class="feature-item-text">Facebook Reels Analizi</span>
+            </div>
+            <div class="feature-item planned">
+              <span class="feature-item-icon planned">○</span>
+              <span class="feature-item-text">Çapraz Platform Önerisi</span>
+            </div>
+            <div class="feature-item planned">
+              <span class="feature-item-icon planned">○</span>
+              <span class="feature-item-text">Rakip Kanal Analizi</span>
+            </div>
+            <div class="feature-item planned">
+              <span class="feature-item-icon planned">○</span>
+              <span class="feature-item-text">Trend Uyarı Sistemi</span>
+            </div>
+            <div class="feature-item planned">
+              <span class="feature-item-icon planned">○</span>
+              <span class="feature-item-text">AI Kredi Sistemi</span>
+            </div>
+            <div class="feature-item planned">
+              <span class="feature-item-icon planned">○</span>
+              <span class="feature-item-text">Kullanıcı Oylama Paneli</span>
+            </div>
+            <div class="feature-item planned">
+              <span class="feature-item-icon planned">○</span>
+              <span class="feature-item-text">Disiplin Botu / Hatırlatıcı</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- PART 4 - PLANNED -->
+        <div class="phase planned fade-in-up">
+          <div class="phase-header">
+            <div class="phase-title-area">
+              <div class="phase-number">PART 4</div>
+              <div class="phase-title">
+                <span>🟡</span>
+                <span>İçerik Üretim Sistemi</span>
+              </div>
+              <p class="phase-description">AI script, SEO, hashtag, analytics ve affiliate</p>
+            </div>
+            <span class="phase-status planned">
+              <span>📋</span>
+              <span>1-2 Ay</span>
+            </span>
+          </div>
+          
+          <div class="phase-progress">
+            <div class="phase-progress-header">
+              <span>İlerleme</span>
+              <span>0/7 (0%)</span>
+            </div>
+            <div class="phase-progress-bar">
+              <div class="phase-progress-fill planned" style="width: 0%;"></div>
+            </div>
+          </div>
+          
+          <div class="features-list">
+            <div class="feature-item planned">
+              <span class="feature-item-icon planned">○</span>
+              <span class="feature-item-text">Content Generator (Tam)</span>
+            </div>
+            <div class="feature-item planned">
+              <span class="feature-item-icon planned">○</span>
+              <span class="feature-item-text">AI Video Script Üretici</span>
+            </div>
+            <div class="feature-item planned">
+              <span class="feature-item-icon planned">○</span>
+              <span class="feature-item-text">SEO Optimizasyon Önerileri</span>
+            </div>
+            <div class="feature-item planned">
+              <span class="feature-item-icon planned">○</span>
+              <span class="feature-item-text">Hashtag Analizi</span>
+            </div>
+            <div class="feature-item planned">
+              <span class="feature-item-icon planned">○</span>
+              <span class="feature-item-text">Optimum Paylaşım Zamanı</span>
+            </div>
+            <div class="feature-item planned">
+              <span class="feature-item-icon planned">○</span>
+              <span class="feature-item-text">Detaylı Analytics</span>
+            </div>
+            <div class="feature-item planned">
+              <span class="feature-item-icon planned">○</span>
+              <span class="feature-item-text">Affiliate Marketing Önerisi</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- PART 5 - FUTURE -->
+        <div class="phase future fade-in-up">
+          <div class="phase-header">
+            <div class="phase-title-area">
+              <div class="phase-number">PART 5</div>
+              <div class="phase-title">
+                <span>🔴</span>
+                <span>Güvenlik & Altyapı</span>
+              </div>
+              <p class="phase-description">Proxy, kod koruma, DDoS, yedekleme, telegram bildirim</p>
+            </div>
+            <span class="phase-status future">
+              <span>🔮</span>
+              <span>Gelecek</span>
+            </span>
+          </div>
+          
+          <div class="phase-progress">
+            <div class="phase-progress-header">
+              <span>İlerleme</span>
+              <span>0/12 (0%)</span>
+            </div>
+            <div class="phase-progress-bar">
+              <div class="phase-progress-fill future" style="width: 0%;"></div>
+            </div>
+          </div>
+          
+          <div class="features-list">
+            <div class="feature-item future">
+              <span class="feature-item-icon future">○</span>
+              <span class="feature-item-text">Proxy Sunucu (API koruma)</span>
+            </div>
+            <div class="feature-item future">
+              <span class="feature-item-icon future">○</span>
+              <span class="feature-item-text">Kod Obfuscation</span>
+            </div>
+            <div class="feature-item future">
+              <span class="feature-item-icon future">○</span>
+              <span class="feature-item-text">Yedek API Sistemleri</span>
+            </div>
+            <div class="feature-item future">
+              <span class="feature-item-icon future">○</span>
+              <span class="feature-item-text">DMCA Koruma</span>
+            </div>
+            <div class="feature-item future">
+              <span class="feature-item-icon future">○</span>
+              <span class="feature-item-text">Fingerprint Sistemi</span>
+            </div>
+            <div class="feature-item future">
+              <span class="feature-item-icon future">○</span>
+              <span class="feature-item-text">Lisans Anahtarı</span>
+            </div>
+            <div class="feature-item future">
+              <span class="feature-item-icon future">○</span>
+              <span class="feature-item-text">Bot Koruması</span>
+            </div>
+            <div class="feature-item future">
+              <span class="feature-item-icon future">○</span>
+              <span class="feature-item-text">DDoS Koruması</span>
+            </div>
+            <div class="feature-item future">
+              <span class="feature-item-icon future">○</span>
+              <span class="feature-item-text">Veritabanı Yedekleme</span>
+            </div>
+            <div class="feature-item future">
+              <span class="feature-item-icon future">○</span>
+              <span class="feature-item-text">Server-side Rendering</span>
+            </div>
+            <div class="feature-item future">
+              <span class="feature-item-icon future">○</span>
+              <span class="feature-item-text">Telegram Bildirimleri</span>
+            </div>
+            <div class="feature-item future">
+              <span class="feature-item-icon future">○</span>
+              <span class="feature-item-text">YouTube Değişiklik Takibi</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- PART 6 - FUTURE -->
+        <div class="phase future fade-in-up">
+          <div class="phase-header">
+            <div class="phase-title-area">
+              <div class="phase-number">PART 6</div>
+              <div class="phase-title">
+                <span>🚀</span>
+                <span>Ekosistem Genişletme</span>
+              </div>
+              <p class="phase-description">Mobil app, eklentiler, botlar, topluluk ve eğitim platformu</p>
+            </div>
+            <span class="phase-status future">
+              <span>🌟</span>
+              <span>3-6 Ay</span>
+            </span>
+          </div>
+          
+          <div class="phase-progress">
+            <div class="phase-progress-header">
+              <span>İlerleme</span>
+              <span>0/8 (0%)</span>
+            </div>
+            <div class="phase-progress-bar">
+              <div class="phase-progress-fill future" style="width: 0%;"></div>
+            </div>
+          </div>
+          
+          <div class="features-list">
+            <div class="feature-item future">
+              <span class="feature-item-icon future">○</span>
+              <span class="feature-item-text">📱 iOS Mobil Uygulama</span>
+            </div>
+            <div class="feature-item future">
+              <span class="feature-item-icon future">○</span>
+              <span class="feature-item-text">🤖 Android Mobil Uygulama</span>
+            </div>
+            <div class="feature-item future">
+              <span class="feature-item-icon future">○</span>
+              <span class="feature-item-text">🌐 Chrome Eklentisi</span>
+            </div>
+            <div class="feature-item future">
+              <span class="feature-item-icon future">○</span>
+              <span class="feature-item-text">💬 Discord Botu</span>
+            </div>
+            <div class="feature-item future">
+              <span class="feature-item-icon future">○</span>
+              <span class="feature-item-text">📨 Telegram Botu</span>
+            </div>
+            <div class="feature-item future">
+              <span class="feature-item-icon future">○</span>
+              <span class="feature-item-text">🔌 API Erişimi (3. parti)</span>
+            </div>
+            <div class="feature-item future">
+              <span class="feature-item-icon future">○</span>
+              <span class="feature-item-text">💰 Affiliate Programı</span>
+            </div>
+            <div class="feature-item future">
+              <span class="feature-item-icon future">○</span>
+              <span class="feature-item-text">🎓 Eğitim Platformu & Forum</span>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      
+      <!-- Vote Section -->
+      <div class="vote-section fade-in-up">
+        <div style="font-size: 3rem; margin-bottom: var(--space-md);">💡</div>
+        <h2>Hangi Özelliği Önce İstiyorsun?</h2>
+        <p>Senin oylamaların önceliklerimizi belirler. Birlikte daha iyi bir araç yapalım!</p>
+        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 24px;">
+          <a href="mailto:bucun648@gmail.com?subject=NICHIFY%20Özellik%20Önerim" class="btn btn-primary">
+            📧 Öneri Gönder
+          </a>
+          <a href="/dashboard" class="btn btn-secondary">
+            ← Dashboard
+          </a>
+        </div>
+      </div>
+      
+    </main>
+    
+  </div>
+  
+  <script src="/js/config.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/utils.js"></script>
+  <script>
+    
+    (async () => {
+      const isAuth = await Auth.requireAuth('/login');
+      if (!isAuth) return;
+      
+      const user = await Auth.getCurrentUser();
+      if (user) {
+        const displayName = user.name || user.email.split('@')[0];
+        document.getElementById('userName').textContent = displayName;
+        document.getElementById('userEmail').textContent = user.email;
+        document.getElementById('userAvatar').textContent = displayName.charAt(0).toUpperCase();
+        
+        if (user.is_admin || user.role === 'super_admin') {
+          document.getElementById('adminSection').style.display = 'block';
+        }
+        
+        if (user.is_premium) {
+          document.getElementById('lifetimeCard').style.display = 'none';
+        }
+      }
+      
+      loadLifetimeStock();
+    })();
+    
+    async function loadLifetimeStock() {
+      try {
+        const supabase = await Auth.init();
+        const { count } = await supabase
+          .from('users')
+          .select('*', { count: 'exact', head: true })
+          .eq('premium_type', 'lifetime');
+        const remaining = CONFIG.LIFETIME_MAX_SLOTS - (count || 0);
+        document.getElementById('lifetimeStock').textContent = remaining;
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      if (confirm('Çıkış yapmak istediğinizden emin misiniz?')) {
+        await Auth.logout();
+      }
+    });
+    
+    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('sidebarOverlay').classList.toggle('active');
+    });
+    
+    document.getElementById('sidebarOverlay').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sidebarOverlay').classList.remove('active');
+    });
+    
+  </script>
+</body>
+</html>
