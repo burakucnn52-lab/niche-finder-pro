@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - NICHIFY PRO</title>
+  
+  <link rel="stylesheet" href="/css/core.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👑</text></svg>">
+</head>
+<body>
+  
+  <div class="aurora-bg">
+    <div class="aurora-3"></div>
+  </div>
+  
+  <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  
+  <div class="dash-layout">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <span class="sidebar-logo-icon">🎯</span>
+        <div>
+          <div class="sidebar-logo-text">NICHIFY</div>
+          <div class="sidebar-version">PRO v2.0</div>
+        </div>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Ana Menü</div>
+          <a href="/dashboard" class="sidebar-item">
+            <span class="sidebar-item-icon">🏠</span>
+            <span>Anasayfa</span>
+          </a>
+          <a href="/nis-kesfi" class="sidebar-item">
+            <span class="sidebar-item-icon">🎯</span>
+            <span>Niş Keşfi</span>
+          </a>
+          <a href="/yukselen-kanallar" class="sidebar-item">
+            <span class="sidebar-item-icon">🔥</span>
+            <span>Yükselen Kanallar</span>
+          </a>
+          <a href="/kanal-analizi" class="sidebar-item">
+            <span class="sidebar-item-icon">📊</span>
+            <span>Kanal Analizi</span>
+          </a>
+        </div>
+        
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Araçlar</div>
+          <a href="/risk-detector" class="sidebar-item">
+            <span class="sidebar-item-icon">🛡️</span>
+            <span>Risk Detector</span>
+          </a>
+          <a href="/ai-asistan" class="sidebar-item">
+            <span class="sidebar-item-icon">🤖</span>
+            <span>AI Asistan</span>
+            <span class="badge badge-warning sidebar-item-badge">YAKINDA</span>
+          </a>
+          <a href="/yol-haritasi" class="sidebar-item">
+            <span class="sidebar-item-icon">🗺️</span>
+            <span>Yol Haritası</span>
+          </a>
+        </div>
+        
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">👑 Admin</div>
+          <a href="/admin" class="sidebar-item active">
+            <span class="sidebar-item-icon">⚙️</span>
+            <span>Yönetim Paneli</span>
+          </a>
+        </div>
+      </nav>
+      
+      <div class="sidebar-user">
+        <div class="avatar" id="userAvatar">A</div>
+        <div class="sidebar-user-info">
+          <div class="sidebar-user-name" id="userName">Admin</div>
+          <div class="sidebar-user-email" id="userEmail">-</div>
+        </div>
+        <div class="sidebar-user-menu" id="logoutBtn" title="Çıkış Yap">⏻</div>
+      </div>
+    </aside>
+    
+    <!-- MAIN -->
+    <main class="main page-enter">
+      
+      <!-- Admin Header -->
+      <div class="admin-header">
+        <div class="admin-header-info">
+          <h1>
+            <span>👑</span>
+            <span class="gradient-text-warm">Admin Paneli</span>
+          </h1>
+          <p>NICHIFY PRO yönetim merkezi - Tüm sistem kontrolü buradan</p>
+        </div>
+        <div class="admin-badge-area">
+          <span class="live-indicator"></span>
+          <span class="badge badge-warning">SUPER ADMIN</span>
+        </div>
+      </div>
+      
+      <!-- Stats -->
+      <div class="admin-stats">
+        <div class="stat-card">
+          <div class="stat-card-icon">👥</div>
+          <div class="stat-card-value" id="totalUsers">0</div>
+          <div class="stat-card-label">Toplam Kullanıcı</div>
+          <div class="stat-card-trend up">
+            +<span id="newUsersToday">0</span> bugün
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-card-icon" style="background: rgba(244,114,182,0.15);">💎</div>
+          <div class="stat-card-value" id="premiumUsers">0</div>
+          <div class="stat-card-label">Premium Üye</div>
+          <div class="stat-card-trend up">
+            <span id="lifetimeRemaining">100</span>/100 kaldı
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-card-icon" style="background: rgba(69,224,138,0.15);">💰</div>
+          <div class="stat-card-value" id="totalRevenue">$0</div>
+          <div class="stat-card-label">Toplam Gelir</div>
+          <div class="stat-card-trend up">
+            +$<span id="revenueToday">0</span> bugün
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-card-icon" style="background: rgba(255,209,102,0.15);">📊</div>
+          <div class="stat-card-value" id="totalSearches">0</div>
+          <div class="stat-card-label">Toplam Arama</div>
+          <div class="stat-card-trend up">
+            +<span id="searchesToday">0</span> bugün
+          </div>
+        </div>
+      </div>
+      
+      <!-- Tabs -->
+      <div class="admin-tabs">
+        <button class="admin-tab active" data-tab="users">
+          <span>👥</span>
+          <span>Kullanıcılar</span>
+        </button>
+        <button class="admin-tab" data-tab="sales">
+          <span>💰</span>
+          <span>Satışlar</span>
+        </button>
+        <button class="admin-tab" data-tab="system">
+          <span>⚙️</span>
+          <span>Sistem</span>
+        </button>
+        <button class="admin-tab" data-tab="activity">
+          <span>📊</span>
+          <span>Aktivite</span>
+        </button>
+      </div>
+      
+      <!-- TAB: USERS -->
+      <div class="tab-content active" id="tab-users">
+        <div class="users-table-container">
+          <div class="users-table-header">
+            <h2 style="font-size: 1rem;">👥 Tüm Kullanıcılar</h2>
+            <div class="users-search">
+              <input type="text" id="userSearch" placeholder="İsim veya email ara...">
+            </div>
+          </div>
+          
+          <div id="usersTableBody">
+            <div class="admin-loading">
+              <div class="spinner spinner-lg"></div>
+              <p style="margin-top: 16px;">Kullanıcılar yükleniyor...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- TAB: SALES -->
+      <div class="tab-content" id="tab-sales">
+        <div class="users-table-container">
+          <div class="users-table-header">
+            <h2 style="font-size: 1rem;">💰 Satış Geçmişi</h2>
+          </div>
+          
+          <div id="salesTableBody">
+            <div class="empty-state">
+              <div class="empty-state-icon">💸</div>
+              <div class="empty-state-title">Henüz satış yok</div>
+              <div class="empty-state-message">İlk satışlar burada görünecek</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- TAB: SYSTEM -->
+      <div class="tab-content" id="tab-system">
+        <div class="system-grid">
+          
+          <div class="system-card">
+            <h3>
+              <span>🔌</span>
+              <span>API Durumu</span>
+            </h3>
+            <div class="system-item">
+              <span class="system-item-label">YouTube API</span>
+              <span class="system-item-value ok" id="ytStatus">⏳ Kontrol ediliyor...</span>
+            </div>
+            <div class="system-item">
+              <span class="system-item-label">Gemini AI API</span>
+              <span class="system-item-value warn" id="aiStatus">⚠️ Henüz aktif değil</span>
+            </div>
+            <div class="system-item">
+              <span class="system-item-label">LemonSqueezy</span>
+              <span class="system-item-value warn" id="lemonStatus">⚠️ Henüz aktif değil</span>
+            </div>
+            <div class="system-item">
+              <span class="system-item-label">Supabase</span>
+              <span class="system-item-value ok">✅ Aktif</span>
+            </div>
+          </div>
+          
+          <div class="system-card">
+            <h3>
+              <span>📊</span>
+              <span>Veritabanı</span>
+            </h3>
+            <div class="system-item">
+              <span class="system-item-label">Toplam Kullanıcı</span>
+              <span class="system-item-value" id="dbUsers">0</span>
+            </div>
+            <div class="system-item">
+              <span class="system-item-label">Cache Kayıtları</span>
+              <span class="system-item-value" id="dbCache">0</span>
+            </div>
+            <div class="system-item">
+              <span class="system-item-label">AI Kullanım Kayıtları</span>
+              <span class="system-item-value" id="dbAI">0</span>
+            </div>
+            <div class="system-item">
+              <span class="system-item-label">Satış Kayıtları</span>
+              <span class="system-item-value" id="dbSales">0</span>
+            </div>
+          </div>
+          
+          <div class="system-card">
+            <h3>
+              <span>⚡</span>
+              <span>Performans</span>
+            </h3>
+            <div class="system-item">
+              <span class="system-item-label">Versiyon</span>
+              <span class="system-item-value">v2.0.0</span>
+            </div>
+            <div class="system-item">
+              <span class="system-item-label">Deploy</span>
+              <span class="system-item-value ok">✅ Vercel</span>
+            </div>
+            <div class="system-item">
+              <span class="system-item-label">Cache Süresi</span>
+              <span class="system-item-value">6 saat</span>
+            </div>
+            <div class="system-item">
+              <span class="system-item-label">SSL</span>
+              <span class="system-item-value ok">✅ Aktif</span>
+            </div>
+          </div>
+          
+          <div class="system-card">
+            <h3>
+              <span>🛠️</span>
+              <span>Yönetim Aksiyonları</span>
+            </h3>
+            <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: var(--space-md);">
+              Sistem bakımı için kullan
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <button class="btn btn-secondary btn-sm" onclick="clearCache()">
+                🗑️ Cache Temizle
+              </button>
+              <button class="btn btn-secondary btn-sm" onclick="exportUsers()">
+                📥 Kullanıcıları Dışa Aktar (CSV)
+              </button>
+              <button class="btn btn-secondary btn-sm" onclick="checkApiStatus()">
+                🔄 API Durumlarını Yenile
+              </button>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      
+      <!-- TAB: ACTIVITY -->
+      <div class="tab-content" id="tab-activity">
+        <div class="activity-feed" id="activityFeed">
+          <h3 style="font-size: 1rem; margin-bottom: var(--space-lg);">
+            📊 Son Aktiviteler
+          </h3>
+          <div class="empty-state">
+            <div class="empty-state-icon">📊</div>
+            <div class="empty-state-title">Aktivite logları yakında</div>
+            <div class="empty-state-message">Sistem aktiviteleri burada görünecek</div>
+          </div>
+        </div>
+      </div>
+      
+    </main>
+    
+  </div>
+  
+  <script src="/js/config.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/youtube.js"></script>
+  <script>
+    
+    let allUsers = [];
+    let currentUser = null;
+    
+    // ============================================
+    // INIT
+    // ============================================
+    (async () => {
+      
+      // Auth check
+      const isAuth = await Auth.requireAuth('/login');
+      if (!isAuth) return;
+      
+      // Admin check
+      currentUser = await Auth.getCurrentUser();
+      if (!currentUser || (!currentUser.is_admin && currentUser.role !== 'super_admin')) {
+        Utils.toast.error('Bu sayfaya erişim yetkin yok!');
+        setTimeout(() => {
+          window.location.href = '/dashboard';
+        }, 2000);
+        return;
+      }
+      
+      // Load user info
+      const displayName = currentUser.name || currentUser.email.split('@')[0];
+      document.getElementById('userName').textContent = displayName;
+      document.getElementById('userEmail').textContent = currentUser.email;
+      document.getElementById('userAvatar').textContent = displayName.charAt(0).toUpperCase();
+      
+      // Load all data
+      await Promise.all([
+        loadUsers(),
+        loadSales(),
+        loadSystemInfo(),
+        checkApiStatus()
+      ]);
+    })();
+    
+    // ============================================
+    // LOAD USERS
+    // ============================================
+    async function loadUsers() {
+      try {
+        const supabase = await Auth.init();
+        const { data, error } = await supabase
+          .from('users')
+          .select('*')
+          .order('created_at', { ascending: false });
+        
+        if (error) throw error;
+        
+        allUsers = data || [];
+        renderUsers(allUsers);
+        
+        // Stats
+        document.getElementById('totalUsers').textContent = allUsers.length;
+        
+        const premiumCount = allUsers.filter(u => u.is_premium).length;
+        document.getElementById('premiumUsers').textContent = premiumCount;
+        
+        const lifetimeCount = allUsers.filter(u => u.premium_type === 'lifetime').length;
+        document.getElementById('lifetimeRemaining').textContent = CONFIG.LIFETIME_MAX_SLOTS - lifetimeCount;
+        
+        // Today
+        const today = new Date().toISOString().split('T')[0];
+        const newToday = allUsers.filter(u => u.created_at && u.created_at.startsWith(today)).length;
+        document.getElementById('newUsersToday').textContent = newToday;
+        
+        // Revenue (lifetime × $89)
+        const revenue = lifetimeCount * CONFIG.LIFETIME_PRICE;
+        document.getElementById('totalRevenue').textContent = '$' + revenue;
+        
+        // Searches
+        const totalSearches = allUsers.reduce((sum, u) => sum + (u.total_searches || 0), 0);
+        document.getElementById('totalSearches').textContent = Utils.formatNumber(totalSearches);
+        
+        // DB stats
+        document.getElementById('dbUsers').textContent = allUsers.length;
+      } catch (error) {
+        console.error('Users load error:', error);
+        document.getElementById('usersTableBody').innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">⚠️</div>
+            <div class="empty-state-title">Kullanıcılar yüklenemedi</div>
+            <div class="empty-state-message">${error.message}</div>
+          </div>
+        `;
+      }
+    }
+    
+    function renderUsers(users) {
+      const container = document.getElementById('usersTableBody');
+      
+      if (users.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">👥</div>
+            <div class="empty-state-title">Hiç kullanıcı bulunamadı</div>
+          </div>
+        `;
+        return;
+      }
+      
+      container.innerHTML = `
+        <table class="users-table">
+          <thead>
+            <tr>
+              <th>Kullanıcı</th>
+              <th>Rol</th>
+              <th>Üyelik</th>
+              <th>Kayıt</th>
+              <th>Aksiyon</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${users.map(user => {
+              const name = user.name || user.email.split('@')[0];
+              const initial = name.charAt(0).toUpperCase();
+              const isPremium = user.is_premium;
+              const isAdmin = user.is_admin || user.role === 'super_admin';
+              
+              return `
+                <tr>
+                  <td>
+                    <div class="user-info">
+                      <div class="user-avatar">${initial}</div>
+                      <div class="user-details">
+                        <strong>${name}</strong>
+                        <span>${user.email}</span>
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    ${isAdmin 
+                      ? '<span class="badge badge-warning">👑 Admin</span>' 
+                      : '<span class="badge">👤 Kullanıcı</span>'}
+                  </td>
+                  <td>
+                    ${isPremium 
+                      ? `<span class="badge badge-pro">💎 ${user.premium_type === 'lifetime' ? 'LIFETIME' : 'PRO'}</span>` 
+                      : '<span class="badge">🆓 Free</span>'}
+                  </td>
+                  <td style="color: var(--text-muted); font-size: 0.75rem;">
+                    ${user.created_at ? Utils.formatDate(user.created_at) : '-'}
+                  </td>
+                  <td>
+                    <div class="user-actions">
+                      ${!isPremium 
+                        ? `<button class="action-btn success" onclick="makePremium('${user.id}')">⬆️ Premium Yap</button>` 
+                        : `<button class="action-btn danger" onclick="removePremium('${user.id}')">⬇️ Premium Kaldır</button>`}
+                      ${currentUser.id !== user.id 
+                        ? `<button class="action-btn danger" onclick="deleteUser('${user.id}', '${user.email}')">🗑️</button>` 
+                        : '<span style="font-size: 0.7rem; color: var(--text-muted);">SEN</span>'}
+                    </div>
+                  </td>
+                </tr>
+              `;
+            }).join('')}
+          </tbody>
+        </table>
+      `;
+    }
+    
+    // ============================================
+    // USER ACTIONS
+    // ============================================
+    window.makePremium = async function(userId) {
+      const user = allUsers.find(u => u.id === userId);
+      if (!user) return;
+      
+      const type = confirm(`${user.email}\n\nLIFETIME Pro yapmak için OK\nNormal Pro yapmak için İPTAL\n`) ? 'lifetime' : 'pro';
+      
+      try {
+        const supabase = await Auth.init();
+        const { error } = await supabase
+          .from('users')
+          .update({
+            is_premium: true,
+            premium_type: type,
+            premium_since: new Date().toISOString()
+          })
+          .eq('id', userId);
+        
+        if (error) throw error;
+        
+        Utils.toast.success(`✅ ${user.email} ${type.toUpperCase()} yapıldı!`);
+        loadUsers();
+      } catch (error) {
+        Utils.toast.error('Hata: ' + error.message);
+      }
+    };
+    
+    window.removePremium = async function(userId) {
+      const user = allUsers.find(u => u.id === userId);
+      if (!user) return;
+      
+      if (!confirm(`${user.email} kullanıcısının premium üyeliğini KALDIRMAK istediğine emin misin?`)) return;
+      
+      try {
+        const supabase = await Auth.init();
+        const { error } = await supabase
+          .from('users')
+          .update({
+            is_premium: false,
+            premium_type: null,
+            premium_since: null
+          })
+          .eq('id', userId);
+        
+        if (error) throw error;
+        
+        Utils.toast.success('✅ Premium kaldırıldı');
+        loadUsers();
+      } catch (error) {
+        Utils.toast.error('Hata: ' + error.message);
+      }
+    };
+    
+    window.deleteUser = async function(userId, email) {
+      if (!confirm(`⚠️ DİKKAT!\n\n${email} kullanıcısını SİLMEK istediğine emin misin?\n\nBu işlem GERİ ALINAMAZ!`)) return;
+      
+      const confirmText = prompt('Onaylamak için "SİL" yaz:');
+      if (confirmText !== 'SİL') {
+        Utils.toast.warning('İptal edildi');
+        return;
+      }
+      
+      try {
+        const supabase = await Auth.init();
+        const { error } = await supabase
+          .from('users')
+          .delete()
+          .eq('id', userId);
+        
+        if (error) throw error;
+        
+        Utils.toast.success('✅ Kullanıcı silindi');
+        loadUsers();
+      } catch (error) {
+        Utils.toast.error('Hata: ' + error.message);
+      }
+    };
+    
+    // ============================================
+    // SEARCH
+    // ============================================
+    document.getElementById('userSearch').addEventListener('input', Utils.debounce((e) => {
+      const query = e.target.value.toLowerCase();
+      const filtered = allUsers.filter(u => 
+        (u.name || '').toLowerCase().includes(query) ||
+        (u.email || '').toLowerCase().includes(query)
+      );
+      renderUsers(filtered);
+    }, 300));
+    
+    // ============================================
+    // SALES
+    // ============================================
+    async function loadSales() {
+      try {
+        const supabase = await Auth.init();
+        const { data, error, count } = await supabase
+          .from('sales')
+          .select('*', { count: 'exact' })
+          .order('created_at', { ascending: false });
+        
+        if (error) {
+          document.getElementById('dbSales').textContent = '0';
+          return;
+        }
+        
+        document.getElementById('dbSales').textContent = count || 0;
+        
+        if (!data || data.length === 0) {
+          document.getElementById('salesTableBody').innerHTML = `
+            <div class="empty-state">
+              <div class="empty-state-icon">💸</div>
+              <div class="empty-state-title">Henüz satış yok</div>
+              <div class="empty-state-message">İlk satışlar burada görünecek</div>
+            </div>
+          `;
+          return;
+        }
+        
+        document.getElementById('salesTableBody').innerHTML = `
+          <table class="users-table">
+            <thead>
+              <tr>
+                <th>Email</th>
+                <th>Tutar</th>
+                <th>Tip</th>
+                <th>Tarih</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${data.map(sale => `
+                <tr>
+                  <td>${sale.email || '-'}</td>
+                  <td><strong style="color: var(--success);">$${sale.amount || 0}</strong></td>
+                  <td><span class="badge badge-success">${sale.product_name || 'Lifetime'}</span></td>
+                  <td style="color: var(--text-muted); font-size: 0.75rem;">${Utils.formatDateTime(sale.created_at)}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+        `;
+      } catch (error) {
+        console.error('Sales error:', error);
+      }
+    }
+    
+    // ============================================
+    // SYSTEM INFO
+    // ============================================
+    async function loadSystemInfo() {
+      try {
+        const supabase = await Auth.init();
+        
+        // Cache count
+        const { count: cacheCount } = await supabase
+          .from('search_cache')
+          .select('*', { count: 'exact', head: true });
+        document.getElementById('dbCache').textContent = cacheCount || 0;
+        
+        // AI usage
+        const { count: aiCount } = await supabase
+          .from('ai_usage')
+          .select('*', { count: 'exact', head: true });
+        document.getElementById('dbAI').textContent = aiCount || 0;
+      } catch (error) {
+        console.error('System info error:', error);
+      }
+    }
+    
+    // ============================================
+    // API STATUS CHECK
+    // ============================================
+    window.checkApiStatus = async function() {
+      // YouTube
+      try {
+        const yt = await YouTube.getStatus();
+        document.getElementById('ytStatus').textContent = yt.status === 'ok' ? '✅ Aktif' : '❌ Hata';
+        document.getElementById('ytStatus').className = `system-item-value ${yt.status === 'ok' ? 'ok' : 'error'}`;
+      } catch {
+        document.getElementById('ytStatus').textContent = '❌ Hata';
+        document.getElementById('ytStatus').className = 'system-item-value error';
+      }
+      
+      // AI
+      try {
+        const aiRes = await fetch('/api/ai');
+        const ai = await aiRes.json();
+        const aiOk = ai.has_key;
+        document.getElementById('aiStatus').textContent = aiOk ? '✅ Aktif' : '⚠️ API key yok';
+        document.getElementById('aiStatus').className = `system-item-value ${aiOk ? 'ok' : 'warn'}`;
+      } catch {
+        document.getElementById('aiStatus').textContent = '⚠️ Henüz aktif değil';
+      }
+    };
+    
+    // ============================================
+    // ACTIONS
+    // ============================================
+    window.clearCache = async function() {
+      if (!confirm('Tüm cache temizlensin mi?')) return;
+      
+      try {
+        const supabase = await Auth.init();
+        const { error } = await supabase
+          .from('search_cache')
+          .delete()
+          .neq('id', 0); // Tümünü sil
+        
+        if (error) throw error;
+        Utils.toast.success('✅ Cache temizlendi!');
+        loadSystemInfo();
+      } catch (error) {
+        Utils.toast.error('Hata: ' + error.message);
+      }
+    };
+    
+    window.exportUsers = function() {
+      if (allUsers.length === 0) {
+        Utils.toast.warning('Dışa aktarılacak kullanıcı yok');
+        return;
+      }
+      
+      const csv = [
+        ['ID', 'Email', 'Name', 'Role', 'Premium', 'Premium Type', 'Created'].join(','),
+        ...allUsers.map(u => [
+          u.id,
+          u.email,
+          u.name || '',
+          u.role || 'user',
+          u.is_premium ? 'Yes' : 'No',
+          u.premium_type || '',
+          u.created_at || ''
+        ].join(','))
+      ].join('\n');
+      
+      const blob = new Blob([csv], { type: 'text/csv' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `nichify-users-${new Date().toISOString().split('T')[0]}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+      
+      Utils.toast.success('✅ CSV indirildi!');
+    };
+    
+    // ============================================
+    // TABS
+    // ============================================
+    document.querySelectorAll('.admin-tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        const targetTab = tab.dataset.tab;
+        
+        document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        document.getElementById('tab-' + targetTab).classList.add('active');
+      });
+    });
+    
+    // ============================================
+    // OTHER
+    // ============================================
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      if (confirm('Çıkış yapmak istediğinizden emin misiniz?')) {
+        await Auth.logout();
+      }
+    });
+    
+    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('sidebarOverlay').classList.toggle('active');
+    });
+    
+    document.getElementById('sidebarOverlay').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sidebarOverlay').classList.remove('active');
+    });
+    
+  </script>
+</body>
+</html>
