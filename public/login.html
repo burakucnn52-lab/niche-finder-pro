@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Giriş Yap - NICHIFY PRO</title>
+  
+  <link rel="stylesheet" href="/css/core.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/auth.css">
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+</head>
+<body>
+  
+  <!-- Aurora Background -->
+  <div class="aurora-bg">
+    <div class="aurora-3"></div>
+  </div>
+  
+  <!-- Back to home -->
+  <a href="/" class="auth-back">
+    <span>←</span>
+    <span>Ana Sayfa</span>
+  </a>
+  
+  <!-- Auth Page -->
+  <div class="auth-page">
+    <div class="auth-container">
+      
+      <div class="auth-card">
+        
+        <a href="/" class="auth-logo">
+          <span class="auth-logo-icon">🎯</span>
+          <span class="auth-logo-text gradient-text-aurora">NICHIFY</span>
+          <span class="badge badge-pro badge-sm">PRO</span>
+        </a>
+        
+        <div class="auth-header">
+          <h1>Tekrar Hoş Geldin! 👋</h1>
+          <p>Hesabına giriş yap ve nişleri keşfetmeye devam et</p>
+        </div>
+        
+        <!-- Alert (gizli, hata olunca açılır) -->
+        <div id="alert" class="alert alert-danger auth-alert hidden">
+          <span class="alert-icon">⚠️</span>
+          <div class="alert-content">
+            <div id="alert-message"></div>
+          </div>
+        </div>
+        
+        <!-- Login Form -->
+        <form id="loginForm" class="auth-form">
+          
+          <div class="form-group">
+            <label class="form-label">E-posta</label>
+            <input 
+              type="email" 
+              id="email" 
+              class="form-input" 
+              placeholder="ornek@email.com"
+              required
+              autocomplete="email"
+            >
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Şifre</label>
+            <input 
+              type="password" 
+              id="password" 
+              class="form-input" 
+              placeholder="••••••••"
+              required
+              autocomplete="current-password"
+              minlength="6"
+            >
+          </div>
+          
+          <div class="auth-options">
+            <label class="checkbox">
+              <input type="checkbox" id="remember">
+              <span style="font-size: 0.8125rem; color: var(--text-muted);">Beni hatırla</span>
+            </label>
+            <a href="/forgot-password">Şifremi unuttum</a>
+          </div>
+          
+          <button type="submit" class="btn btn-primary btn-lg btn-block auth-submit" id="submitBtn">
+            <span class="btn-text">Giriş Yap</span>
+            <span class="spinner spinner-sm hidden" id="spinner"></span>
+          </button>
+          
+        </form>
+        
+        <div class="auth-divider">veya</div>
+        
+        <div class="auth-social">
+          <button type="button" class="btn-google" id="googleBtn">
+            <svg width="20" height="20" viewBox="0 0 24 24">
+              <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+              <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+              <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+              <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+            </svg>
+            Google ile Giriş Yap
+          </button>
+        </div>
+        
+        <div class="auth-footer">
+          Hesabın yok mu? 
+          <a href="/register">Hemen Kayıt Ol</a>
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
+  
+  <script src="/js/config.js"></script>
+  <script src="/js/auth.js"></script>
+  <script>
+    // Sayfa yüklendiğinde kontrol et
+    (async () => {
+      // Eğer zaten giriş yapmışsa dashboard'a yönlendir
+      const isLoggedIn = await Auth.isLoggedIn();
+      if (isLoggedIn) {
+        window.location.href = '/dashboard';
+      }
+    })();
+    
+    // Login Form
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const submitBtn = document.getElementById('submitBtn');
+      const btnText = submitBtn.querySelector('.btn-text');
+      const spinner = document.getElementById('spinner');
+      const alert = document.getElementById('alert');
+      const alertMessage = document.getElementById('alert-message');
+      
+      // Loading state
+      submitBtn.disabled = true;
+      btnText.textContent = 'Giriş yapılıyor...';
+      spinner.classList.remove('hidden');
+      alert.classList.add('hidden');
+      
+      // Login
+      const result = await Auth.login(email, password);
+      
+      if (result.success) {
+        btnText.textContent = '✓ Başarılı! Yönlendiriliyor...';
+        setTimeout(() => {
+          window.location.href = '/dashboard';
+        }, 500);
+      } else {
+        // Hata göster
+        alertMessage.textContent = result.message;
+        alert.classList.remove('hidden');
+        submitBtn.disabled = false;
+        btnText.textContent = 'Giriş Yap';
+        spinner.classList.add('hidden');
+      }
+    });
+    
+    // Google Login
+    document.getElementById('googleBtn').addEventListener('click', async () => {
+      await Auth.loginWithGoogle();
+    });
+  </script>
+</body>
+</html>
