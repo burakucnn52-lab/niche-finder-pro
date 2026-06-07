@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Niş Keşfi - NICHIFY PRO</title>
+  
+  <link rel="stylesheet" href="/css/core.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/niches.css">
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+</head>
+<body>
+  
+  <!-- Aurora Background -->
+  <div class="aurora-bg">
+    <div class="aurora-3"></div>
+  </div>
+  
+  <!-- Mobile Menu -->
+  <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  
+  <div class="dash-layout">
+    
+    <!-- ============================================
+         SIDEBAR (Aynı dashboard'taki gibi)
+         ============================================ -->
+    <aside class="sidebar" id="sidebar">
+      
+      <div class="sidebar-logo">
+        <span class="sidebar-logo-icon">🎯</span>
+        <div>
+          <div class="sidebar-logo-text">NICHIFY</div>
+          <div class="sidebar-version">PRO v2.0</div>
+        </div>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Ana Menü</div>
+          <a href="/dashboard" class="sidebar-item">
+            <span class="sidebar-item-icon">🏠</span>
+            <span>Anasayfa</span>
+          </a>
+          <a href="/nis-kesfi" class="sidebar-item active">
+            <span class="sidebar-item-icon">🎯</span>
+            <span>Niş Keşfi</span>
+          </a>
+          <a href="/yukselen-kanallar" class="sidebar-item">
+            <span class="sidebar-item-icon">🔥</span>
+            <span>Yükselen Kanallar</span>
+          </a>
+          <a href="/kanal-analizi" class="sidebar-item">
+            <span class="sidebar-item-icon">📊</span>
+            <span>Kanal Analizi</span>
+          </a>
+        </div>
+        
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Araçlar</div>
+          <a href="/risk-detector" class="sidebar-item">
+            <span class="sidebar-item-icon">🛡️</span>
+            <span>Risk Detector</span>
+          </a>
+          <a href="/ai-asistan" class="sidebar-item">
+            <span class="sidebar-item-icon">🤖</span>
+            <span>AI Asistan</span>
+            <span class="badge badge-pro sidebar-item-badge">PRO</span>
+          </a>
+          <a href="/yol-haritasi" class="sidebar-item">
+            <span class="sidebar-item-icon">🗺️</span>
+            <span>Yol Haritası</span>
+          </a>
+        </div>
+        
+        <div class="sidebar-section" id="adminSection" style="display: none;">
+          <div class="sidebar-section-title">👑 Admin</div>
+          <a href="/admin" class="sidebar-item">
+            <span class="sidebar-item-icon">⚙️</span>
+            <span>Yönetim Paneli</span>
+          </a>
+        </div>
+      </nav>
+      
+      <div class="sidebar-lifetime" id="lifetimeCard">
+        <div class="sidebar-lifetime-old">$149</div>
+        <div class="sidebar-lifetime-price">$89</div>
+        <div class="sidebar-lifetime-label">🔥 Lifetime Deal</div>
+        <a href="/fiyatlandirma" class="btn btn-primary btn-sm btn-block" style="margin-top: 8px;">
+          Şimdi Al
+        </a>
+        <div class="sidebar-lifetime-stock">⚡ <span id="lifetimeStock">88</span>/100 kaldı</div>
+      </div>
+      
+      <div class="sidebar-user">
+        <div class="avatar" id="userAvatar">U</div>
+        <div class="sidebar-user-info">
+          <div class="sidebar-user-name" id="userName">Yükleniyor...</div>
+          <div class="sidebar-user-email" id="userEmail">-</div>
+        </div>
+        <div class="sidebar-user-menu" id="logoutBtn" title="Çıkış Yap">⏻</div>
+      </div>
+      
+    </aside>
+    
+    <!-- ============================================
+         MAIN CONTENT
+         ============================================ -->
+    <main class="main page-enter">
+      
+      <!-- Page Header -->
+      <div class="page-header">
+        <h1>
+          <span>🎯</span>
+          <span>Niş Keşfi</span>
+        </h1>
+        <p>100+ niş arasından sana en uygun olanı bul. <strong class="text-blue">10 kriterli puanlama</strong>, <strong class="text-warning">Hidden Opportunity</strong> ve <strong class="text-success">tahmini kazanç</strong> ile.</p>
+      </div>
+      
+      <!-- Filters -->
+      <div class="filters">
+        
+        <!-- Search + Sort -->
+        <div class="filters-row">
+          <div class="filter-search">
+            <input 
+              type="text" 
+              id="searchInput" 
+              placeholder="Niş, kategori veya anahtar kelime ara..."
+              autocomplete="off"
+            >
+          </div>
+          
+          <select class="sort-select" id="sortSelect">
+            <option value="score">📊 En Yüksek Skor</option>
+            <option value="growth">📈 En Hızlı Büyüyen</option>
+            <option value="rpm">💰 En Yüksek Kazanç</option>
+            <option value="competition">⚔️ En Az Rekabet</option>
+            <option value="hidden">💎 Hidden Opportunity</option>
+          </select>
+        </div>
+        
+        <!-- Categories -->
+        <div class="categories" id="categoriesContainer">
+          <!-- JS ile doldurulacak -->
+        </div>
+        
+        <!-- Toggle Filters -->
+        <div class="filters-row">
+          <div class="toggle-filters">
+            <div class="toggle-filter" data-filter="hidden">
+              💎 Hidden Opportunity
+            </div>
+            <div class="toggle-filter" data-filter="faceless">
+              🎭 Faceless Uyumlu
+            </div>
+            <div class="toggle-filter" data-filter="shorts">
+              📱 Shorts Uyumlu
+            </div>
+            <div class="toggle-filter" data-filter="lowComp">
+              ⚔️ Düşük Rekabet
+            </div>
+            <div class="toggle-filter" data-filter="highRpm">
+              💰 Yüksek RPM
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      
+      <!-- Results Info -->
+      <div class="results-info">
+        <div class="results-count">
+          <strong id="resultsCount">0</strong> niş bulundu
+        </div>
+        <div>
+          <span class="live-indicator"></span>
+          <span style="font-size: 0.75rem;">Canlı veri</span>
+        </div>
+      </div>
+      
+      <!-- Niches Grid -->
+      <div class="niches-grid" id="nichesGrid">
+        <!-- JS ile doldurulacak -->
+      </div>
+      
+    </main>
+    
+  </div>
+  
+  <!-- Niche Detail Modal -->
+  <div class="modal-overlay hidden" id="nicheModal">
+    <div class="modal niche-detail-modal">
+      <div class="modal-header">
+        <div class="modal-title">Niş Detayları</div>
+        <div class="modal-close" id="closeModalBtn">×</div>
+      </div>
+      <div class="modal-body" id="nicheModalBody">
+        <!-- JS ile doldurulacak -->
+      </div>
+    </div>
+  </div>
+  
+  <script src="/js/config.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/utils.js"></script>
+  <script src="/data/niches-tr.js"></script>
+  <script src="/js/animations.js"></script>
+  <script>
+    
+    // ============================================
+    // STATE
+    // ============================================
+    let state = {
+      search: '',
+      category: 'all',
+      sort: 'score',
+      toggles: {
+        hidden: false,
+        faceless: false,
+        shorts: false,
+        lowComp: false,
+        highRpm: false
+      },
+      allNiches: []
+    };
+    
+    // ============================================
+    // INIT
+    // ============================================
+    (async () => {
+      
+      // Auth check
+      const isAuth = await Auth.requireAuth('/login');
+      if (!isAuth) return;
+      
+      // Load user
+      const user = await Auth.getCurrentUser();
+      if (user) {
+        const displayName = user.name || user.email.split('@')[0];
+        document.getElementById('userName').textContent = displayName;
+        document.getElementById('userEmail').textContent = user.email;
+        document.getElementById('userAvatar').textContent = displayName.charAt(0).toUpperCase();
+        
+        if (user.is_admin || user.role === 'super_admin') {
+          document.getElementById('adminSection').style.display = 'block';
+        }
+        
+        if (user.is_premium) {
+          document.getElementById('lifetimeCard').style.display = 'none';
+        }
+      }
+      
+      // Lifetime stock
+      loadLifetimeStock();
+      
+      // Process all niches (score & enrich)
+      state.allNiches = NICHES_DATA.map(niche => ({
+        ...niche,
+        score: calculateNicheScore(niche),
+        isHidden: isHiddenOpportunity(niche),
+        earnings: calculateEarnings(niche)
+      }));
+      
+      // Setup categories
+      renderCategories();
+      
+      // Check URL params
+      const urlSearch = Utils.getUrlParam('q');
+      if (urlSearch) {
+        state.search = urlSearch;
+        document.getElementById('searchInput').value = urlSearch;
+      }
+      
+      const urlCategory = Utils.getUrlParam('category');
+      if (urlCategory) {
+        state.category = urlCategory;
+      }
+      
+      // Initial render
+      renderNiches();
+      
+    })();
+    
+    // ============================================
+    // LIFETIME STOCK
+    // ============================================
+    async function loadLifetimeStock() {
+      try {
+        const supabase = await Auth.init();
+        const { count } = await supabase
+          .from('users')
+          .select('*', { count: 'exact', head: true })
+          .eq('premium_type', 'lifetime');
+        
+        const remaining = CONFIG.LIFETIME_MAX_SLOTS - (count || 0);
+        document.getElementById('lifetimeStock').textContent = remaining;
+      } catch (error) {
+        console.error('Stock load error:', error);
+      }
+    }
+    
+    // ============================================
+    // RENDER CATEGORIES
+    // ============================================
+    function renderCategories() {
+      const container = document.getElementById('categoriesContainer');
+      
+      // Count niches per category
+      const counts = {};
+      counts['all'] = state.allNiches.length;
+      
+      state.allNiches.forEach(niche => {
+        counts[niche.category] = (counts[niche.category] || 0) + 1;
+      });
+      
+      container.innerHTML = NICHE_CATEGORIES.map(cat => {
+        const count = counts[cat.id] || 0;
+        if (count === 0 && cat.id !== 'all') return '';
+        
+        return `
+          <div class="category-pill ${state.category === cat.id ? 'active' : ''}" 
+               data-category="${cat.id}">
+            <span>${cat.icon}</span>
+            <span>${cat.name}</span>
+            <span class="count">${count}</span>
+          </div>
+        `;
+      }).join('');
+      
+      // Event listeners
+      container.querySelectorAll('.category-pill').forEach(pill => {
+        pill.addEventListener('click', () => {
+          state.category = pill.dataset.category;
+          container.querySelectorAll('.category-pill').forEach(p => p.classList.remove('active'));
+          pill.classList.add('active');
+          renderNiches();
+        });
+      });
+    }
+    
+    // ============================================
+    // FILTER & SORT
+    // ============================================
+    function getFilteredNiches() {
+      let filtered = [...state.allNiches];
+      
+      // Search
+      if (state.search) {
+        const q = state.search.toLowerCase();
+        filtered = filtered.filter(n => 
+          n.name.toLowerCase().includes(q) ||
+          n.category.toLowerCase().includes(q) ||
+          n.description.toLowerCase().includes(q) ||
+          n.subCategories.some(s => s.toLowerCase().includes(q)) ||
+          n.keywords.some(k => k.toLowerCase().includes(q))
+        );
+      }
+      
+      // Category
+      if (state.category !== 'all') {
+        filtered = filtered.filter(n => n.category === state.category);
+      }
+      
+      // Toggle filters
+      if (state.toggles.hidden) {
+        filtered = filtered.filter(n => n.isHidden);
+      }
+      if (state.toggles.faceless) {
+        filtered = filtered.filter(n => n.facelessSupport);
+      }
+      if (state.toggles.shorts) {
+        filtered = filtered.filter(n => n.shortsSupport);
+      }
+      if (state.toggles.lowComp) {
+        filtered = filtered.filter(n => n.competition < 60);
+      }
+      if (state.toggles.highRpm) {
+        filtered = filtered.filter(n => (n.rpm.min + n.rpm.max) / 2 >= 10);
+      }
+      
+      // Sort
+      switch (state.sort) {
+        case 'score':
+          filtered.sort((a, b) => b.score - a.score);
+          break;
+        case 'growth':
+          filtered.sort((a, b) => b.growth - a.growth);
+          break;
+        case 'rpm':
+          filtered.sort((a, b) => ((b.rpm.min + b.rpm.max) / 2) - ((a.rpm.min + a.rpm.max) / 2));
+          break;
+        case 'competition':
+          filtered.sort((a, b) => a.competition - b.competition);
+          break;
+        case 'hidden':
+          filtered.sort((a, b) => {
+            if (a.isHidden && !b.isHidden) return -1;
+            if (!a.isHidden && b.isHidden) return 1;
+            return b.score - a.score;
+          });
+          break;
+      }
+      
+      return filtered;
+    }
+    
+    // ============================================
+    // RENDER NICHES
+    // ============================================
+    function renderNiches() {
+      const niches = getFilteredNiches();
+      const grid = document.getElementById('nichesGrid');
+      const countEl = document.getElementById('resultsCount');
+      
+      countEl.textContent = niches.length;
+      
+      if (niches.length === 0) {
+        grid.innerHTML = `
+          <div class="no-results">
+            <div class="no-results-icon">🔍</div>
+            <h3>Hiç sonuç bulunamadı</h3>
+            <p>Filtreleri değiştirmeyi veya farklı bir arama yapmayı dene</p>
+            <button class="btn btn-primary" onclick="resetFilters()">
+              🔄 Filtreleri Sıfırla
+            </button>
+          </div>
+        `;
+        return;
+      }
+      
+      grid.innerHTML = niches.map((niche, index) => {
+        const scoreClass = 
+          niche.score >= 85 ? 'excellent' :
+          niche.score >= 70 ? 'good' :
+          niche.score >= 55 ? 'medium' : 'low';
+        
+        return `
+          <div class="niche-card ${niche.isHidden ? 'hidden-opportunity' : ''} fade-in-up" 
+               style="animation-delay: ${Math.min(index * 0.05, 0.5)}s"
+               data-niche-id="${niche.id}">
+            
+            <div class="niche-card-header">
+              <div class="niche-card-icon">${niche.icon}</div>
+              <div class="niche-card-title-area">
+                <div class="niche-card-title">${niche.name}</div>
+                <div class="niche-card-category">${niche.category}</div>
+              </div>
+              <div class="niche-score ${scoreClass}">
+                ${niche.score}
+              </div>
+            </div>
+            
+            <div class="niche-card-desc">${niche.description}</div>
+            
+            <div class="niche-card-badges">
+              ${niche.isHidden ? '<span class="badge badge-warning">💎 Hidden</span>' : ''}
+              ${niche.facelessSupport ? '<span class="badge badge-purple">🎭 Faceless</span>' : ''}
+              ${niche.shortsSupport ? '<span class="badge badge-primary">📱 Shorts</span>' : ''}
+              ${niche.competition < 50 ? '<span class="badge badge-success">⚔️ Az Rekabet</span>' : ''}
+            </div>
+            
+            <div class="niche-stats">
+              <div class="niche-stat">
+                <div class="niche-stat-label">Rekabet</div>
+                <div class="niche-stat-bar">
+                  <div class="niche-stat-fill competition" style="width: ${niche.competition}%"></div>
+                </div>
+                <div class="niche-stat-value">${niche.competition}</div>
+              </div>
+              <div class="niche-stat">
+                <div class="niche-stat-label">Büyüme</div>
+                <div class="niche-stat-bar">
+                  <div class="niche-stat-fill growth" style="width: ${niche.growth}%"></div>
+                </div>
+                <div class="niche-stat-value">${niche.growth}</div>
+              </div>
+              <div class="niche-stat">
+                <div class="niche-stat-label">Süreklilik</div>
+                <div class="niche-stat-bar">
+                  <div class="niche-stat-fill sustainability" style="width: ${niche.sustainability}%"></div>
+                </div>
+                <div class="niche-stat-value">${niche.sustainability}</div>
+              </div>
+            </div>
+            
+            <div class="niche-earnings">
+              <div>
+                <div class="niche-earnings-label">Tahmini Kazanç</div>
+                <div class="niche-earnings-value">$${niche.earnings.monthly.toLocaleString('tr-TR')}/ay</div>
+              </div>
+              <div class="niche-earnings-rpm">
+                <strong>RPM</strong><br>
+                $${niche.rpm.min}-${niche.rpm.max}
+              </div>
+            </div>
+            
+            <div class="niche-card-actions">
+              <button class="btn btn-primary btn-sm" onclick="openNicheDetail('${niche.id}')">
+                📊 Detaylar
+              </button>
+              <button class="btn btn-secondary btn-sm" onclick="searchOnYoutube('${niche.id}')">
+                ▶️ YouTube
+              </button>
+            </div>
+            
+          </div>
+        `;
+      }).join('');
+    }
+    
+    // ============================================
+    // OPEN NICHE DETAIL
+    // ============================================
+    window.openNicheDetail = function(nicheId) {
+      const niche = state.allNiches.find(n => n.id === nicheId);
+      if (!niche) return;
+      
+      const modal = document.getElementById('nicheModal');
+      const body = document.getElementById('nicheModalBody');
+      
+      body.innerHTML = `
+        <div class="niche-detail-header">
+          <div class="niche-detail-icon">${niche.icon}</div>
+          <div class="niche-detail-info">
+            <h2>${niche.name}</h2>
+            <p class="text-muted">${niche.description}</p>
+            <div class="badges">
+              <span class="badge badge-primary">${niche.category}</span>
+              ${niche.isHidden ? '<span class="badge badge-warning">💎 Hidden Opportunity</span>' : ''}
+              ${niche.facelessSupport ? '<span class="badge badge-purple">🎭 Faceless</span>' : ''}
+              ${niche.shortsSupport ? '<span class="badge badge-primary">📱 Shorts</span>' : ''}
+            </div>
+          </div>
+          <div class="niche-detail-score">
+            <div class="niche-detail-score-value">${niche.score}</div>
+            <div class="niche-detail-score-label">Niş Skoru</div>
+          </div>
+        </div>
+        
+        <!-- Stats -->
+        <div class="detail-stats">
+          <div class="detail-stat">
+            <div class="detail-stat-icon">⚔️</div>
+            <div class="detail-stat-value" style="color: ${niche.competition < 50 ? 'var(--success)' : niche.competition < 75 ? 'var(--warning)' : 'var(--danger)'}">${niche.competition}</div>
+            <div class="detail-stat-label">Rekabet Seviyesi</div>
+          </div>
+          <div class="detail-stat">
+            <div class="detail-stat-icon">📈</div>
+            <div class="detail-stat-value text-success">${niche.growth}</div>
+            <div class="detail-stat-label">Büyüme Trendi</div>
+          </div>
+          <div class="detail-stat">
+            <div class="detail-stat-icon">♾️</div>
+            <div class="detail-stat-value text-blue">${niche.sustainability}</div>
+            <div class="detail-stat-label">Sürdürülebilirlik</div>
+          </div>
+          <div class="detail-stat">
+            <div class="detail-stat-icon">💰</div>
+            <div class="detail-stat-value text-success">$${niche.rpm.min}-${niche.rpm.max}</div>
+            <div class="detail-stat-label">RPM Aralığı</div>
+          </div>
+          <div class="detail-stat">
+            <div class="detail-stat-icon">📊</div>
+            <div class="detail-stat-value">$${niche.earnings.monthly.toLocaleString('tr-TR')}</div>
+            <div class="detail-stat-label">Aylık Tahmini (100K view)</div>
+          </div>
+          <div class="detail-stat">
+            <div class="detail-stat-icon">🎯</div>
+            <div class="detail-stat-value">$${niche.earnings.yearly.toLocaleString('tr-TR')}</div>
+            <div class="detail-stat-label">Yıllık Tahmini</div>
+          </div>
+        </div>
+        
+        <!-- Sub Categories -->
+        <div class="detail-section">
+          <h3>🎯 Alt Nişler</h3>
+          <div class="subcategory-grid">
+            ${niche.subCategories.map(sub => `
+              <div class="subcategory-item" onclick="searchSubNiche('${sub}')">
+                ${sub}
+              </div>
+            `).join('')}
+          </div>
+        </div>
+        
+        <!-- Keywords -->
+        <div class="detail-section">
+          <h3>🔑 Anahtar Kelimeler</h3>
+          <div class="keywords-list">
+            ${niche.keywords.map(kw => `
+              <span class="chip">${kw}</span>
+            `).join('')}
+          </div>
+        </div>
+        
+        <!-- Actions -->
+        <div class="detail-section">
+          <h3>🚀 Aksiyon</h3>
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button class="btn btn-primary" onclick="searchOnYoutube('${niche.id}')">
+              ▶️ YouTube'da Ara
+            </button>
+            <button class="btn btn-secondary" onclick="analyzeWithAI('${niche.id}')">
+              🤖 AI ile Analiz Et
+            </button>
+            <button class="btn btn-secondary" onclick="addToFavorites('${niche.id}')">
+              ⭐ Favorilere Ekle
+            </button>
+          </div>
+        </div>
+      `;
+      
+      modal.classList.remove('hidden');
+    };
+    
+    // Modal close
+    document.getElementById('closeModalBtn').addEventListener('click', () => {
+      document.getElementById('nicheModal').classList.add('hidden');
+    });
+    
+    document.getElementById('nicheModal').addEventListener('click', (e) => {
+      if (e.target.classList.contains('modal-overlay')) {
+        document.getElementById('nicheModal').classList.add('hidden');
+      }
+    });
+    
+    // ============================================
+    // ACTIONS
+    // ============================================
+    window.searchOnYoutube = function(nicheId) {
+      const niche = state.allNiches.find(n => n.id === nicheId);
+      if (niche) {
+        const query = encodeURIComponent(niche.keywords[0] || niche.name);
+        window.open(`https://www.youtube.com/results?search_query=${query}`, '_blank');
+      }
+    };
+    
+    window.searchSubNiche = function(subNiche) {
+      const query = encodeURIComponent(subNiche);
+      window.open(`https://www.youtube.com/results?search_query=${query}`, '_blank');
+    };
+    
+    window.analyzeWithAI = function(nicheId) {
+      Utils.toast.info('AI Asistan yakında aktif olacak! 🤖');
+    };
+    
+    window.addToFavorites = function(nicheId) {
+      const favorites = Utils.storage.get('favorites', []);
+      if (favorites.includes(nicheId)) {
+        Utils.toast.warning('Bu niş zaten favorilerinde!');
+        return;
+      }
+      favorites.push(nicheId);
+      Utils.storage.set('favorites', favorites);
+      Utils.toast.success('Favorilere eklendi! ⭐');
+    };
+    
+    window.resetFilters = function() {
+      state.search = '';
+      state.category = 'all';
+      state.toggles = { hidden: false, faceless: false, shorts: false, lowComp: false, highRpm: false };
+      document.getElementById('searchInput').value = '';
+      document.querySelectorAll('.toggle-filter').forEach(t => t.classList.remove('active'));
+      renderCategories();
+      renderNiches();
+    };
+    
+    // ============================================
+    // EVENT LISTENERS
+    // ============================================
+    
+    // Search
+    document.getElementById('searchInput').addEventListener('input', Utils.debounce((e) => {
+      state.search = e.target.value;
+      renderNiches();
+    }, 300));
+    
+    // Sort
+    document.getElementById('sortSelect').addEventListener('change', (e) => {
+      state.sort = e.target.value;
+      renderNiches();
+    });
+    
+    // Toggle filters
+    document.querySelectorAll('.toggle-filter').forEach(toggle => {
+      toggle.addEventListener('click', () => {
+        const filter = toggle.dataset.filter;
+        state.toggles[filter] = !state.toggles[filter];
+        toggle.classList.toggle('active');
+        renderNiches();
+      });
+    });
+    
+    // Logout
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      if (confirm('Çıkış yapmak istediğinizden emin misiniz?')) {
+        await Auth.logout();
+      }
+    });
+    
+    // Mobile menu
+    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('sidebarOverlay').classList.toggle('active');
+    });
+    
+    document.getElementById('sidebarOverlay').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sidebarOverlay').classList.remove('active');
+    });
+    
+    // ESC to close modal
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.getElementById('nicheModal').classList.add('hidden');
+      }
+    });
+    
+  </script>
+</body>
+</html>
