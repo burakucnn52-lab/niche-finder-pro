@@ -5,7 +5,7 @@
 
 const CONFIG = {
   // Supabase
-  SUPABASE_URL: 'YOUR_SUPABASE_URL',
+  SUPABASE_URL: 'https://bfiztheyqltg.supabase.co',
   SUPABASE_ANON_KEY: 'YOUR_SUPABASE_ANON_KEY',
   
   // App Info
