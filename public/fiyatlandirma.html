@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fiyatlandırma - NICHIFY PRO</title>
+  
+  <link rel="stylesheet" href="/css/core.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/landing.css">
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>">
+  
+  <style>
+    .compare-table {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-top: var(--space-2xl);
+    }
+    
+    .compare-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .compare-table th,
+    .compare-table td {
+      padding: var(--space-md);
+      text-align: center;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.875rem;
+    }
+    
+    .compare-table th {
+      background: var(--bg-secondary);
+      font-weight: 700;
+      color: var(--text-primary);
+      font-size: 0.8125rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    
+    .compare-table th:first-child,
+    .compare-table td:first-child {
+      text-align: left;
+      font-weight: 600;
+    }
+    
+    .compare-table th.featured {
+      background: linear-gradient(135deg, rgba(77,163,255,0.15), rgba(167,139,250,0.1));
+      color: var(--accent-blue);
+    }
+    
+    .compare-table td.featured {
+      background: rgba(77,163,255,0.03);
+    }
+    
+    .compare-table tr:hover {
+      background: var(--bg-tertiary);
+    }
+    
+    .compare-yes {
+      color: var(--success);
+      font-size: 1.125rem;
+    }
+    
+    .compare-no {
+      color: var(--text-dim);
+    }
+    
+    .testimonials {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-lg);
+      margin-top: var(--space-2xl);
+    }
+    
+    @media (max-width: 768px) {
+      .testimonials {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .testimonial {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+    }
+    
+    .testimonial-quote {
+      color: var(--text-secondary);
+      font-style: italic;
+      line-height: 1.7;
+      margin-bottom: var(--space-md);
+      position: relative;
+      padding-left: var(--space-md);
+    }
+    
+    .testimonial-quote::before {
+      content: '"';
+      position: absolute;
+      left: -8px;
+      top: -16px;
+      font-size: 3rem;
+      color: var(--accent-blue);
+      font-family: serif;
+      line-height: 1;
+    }
+    
+    .testimonial-author {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    
+    .testimonial-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--gradient-primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+    }
+    
+    .testimonial-author strong {
+      display: block;
+      color: var(--text-primary);
+      font-size: 0.875rem;
+    }
+    
+    .testimonial-author span {
+      color: var(--text-muted);
+      font-size: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="aurora-bg">
+    <div class="aurora-3"></div>
+  </div>
+  
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-wrapper">
+        <a href="/" class="nav-logo">
+          <span class="nav-logo-icon">🎯</span>
+          <span class="nav-logo-text gradient-text-aurora">NICHIFY</span>
+          <span class="badge badge-pro badge-sm">PRO</span>
+        </a>
+        
+        <div class="nav-links hide-mobile">
+          <a href="/#features" class="nav-link">Özellikler</a>
+          <a href="/fiyatlandirma" class="nav-link" style="color: var(--accent-blue);">Fiyatlandırma</a>
+          <a href="/sss" class="nav-link">SSS</a>
+        </div>
+        
+        <div class="nav-actions">
+          <a href="/login" class="btn btn-ghost btn-sm">Giriş Yap</a>
+          <a href="/register" class="btn btn-primary btn-sm">
+            Ücretsiz Başla
+            <span>→</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  <section class="hero" style="padding-top: var(--space-xl);">
+    <div class="container">
+      
+      <div class="hero-content">
+        <div class="hero-badge fade-in-down">
+          <span class="live-indicator"></span>
+          <span>Lifetime Deal - <strong id="stockText">88/100</strong> Slot Kaldı!</span>
+        </div>
+        
+        <h1 class="hero-title fade-in-up stagger-1">
+          Bir Defa Öde,<br>
+          <span class="gradient-text-aurora">Ömür Boyu</span>
+          <span class="gradient-text">Kullan</span>
+        </h1>
+        
+        <p class="hero-subtitle fade-in-up stagger-2">
+          İlk 100 kişiye özel fırsat. <strong>$89'a Lifetime PRO</strong> üyelik.<br>
+          Sonrasında aylık aboneliğe geçer.
+        </p>
+      </div>
+      
+      <!-- PRICING -->
+      <div class="pricing-wrapper" style="margin-top: var(--space-2xl);">
+        
+        <div class="pricing-card pricing-featured pop-in">
+          <div class="pricing-ribbon">🔥 EN POPÜLER</div>
+          <div class="pricing-header">
+            <div class="pricing-icon">💎</div>
+            <h3>LIFETIME PRO</h3>
+            <p class="pricing-description">Tek seferlik ödeme, sınırsız erişim</p>
+          </div>
+          
+          <div class="pricing-price">
+            <span class="pricing-old">$149</span>
+            <div class="pricing-current">
+              <span class="pricing-currency">$</span>
+              <span class="pricing-amount">89</span>
+            </div>
+            <span class="pricing-period">tek seferlik ödeme</span>
+          </div>
+          
+          <div class="pricing-stock">
+            <div class="stock-bar">
+              <div class="stock-fill" id="stockFill" style="width: 12%;"></div>
+            </div>
+            <p><strong id="stockNumber">88</strong> kişilik kontenjan kaldı! 🔥</p>
+          </div>
+          
+          <ul class="pricing-features">
+            <li>✅ <strong>Ömür boyu</strong> tüm özellikler</li>
+            <li>✅ 75+ detaylı niş analizi</li>
+            <li>✅ Canlı YouTube verisi (11 ülke)</li>
+            <li>✅ AI Asistan (sınırsız sohbet)</li>
+            <li>✅ Risk Detector</li>
+            <li>✅ Hidden Opportunity Modu</li>
+            <li>✅ Kanal analizi (sınırsız)</li>
+            <li>✅ Yükselen kanallar takibi</li>
+            <li>✅ Favoriler sistemi</li>
+            <li>✅ <strong>Tüm gelecek güncellemeler</strong></li>
+            <li>✅ Öncelikli destek</li>
+            <li>✅ Mobil + masaüstü</li>
+          </ul>
+          
+          <button class="btn btn-primary btn-xl btn-block pulse-glow" id="buyBtn">
+            🚀 Hemen Satın Al
+          </button>
+          
+          <p class="pricing-guarantee">⚡ Anında aktivasyon · 🔒 Güvenli ödeme · 💯 14 gün iade garantisi</p>
+        </div>
+        
+      </div>
+      
+      <!-- COMPARISON TABLE -->
+      <div class="section-header text-center" style="margin-top: var(--space-2xl);">
+        <h2>Karşılaştırma <span class="gradient-text">Tablosu</span></h2>
+        <p>Tüm planları detaylı karşılaştırın</p>
+      </div>
+      
+      <div class="compare-table">
+        <table>
+          <thead>
+            <tr>
+              <th>Özellik</th>
+              <th>Ücretsiz</th>
+              <th class="featured">💎 Lifetime ($89)</th>
+              <th>Starter ($9.99/ay)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Niş Arama</td>
+              <td>10/gün</td>
+              <td class="featured"><span class="compare-yes">∞ Sınırsız</span></td>
+              <td>50/gün</td>
+            </tr>
+            <tr>
+              <td>Kanal Analizi</td>
+              <td>3/gün</td>
+              <td class="featured"><span class="compare-yes">∞ Sınırsız</span></td>
+              <td>20/gün</td>
+            </tr>
+            <tr>
+              <td>Hidden Opportunity Modu</td>
+              <td><span class="compare-no">✗</span></td>
+              <td class="featured"><span class="compare-yes">✓</span></td>
+              <td><span class="compare-yes">✓</span></td>
+            </tr>
+            <tr>
+              <td>AI Asistan</td>
+              <td>5 mesaj/gün</td>
+              <td class="featured"><span class="compare-yes">∞ Sınırsız</span></td>
+              <td>50/gün</td>
+            </tr>
+            <tr>
+              <td>Risk Detector</td>
+              <td>Temel</td>
+              <td class="featured">Gelişmiş</td>
+              <td>Gelişmiş</td>
+            </tr>
+            <tr>
+              <td>11 Ülke Trend Verisi</td>
+              <td>3 ülke</td>
+              <td class="featured"><span class="compare-yes">✓</span></td>
+              <td><span class="compare-yes">✓</span></td>
+            </tr>
+            <tr>
+              <td>Yükselen Kanallar</td>
+              <td><span class="compare-yes">✓</span></td>
+              <td class="featured"><span class="compare-yes">✓</span></td>
+              <td><span class="compare-yes">✓</span></td>
+            </tr>
+            <tr>
+              <td>Favoriler</td>
+              <td>5 adet</td>
+              <td class="featured"><span class="compare-yes">∞ Sınırsız</span></td>
+              <td>50 adet</td>
+            </tr>
+            <tr>
+              <td>Gelecek Güncellemeler</td>
+              <td><span class="compare-no">✗</span></td>
+              <td class="featured"><span class="compare-yes">✓ Ücretsiz</span></td>
+              <td><span class="compare-yes">✓</span></td>
+            </tr>
+            <tr>
+              <td>Öncelikli Destek</td>
+              <td><span class="compare-no">✗</span></td>
+              <td class="featured"><span class="compare-yes">✓</span></td>
+              <td><span class="compare-no">✗</span></td>
+            </tr>
+            <tr style="background: var(--bg-tertiary);">
+              <td><strong>Toplam (12 ay)</strong></td>
+              <td><strong>$0</strong></td>
+              <td class="featured"><strong style="color: var(--success); font-size: 1.125rem;">$89 (Ömür boyu!)</strong></td>
+              <td><strong>$119.88</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      
+      <!-- TESTIMONIALS -->
+      <div class="section-header text-center" style="margin-top: var(--space-2xl);">
+        <div class="badge badge-success">⭐ KULLANICI YORUMLARI</div>
+        <h2>Erken Üyelerimiz <span class="gradient-text">Ne Diyor?</span></h2>
+      </div>
+      
+      <div class="testimonials">
+        <div class="testimonial fade-in-up">
+          <div class="testimonial-quote">
+            NICHIFY ile 2 hafta içinde doğru nişi buldum ve YouTube kanalımı başlattım. Risk detector özelliği harika!
+          </div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">A</div>
+            <div>
+              <strong>Ahmet K.</strong>
+              <span>YouTuber, 3K abone</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial fade-in-up stagger-2">
+          <div class="testimonial-quote">
+            Hidden Opportunity özelliği sayesinde kimsenin görmediği bir niş yakaladım. RPM'im $15+!
+          </div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" style="background: var(--gradient-warm);">M</div>
+            <div>
+              <strong>Merve S.</strong>
+              <span>İçerik üreticisi</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial fade-in-up stagger-3">
+          <div class="testimonial-quote">
+            $89'a ömür boyu erişim inanılmaz bir fırsat. Diğer araçların aylık ücretine geliyor. Tavsiye ederim!
+          </div>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" style="background: var(--gradient-secondary);">D</div>
+            <div>
+              <strong>Deniz Y.</strong>
+              <span>Faceless kanal sahibi</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- FINAL CTA -->
+      <div class="final-cta">
+        <div class="cta-box gradient-border">
+          <div class="gradient-border-content">
+            <h2>Karar Verme Zamanı 🚀</h2>
+            <p>İlk 100 üyenin biri ol, ömür boyu $89'a sahip ol.</p>
+            
+            <div class="cta-buttons">
+              <button class="btn btn-primary btn-xl pulse-glow" id="buyBtn2">
+                💎 Lifetime Al - $89
+              </button>
+              <a href="/register" class="btn btn-glass btn-xl">
+                🆓 Ücretsiz Dene
+              </a>
+            </div>
+            
+            <p class="cta-note">⚡ Anında aktivasyon · 🔒 14 gün iade garantisi · 💳 Güvenli ödeme</p>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+  
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="/" class="nav-logo">
+            <span class="nav-logo-icon">🎯</span>
+            <span class="nav-logo-text gradient-text-aurora">NICHIFY</span>
+            <span class="badge badge-pro badge-sm">PRO</span>
+          </a>
+          <p class="footer-desc">YouTube'da kazançlı niş bulmanın en akıllı yolu.</p>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Ürün</h4>
+          <a href="/#features">Özellikler</a>
+          <a href="/fiyatlandirma">Fiyatlandırma</a>
+          <a href="/sss">SSS</a>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Hesap</h4>
+          <a href="/login">Giriş Yap</a>
+          <a href="/register">Kayıt Ol</a>
+          <a href="/dashboard">Dashboard</a>
+        </div>
+        
+        <div class="footer-col">
+          <h4>Yasal</h4>
+          <a href="/gizlilik">Gizlilik Politikası</a>
+          <a href="/kvkk">KVKK</a>
+          <a href="/sartlar">Kullanım Şartları</a>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>© 2025 NICHIFY PRO. Tüm hakları saklıdır.</p>
+        <p>Made with ❤️ for YouTube Creators</p>
+      </div>
+    </div>
+  </footer>
+  
+  <script src="/js/config.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/animations.js"></script>
+  <script>
+    
+    (async () => {
+      try {
+        const supabase = await Auth.init();
+        const { count } = await supabase
+          .from('users')
+          .select('*', { count: 'exact', head: true })
+          .eq('premium_type', 'lifetime');
+        
+        const sold = count || 0;
+        const remaining = CONFIG.LIFETIME_MAX_SLOTS - sold;
+        const percent = (sold / CONFIG.LIFETIME_MAX_SLOTS) * 100;
+        
+        document.getElementById('stockText').textContent = `${sold}/${CONFIG.LIFETIME_MAX_SLOTS}`;
+        document.getElementById('stockNumber').textContent = remaining;
+        document.getElementById('stockFill').style.width = percent + '%';
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+    
+    // Buy buttons
+    function handleBuy() {
+      const isLoggedIn = Auth.isLoggedIn();
+      
+      // LemonSqueezy URL henüz yok, şimdilik bilgi göster
+      Utils.toast.info('🚀 Ödeme sistemi yakında aktif! Şimdilik kayıt olabilirsin.');
+      setTimeout(() => {
+        window.location.href = '/register?plan=lifetime';
+      }, 1500);
+    }
+    
+    document.getElementById('buyBtn').addEventListener('click', handleBuy);
+    document.getElementById('buyBtn2').addEventListener('click', handleBuy);
+    
+  </script>
+</body>
+</html>
