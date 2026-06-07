@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Risk Detector - NICHIFY PRO</title>
+  
+  <link rel="stylesheet" href="/css/core.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/channels.css">
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+  
+  <style>
+    .risk-meter {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto var(--space-xl);
+      text-align: center;
+    }
+    
+    .risk-circle {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      margin: 0 auto var(--space-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: conic-gradient(
+        var(--danger) 0deg,
+        var(--warning) 90deg,
+        var(--success) 180deg,
+        var(--success) 360deg
+      );
+    }
+    
+    .risk-circle-inner {
+      width: 170px;
+      height: 170px;
+      background: var(--bg-card);
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .risk-score-big {
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+    
+    .risk-score-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+      margin-top: 4px;
+    }
+    
+    .risk-status {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-top: var(--space-md);
+    }
+    
+    .checks-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+      margin-top: var(--space-xl);
+    }
+    
+    @media (max-width: 768px) {
+      .checks-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .check-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-lg);
+    }
+    
+    .check-card.do {
+      border-left: 4px solid var(--success);
+    }
+    
+    .check-card.dont {
+      border-left: 4px solid var(--danger);
+    }
+    
+    .check-card h3 {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      margin-bottom: var(--space-md);
+      font-size: 1.125rem;
+    }
+    
+    .check-list {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .check-list li {
+      padding: 10px;
+      background: var(--bg-tertiary);
+      border-radius: var(--radius-md);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-sm);
+      font-size: 0.875rem;
+      line-height: 1.5;
+    }
+    
+    .check-icon {
+      flex-shrink: 0;
+      font-size: 1.125rem;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="aurora-bg">
+    <div class="aurora-3"></div>
+  </div>
+  
+  <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  
+  <div class="dash-layout">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <span class="sidebar-logo-icon">🎯</span>
+        <div>
+          <div class="sidebar-logo-text">NICHIFY</div>
+          <div class="sidebar-version">PRO v2.0</div>
+        </div>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Ana Menü</div>
+          <a href="/dashboard" class="sidebar-item">
+            <span class="sidebar-item-icon">🏠</span>
+            <span>Anasayfa</span>
+          </a>
+          <a href="/nis-kesfi" class="sidebar-item">
+            <span class="sidebar-item-icon">🎯</span>
+            <span>Niş Keşfi</span>
+          </a>
+          <a href="/yukselen-kanallar" class="sidebar-item">
+            <span class="sidebar-item-icon">🔥</span>
+            <span>Yükselen Kanallar</span>
+          </a>
+          <a href="/kanal-analizi" class="sidebar-item">
+            <span class="sidebar-item-icon">📊</span>
+            <span>Kanal Analizi</span>
+          </a>
+        </div>
+        
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Araçlar</div>
+          <a href="/risk-detector" class="sidebar-item active">
+            <span class="sidebar-item-icon">🛡️</span>
+            <span>Risk Detector</span>
+          </a>
+          <a href="/ai-asistan" class="sidebar-item">
+            <span class="sidebar-item-icon">🤖</span>
+            <span>AI Asistan</span>
+            <span class="badge badge-pro sidebar-item-badge">PRO</span>
+          </a>
+          <a href="/yol-haritasi" class="sidebar-item">
+            <span class="sidebar-item-icon">🗺️</span>
+            <span>Yol Haritası</span>
+          </a>
+        </div>
+        
+        <div class="sidebar-section" id="adminSection" style="display: none;">
+          <div class="sidebar-section-title">👑 Admin</div>
+          <a href="/admin" class="sidebar-item">
+            <span class="sidebar-item-icon">⚙️</span>
+            <span>Yönetim Paneli</span>
+          </a>
+        </div>
+      </nav>
+      
+      <div class="sidebar-lifetime" id="lifetimeCard">
+        <div class="sidebar-lifetime-old">$149</div>
+        <div class="sidebar-lifetime-price">$89</div>
+        <div class="sidebar-lifetime-label">🔥 Lifetime Deal</div>
+        <a href="/fiyatlandirma" class="btn btn-primary btn-sm btn-block" style="margin-top: 8px;">
+          Şimdi Al
+        </a>
+        <div class="sidebar-lifetime-stock">⚡ <span id="lifetimeStock">88</span>/100 kaldı</div>
+      </div>
+      
+      <div class="sidebar-user">
+        <div class="avatar" id="userAvatar">U</div>
+        <div class="sidebar-user-info">
+          <div class="sidebar-user-name" id="userName">Yükleniyor...</div>
+          <div class="sidebar-user-email" id="userEmail">-</div>
+        </div>
+        <div class="sidebar-user-menu" id="logoutBtn" title="Çıkış Yap">⏻</div>
+      </div>
+    </aside>
+    
+    <!-- MAIN -->
+    <main class="main page-enter">
+      
+      <div class="page-header">
+        <h1>
+          <span>🛡️</span>
+          <span>Risk Detector</span>
+        </h1>
+        <p>Kanalının güvenlik puanını öğren, <strong>kapatılma riskini ölç</strong>, telif sorunlarını önle.</p>
+      </div>
+      
+      <!-- General Info -->
+      <div class="filters" style="margin-bottom: var(--space-xl);">
+        <h2 style="font-size: 1rem; margin-bottom: var(--space-md);">
+          📋 Risk Detector Nasıl Çalışır?
+        </h2>
+        <div style="color: var(--text-secondary); font-size: 0.9375rem; line-height: 1.7;">
+          NICHIFY Risk Detector, kanalını <strong>10+ kritere</strong> göre analiz eder ve YouTube'un topluluk kurallarına uygunluğunu ölçer.
+          <br><br>
+          ✅ <strong>Yüksek puan (80-100):</strong> Güvenli, kapatılma riski düşük<br>
+          ⚠️ <strong>Orta puan (50-79):</strong> Bazı iyileştirmeler gerekli<br>
+          🚨 <strong>Düşük puan (0-49):</strong> Ciddi risk, hemen aksiyon al
+        </div>
+      </div>
+      
+      <!-- Search -->
+      <div class="filters">
+        <label class="form-label">🔍 KANALI ARAT</label>
+        <div class="channel-search">
+          <input 
+            type="text" 
+            id="channelSearchInput" 
+            placeholder="Kanal adı veya YouTube URL"
+            autocomplete="off"
+          >
+        </div>
+        <div style="display: flex; gap: 8px; margin-top: 12px;">
+          <button class="btn btn-primary" id="searchBtn">
+            🛡️ Risk Analizi Yap
+          </button>
+          <button class="btn btn-secondary" id="clearBtn">
+            🗑️ Temizle
+          </button>
+        </div>
+      </div>
+      
+      <!-- Search Results -->
+      <div id="searchResults" style="display: none; margin-top: var(--space-lg);">
+        <div class="results-info">
+          <div class="results-count">
+            <strong id="searchCount">0</strong> kanal bulundu
+          </div>
+        </div>
+        <div class="channels-grid" id="searchGrid"></div>
+      </div>
+      
+      <!-- Risk Analysis Result -->
+      <div id="riskAnalysis" style="display: none; margin-top: var(--space-lg);">
+        <!-- JS ile doldurulacak -->
+      </div>
+      
+      <!-- General Recommendations (always visible) -->
+      <div class="checks-grid" id="generalChecks">
+        
+        <div class="check-card do">
+          <h3>
+            <span>✅</span>
+            <span>YAPILACAKLAR</span>
+          </h3>
+          <ul class="check-list">
+            <li>
+              <span class="check-icon">🎨</span>
+              <span><strong>Orijinal içerik:</strong> Kendi kameranla çek, kendi grafiklerini oluştur</span>
+            </li>
+            <li>
+              <span class="check-icon">🎵</span>
+              <span><strong>Royalty-free müzik:</strong> YouTube Audio Library, Epidemic Sound kullan</span>
+            </li>
+            <li>
+              <span class="check-icon">📝</span>
+              <span><strong>Net açıklamalar:</strong> Video açıklamalarına kaynakları ekle</span>
+            </li>
+            <li>
+              <span class="check-icon">⏰</span>
+              <span><strong>Düzenli yükleme:</strong> Haftada 1-3 video, tutarlı program</span>
+            </li>
+            <li>
+              <span class="check-icon">👥</span>
+              <span><strong>Etkileşim:</strong> Yorumları yanıtla, topluluk oluştur</span>
+            </li>
+            <li>
+              <span class="check-icon">📊</span>
+              <span><strong>Analytics takibi:</strong> Studio'dan verileri izle</span>
+            </li>
+            <li>
+              <span class="check-icon">🎯</span>
+              <span><strong>Niş odaklı:</strong> Tek bir konuda uzmanlaş</span>
+            </li>
+          </ul>
+        </div>
+        
+        <div class="check-card dont">
+          <h3>
+            <span>❌</span>
+            <span>YAPILMAYACAKLAR</span>
+          </h3>
+          <ul class="check-list">
+            <li>
+              <span class="check-icon">🚫</span>
+              <span><strong>Reupload:</strong> Başkasının videolarını yeniden yükleme</span>
+            </li>
+            <li>
+              <span class="check-icon">🎵</span>
+              <span><strong>Telifli müzik:</strong> Popüler şarkıları izinsiz kullanma</span>
+            </li>
+            <li>
+              <span class="check-icon">📺</span>
+              <span><strong>Film/dizi klipleri:</strong> İzinsiz film sahnesi kullanımı</span>
+            </li>
+            <li>
+              <span class="check-icon">🤖</span>
+              <span><strong>Tamamen AI:</strong> Sadece AI sesi + AI görsel = ban riski</span>
+            </li>
+            <li>
+              <span class="check-icon">🔞</span>
+              <span><strong>Çocuk içeriği (COPPA):</strong> Yanlış kategorize etme</span>
+            </li>
+            <li>
+              <span class="check-icon">💊</span>
+              <span><strong>Yanıltıcı sağlık iddiaları:</strong> Tıbbi tavsiye verme</span>
+            </li>
+            <li>
+              <span class="check-icon">👁️</span>
+              <span><strong>Clickbait:</strong> Aşırı abartılı başlıklar/thumbnaillar</span>
+            </li>
+          </ul>
+        </div>
+        
+      </div>
+      
+    </main>
+    
+  </div>
+  
+  <script src="/js/config.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/youtube.js"></script>
+  <script>
+    
+    (async () => {
+      const isAuth = await Auth.requireAuth('/login');
+      if (!isAuth) return;
+      
+      const user = await Auth.getCurrentUser();
+      if (user) {
+        const displayName = user.name || user.email.split('@')[0];
+        document.getElementById('userName').textContent = displayName;
+        document.getElementById('userEmail').textContent = user.email;
+        document.getElementById('userAvatar').textContent = displayName.charAt(0).toUpperCase();
+        
+        if (user.is_admin || user.role === 'super_admin') {
+          document.getElementById('adminSection').style.display = 'block';
+        }
+        
+        if (user.is_premium) {
+          document.getElementById('lifetimeCard').style.display = 'none';
+        }
+      }
+      
+      loadLifetimeStock();
+      
+      const urlChannelId = Utils.getUrlParam('id');
+      if (urlChannelId) {
+        loadChannelRisk(urlChannelId);
+      }
+    })();
+    
+    async function loadLifetimeStock() {
+      try {
+        const supabase = await Auth.init();
+        const { count } = await supabase
+          .from('users')
+          .select('*', { count: 'exact', head: true })
+          .eq('premium_type', 'lifetime');
+        const remaining = CONFIG.LIFETIME_MAX_SLOTS - (count || 0);
+        document.getElementById('lifetimeStock').textContent = remaining;
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    
+    // SEARCH
+    async function searchChannels(query) {
+      if (!query || query.length < 2) {
+        Utils.toast.warning('En az 2 karakter girin');
+        return;
+      }
+      
+      document.getElementById('riskAnalysis').style.display = 'none';
+      document.getElementById('generalChecks').style.display = 'none';
+      document.getElementById('searchResults').style.display = 'block';
+      
+      const grid = document.getElementById('searchGrid');
+      grid.innerHTML = '<div class="empty-state" style="grid-column: 1/-1;"><div class="spinner spinner-lg"></div></div>';
+      
+      const channelId = Utils.youtube.parseChannelId(query);
+      if (channelId && channelId.startsWith('UC')) {
+        loadChannelRisk(channelId);
+        return;
+      }
+      
+      try {
+        const result = await YouTube.search(query, { type: 'channel' });
+        
+        if (result.success && result.data?.items?.length) {
+          const channels = result.data.items.filter(i => i.id?.kind === 'youtube#channel');
+          document.getElementById('searchCount').textContent = channels.length;
+          
+          grid.innerHTML = channels.map(channel => {
+            const snippet = channel.snippet || {};
+            const thumb = snippet.thumbnails?.high?.url || '';
+            const cId = channel.id.channelId;
+            
+            return `
+              <div class="channel-card" onclick="loadChannelRisk('${cId}')">
+                <div class="channel-thumb" style="height: 160px; display: flex; align-items: center; justify-content: center;">
+                  ${thumb ? `<img src="${thumb}" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover;">` : '📺'}
+                </div>
+                <div class="channel-body">
+                  <div class="channel-title">${snippet.title}</div>
+                  <div class="channel-stats">
+                    <button class="btn btn-primary btn-sm" style="width: 100%;">
+                      🛡️ Risk Analizi →
+                    </button>
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+      } catch (error) {
+        Utils.toast.error('Hata: ' + error.message);
+      }
+    }
+    
+    // RISK ANALYSIS
+    async function loadChannelRisk(channelId) {
+      document.getElementById('searchResults').style.display = 'none';
+      document.getElementById('generalChecks').style.display = 'none';
+      
+      const container = document.getElementById('riskAnalysis');
+      container.style.display = 'block';
+      container.innerHTML = '<div class="empty-state"><div class="spinner spinner-lg"></div><div class="empty-state-title" style="margin-top: 16px;">Risk analizi yapılıyor...</div></div>';
+      
+      Utils.setUrlParam('id', channelId);
+      
+      try {
+        const result = await YouTube.getChannel(channelId);
+        
+        if (!result.success || !result.data?.items?.length) {
+          container.innerHTML = '<div class="empty-state"><div class="empty-state-icon">❌</div><div class="empty-state-title">Kanal bulunamadı</div></div>';
+          return;
+        }
+        
+        const channel = result.data.items[0];
+        renderRiskAnalysis(channel);
+      } catch (error) {
+        Utils.toast.error('Hata: ' + error.message);
+      }
+    }
+    
+    function renderRiskAnalysis(channel) {
+      const snippet = channel.snippet || {};
+      const stats = channel.statistics || {};
+      const risk = YouTube.calculateRisk(channel);
+      
+      const thumb = snippet.thumbnails?.high?.url || '';
+      const channelInitial = (snippet.title || '?').charAt(0).toUpperCase();
+      
+      const riskColor = risk.score >= 70 ? 'var(--success)' : risk.score >= 50 ? 'var(--warning)' : 'var(--danger)';
+      
+      const container = document.getElementById('riskAnalysis');
+      container.innerHTML = `
+        
+        <div class="channel-detail-header fade-in-up">
+          <div class="channel-detail-avatar">
+            ${thumb ? `<img src="${thumb}" alt="${snippet.title}">` : channelInitial}
+          </div>
+          <div class="channel-detail-info">
+            <h1>${snippet.title}</h1>
+            <p class="channel-description">${Utils.truncate(snippet.description || '', 200)}</p>
+            <div style="display: flex; gap: 8px; margin-top: 12px;">
+              <a href="https://www.youtube.com/channel/${channel.id}" target="_blank" class="btn btn-primary btn-sm">
+                ▶️ YouTube'da Aç
+              </a>
+              <button class="btn btn-secondary btn-sm" onclick="window.location.href='/kanal-analizi?id=${channel.id}'">
+                📊 Kanal Analizi
+              </button>
+              <button class="btn btn-secondary btn-sm" onclick="resetRisk()">
+                🔄 Yeni Analiz
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Risk Meter -->
+        <div class="filters fade-in-up" style="text-align: center; padding: var(--space-2xl);">
+          <div class="risk-meter">
+            <div class="risk-circle" style="background: conic-gradient(${riskColor} 0deg, ${riskColor} ${risk.score * 3.6}deg, var(--bg-elevated) ${risk.score * 3.6}deg, var(--bg-elevated) 360deg);">
+              <div class="risk-circle-inner">
+                <div class="risk-score-big" style="color: ${riskColor};">${risk.score}</div>
+                <div class="risk-score-label">/ 100</div>
+              </div>
+            </div>
+            <div class="risk-status" style="color: ${riskColor};">
+              ${risk.level.icon} ${risk.level.label}
+            </div>
+          </div>
+          
+          <div style="max-width: 600px; margin: 0 auto; color: var(--text-secondary); line-height: 1.7;">
+            ${risk.score >= 80 ? 
+              '✅ Kanalın güvende! Mevcut stratejine devam et ve düzenli içerik üret.' :
+              risk.score >= 60 ?
+              '⚠️ Kanalında bazı küçük riskler var. Aşağıdaki önerileri uygulayarak puanını artırabilirsin.' :
+              risk.score >= 40 ?
+              '🟡 Dikkat! Kanalında ciddi riskler var. Hemen önerileri uygulamaya başla.' :
+              '🚨 Kritik durum! Kanal kapatılma riski yüksek. Acil aksiyon gerekli!'
+            }
+          </div>
+        </div>
+        
+        <!-- Issues -->
+        ${risk.issues.length > 0 ? `
+          <div class="filters fade-in-up" style="border-left: 4px solid var(--danger);">
+            <h3 style="display: flex; align-items: center; gap: 8px; margin-bottom: var(--space-md);">
+              <span>⚠️</span>
+              <span>Tespit Edilen Sorunlar</span>
+            </h3>
+            ${risk.issues.map(issue => `
+              <div style="padding: var(--space-md); background: rgba(255,92,122,0.1); border-radius: var(--radius-md); margin-bottom: var(--space-sm); color: var(--danger);">
+                ❌ ${issue}
+              </div>
+            `).join('')}
+          </div>
+        ` : `
+          <div class="filters fade-in-up" style="border-left: 4px solid var(--success); text-align: center;">
+            <div style="font-size: 3rem; margin-bottom: var(--space-md);">🎉</div>
+            <h3>Tebrikler! Tespit edilen sorun yok</h3>
+            <p style="color: var(--text-secondary);">Kanalın temizdir ve risk taşımıyor.</p>
+          </div>
+        `}
+        
+        <!-- Recommendations -->
+        <div class="filters fade-in-up">
+          <h3 style="display: flex; align-items: center; gap: 8px; margin-bottom: var(--space-md);">
+            <span>💡</span>
+            <span>Tavsiyeler</span>
+          </h3>
+          ${risk.recommendations.map(rec => `
+            <div style="padding: var(--space-md); background: var(--bg-tertiary); border-radius: var(--radius-md); margin-bottom: var(--space-sm); border-left: 3px solid var(--accent-blue);">
+              ${rec}
+            </div>
+          `).join('')}
+        </div>
+        
+        <!-- Always show general checks -->
+        <div class="checks-grid">
+          <div class="check-card do">
+            <h3><span>✅</span><span>GENEL YAPILACAKLAR</span></h3>
+            <ul class="check-list">
+              <li><span class="check-icon">🎨</span><span>Orijinal içerik üret</span></li>
+              <li><span class="check-icon">🎵</span><span>Royalty-free müzik kullan</span></li>
+              <li><span class="check-icon">📝</span><span>Kaynakları belirt</span></li>
+              <li><span class="check-icon">⏰</span><span>Düzenli yükleme yap</span></li>
+            </ul>
+          </div>
+          <div class="check-card dont">
+            <h3><span>❌</span><span>GENEL YAPILMAYACAKLAR</span></h3>
+            <ul class="check-list">
+              <li><span class="check-icon">🚫</span><span>Reupload yapma</span></li>
+              <li><span class="check-icon">🎵</span><span>Telifli müzik kullanma</span></li>
+              <li><span class="check-icon">📺</span><span>Film/dizi klipleri kullanma</span></li>
+              <li><span class="check-icon">👁️</span><span>Clickbait yapma</span></li>
+            </ul>
+          </div>
+        </div>
+      `;
+    }
+    
+    window.loadChannelRisk = loadChannelRisk;
+    window.resetRisk = function() {
+      document.getElementById('riskAnalysis').style.display = 'none';
+      document.getElementById('generalChecks').style.display = 'grid';
+      document.getElementById('channelSearchInput').value = '';
+      Utils.setUrlParam('id', '');
+    };
+    
+    document.getElementById('searchBtn').addEventListener('click', () => {
+      const q = document.getElementById('channelSearchInput').value.trim();
+      if (q) searchChannels(q);
+    });
+    
+    document.getElementById('channelSearchInput').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') document.getElementById('searchBtn').click();
+    });
+    
+    document.getElementById('clearBtn').addEventListener('click', () => {
+      document.getElementById('channelSearchInput').value = '';
+      document.getElementById('searchResults').style.display = 'none';
+      document.getElementById('riskAnalysis').style.display = 'none';
+      document.getElementById('generalChecks').style.display = 'grid';
+      Utils.setUrlParam('id', '');
+    });
+    
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      if (confirm('Çıkış yapmak istediğinizden emin misiniz?')) await Auth.logout();
+    });
+    
+    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('sidebarOverlay').classList.toggle('active');
+    });
+    
+    document.getElementById('sidebarOverlay').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sidebarOverlay').classList.remove('active');
+    });
+    
+  </script>
+</body>
+</html>
