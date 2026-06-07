@@ -1,130 +1,245 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>KVKK Aydınlatma Metni | NICHIFY</title>
-<meta name="description" content="NICHIFY KVKK Aydınlatma Metni"/>
-<style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,system-ui,Arial,sans-serif}
-body{background:#0a0e1a;color:#f0f4ff;min-height:100vh;padding:20px}
-.container{max-width:900px;margin:0 auto;background:#131929;border-radius:14px;padding:40px;border:1px solid rgba(255,255,255,.1)}
-.back-btn{display:inline-block;padding:8px 16px;background:linear-gradient(135deg,#4da3ff,#a78bfa);color:white;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;margin-bottom:20px;transition:.2s}
-.back-btn:hover{transform:translateX(-3px)}
-h1{font-size:28px;margin-bottom:10px;background:linear-gradient(135deg,#4da3ff,#a78bfa);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.last-update{color:#8a99b8;font-size:12px;margin-bottom:25px}
-h2{font-size:18px;margin:25px 0 12px;color:#4da3ff;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:8px}
-h3{font-size:15px;margin:18px 0 8px;color:#45e08a}
-p{color:#cfd9ea;font-size:14px;line-height:1.7;margin-bottom:12px}
-ul{margin:10px 0 15px 25px;color:#cfd9ea}
-li{margin-bottom:6px;font-size:14px;line-height:1.6}
-strong{color:#fff}
-.info-box{background:rgba(77,163,255,.08);border-left:3px solid #4da3ff;padding:12px 16px;margin:15px 0;border-radius:6px}
-.info-box p{margin:0;font-size:13px}
-.contact-box{background:linear-gradient(135deg,rgba(69,224,138,.1),rgba(77,163,255,.1));border:1px solid rgba(69,224,138,.3);padding:20px;border-radius:10px;margin-top:25px}
-.contact-box h3{color:#45e08a;margin-top:0}
-.footer-nav{text-align:center;margin-top:30px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);font-size:12px;color:#8a99b8}
-.footer-nav a{color:#4da3ff;text-decoration:none;margin:0 10px}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KVKK Aydınlatma Metni - NICHIFY PRO</title>
+  
+  <link rel="stylesheet" href="/css/core.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/landing.css">
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚖️</text></svg>">
+  
+  <style>
+    .legal-container { max-width: 800px; margin: 0 auto; padding: var(--space-2xl) var(--space-lg); }
+    .legal-header { text-align: center; margin-bottom: var(--space-2xl); }
+    .legal-header h1 { font-size: clamp(2rem, 5vw, 3rem); margin-bottom: var(--space-md); }
+    .legal-meta { display: inline-flex; align-items: center; gap: var(--space-md); padding: 8px 16px; background: var(--glass-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--glass-border); border-radius: var(--radius-full); font-size: 0.8125rem; color: var(--text-muted); margin-top: var(--space-md); }
+    .legal-content { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-xl); padding: var(--space-2xl); }
+    .legal-content h2 { font-size: 1.5rem; margin: var(--space-2xl) 0 var(--space-md); padding-bottom: var(--space-sm); border-bottom: 2px solid var(--border-color); display: flex; align-items: center; gap: var(--space-sm); color: var(--text-primary); }
+    .legal-content h2:first-child { margin-top: 0; }
+    .legal-content h3 { font-size: 1.125rem; margin: var(--space-xl) 0 var(--space-sm); color: var(--accent-blue); }
+    .legal-content p { color: var(--text-secondary); line-height: 1.8; margin-bottom: var(--space-md); }
+    .legal-content ul { color: var(--text-secondary); line-height: 1.8; margin: var(--space-md) 0 var(--space-md) var(--space-lg); }
+    .legal-content li { margin-bottom: var(--space-sm); }
+    .legal-content strong { color: var(--text-primary); font-weight: 700; }
+    .legal-content a { color: var(--accent-blue); text-decoration: underline; }
+    .legal-back { display: inline-flex; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-lg); color: var(--text-muted); font-size: 0.875rem; font-weight: 500; text-decoration: none; padding: 8px 16px; border-radius: var(--radius-md); background: var(--bg-card); border: 1px solid var(--border-color); transition: all var(--transition-fast); }
+    .legal-back:hover { color: var(--text-primary); border-color: var(--border-hover); }
+    .info-box { background: rgba(77, 163, 255, 0.08); border: 1px solid rgba(77, 163, 255, 0.3); border-radius: var(--radius-md); padding: var(--space-md); margin: var(--space-md) 0; color: var(--accent-blue); font-size: 0.875rem; }
+  </style>
 </head>
 <body>
-<div class="container">
-<a href="/" class="back-btn">← Anasayfaya Dön</a>
-
-<h1>📋 KVKK Aydınlatma Metni</h1>
-<p class="last-update">Son güncelleme: 31 Mayıs 2025</p>
-
-<div class="info-box">
-<p><strong>NICHIFY</strong> olarak kişisel verilerinizin güvenliğini en üst düzeyde tutuyoruz. Bu metin, 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) kapsamında hazırlanmıştır.</p>
-</div>
-
-<h2>1. Veri Sorumlusu</h2>
-<p><strong>Veri Sorumlusu:</strong> Burak Uçun (NICHIFY)</p>
-<p><strong>Adres:</strong> Fatsa / Ordu, Türkiye</p>
-<p><strong>E-posta:</strong> bucun648@gmail.com</p>
-<p><strong>Web Sitesi:</strong> https://niche-finder-pro-cyan.vercel.app</p>
-
-<h2>2. Toplanan Kişisel Veriler</h2>
-<p>NICHIFY platformunda aşağıdaki kişisel verileriniz toplanmaktadır:</p>
-<ul>
-<li><strong>Kimlik Bilgileri:</strong> Ad, soyad</li>
-<li><strong>İletişim Bilgileri:</strong> E-posta adresi</li>
-<li><strong>Hesap Bilgileri:</strong> Şifre (bcrypt ile şifrelenmiş)</li>
-<li><strong>Kullanım Verileri:</strong> Giriş tarihi, ziyaret edilen sayfalar, dil tercihi</li>
-<li><strong>Ödeme Bilgileri:</strong> Lemonsqueezy üzerinden işlenir (NICHIFY kart bilgilerinizi saklamaz)</li>
-</ul>
-
-<h2>3. Kişisel Verilerin İşlenme Amaçları</h2>
-<p>Kişisel verileriniz aşağıdaki amaçlarla işlenmektedir:</p>
-<ul>
-<li>Kullanıcı hesabı oluşturmak ve yönetmek</li>
-<li>Hizmet sunumunu gerçekleştirmek (Free/Pro)</li>
-<li>İletişim kurmak (önemli güncellemeler, satış bildirimleri)</li>
-<li>Ödeme işlemlerini gerçekleştirmek</li>
-<li>Yasal yükümlülükleri yerine getirmek</li>
-<li>Hizmet kalitesini iyileştirmek</li>
-<li>Pazarlama amacıyla (sadece açık rıza ile)</li>
-</ul>
-
-<h2>4. Kişisel Verilerin Saklanması</h2>
-<p>Kişisel verileriniz <strong>Supabase</strong> (AB - İrlanda sunucuları) üzerinde güvenli şekilde saklanmaktadır.</p>
-<p><strong>Saklama Süresi:</strong> Hesabınız aktif olduğu sürece ve yasal yükümlülükler kapsamında saklanır.</p>
-<p>Hesabınızı silmek isterseniz, tüm verileriniz <strong>30 gün içinde</strong> kalıcı olarak silinir.</p>
-
-<h2>5. Kişisel Verilerin Aktarılması</h2>
-<p>Kişisel verileriniz aşağıdaki üçüncü taraflarla paylaşılmaktadır:</p>
-<ul>
-<li><strong>Supabase:</strong> Veritabanı hizmeti (AB - İrlanda sunucuları)</li>
-<li><strong>Vercel:</strong> Web sitesi hosting (Global CDN)</li>
-<li><strong>Lemonsqueezy:</strong> Ödeme işleme (sadece Pro satın aldığınızda)</li>
-<li><strong>YouTube API (Google):</strong> Kanal analizi için (sadece kanal araması)</li>
-</ul>
-<p>Veriler <strong>hiçbir şekilde</strong> pazarlama amacıyla üçüncü taraflara satılmaz veya kiralanmaz.</p>
-
-<h2>6. Çerezler (Cookies)</h2>
-<p>NICHIFY, kullanıcı deneyimini iyileştirmek için <strong>çerezler</strong> kullanır:</p>
-<ul>
-<li><strong>Zorunlu Çerezler:</strong> Giriş bilgileri, dil tercihi, session bilgisi</li>
-<li><strong>Analitik Çerezler:</strong> Anonim site kullanım istatistikleri</li>
-</ul>
-<p>Çerezleri tarayıcı ayarlarınızdan kontrol edebilirsiniz.</p>
-
-<h2>7. Kullanıcı Haklarınız</h2>
-<p>KVKK kapsamında aşağıdaki haklara sahipsiniz:</p>
-<ul>
-<li>Kişisel verilerinizin işlenip işlenmediğini öğrenme</li>
-<li>İşlenen verileriniz hakkında bilgi talep etme</li>
-<li>Verilerinizin işlenme amacını öğrenme</li>
-<li>Verilerinizi düzeltme veya silme talep etme</li>
-<li>Verilerinizin aktarıldığı üçüncü tarafları öğrenme</li>
-<li>Aleyhinize bir sonuca itiraz etme</li>
-<li>Verilerinizin yasaya aykırı işlenmesi durumunda zararın giderilmesini talep etme</li>
-</ul>
-
-<h2>8. Veri Güvenliği</h2>
-<p>NICHIFY, kişisel verilerinizin güvenliği için aşağıdaki önlemleri alır:</p>
-<ul>
-<li>SSL/TLS şifreleme (HTTPS)</li>
-<li>Şifreler bcrypt ile hash'lenir</li>
-<li>Supabase güvenlik standartları (SOC 2)</li>
-<li>Düzenli güvenlik güncellemeleri</li>
-<li>Yetkisiz erişimlere karşı koruma (Row Level Security)</li>
-</ul>
-
-<div class="contact-box">
-<h3>📧 İletişim ve Talepler</h3>
-<p>KVKK kapsamındaki haklarınızı kullanmak veya herhangi bir sorunuz için bizimle iletişime geçebilirsiniz:</p>
-<p><strong>E-posta:</strong> bucun648@gmail.com</p>
-<p><strong>Yanıt süresi:</strong> 30 gün içinde yanıt verilecektir.</p>
-</div>
-
-<div class="footer-nav">
-<a href="/">Anasayfa</a> · 
-<a href="/gizlilik.html">Gizlilik Politikası</a> · 
-<a href="/sartlar.html">Kullanım Şartları</a> · 
-<a href="mailto:bucun648@gmail.com">İletişim</a>
-</div>
-
-</div>
+  
+  <div class="aurora-bg">
+    <div class="aurora-3"></div>
+  </div>
+  
+  <nav class="navbar">
+    <div class="container">
+      <div class="nav-wrapper">
+        <a href="/" class="nav-logo">
+          <span class="nav-logo-icon">🎯</span>
+          <span class="nav-logo-text gradient-text-aurora">NICHIFY</span>
+          <span class="badge badge-pro badge-sm">PRO</span>
+        </a>
+        <div class="nav-links hide-mobile">
+          <a href="/#features" class="nav-link">Özellikler</a>
+          <a href="/fiyatlandirma" class="nav-link">Fiyatlandırma</a>
+          <a href="/sss" class="nav-link">SSS</a>
+        </div>
+        <div class="nav-actions">
+          <a href="/login" class="btn btn-ghost btn-sm">Giriş Yap</a>
+          <a href="/register" class="btn btn-primary btn-sm">Ücretsiz Başla<span>→</span></a>
+        </div>
+      </div>
+    </div>
+  </nav>
+  
+  <div class="legal-container">
+    
+    <a href="/" class="legal-back"><span>←</span><span>Ana Sayfa</span></a>
+    
+    <div class="legal-header">
+      <div style="font-size: 4rem; margin-bottom: var(--space-md);">⚖️</div>
+      <h1><span class="gradient-text">KVKK Aydınlatma Metni</span></h1>
+      <p style="color: var(--text-secondary); max-width: 600px; margin: var(--space-md) auto 0;">
+        6698 Sayılı Kişisel Verilerin Korunması Kanunu kapsamında haklarınız ve verilerinizin işlenme süreci.
+      </p>
+      <div class="legal-meta">
+        <span>📅 Son Güncelleme: <strong>14 Ocak 2025</strong></span>
+      </div>
+    </div>
+    
+    <div class="legal-content">
+      
+      <div class="info-box">
+        <strong>📌 Önemli Bilgi:</strong> Bu metin, 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) gereğince hazırlanmıştır. Kişisel verilerinizin işlenmesine ilişkin sizi bilgilendirmek amacıyla yayınlanmıştır.
+      </div>
+      
+      <h2><span>🏢</span><span>1. Veri Sorumlusu</span></h2>
+      <p>6698 Sayılı KVKK uyarınca, kişisel verileriniz <strong>NICHIFY PRO</strong> tarafından, veri sorumlusu sıfatıyla aşağıda açıklanan kapsamda işlenmektedir.</p>
+      <ul>
+        <li><strong>Veri Sorumlusu:</strong> NICHIFY PRO</li>
+        <li><strong>İletişim:</strong> <a href="mailto:bucun648@gmail.com">bucun648@gmail.com</a></li>
+        <li><strong>Web:</strong> <a href="/">nichify.pro</a></li>
+      </ul>
+      
+      <h2><span>📊</span><span>2. İşlenen Kişisel Verileriniz</span></h2>
+      
+      <h3>Kimlik Bilgileri</h3>
+      <ul>
+        <li>Ad-Soyad (kayıt esnasında verilen)</li>
+        <li>Email adresi</li>
+      </ul>
+      
+      <h3>İletişim Bilgileri</h3>
+      <ul>
+        <li>Email adresi</li>
+        <li>İletişim formu yanıtları</li>
+      </ul>
+      
+      <h3>Müşteri İşlem Bilgileri</h3>
+      <ul>
+        <li>Üyelik bilgileri</li>
+        <li>Satın alma geçmişi</li>
+        <li>Kullanım istatistikleri</li>
+      </ul>
+      
+      <h3>İşlem Güvenliği Bilgileri</h3>
+      <ul>
+        <li>IP adresi (genel konum)</li>
+        <li>Tarayıcı bilgileri</li>
+        <li>Çerezler ve oturum bilgileri</li>
+      </ul>
+      
+      <h2><span>🎯</span><span>3. Kişisel Verilerin İşlenme Amaçları</span></h2>
+      <p>Kişisel verileriniz aşağıdaki amaçlarla işlenmektedir:</p>
+      <ul>
+        <li>✅ Üyelik oluşturma ve hesap yönetimi</li>
+        <li>✅ Hizmetlerin sunulması ve geliştirilmesi</li>
+        <li>✅ Kullanıcı deneyiminin iyileştirilmesi</li>
+        <li>✅ Müşteri destek hizmetleri</li>
+        <li>✅ Yasal yükümlülüklerin yerine getirilmesi</li>
+        <li>✅ Güvenlik ve dolandırıcılık önleme</li>
+        <li>✅ İstatistiksel analiz (anonimleştirilmiş)</li>
+        <li>✅ Pazarlama ve iletişim faaliyetleri (onaylı kullanıcılar için)</li>
+      </ul>
+      
+      <h2><span>📝</span><span>4. Hukuki Sebepler</span></h2>
+      <p>Kişisel verileriniz KVKK Madde 5'te belirtilen aşağıdaki hukuki sebeplere dayanarak işlenmektedir:</p>
+      <ul>
+        <li><strong>Sözleşmenin kurulması veya ifası:</strong> Üyelik sözleşmesi gereği</li>
+        <li><strong>Hukuki yükümlülük:</strong> Yasal gereklilikler</li>
+        <li><strong>Meşru menfaat:</strong> Hizmet kalitesinin artırılması</li>
+        <li><strong>Açık rıza:</strong> Pazarlama faaliyetleri için</li>
+      </ul>
+      
+      <h2><span>🤝</span><span>5. Verilerin Aktarılması</span></h2>
+      <p>Kişisel verileriniz aşağıdaki <strong>üçüncü taraf hizmet sağlayıcılara</strong> aktarılabilir:</p>
+      <ul>
+        <li><strong>Supabase</strong> (Veritabanı altyapısı - AB sunucuları)</li>
+        <li><strong>Vercel</strong> (Hosting hizmeti - Global CDN)</li>
+        <li><strong>LemonSqueezy</strong> (Ödeme işlemleri - PCI-DSS uyumlu)</li>
+        <li><strong>Google</strong> (Analytics ve OAuth - opsiyonel)</li>
+      </ul>
+      <p>Bu hizmet sağlayıcılar, kendi gizlilik politikaları ve KVKK/GDPR uyumlulukları kapsamında verilerinizi işler.</p>
+      
+      <h2><span>⏰</span><span>6. Verilerin Saklanma Süresi</span></h2>
+      <ul>
+        <li><strong>Aktif üyelik süresi boyunca:</strong> Hesap bilgileriniz</li>
+        <li><strong>10 yıl:</strong> Yasal yükümlülükler kapsamında (Vergi, fatura vb.)</li>
+        <li><strong>2 yıl:</strong> Müşteri destek kayıtları</li>
+        <li><strong>1 yıl:</strong> Çerez ve oturum bilgileri</li>
+        <li><strong>Anlık:</strong> Hesap silindiğinde derhal silinen veriler</li>
+      </ul>
+      
+      <h2><span>⚖️</span><span>7. KVKK Madde 11 Uyarınca Haklarınız</span></h2>
+      <p>Kişisel veri sahibi olarak KVKK'nın 11. maddesi gereğince aşağıdaki haklara sahipsiniz:</p>
+      <ul>
+        <li>✓ Kişisel verilerinizin işlenip işlenmediğini <strong>öğrenme</strong></li>
+        <li>✓ İşlenmişse <strong>bilgi talep etme</strong></li>
+        <li>✓ İşlenme amacını ve amaca uygun kullanılıp kullanılmadığını <strong>öğrenme</strong></li>
+        <li>✓ Yurt içinde/dışında aktarıldığı 3. kişileri <strong>bilme</strong></li>
+        <li>✓ Eksik/yanlış işlenmişse <strong>düzeltilmesini isteme</strong></li>
+        <li>✓ KVKK'nın öngördüğü şartlar çerçevesinde <strong>silinmesini/yok edilmesini isteme</strong></li>
+        <li>✓ Düzeltme/silme işlemlerinin 3. kişilere <strong>bildirilmesini isteme</strong></li>
+        <li>✓ Otomatik sistemler aracılığıyla analiz sonucu aleyhinize çıkan sonuca <strong>itiraz etme</strong></li>
+        <li>✓ Kanuna aykırı işlenmesi sebebiyle zarara uğramışsanız <strong>zararın giderilmesini talep etme</strong></li>
+      </ul>
+      
+      <h2><span>📮</span><span>8. Başvuru Yöntemi</span></h2>
+      <p>Haklarınızı kullanmak için aşağıdaki yöntemlerle bize ulaşabilirsiniz:</p>
+      <ul>
+        <li>📧 <strong>Email:</strong> <a href="mailto:bucun648@gmail.com">bucun648@gmail.com</a></li>
+        <li>📝 <strong>Konu:</strong> "KVKK Başvurusu" olarak belirtmenizi rica ederiz</li>
+        <li>⏱️ <strong>Yanıt süresi:</strong> En geç 30 gün içinde</li>
+        <li>💰 <strong>Ücret:</strong> Ücretsiz (özel taleplerde maliyet karşılığı)</li>
+      </ul>
+      
+      <div class="info-box">
+        <strong>💡 Bilgi:</strong> Başvurunuz için ad-soyad, email ve talebinizi açıkça belirtmeniz yeterlidir. Kimlik tespiti için ek belge istenebilir.
+      </div>
+      
+      <h2><span>🛡️</span><span>9. Güvenlik Önlemleri</span></h2>
+      <p>Kişisel verilerinizin güvenliği için aldığımız teknik ve idari önlemler:</p>
+      <ul>
+        <li>🔐 SSL/TLS şifreleme</li>
+        <li>🔐 Bcrypt şifre hashleme</li>
+        <li>🔐 Row Level Security (RLS)</li>
+        <li>🔐 Düzenli güvenlik denetimleri</li>
+        <li>🔐 Erişim logları ve izleme</li>
+        <li>🔐 Yedekleme ve felaket kurtarma</li>
+        <li>🔐 Personel gizlilik eğitimleri</li>
+      </ul>
+      
+      <p style="margin-top: var(--space-2xl); padding-top: var(--space-lg); border-top: 2px solid var(--border-color); text-align: center; color: var(--text-muted); font-size: 0.875rem;">
+        Bu aydınlatma metni <strong>14 Ocak 2025</strong> tarihinde yürürlüğe girmiştir.<br>
+        © 2025 NICHIFY PRO. Tüm hakları saklıdır.
+      </p>
+      
+    </div>
+    
+  </div>
+  
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <a href="/" class="nav-logo">
+            <span class="nav-logo-icon">🎯</span>
+            <span class="nav-logo-text gradient-text-aurora">NICHIFY</span>
+            <span class="badge badge-pro badge-sm">PRO</span>
+          </a>
+          <p class="footer-desc">YouTube'da kazançlı niş bulmanın en akıllı yolu.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Ürün</h4>
+          <a href="/#features">Özellikler</a>
+          <a href="/fiyatlandirma">Fiyatlandırma</a>
+          <a href="/sss">SSS</a>
+        </div>
+        <div class="footer-col">
+          <h4>Hesap</h4>
+          <a href="/login">Giriş Yap</a>
+          <a href="/register">Kayıt Ol</a>
+          <a href="/dashboard">Dashboard</a>
+        </div>
+        <div class="footer-col">
+          <h4>Yasal</h4>
+          <a href="/gizlilik">Gizlilik Politikası</a>
+          <a href="/kvkk">KVKK</a>
+          <a href="/sartlar">Kullanım Şartları</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 NICHIFY PRO. Tüm hakları saklıdır.</p>
+        <p>Made with ❤️ for YouTube Creators</p>
+      </div>
+    </div>
+  </footer>
+  
 </body>
 </html>
