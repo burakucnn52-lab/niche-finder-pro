@@ -1,22 +1,119 @@
 {
-  "rewrites": [
-    { "source": "/login", "destination": "/login.html" },
-    { "source": "/register", "destination": "/register.html" },
-    { "source": "/forgot-password", "destination": "/forgot-password.html" },
-    { "source": "/reset-password", "destination": "/reset-password.html" },
-    { "source": "/dashboard", "destination": "/dashboard.html" },
-    { "source": "/nis-kesfi", "destination": "/nis-kesfi.html" },
-    { "source": "/yukselen-kanallar", "destination": "/yukselen-kanallar.html" },
-    { "source": "/kanal-analizi", "destination": "/kanal-analizi.html" },
-    { "source": "/risk-detector", "destination": "/risk-detector.html" },
-    { "source": "/ai-asistan", "destination": "/ai-asistan.html" },
-    { "source": "/yol-haritasi", "destination": "/yol-haritasi.html" },
-    { "source": "/admin", "destination": "/admin.html" },
-    { "source": "/profil", "destination": "/profil.html" },
-    { "source": "/fiyatlandirma", "destination": "/fiyatlandirma.html" },
-    { "source": "/sss", "destination": "/sss.html" },
-    { "source": "/gizlilik", "destination": "/gizlilik.html" },
-    { "source": "/kvkk", "destination": "/kvkk.html" },
-    { "source": "/sartlar", "destination": "/sartlar.html" }
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/*.py",
+      "use": "@vercel/python"
+    },
+    {
+      "src": "public/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/css/(.*)",
+      "dest": "/public/css/$1"
+    },
+    {
+      "src": "/js/(.*)",
+      "dest": "/public/js/$1"
+    },
+    {
+      "src": "/data/(.*)",
+      "dest": "/public/data/$1"
+    },
+    {
+      "src": "/images/(.*)",
+      "dest": "/public/images/$1"
+    },
+    {
+      "src": "/login",
+      "dest": "/public/login.html"
+    },
+    {
+      "src": "/register",
+      "dest": "/public/register.html"
+    },
+    {
+      "src": "/forgot-password",
+      "dest": "/public/forgot-password.html"
+    },
+    {
+      "src": "/reset-password",
+      "dest": "/public/reset-password.html"
+    },
+    {
+      "src": "/dashboard",
+      "dest": "/public/dashboard.html"
+    },
+    {
+      "src": "/nis-kesfi",
+      "dest": "/public/nis-kesfi.html"
+    },
+    {
+      "src": "/yukselen-kanallar",
+      "dest": "/public/yukselen-kanallar.html"
+    },
+    {
+      "src": "/kanal-analizi",
+      "dest": "/public/kanal-analizi.html"
+    },
+    {
+      "src": "/risk-detector",
+      "dest": "/public/risk-detector.html"
+    },
+    {
+      "src": "/ai-asistan",
+      "dest": "/public/ai-asistan.html"
+    },
+    {
+      "src": "/yol-haritasi",
+      "dest": "/public/yol-haritasi.html"
+    },
+    {
+      "src": "/admin",
+      "dest": "/public/admin.html"
+    },
+    {
+      "src": "/profil",
+      "dest": "/public/profil.html"
+    },
+    {
+      "src": "/fiyatlandirma",
+      "dest": "/public/fiyatlandirma.html"
+    },
+    {
+      "src": "/sss",
+      "dest": "/public/sss.html"
+    },
+    {
+      "src": "/gizlilik",
+      "dest": "/public/gizlilik.html"
+    },
+    {
+      "src": "/kvkk",
+      "dest": "/public/kvkk.html"
+    },
+    {
+      "src": "/sartlar",
+      "dest": "/public/sartlar.html"
+    },
+    {
+      "src": "/(.*\\.html)",
+      "dest": "/public/$1"
+    },
+    {
+      "src": "/",
+      "dest": "/public/index.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/public/$1"
+    }
   ]
 }
