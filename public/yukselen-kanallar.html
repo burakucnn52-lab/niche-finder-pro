@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yükselen Kanallar - NICHIFY PRO</title>
+  
+  <link rel="stylesheet" href="/css/core.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/channels.css">
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+</head>
+<body>
+  
+  <div class="aurora-bg">
+    <div class="aurora-3"></div>
+  </div>
+  
+  <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  
+  <div class="dash-layout">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <span class="sidebar-logo-icon">🎯</span>
+        <div>
+          <div class="sidebar-logo-text">NICHIFY</div>
+          <div class="sidebar-version">PRO v2.0</div>
+        </div>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Ana Menü</div>
+          <a href="/dashboard" class="sidebar-item">
+            <span class="sidebar-item-icon">🏠</span>
+            <span>Anasayfa</span>
+          </a>
+          <a href="/nis-kesfi" class="sidebar-item">
+            <span class="sidebar-item-icon">🎯</span>
+            <span>Niş Keşfi</span>
+          </a>
+          <a href="/yukselen-kanallar" class="sidebar-item active">
+            <span class="sidebar-item-icon">🔥</span>
+            <span>Yükselen Kanallar</span>
+          </a>
+          <a href="/kanal-analizi" class="sidebar-item">
+            <span class="sidebar-item-icon">📊</span>
+            <span>Kanal Analizi</span>
+          </a>
+        </div>
+        
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Araçlar</div>
+          <a href="/risk-detector" class="sidebar-item">
+            <span class="sidebar-item-icon">🛡️</span>
+            <span>Risk Detector</span>
+          </a>
+          <a href="/ai-asistan" class="sidebar-item">
+            <span class="sidebar-item-icon">🤖</span>
+            <span>AI Asistan</span>
+            <span class="badge badge-pro sidebar-item-badge">PRO</span>
+          </a>
+          <a href="/yol-haritasi" class="sidebar-item">
+            <span class="sidebar-item-icon">🗺️</span>
+            <span>Yol Haritası</span>
+          </a>
+        </div>
+        
+        <div class="sidebar-section" id="adminSection" style="display: none;">
+          <div class="sidebar-section-title">👑 Admin</div>
+          <a href="/admin" class="sidebar-item">
+            <span class="sidebar-item-icon">⚙️</span>
+            <span>Yönetim Paneli</span>
+          </a>
+        </div>
+      </nav>
+      
+      <div class="sidebar-lifetime" id="lifetimeCard">
+        <div class="sidebar-lifetime-old">$149</div>
+        <div class="sidebar-lifetime-price">$89</div>
+        <div class="sidebar-lifetime-label">🔥 Lifetime Deal</div>
+        <a href="/fiyatlandirma" class="btn btn-primary btn-sm btn-block" style="margin-top: 8px;">
+          Şimdi Al
+        </a>
+        <div class="sidebar-lifetime-stock">⚡ <span id="lifetimeStock">88</span>/100 kaldı</div>
+      </div>
+      
+      <div class="sidebar-user">
+        <div class="avatar" id="userAvatar">U</div>
+        <div class="sidebar-user-info">
+          <div class="sidebar-user-name" id="userName">Yükleniyor...</div>
+          <div class="sidebar-user-email" id="userEmail">-</div>
+        </div>
+        <div class="sidebar-user-menu" id="logoutBtn" title="Çıkış Yap">⏻</div>
+      </div>
+    </aside>
+    
+    <!-- MAIN -->
+    <main class="main page-enter">
+      
+      <!-- Page Header -->
+      <div class="page-header">
+        <h1>
+          <span>🔥</span>
+          <span>Yükselen Kanallar</span>
+          <span class="live-indicator">CANLI</span>
+        </h1>
+        <p>YouTube'da şu an trend olan videolar ve kanallar. <strong>Veri kaynağı:</strong> <span id="dataSourceText">YouTube Data API v3</span></p>
+      </div>
+      
+      <!-- Region Selector -->
+      <div class="filters">
+        <div style="margin-bottom: var(--space-md);">
+          <label class="form-label">🌍 BÖLGE SEÇ</label>
+          <div class="region-selector" id="regionSelector">
+            <div class="region-pill active" data-region="TR">
+              <span class="region-flag">🇹🇷</span>
+              <span>Türkiye</span>
+            </div>
+            <div class="region-pill" data-region="US">
+              <span class="region-flag">🇺🇸</span>
+              <span>ABD</span>
+            </div>
+            <div class="region-pill" data-region="GB">
+              <span class="region-flag">🇬🇧</span>
+              <span>İngiltere</span>
+            </div>
+            <div class="region-pill" data-region="DE">
+              <span class="region-flag">🇩🇪</span>
+              <span>Almanya</span>
+            </div>
+            <div class="region-pill" data-region="FR">
+              <span class="region-flag">🇫🇷</span>
+              <span>Fransa</span>
+            </div>
+            <div class="region-pill" data-region="ES">
+              <span class="region-flag">🇪🇸</span>
+              <span>İspanya</span>
+            </div>
+            <div class="region-pill" data-region="IT">
+              <span class="region-flag">🇮🇹</span>
+              <span>İtalya</span>
+            </div>
+            <div class="region-pill" data-region="JP">
+              <span class="region-flag">🇯🇵</span>
+              <span>Japonya</span>
+            </div>
+            <div class="region-pill" data-region="KR">
+              <span class="region-flag">🇰🇷</span>
+              <span>Kore</span>
+            </div>
+            <div class="region-pill" data-region="BR">
+              <span class="region-flag">🇧🇷</span>
+              <span>Brezilya</span>
+            </div>
+            <div class="region-pill" data-region="IN">
+              <span class="region-flag">🇮🇳</span>
+              <span>Hindistan</span>
+            </div>
+          </div>
+        </div>
+        
+        <div>
+          <label class="form-label">📂 KATEGORİ</label>
+          <div class="category-selector" id="categorySelector">
+            <div class="cat-pill active" data-category="">📊 Tümü</div>
+            <div class="cat-pill" data-category="10">🎵 Müzik</div>
+            <div class="cat-pill" data-category="20">🎮 Oyun</div>
+            <div class="cat-pill" data-category="17">⚽ Spor</div>
+            <div class="cat-pill" data-category="24">🎭 Eğlence</div>
+            <div class="cat-pill" data-category="28">💻 Teknoloji</div>
+            <div class="cat-pill" data-category="22">👥 İnsanlar</div>
+            <div class="cat-pill" data-category="25">📰 Haber</div>
+            <div class="cat-pill" data-category="26">🎨 Stil</div>
+            <div class="cat-pill" data-category="27">📚 Eğitim</div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Results Info -->
+      <div class="results-info">
+        <div class="results-count">
+          <strong id="resultsCount">0</strong> trend video
+          <span class="data-source" id="dataSource">📡 yükleniyor...</span>
+        </div>
+        <div>
+          <button class="btn btn-secondary btn-sm" id="refreshBtn">
+            🔄 Yenile
+          </button>
+        </div>
+      </div>
+      
+      <!-- Channels Grid -->
+      <div class="channels-grid" id="channelsGrid">
+        <!-- Loading -->
+        <div class="channel-skeleton">
+          <div class="channel-skeleton-thumb shimmer"></div>
+          <div class="channel-skeleton-body">
+            <div class="channel-skeleton-row shimmer" style="width: 80%;"></div>
+            <div class="channel-skeleton-row shimmer" style="width: 60%;"></div>
+            <div class="channel-skeleton-row shimmer" style="width: 40%;"></div>
+          </div>
+        </div>
+        <div class="channel-skeleton">
+          <div class="channel-skeleton-thumb shimmer"></div>
+          <div class="channel-skeleton-body">
+            <div class="channel-skeleton-row shimmer" style="width: 75%;"></div>
+            <div class="channel-skeleton-row shimmer" style="width: 55%;"></div>
+            <div class="channel-skeleton-row shimmer" style="width: 35%;"></div>
+          </div>
+        </div>
+        <div class="channel-skeleton">
+          <div class="channel-skeleton-thumb shimmer"></div>
+          <div class="channel-skeleton-body">
+            <div class="channel-skeleton-row shimmer" style="width: 70%;"></div>
+            <div class="channel-skeleton-row shimmer" style="width: 50%;"></div>
+            <div class="channel-skeleton-row shimmer" style="width: 30%;"></div>
+          </div>
+        </div>
+      </div>
+      
+    </main>
+    
+  </div>
+  
+  <script src="/js/config.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/youtube.js"></script>
+  <script src="/js/animations.js"></script>
+  <script>
+    
+    // ============================================
+    // STATE
+    // ============================================
+    let state = {
+      region: 'TR',
+      category: '',
+      loading: false
+    };
+    
+    // ============================================
+    // INIT
+    // ============================================
+    (async () => {
+      // Auth check
+      const isAuth = await Auth.requireAuth('/login');
+      if (!isAuth) return;
+      
+      // Load user
+      const user = await Auth.getCurrentUser();
+      if (user) {
+        const displayName = user.name || user.email.split('@')[0];
+        document.getElementById('userName').textContent = displayName;
+        document.getElementById('userEmail').textContent = user.email;
+        document.getElementById('userAvatar').textContent = displayName.charAt(0).toUpperCase();
+        
+        if (user.is_admin || user.role === 'super_admin') {
+          document.getElementById('adminSection').style.display = 'block';
+        }
+        
+        if (user.is_premium) {
+          document.getElementById('lifetimeCard').style.display = 'none';
+        }
+      }
+      
+      loadLifetimeStock();
+      
+      // Load trending videos
+      await loadTrending();
+    })();
+    
+    // ============================================
+    // LIFETIME STOCK
+    // ============================================
+    async function loadLifetimeStock() {
+      try {
+        const supabase = await Auth.init();
+        const { count } = await supabase
+          .from('users')
+          .select('*', { count: 'exact', head: true })
+          .eq('premium_type', 'lifetime');
+        
+        const remaining = CONFIG.LIFETIME_MAX_SLOTS - (count || 0);
+        document.getElementById('lifetimeStock').textContent = remaining;
+      } catch (error) {
+        console.error('Stock load error:', error);
+      }
+    }
+    
+    // ============================================
+    // LOAD TRENDING
+    // ============================================
+    async function loadTrending() {
+      if (state.loading) return;
+      state.loading = true;
+      
+      const grid = document.getElementById('channelsGrid');
+      const refreshBtn = document.getElementById('refreshBtn');
+      const dataSource = document.getElementById('dataSource');
+      
+      refreshBtn.disabled = true;
+      refreshBtn.innerHTML = '<span class="spinner spinner-sm"></span> Yükleniyor...';
+      
+      // Show skeleton
+      grid.innerHTML = Array(9).fill(`
+        <div class="channel-skeleton">
+          <div class="channel-skeleton-thumb shimmer"></div>
+          <div class="channel-skeleton-body">
+            <div class="channel-skeleton-row shimmer" style="width: 80%;"></div>
+            <div class="channel-skeleton-row shimmer" style="width: 60%;"></div>
+            <div class="channel-skeleton-row shimmer" style="width: 40%;"></div>
+          </div>
+        </div>
+      `).join('');
+      
+      try {
+        const result = await YouTube.getTrending(state.region, state.category);
+        
+        if (result.success && result.data && result.data.items) {
+          renderVideos(result.data.items);
+          
+          // Data source indicator
+          if (result.source === 'cache') {
+            dataSource.className = 'data-source cache';
+            dataSource.innerHTML = '⚡ Cache';
+          } else {
+            dataSource.className = 'data-source live';
+            dataSource.innerHTML = '🔴 Canlı';
+          }
+        } else {
+          showError(result.error || 'Veri yüklenemedi');
+        }
+      } catch (error) {
+        showError('Bir hata oluştu: ' + error.message);
+      }
+      
+      refreshBtn.disabled = false;
+      refreshBtn.innerHTML = '🔄 Yenile';
+      state.loading = false;
+    }
+    
+    // ============================================
+    // RENDER VIDEOS
+    // ============================================
+    function renderVideos(videos) {
+      const grid = document.getElementById('channelsGrid');
+      const countEl = document.getElementById('resultsCount');
+      
+      countEl.textContent = videos.length;
+      
+      if (videos.length === 0) {
+        grid.innerHTML = `
+          <div class="empty-state" style="grid-column: 1/-1;">
+            <div class="empty-state-icon">📺</div>
+            <div class="empty-state-title">Hiç trend video bulunamadı</div>
+            <div class="empty-state-message">Farklı bir bölge veya kategori deneyin</div>
+          </div>
+        `;
+        return;
+      }
+      
+      grid.innerHTML = videos.map((video, index) => {
+        const snippet = video.snippet || {};
+        const stats = video.statistics || {};
+        const thumb = snippet.thumbnails?.high?.url || snippet.thumbnails?.medium?.url || '';
+        
+        const channelInitial = (snippet.channelTitle || '?').charAt(0).toUpperCase();
+        const views = Utils.formatNumber(stats.viewCount || 0);
+        const likes = Utils.formatNumber(stats.likeCount || 0);
+        const comments = Utils.formatNumber(stats.commentCount || 0);
+        const publishedAt = Utils.timeAgo(snippet.publishedAt);
+        
+        return `
+          <div class="channel-card fade-in-up" 
+               style="animation-delay: ${Math.min(index * 0.05, 0.5)}s"
+               onclick="openVideo('${video.id}')">
+            
+            <div class="channel-thumb">
+              <span class="channel-rank">#${index + 1}</span>
+              ${thumb ? `<img src="${thumb}" alt="${snippet.title}" loading="lazy">` : ''}
+              <div class="channel-thumb-overlay"></div>
+            </div>
+            
+            <div class="channel-body">
+              <div class="channel-header">
+                <div class="channel-avatar">${channelInitial}</div>
+                <div class="channel-info">
+                  <div class="channel-title">${snippet.title || 'Başlıksız'}</div>
+                  <div class="channel-name">${snippet.channelTitle || 'Bilinmeyen Kanal'}</div>
+                </div>
+              </div>
+              
+              <div class="channel-stats">
+                <div class="channel-stat" title="İzlenme">
+                  <span class="channel-stat-icon">👁️</span>
+                  <span class="channel-stat-value">${views}</span>
+                </div>
+                <div class="channel-stat" title="Beğeni">
+                  <span class="channel-stat-icon">👍</span>
+                  <span class="channel-stat-value">${likes}</span>
+                </div>
+                <div class="channel-stat" title="Yorum">
+                  <span class="channel-stat-icon">💬</span>
+                  <span class="channel-stat-value">${comments}</span>
+                </div>
+                <div class="channel-stat" style="margin-left: auto;" title="Yayınlandı">
+                  <span>⏱️</span>
+                  <span style="font-size: 0.6875rem;">${publishedAt}</span>
+                </div>
+              </div>
+            </div>
+            
+          </div>
+        `;
+      }).join('');
+    }
+    
+    // ============================================
+    // ERROR
+    // ============================================
+    function showError(message) {
+      const grid = document.getElementById('channelsGrid');
+      grid.innerHTML = `
+        <div class="empty-state" style="grid-column: 1/-1;">
+          <div class="empty-state-icon">⚠️</div>
+          <div class="empty-state-title">Veri yüklenemedi</div>
+          <div class="empty-state-message">${message}</div>
+          <button class="btn btn-primary" onclick="loadTrending()" style="margin-top: 16px;">
+            🔄 Tekrar Dene
+          </button>
+        </div>
+      `;
+    }
+    
+    // ============================================
+    // ACTIONS
+    // ============================================
+    window.openVideo = function(videoId) {
+      window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
+    };
+    
+    // ============================================
+    // EVENT LISTENERS
+    // ============================================
+    
+    // Region selector
+    document.querySelectorAll('.region-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('.region-pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        state.region = pill.dataset.region;
+        loadTrending();
+      });
+    });
+    
+    // Category selector
+    document.querySelectorAll('.cat-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        state.category = pill.dataset.category;
+        loadTrending();
+      });
+    });
+    
+    // Refresh button
+    document.getElementById('refreshBtn').addEventListener('click', loadTrending);
+    
+    // Logout
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      if (confirm('Çıkış yapmak istediğinizden emin misiniz?')) {
+        await Auth.logout();
+      }
+    });
+    
+    // Mobile menu
+    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('sidebarOverlay').classList.toggle('active');
+    });
+    
+    document.getElementById('sidebarOverlay').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sidebarOverlay').classList.remove('active');
+    });
+    
+  </script>
+</body>
+</html>
