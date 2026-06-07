@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kanal Analizi - NICHIFY PRO</title>
+  
+  <link rel="stylesheet" href="/css/core.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/channels.css">
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+</head>
+<body>
+  
+  <div class="aurora-bg">
+    <div class="aurora-3"></div>
+  </div>
+  
+  <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  
+  <div class="dash-layout">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <span class="sidebar-logo-icon">🎯</span>
+        <div>
+          <div class="sidebar-logo-text">NICHIFY</div>
+          <div class="sidebar-version">PRO v2.0</div>
+        </div>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Ana Menü</div>
+          <a href="/dashboard" class="sidebar-item">
+            <span class="sidebar-item-icon">🏠</span>
+            <span>Anasayfa</span>
+          </a>
+          <a href="/nis-kesfi" class="sidebar-item">
+            <span class="sidebar-item-icon">🎯</span>
+            <span>Niş Keşfi</span>
+          </a>
+          <a href="/yukselen-kanallar" class="sidebar-item">
+            <span class="sidebar-item-icon">🔥</span>
+            <span>Yükselen Kanallar</span>
+          </a>
+          <a href="/kanal-analizi" class="sidebar-item active">
+            <span class="sidebar-item-icon">📊</span>
+            <span>Kanal Analizi</span>
+          </a>
+        </div>
+        
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Araçlar</div>
+          <a href="/risk-detector" class="sidebar-item">
+            <span class="sidebar-item-icon">🛡️</span>
+            <span>Risk Detector</span>
+          </a>
+          <a href="/ai-asistan" class="sidebar-item">
+            <span class="sidebar-item-icon">🤖</span>
+            <span>AI Asistan</span>
+            <span class="badge badge-pro sidebar-item-badge">PRO</span>
+          </a>
+          <a href="/yol-haritasi" class="sidebar-item">
+            <span class="sidebar-item-icon">🗺️</span>
+            <span>Yol Haritası</span>
+          </a>
+        </div>
+        
+        <div class="sidebar-section" id="adminSection" style="display: none;">
+          <div class="sidebar-section-title">👑 Admin</div>
+          <a href="/admin" class="sidebar-item">
+            <span class="sidebar-item-icon">⚙️</span>
+            <span>Yönetim Paneli</span>
+          </a>
+        </div>
+      </nav>
+      
+      <div class="sidebar-lifetime" id="lifetimeCard">
+        <div class="sidebar-lifetime-old">$149</div>
+        <div class="sidebar-lifetime-price">$89</div>
+        <div class="sidebar-lifetime-label">🔥 Lifetime Deal</div>
+        <a href="/fiyatlandirma" class="btn btn-primary btn-sm btn-block" style="margin-top: 8px;">
+          Şimdi Al
+        </a>
+        <div class="sidebar-lifetime-stock">⚡ <span id="lifetimeStock">88</span>/100 kaldı</div>
+      </div>
+      
+      <div class="sidebar-user">
+        <div class="avatar" id="userAvatar">U</div>
+        <div class="sidebar-user-info">
+          <div class="sidebar-user-name" id="userName">Yükleniyor...</div>
+          <div class="sidebar-user-email" id="userEmail">-</div>
+        </div>
+        <div class="sidebar-user-menu" id="logoutBtn" title="Çıkış Yap">⏻</div>
+      </div>
+    </aside>
+    
+    <!-- MAIN -->
+    <main class="main page-enter">
+      
+      <div class="page-header">
+        <h1>
+          <span>📊</span>
+          <span>Kanal Analizi</span>
+        </h1>
+        <p>YouTube kanalının detaylı analizini görüntüle. <strong>Skor, istatistik, son videolar ve daha fazlası</strong>.</p>
+      </div>
+      
+      <!-- Search Section -->
+      <div class="filters">
+        <label class="form-label">🔍 KANAL ARA</label>
+        <div class="channel-search">
+          <input 
+            type="text" 
+            id="channelSearchInput" 
+            placeholder="Kanal adı veya YouTube URL (örn: PewDiePie, MrBeast)"
+            autocomplete="off"
+          >
+        </div>
+        <div style="display: flex; gap: 8px; margin-top: 12px;">
+          <button class="btn btn-primary" id="searchBtn">
+            🔍 Kanalı Analiz Et
+          </button>
+          <button class="btn btn-secondary" id="clearBtn">
+            🗑️ Temizle
+          </button>
+        </div>
+      </div>
+      
+      <!-- Search Results -->
+      <div id="searchResults" style="display: none;">
+        <div class="results-info">
+          <div class="results-count">
+            <strong id="searchCount">0</strong> kanal bulundu
+            <span class="data-source" id="searchSource">📡</span>
+          </div>
+        </div>
+        <div class="channels-grid" id="searchGrid"></div>
+      </div>
+      
+      <!-- Channel Detail -->
+      <div id="channelDetail" style="display: none;">
+        <!-- JS ile doldurulacak -->
+      </div>
+      
+      <!-- Initial State -->
+      <div id="initialState">
+        <div class="empty-state" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: var(--space-2xl);">
+          <div class="empty-state-icon">📺</div>
+          <div class="empty-state-title">Analiz etmek için bir kanal ara</div>
+          <div class="empty-state-message">
+            Yukarıdaki arama kutusuna kanal adı yazarak başlayabilirsin.<br>
+            Örnek: PewDiePie, MrBeast, Veritasium
+          </div>
+          
+          <div style="margin-top: var(--space-xl);">
+            <h3 style="font-size: 0.875rem; margin-bottom: var(--space-md); color: var(--text-muted);">POPÜLER ARAMALAR</h3>
+            <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
+              <button class="chip" onclick="quickSearch('MrBeast')">MrBeast</button>
+              <button class="chip" onclick="quickSearch('PewDiePie')">PewDiePie</button>
+              <button class="chip" onclick="quickSearch('Veritasium')">Veritasium</button>
+              <button class="chip" onclick="quickSearch('Marques Brownlee')">MKBHD</button>
+              <button class="chip" onclick="quickSearch('Linus Tech Tips')">Linus Tech Tips</button>
+              <button class="chip" onclick="quickSearch('Mark Rober')">Mark Rober</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </main>
+    
+  </div>
+  
+  <script src="/js/config.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/youtube.js"></script>
+  <script>
+    
+    // ============================================
+    // INIT
+    // ============================================
+    (async () => {
+      const isAuth = await Auth.requireAuth('/login');
+      if (!isAuth) return;
+      
+      const user = await Auth.getCurrentUser();
+      if (user) {
+        const displayName = user.name || user.email.split('@')[0];
+        document.getElementById('userName').textContent = displayName;
+        document.getElementById('userEmail').textContent = user.email;
+        document.getElementById('userAvatar').textContent = displayName.charAt(0).toUpperCase();
+        
+        if (user.is_admin || user.role === 'super_admin') {
+          document.getElementById('adminSection').style.display = 'block';
+        }
+        
+        if (user.is_premium) {
+          document.getElementById('lifetimeCard').style.display = 'none';
+        }
+      }
+      
+      loadLifetimeStock();
+      
+      // Check URL params
+      const urlChannelId = Utils.getUrlParam('id');
+      if (urlChannelId) {
+        loadChannelDetail(urlChannelId);
+      }
+    })();
+    
+    async function loadLifetimeStock() {
+      try {
+        const supabase = await Auth.init();
+        const { count } = await supabase
+          .from('users')
+          .select('*', { count: 'exact', head: true })
+          .eq('premium_type', 'lifetime');
+        const remaining = CONFIG.LIFETIME_MAX_SLOTS - (count || 0);
+        document.getElementById('lifetimeStock').textContent = remaining;
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    
+    // ============================================
+    // SEARCH CHANNELS
+    // ============================================
+    async function searchChannels(query) {
+      if (!query || query.length < 2) {
+        Utils.toast.warning('En az 2 karakter girin');
+        return;
+      }
+      
+      // Hide states
+      document.getElementById('initialState').style.display = 'none';
+      document.getElementById('channelDetail').style.display = 'none';
+      document.getElementById('searchResults').style.display = 'block';
+      
+      const grid = document.getElementById('searchGrid');
+      const count = document.getElementById('searchCount');
+      const source = document.getElementById('searchSource');
+      
+      grid.innerHTML = Array(6).fill(`
+        <div class="channel-skeleton">
+          <div class="channel-skeleton-thumb shimmer"></div>
+          <div class="channel-skeleton-body">
+            <div class="channel-skeleton-row shimmer" style="width: 80%;"></div>
+            <div class="channel-skeleton-row shimmer" style="width: 60%;"></div>
+          </div>
+        </div>
+      `).join('');
+      
+      // Detect if it's a URL
+      const channelId = Utils.youtube.parseChannelId(query);
+      
+      if (channelId && channelId.startsWith('UC')) {
+        loadChannelDetail(channelId);
+        return;
+      }
+      
+      try {
+        const result = await YouTube.search(query, { type: 'channel' });
+        
+        if (result.success && result.data && result.data.items) {
+          const channels = result.data.items.filter(item => item.id?.kind === 'youtube#channel');
+          count.textContent = channels.length;
+          
+          if (result.source === 'cache') {
+            source.className = 'data-source cache';
+            source.innerHTML = '⚡ Cache';
+          } else {
+            source.className = 'data-source live';
+            source.innerHTML = '🔴 Canlı';
+          }
+          
+          if (channels.length === 0) {
+            grid.innerHTML = `
+              <div class="empty-state" style="grid-column: 1/-1;">
+                <div class="empty-state-icon">🔍</div>
+                <div class="empty-state-title">Kanal bulunamadı</div>
+                <div class="empty-state-message">Farklı bir arama terimi deneyin</div>
+              </div>
+            `;
+            return;
+          }
+          
+          grid.innerHTML = channels.map((channel, index) => {
+            const snippet = channel.snippet || {};
+            const thumb = snippet.thumbnails?.high?.url || snippet.thumbnails?.medium?.url || '';
+            const channelId = channel.id.channelId;
+            
+            return `
+              <div class="channel-card fade-in-up" 
+                   style="animation-delay: ${Math.min(index * 0.05, 0.5)}s"
+                   onclick="loadChannelDetail('${channelId}')">
+                <div class="channel-thumb" style="height: 160px; display: flex; align-items: center; justify-content: center; background: var(--bg-elevated);">
+                  ${thumb ? `<img src="${thumb}" alt="${snippet.title}" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover;">` : '📺'}
+                </div>
+                <div class="channel-body">
+                  <div class="channel-title">${snippet.title || 'Bilinmeyen'}</div>
+                  <div class="channel-name">${Utils.truncate(snippet.description || 'Açıklama yok', 80)}</div>
+                  <div class="channel-stats">
+                    <button class="btn btn-primary btn-sm" style="width: 100%;">
+                      📊 Analiz Et →
+                    </button>
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('');
+        } else {
+          grid.innerHTML = `
+            <div class="empty-state" style="grid-column: 1/-1;">
+              <div class="empty-state-icon">⚠️</div>
+              <div class="empty-state-title">Arama yapılamadı</div>
+              <div class="empty-state-message">${result.error || 'Bilinmeyen hata'}</div>
+            </div>
+          `;
+        }
+      } catch (error) {
+        Utils.toast.error('Hata: ' + error.message);
+      }
+    }
+    
+    // ============================================
+    // LOAD CHANNEL DETAIL
+    // ============================================
+    async function loadChannelDetail(channelId) {
+      document.getElementById('initialState').style.display = 'none';
+      document.getElementById('searchResults').style.display = 'none';
+      
+      const detailContainer = document.getElementById('channelDetail');
+      detailContainer.style.display = 'block';
+      
+      detailContainer.innerHTML = `
+        <div class="empty-state" style="background: var(--bg-card); border-radius: var(--radius-lg); padding: var(--space-2xl);">
+          <div class="spinner spinner-lg"></div>
+          <div class="empty-state-title" style="margin-top: var(--space-md);">Kanal yükleniyor...</div>
+        </div>
+      `;
+      
+      Utils.setUrlParam('id', channelId);
+      
+      try {
+        // Load channel + videos in parallel
+        const [channelResult, videosResult] = await Promise.all([
+          YouTube.getChannel(channelId),
+          YouTube.getChannelVideos(channelId)
+        ]);
+        
+        if (!channelResult.success || !channelResult.data?.items?.length) {
+          detailContainer.innerHTML = `
+            <div class="empty-state" style="background: var(--bg-card); border-radius: var(--radius-lg); padding: var(--space-2xl);">
+              <div class="empty-state-icon">❌</div>
+              <div class="empty-state-title">Kanal bulunamadı</div>
+              <div class="empty-state-message">Bu kanal mevcut değil veya silinmiş olabilir</div>
+            </div>
+          `;
+          return;
+        }
+        
+        const channel = channelResult.data.items[0];
+        const videos = videosResult.data?.items || [];
+        
+        renderChannelDetail(channel, videos);
+      } catch (error) {
+        Utils.toast.error('Hata: ' + error.message);
+      }
+    }
+    
+    // ============================================
+    // RENDER CHANNEL DETAIL
+    // ============================================
+    function renderChannelDetail(channel, videos) {
+      const snippet = channel.snippet || {};
+      const stats = channel.statistics || {};
+      const branding = channel.brandingSettings || {};
+      
+      const score = YouTube.calculateChannelScore(channel);
+      const risk = YouTube.calculateRisk(channel);
+      
+      const subscribers = parseInt(stats.subscriberCount || 0);
+      const totalViews = parseInt(stats.viewCount || 0);
+      const videoCount = parseInt(stats.videoCount || 0);
+      const avgViews = videoCount > 0 ? totalViews / videoCount : 0;
+      const engagementRate = subscribers > 0 ? (avgViews / subscribers * 100).toFixed(1) : 0;
+      
+      const thumb = snippet.thumbnails?.high?.url || snippet.thumbnails?.medium?.url || '';
+      const channelInitial = (snippet.title || '?').charAt(0).toUpperCase();
+      
+      const scoreClass = score >= 80 ? 'excellent' : score >= 60 ? 'good' : score >= 40 ? 'medium' : 'low';
+      
+      const container = document.getElementById('channelDetail');
+      container.innerHTML = `
+        
+        <!-- Channel Header -->
+        <div class="channel-detail-header fade-in-up">
+          <div class="channel-detail-avatar">
+            ${thumb ? `<img src="${thumb}" alt="${snippet.title}">` : channelInitial}
+          </div>
+          
+          <div class="channel-detail-info">
+            <h1>${snippet.title || 'Bilinmeyen Kanal'}</h1>
+            <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px;">
+              ${snippet.country ? `<span class="badge badge-primary">📍 ${snippet.country}</span>` : ''}
+              <span class="badge badge-purple">📅 ${Utils.formatDate(snippet.publishedAt)}</span>
+              <span class="badge ${score >= 70 ? 'badge-success' : 'badge-warning'}">
+                ⭐ Skor: ${score}/100
+              </span>
+            </div>
+            <p class="channel-description">${Utils.truncate(snippet.description || 'Açıklama yok', 250)}</p>
+            
+            <div class="channel-detail-stats">
+              <div class="detail-stat-item">
+                <div class="detail-stat-num">${Utils.formatNumber(subscribers)}</div>
+                <div class="detail-stat-name">Abone</div>
+              </div>
+              <div class="detail-stat-item">
+                <div class="detail-stat-num">${Utils.formatNumber(totalViews)}</div>
+                <div class="detail-stat-name">Toplam İzlenme</div>
+              </div>
+              <div class="detail-stat-item">
+                <div class="detail-stat-num">${Utils.formatNumber(videoCount)}</div>
+                <div class="detail-stat-name">Video Sayısı</div>
+              </div>
+              <div class="detail-stat-item">
+                <div class="detail-stat-num">${Utils.formatNumber(avgViews)}</div>
+                <div class="detail-stat-name">Ort. İzlenme</div>
+              </div>
+              <div class="detail-stat-item">
+                <div class="detail-stat-num">${engagementRate}%</div>
+                <div class="detail-stat-name">Etkileşim</div>
+              </div>
+            </div>
+            
+            <div style="margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap;">
+              <a href="https://www.youtube.com/channel/${channel.id}" target="_blank" class="btn btn-primary btn-sm">
+                ▶️ YouTube'da Aç
+              </a>
+              <button class="btn btn-secondary btn-sm" onclick="copyChannelLink('${channel.id}')">
+                🔗 Link Kopyala
+              </button>
+              <button class="btn btn-secondary btn-sm" onclick="window.location.href='/risk-detector?id=${channel.id}'">
+                🛡️ Risk Analizi
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Score Cards Grid -->
+        <div class="dash-stats fade-in-up">
+          <div class="stat-card">
+            <div class="stat-card-icon">⭐</div>
+            <div class="stat-card-value" style="color: ${Utils.getScoreColor(score)};">${score}</div>
+            <div class="stat-card-label">Kanal Skoru</div>
+            <div class="stat-card-trend ${score >= 70 ? 'up' : 'down'}">
+              ${Utils.getScoreLabel(score)}
+            </div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-card-icon" style="background: rgba(69,224,138,0.15);">🛡️</div>
+            <div class="stat-card-value" style="color: ${risk.level.color};">${risk.score}</div>
+            <div class="stat-card-label">Güvenlik Puanı</div>
+            <div class="stat-card-trend ${risk.score >= 70 ? 'up' : 'down'}">
+              ${risk.level.icon} ${risk.level.label}
+            </div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-card-icon" style="background: rgba(255,209,102,0.15);">💰</div>
+            <div class="stat-card-value">$${Utils.formatNumber(avgViews * 0.005)}</div>
+            <div class="stat-card-label">Tahmini Aylık Gelir</div>
+            <div class="stat-card-trend up">
+              ~$5 RPM
+            </div>
+          </div>
+          
+          <div class="stat-card">
+            <div class="stat-card-icon" style="background: rgba(167,139,250,0.15);">🚀</div>
+            <div class="stat-card-value">${Math.round(engagementRate * 10) / 10}%</div>
+            <div class="stat-card-label">Etkileşim Oranı</div>
+            <div class="stat-card-trend ${engagementRate > 10 ? 'up' : 'down'}">
+              ${engagementRate > 10 ? 'Yüksek' : 'Normal'}
+            </div>
+          </div>
+        </div>
+        
+        <!-- Recent Videos -->
+        ${videos.length > 0 ? `
+          <div class="filters fade-in-up" style="margin-top: var(--space-xl);">
+            <h2 style="font-size: 1.25rem; margin-bottom: var(--space-md); display: flex; align-items: center; gap: 8px;">
+              <span>🎬</span>
+              <span>Son Videolar</span>
+              <span class="badge badge-primary">${videos.length}</span>
+            </h2>
+            <div class="channels-grid">
+              ${videos.map(video => {
+                const vSnippet = video.snippet || {};
+                const vThumb = vSnippet.thumbnails?.high?.url || vSnippet.thumbnails?.medium?.url || '';
+                const videoId = video.id?.videoId || video.id;
+                
+                return `
+                  <div class="channel-card" onclick="window.open('https://youtube.com/watch?v=${videoId}', '_blank')">
+                    <div class="channel-thumb">
+                      ${vThumb ? `<img src="${vThumb}" alt="${vSnippet.title}" loading="lazy">` : ''}
+                    </div>
+                    <div class="channel-body">
+                      <div class="channel-title">${Utils.truncate(vSnippet.title || 'Başlıksız', 60)}</div>
+                      <div class="channel-stats">
+                        <div class="channel-stat">
+                          <span>⏱️</span>
+                          <span class="channel-stat-value">${Utils.timeAgo(vSnippet.publishedAt)}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        ` : ''}
+        
+        <!-- Recommendations -->
+        <div class="filters fade-in-up" style="margin-top: var(--space-xl);">
+          <h2 style="font-size: 1.25rem; margin-bottom: var(--space-md);">
+            🎯 Tavsiyeler
+          </h2>
+          ${risk.recommendations.map(rec => `
+            <div style="padding: var(--space-md); background: var(--bg-tertiary); border-radius: var(--radius-md); margin-bottom: var(--space-sm); border-left: 3px solid var(--accent-blue);">
+              ${rec}
+            </div>
+          `).join('')}
+        </div>
+      `;
+    }
+    
+    // ============================================
+    // ACTIONS
+    // ============================================
+    window.quickSearch = function(query) {
+      document.getElementById('channelSearchInput').value = query;
+      searchChannels(query);
+    };
+    
+    window.copyChannelLink = function(channelId) {
+      const url = `https://www.youtube.com/channel/${channelId}`;
+      Utils.copyToClipboard(url);
+    };
+    
+    window.loadChannelDetail = loadChannelDetail;
+    
+    // ============================================
+    // EVENTS
+    // ============================================
+    document.getElementById('searchBtn').addEventListener('click', () => {
+      const query = document.getElementById('channelSearchInput').value.trim();
+      if (query) searchChannels(query);
+    });
+    
+    document.getElementById('channelSearchInput').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') document.getElementById('searchBtn').click();
+    });
+    
+    document.getElementById('clearBtn').addEventListener('click', () => {
+      document.getElementById('channelSearchInput').value = '';
+      document.getElementById('searchResults').style.display = 'none';
+      document.getElementById('channelDetail').style.display = 'none';
+      document.getElementById('initialState').style.display = 'block';
+      Utils.setUrlParam('id', '');
+    });
+    
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      if (confirm('Çıkış yapmak istediğinizden emin misiniz?')) {
+        await Auth.logout();
+      }
+    });
+    
+    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('sidebarOverlay').classList.toggle('active');
+    });
+    
+    document.getElementById('sidebarOverlay').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sidebarOverlay').classList.remove('active');
+    });
+    
+  </script>
+</body>
+</html>
