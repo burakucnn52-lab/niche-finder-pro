@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - NICHIFY PRO</title>
+  
+  <link rel="stylesheet" href="/css/core.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+</head>
+<body>
+  
+  <!-- Aurora Background -->
+  <div class="aurora-bg">
+    <div class="aurora-3"></div>
+  </div>
+  
+  <!-- Mobile Menu Button -->
+  <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+  
+  <!-- Sidebar Overlay -->
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  
+  <!-- ============================================
+       LAYOUT
+       ============================================ -->
+  <div class="dash-layout">
+    
+    <!-- ============================================
+         SIDEBAR
+         ============================================ -->
+    <aside class="sidebar" id="sidebar">
+      
+      <!-- Logo -->
+      <div class="sidebar-logo">
+        <span class="sidebar-logo-icon">🎯</span>
+        <div>
+          <div class="sidebar-logo-text">NICHIFY</div>
+          <div class="sidebar-version">PRO v2.0</div>
+        </div>
+      </div>
+      
+      <!-- Navigation -->
+      <nav class="sidebar-nav">
+        
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Ana Menü</div>
+          
+          <a href="/dashboard" class="sidebar-item active">
+            <span class="sidebar-item-icon">🏠</span>
+            <span>Anasayfa</span>
+          </a>
+          
+          <a href="/nis-kesfi" class="sidebar-item">
+            <span class="sidebar-item-icon">🎯</span>
+            <span>Niş Keşfi</span>
+          </a>
+          
+          <a href="/yukselen-kanallar" class="sidebar-item">
+            <span class="sidebar-item-icon">🔥</span>
+            <span>Yükselen Kanallar</span>
+          </a>
+          
+          <a href="/kanal-analizi" class="sidebar-item">
+            <span class="sidebar-item-icon">📊</span>
+            <span>Kanal Analizi</span>
+          </a>
+        </div>
+        
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Araçlar</div>
+          
+          <a href="/risk-detector" class="sidebar-item">
+            <span class="sidebar-item-icon">🛡️</span>
+            <span>Risk Detector</span>
+          </a>
+          
+          <a href="/ai-asistan" class="sidebar-item">
+            <span class="sidebar-item-icon">🤖</span>
+            <span>AI Asistan</span>
+            <span class="badge badge-pro sidebar-item-badge">PRO</span>
+          </a>
+          
+          <a href="/yol-haritasi" class="sidebar-item">
+            <span class="sidebar-item-icon">🗺️</span>
+            <span>Yol Haritası</span>
+          </a>
+        </div>
+        
+        <div class="sidebar-section" id="adminSection" style="display: none;">
+          <div class="sidebar-section-title">👑 Admin</div>
+          
+          <a href="/admin" class="sidebar-item">
+            <span class="sidebar-item-icon">⚙️</span>
+            <span>Yönetim Paneli</span>
+          </a>
+        </div>
+        
+      </nav>
+      
+      <!-- Lifetime Card -->
+      <div class="sidebar-lifetime" id="lifetimeCard">
+        <div class="sidebar-lifetime-old">$149</div>
+        <div class="sidebar-lifetime-price">$89</div>
+        <div class="sidebar-lifetime-label">🔥 Lifetime Deal</div>
+        <a href="/fiyatlandirma" class="btn btn-primary btn-sm btn-block" style="margin-top: 8px;">
+          Şimdi Al
+        </a>
+        <div class="sidebar-lifetime-stock">⚡ <span id="lifetimeStock">88</span>/100 kaldı</div>
+      </div>
+      
+      <!-- User -->
+      <div class="sidebar-user">
+        <div class="avatar" id="userAvatar">U</div>
+        <div class="sidebar-user-info">
+          <div class="sidebar-user-name" id="userName">Yükleniyor...</div>
+          <div class="sidebar-user-email" id="userEmail">-</div>
+        </div>
+        <div class="sidebar-user-menu" id="logoutBtn" title="Çıkış Yap">
+          ⏻
+        </div>
+      </div>
+      
+    </aside>
+    
+    <!-- ============================================
+         MAIN CONTENT
+         ============================================ -->
+    <main class="main page-enter">
+      
+      <!-- Welcome Banner -->
+      <div class="welcome-banner">
+        <div class="welcome-content">
+          <h1>👋 Hoşgeldin, <span class="gradient-text" id="welcomeName">Kullanıcı</span>!</h1>
+          <p>NICHIFY PRO'ya tekrar hoşgeldin. Bugün hangi nişi keşfedeceğiz?</p>
+          <div id="userBadge"></div>
+        </div>
+        <div class="welcome-info">
+          <div class="welcome-info-label">Son Giriş</div>
+          <div class="welcome-info-value" id="lastLogin">Az önce</div>
+        </div>
+      </div>
+      
+      <!-- Live Status -->
+      <div class="live-status">
+        <span class="live-indicator"></span>
+        <span>Canlı veri · <span id="lastUpdate">Az önce güncellendi</span></span>
+      </div>
+      
+      <!-- Search Bar -->
+      <div class="dash-search">
+        <div class="dash-search-input">
+          <input 
+            type="text" 
+            placeholder="Niş ara: AI, finans, motivasyon, oyun..." 
+            id="searchInput"
+          >
+          <button class="btn btn-primary btn-lg" id="searchBtn">
+            🔍 Ara
+          </button>
+        </div>
+      </div>
+      
+      <!-- Stats Grid -->
+      <div class="dash-stats">
+        
+        <div class="stat-card">
+          <div class="stat-card-icon">📊</div>
+          <div class="stat-card-value counter-glow" data-target="18700000" data-format="number">0</div>
+          <div class="stat-card-label">Toplam Analiz</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-card-icon" style="background: rgba(244,114,182,0.15);">💎</div>
+          <div class="stat-card-value counter-glow" data-target="42">0</div>
+          <div class="stat-card-label">Hidden Fırsat</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-card-icon" style="background: rgba(69,224,138,0.15);">🎯</div>
+          <div class="stat-card-value counter-glow" data-target="100">0</div>
+          <div class="stat-card-label">Toplam Niş</div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-card-icon" style="background: rgba(255,209,102,0.15);">🌍</div>
+          <div class="stat-card-value counter-glow" data-target="7">0</div>
+          <div class="stat-card-label">Dil Desteği</div>
+        </div>
+        
+      </div>
+      
+      <!-- Main Grid -->
+      <div class="dash-grid">
+        
+        <!-- Yükselen Kanallar -->
+        <div class="widget">
+          <div class="widget-header">
+            <div class="widget-title">
+              <span class="widget-title-icon">🔥</span>
+              <span>Yükselen Kanallar</span>
+            </div>
+            <a href="/yukselen-kanallar" class="widget-action">Tümünü Gör →</a>
+          </div>
+          <div class="widget-subtitle">Canlı YouTube verisi · Her gün güncellenir</div>
+          
+          <div id="trendingChannels">
+            <!-- Skeleton loader -->
+            <div class="row-item">
+              <div class="skeleton" style="width: 40px; height: 40px; border-radius: 50%;"></div>
+              <div style="flex: 1;">
+                <div class="skeleton" style="height: 12px; width: 60%; margin-bottom: 6px;"></div>
+                <div class="skeleton" style="height: 10px; width: 40%;"></div>
+              </div>
+            </div>
+            <div class="row-item">
+              <div class="skeleton" style="width: 40px; height: 40px; border-radius: 50%;"></div>
+              <div style="flex: 1;">
+                <div class="skeleton" style="height: 12px; width: 70%; margin-bottom: 6px;"></div>
+                <div class="skeleton" style="height: 10px; width: 35%;"></div>
+              </div>
+            </div>
+            <div class="row-item">
+              <div class="skeleton" style="width: 40px; height: 40px; border-radius: 50%;"></div>
+              <div style="flex: 1;">
+                <div class="skeleton" style="height: 12px; width: 55%; margin-bottom: 6px;"></div>
+                <div class="skeleton" style="height: 10px; width: 45%;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- En İyi Nişler -->
+        <div class="widget">
+          <div class="widget-header">
+            <div class="widget-title">
+              <span class="widget-title-icon">🎯</span>
+              <span>En İyi Nişler</span>
+            </div>
+            <a href="/nis-kesfi" class="widget-action">Tümünü Gör →</a>
+          </div>
+          <div class="widget-subtitle">Yüksek skor · Düşük rekabet</div>
+          
+          <div id="topNiches">
+            <div class="row-item">
+              <div class="row-item-thumb">🤖</div>
+              <div class="row-item-info">
+                <div class="row-item-title">No-Code Otomasyon</div>
+                <div class="row-item-meta">Fırsat: 88 · Teknoloji</div>
+              </div>
+              <div class="row-item-score">88</div>
+            </div>
+            <div class="row-item">
+              <div class="row-item-thumb" style="background: var(--gradient-warm);">💡</div>
+              <div class="row-item-info">
+                <div class="row-item-title">Prompt Mühendisliği</div>
+                <div class="row-item-meta">Fırsat: 87 · Teknoloji</div>
+              </div>
+              <div class="row-item-score">87</div>
+            </div>
+            <div class="row-item">
+              <div class="row-item-thumb" style="background: var(--gradient-secondary);">⚙️</div>
+              <div class="row-item-info">
+                <div class="row-item-title">Mühendislik Hikayeleri</div>
+                <div class="row-item-meta">Fırsat: 86 · Belgesel</div>
+              </div>
+              <div class="row-item-score">86</div>
+            </div>
+            <div class="row-item">
+              <div class="row-item-thumb" style="background: var(--gradient-success);">📰</div>
+              <div class="row-item-info">
+                <div class="row-item-title">Newsletter Yazımı</div>
+                <div class="row-item-meta">Fırsat: 86 · İş</div>
+              </div>
+              <div class="row-item-score">86</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- YouTube Haberleri -->
+        <div class="widget">
+          <div class="widget-header">
+            <div class="widget-title">
+              <span class="widget-title-icon">📰</span>
+              <span>YouTube Haberleri</span>
+            </div>
+            <span class="live-indicator">CANLI</span>
+          </div>
+          <div class="widget-subtitle">YouTube dünyasından son haberler</div>
+          
+          <div id="youtubeNews">
+            <div class="news-item">
+              <div class="news-item-title">
+                <span>🎬</span>
+                <span>YouTube Shorts artık 3 dakikaya kadar uzatıldı</span>
+              </div>
+              <div class="news-item-meta">
+                <span class="badge badge-primary badge-sm">NICHIFY</span>
+                <span>Yeni</span>
+              </div>
+            </div>
+            <div class="news-item">
+              <div class="news-item-title">
+                <span>💰</span>
+                <span>YouTube Monetization güncellemeleri 2025</span>
+              </div>
+              <div class="news-item-meta">
+                <span class="badge badge-primary badge-sm">NICHIFY</span>
+                <span>Bu hafta</span>
+              </div>
+            </div>
+            <div class="news-item">
+              <div class="news-item-title">
+                <span>🚀</span>
+                <span>AI ile YouTube videoları nasıl viral olur?</span>
+              </div>
+              <div class="news-item-meta">
+                <span class="badge badge-primary badge-sm">NICHIFY</span>
+                <span>Yeni</span>
+              </div>
+            </div>
+            <div class="news-item">
+              <div class="news-item-title">
+                <span>📊</span>
+                <span>En çok kazanan YouTube nişleri 2025</span>
+              </div>
+              <div class="news-item-meta">
+                <span class="badge badge-primary badge-sm">NICHIFY</span>
+                <span>Yeni</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      
+    </main>
+    
+  </div>
+  
+  <script src="/js/config.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/utils.js"></script>
+  <script src="/js/animations.js"></script>
+  <script>
+    
+    // ============================================
+    // SAYFA YÜKLENDİĞİNDE
+    // ============================================
+    (async () => {
+      
+      // 1. Giriş yapmış mı kontrol et
+      const isAuth = await Auth.requireAuth('/login');
+      if (!isAuth) return;
+      
+      // 2. Kullanıcı bilgilerini yükle
+      const user = await Auth.getCurrentUser();
+      if (user) {
+        // İsim
+        const displayName = user.name || user.email.split('@')[0];
+        const firstName = displayName.split(' ')[0];
+        document.getElementById('welcomeName').textContent = firstName;
+        document.getElementById('userName').textContent = displayName;
+        document.getElementById('userEmail').textContent = user.email;
+        
+        // Avatar (ilk harf)
+        document.getElementById('userAvatar').textContent = displayName.charAt(0).toUpperCase();
+        
+        // Admin ise admin menüsünü göster
+        if (user.is_admin || user.role === 'super_admin') {
+          document.getElementById('adminSection').style.display = 'block';
+        }
+        
+        // Premium badge
+        const badgeContainer = document.getElementById('userBadge');
+        if (user.is_premium) {
+          badgeContainer.innerHTML = `
+            <span class="badge badge-pro">💎 ${user.premium_type === 'lifetime' ? 'LIFETIME PRO' : 'PRO'}</span>
+          `;
+          document.getElementById('lifetimeCard').style.display = 'none';
+        } else {
+          badgeContainer.innerHTML = `
+            <span class="badge">🆓 Ücretsiz Plan</span>
+          `;
+        }
+        
+        // Son giriş zamanı
+        if (user.last_sign_in_at) {
+          document.getElementById('lastLogin').textContent = Utils.timeAgo(user.last_sign_in_at);
+        }
+      }
+      
+      // 3. Lifetime stock güncelle (Supabase'den)
+      await loadLifetimeStock();
+      
+      // 4. Yükselen kanalları yükle
+      await loadTrendingChannels();
+      
+    })();
+    
+    // ============================================
+    // LIFETIME STOCK
+    // ============================================
+    async function loadLifetimeStock() {
+      try {
+        const supabase = await Auth.init();
+        const { count } = await supabase
+          .from('users')
+          .select('*', { count: 'exact', head: true })
+          .eq('premium_type', 'lifetime');
+        
+        const sold = count || 0;
+        const remaining = CONFIG.LIFETIME_MAX_SLOTS - sold;
+        document.getElementById('lifetimeStock').textContent = remaining;
+      } catch (error) {
+        console.error('Stock load error:', error);
+      }
+    }
+    
+    // ============================================
+    // TRENDING CHANNELS
+    // ============================================
+    async function loadTrendingChannels() {
+      try {
+        const response = await fetch('/api/youtube?endpoint=trending&region=TR');
+        const result = await response.json();
+        
+        if (result.data && result.data.items) {
+          renderTrendingChannels(result.data.items.slice(0, 5));
+        }
+      } catch (error) {
+        console.error('Trending load error:', error);
+        document.getElementById('trendingChannels').innerHTML = `
+          <div class="empty-state">
+            <div class="empty-state-icon">📡</div>
+            <div class="empty-state-message">Veri yüklenemedi</div>
+          </div>
+        `;
+      }
+    }
+    
+    function renderTrendingChannels(videos) {
+      const container = document.getElementById('trendingChannels');
+      container.innerHTML = videos.map((video, index) => {
+        const snippet = video.snippet || {};
+        const stats = video.statistics || {};
+        const thumb = snippet.thumbnails?.default?.url || '';
+        
+        return `
+          <div class="row-item" onclick="window.open('https://youtube.com/watch?v=${video.id}', '_blank')">
+            <div class="row-item-thumb">
+              ${thumb ? `<img src="${thumb}" alt="">` : '🎬'}
+            </div>
+            <div class="row-item-info">
+              <div class="row-item-title">${Utils.truncate(snippet.title || 'Başlıksız', 35)}</div>
+              <div class="row-item-meta">${Utils.formatNumber(stats.viewCount || 0)} izlenme</div>
+            </div>
+            <div class="row-item-rank">#${index + 1}</div>
+          </div>
+        `;
+      }).join('');
+    }
+    
+    // ============================================
+    // SEARCH
+    // ============================================
+    document.getElementById('searchBtn').addEventListener('click', () => {
+      const query = document.getElementById('searchInput').value.trim();
+      if (query) {
+        window.location.href = `/nis-kesfi?q=${encodeURIComponent(query)}`;
+      }
+    });
+    
+    document.getElementById('searchInput').addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        document.getElementById('searchBtn').click();
+      }
+    });
+    
+    // ============================================
+    // LOGOUT
+    // ============================================
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      if (confirm('Çıkış yapmak istediğinizden emin misiniz?')) {
+        await Auth.logout();
+      }
+    });
+    
+    // ============================================
+    // MOBILE MENU
+    // ============================================
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      overlay.classList.toggle('active');
+    });
+    
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('active');
+    });
+    
+  </script>
+</body>
+</html>
