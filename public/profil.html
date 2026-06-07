@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profilim - NICHIFY PRO</title>
+  
+  <link rel="stylesheet" href="/css/core.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👤</text></svg>">
+  
+  <style>
+    .profile-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .profile-header {
+      background: linear-gradient(135deg, rgba(77,163,255,0.1), rgba(167,139,250,0.05));
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      padding: var(--space-2xl);
+      display: flex;
+      align-items: center;
+      gap: var(--space-xl);
+      margin-bottom: var(--space-xl);
+      flex-wrap: wrap;
+    }
+    
+    .profile-avatar-large {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: var(--gradient-primary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+      box-shadow: 0 8px 24px rgba(77, 163, 255, 0.3);
+    }
+    
+    .profile-info {
+      flex: 1;
+    }
+    
+    .profile-info h1 {
+      margin-bottom: var(--space-sm);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+    
+    .profile-info .email {
+      color: var(--text-muted);
+      margin-bottom: var(--space-md);
+      font-size: 0.9375rem;
+    }
+    
+    .profile-badges {
+      display: flex;
+      gap: var(--space-sm);
+      flex-wrap: wrap;
+    }
+    
+    .profile-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-xl);
+      margin-bottom: var(--space-lg);
+    }
+    
+    .profile-section h2 {
+      font-size: 1.125rem;
+      margin-bottom: var(--space-lg);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-md);
+    }
+    
+    @media (max-width: 640px) {
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .info-item {
+      padding: var(--space-md);
+      background: var(--bg-tertiary);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-color);
+    }
+    
+    .info-label {
+      font-size: 0.6875rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    
+    .info-value {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      word-break: break-word;
+    }
+    
+    .stats-cards {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-md);
+    }
+    
+    @media (max-width: 768px) {
+      .stats-cards {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    .premium-banner {
+      background: linear-gradient(135deg, rgba(244, 114, 182, 0.15), rgba(167, 139, 250, 0.1));
+      border: 1px solid rgba(167, 139, 250, 0.3);
+      border-radius: var(--radius-xl);
+      padding: var(--space-xl);
+      margin-bottom: var(--space-lg);
+      text-align: center;
+    }
+    
+    .premium-banner.active {
+      background: linear-gradient(135deg, rgba(69, 224, 138, 0.15), rgba(34, 211, 238, 0.08));
+      border-color: rgba(69, 224, 138, 0.3);
+    }
+    
+    .premium-icon {
+      font-size: 3rem;
+      margin-bottom: var(--space-md);
+    }
+    
+    .premium-banner h2 {
+      margin-bottom: var(--space-sm);
+      justify-content: center;
+    }
+    
+    .premium-banner p {
+      color: var(--text-secondary);
+      margin-bottom: var(--space-lg);
+    }
+    
+    .danger-zone {
+      border-color: rgba(255, 92, 122, 0.3);
+      background: rgba(255, 92, 122, 0.03);
+    }
+    
+    .danger-zone h2 {
+      color: var(--danger);
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="aurora-bg">
+    <div class="aurora-3"></div>
+  </div>
+  
+  <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  
+  <div class="dash-layout">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <span class="sidebar-logo-icon">🎯</span>
+        <div>
+          <div class="sidebar-logo-text">NICHIFY</div>
+          <div class="sidebar-version">PRO v2.0</div>
+        </div>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Ana Menü</div>
+          <a href="/dashboard" class="sidebar-item">
+            <span class="sidebar-item-icon">🏠</span>
+            <span>Anasayfa</span>
+          </a>
+          <a href="/nis-kesfi" class="sidebar-item">
+            <span class="sidebar-item-icon">🎯</span>
+            <span>Niş Keşfi</span>
+          </a>
+          <a href="/yukselen-kanallar" class="sidebar-item">
+            <span class="sidebar-item-icon">🔥</span>
+            <span>Yükselen Kanallar</span>
+          </a>
+          <a href="/kanal-analizi" class="sidebar-item">
+            <span class="sidebar-item-icon">📊</span>
+            <span>Kanal Analizi</span>
+          </a>
+        </div>
+        
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Araçlar</div>
+          <a href="/risk-detector" class="sidebar-item">
+            <span class="sidebar-item-icon">🛡️</span>
+            <span>Risk Detector</span>
+          </a>
+          <a href="/ai-asistan" class="sidebar-item">
+            <span class="sidebar-item-icon">🤖</span>
+            <span>AI Asistan</span>
+            <span class="badge badge-warning sidebar-item-badge">YAKINDA</span>
+          </a>
+          <a href="/yol-haritasi" class="sidebar-item">
+            <span class="sidebar-item-icon">🗺️</span>
+            <span>Yol Haritası</span>
+          </a>
+        </div>
+        
+        <div class="sidebar-section" id="adminSection" style="display: none;">
+          <div class="sidebar-section-title">👑 Admin</div>
+          <a href="/admin" class="sidebar-item">
+            <span class="sidebar-item-icon">⚙️</span>
+            <span>Yönetim Paneli</span>
+          </a>
+        </div>
+      </nav>
+      
+      <div class="sidebar-lifetime" id="lifetimeCard">
+        <div class="sidebar-lifetime-old">$149</div>
+        <div class="sidebar-lifetime-price">$89</div>
+        <div class="sidebar-lifetime-label">🔥 Lifetime Deal</div>
+        <a href="/fiyatlandirma" class="btn btn-primary btn-sm btn-block" style="margin-top: 8px;">
+          Şimdi Al
+        </a>
+        <div class="sidebar-lifetime-stock">⚡ <span id="lifetimeStock">88</span>/100 kaldı</div>
+      </div>
+      
+      <div class="sidebar-user">
+        <div class="avatar" id="userAvatarSmall">U</div>
+        <div class="sidebar-user-info">
+          <div class="sidebar-user-name" id="userNameSmall">Yükleniyor...</div>
+          <div class="sidebar-user-email" id="userEmailSmall">-</div>
+        </div>
+        <div class="sidebar-user-menu" id="logoutBtn" title="Çıkış Yap">⏻</div>
+      </div>
+    </aside>
+    
+    <!-- MAIN -->
+    <main class="main page-enter">
+      
+      <div class="page-header">
+        <h1>
+          <span>👤</span>
+          <span>Profilim</span>
+        </h1>
+        <p>Hesap bilgilerini görüntüle ve yönet</p>
+      </div>
+      
+      <div class="profile-container">
+        
+        <!-- Profile Header -->
+        <div class="profile-header fade-in-up">
+          <div class="profile-avatar-large" id="profileAvatar">U</div>
+          <div class="profile-info">
+            <h1>
+              <span id="profileName">Yükleniyor...</span>
+              <span id="adminBadge" style="display: none;" class="badge badge-pro">👑 ADMIN</span>
+            </h1>
+            <div class="email" id="profileEmail">-</div>
+            <div class="profile-badges" id="profileBadges">
+              <!-- JS ile doldurulacak -->
+            </div>
+          </div>
+        </div>
+        
+        <!-- Premium Banner -->
+        <div class="premium-banner" id="premiumBanner">
+          <!-- JS ile doldurulacak -->
+        </div>
+        
+        <!-- Hesap Bilgileri -->
+        <div class="profile-section fade-in-up">
+          <h2>
+            <span>📋</span>
+            <span>Hesap Bilgileri</span>
+          </h2>
+          <div class="info-grid">
+            <div class="info-item">
+              <div class="info-label">Ad Soyad</div>
+              <div class="info-value" id="infoName">-</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">E-posta</div>
+              <div class="info-value" id="infoEmail">-</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Üyelik Türü</div>
+              <div class="info-value" id="infoMembership">-</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Rol</div>
+              <div class="info-value" id="infoRole">-</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Kayıt Tarihi</div>
+              <div class="info-value" id="infoCreated">-</div>
+            </div>
+            <div class="info-item">
+              <div class="info-label">Son Giriş</div>
+              <div class="info-value" id="infoLastLogin">-</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- İstatistikler -->
+        <div class="profile-section fade-in-up">
+          <h2>
+            <span>📊</span>
+            <span>Kullanım İstatistikleri</span>
+          </h2>
+          <div class="stats-cards">
+            <div class="stat-card">
+              <div class="stat-card-icon">🔍</div>
+              <div class="stat-card-value" id="statSearches">0</div>
+              <div class="stat-card-label">Toplam Arama</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-icon" style="background: rgba(69,224,138,0.15);">⭐</div>
+              <div class="stat-card-value" id="statFavorites">0</div>
+              <div class="stat-card-label">Favori Niş</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-icon" style="background: rgba(167,139,250,0.15);">🤖</div>
+              <div class="stat-card-value" id="statAI">0</div>
+              <div class="stat-card-label">AI Sohbet</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-icon" style="background: rgba(255,209,102,0.15);">📅</div>
+              <div class="stat-card-value" id="statDays">0</div>
+              <div class="stat-card-label">Üyelik Günü</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Şifre Değiştirme -->
+        <div class="profile-section fade-in-up">
+          <h2>
+            <span>🔒</span>
+            <span>Şifre Değiştir</span>
+          </h2>
+          
+          <form id="passwordForm">
+            <div class="form-group">
+              <label class="form-label">Yeni Şifre</label>
+              <input 
+                type="password" 
+                id="newPassword" 
+                class="form-input" 
+                placeholder="En az 6 karakter"
+                minlength="6"
+                required
+              >
+              <span class="form-help">En az 6 karakter uzunluğunda olmalı</span>
+            </div>
+            
+            <div class="form-group">
+              <label class="form-label">Yeni Şifre (Tekrar)</label>
+              <input 
+                type="password" 
+                id="confirmPassword" 
+                class="form-input" 
+                placeholder="Yeni şifrenizi tekrar girin"
+                minlength="6"
+                required
+              >
+            </div>
+            
+            <button type="submit" class="btn btn-primary" id="changePasswordBtn">
+              🔒 Şifreyi Güncelle
+            </button>
+          </form>
+        </div>
+        
+        <!-- Tehlikeli Bölge -->
+        <div class="profile-section danger-zone fade-in-up">
+          <h2>
+            <span>⚠️</span>
+            <span>Tehlikeli Bölge</span>
+          </h2>
+          <p style="color: var(--text-muted); margin-bottom: var(--space-md);">
+            Aşağıdaki işlemler geri alınamaz. Dikkatli ol!
+          </p>
+          
+          <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+            <button class="btn btn-secondary" onclick="window.location.href='/'">
+              ↩️ Çıkış Yap
+            </button>
+            <button class="btn btn-danger" id="deleteAccountBtn">
+              🗑️ Hesabımı Sil
+            </button>
+          </div>
+        </div>
+        
+      </div>
+      
+    </main>
+    
+  </div>
+  
+  <script src="/js/config.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/utils.js"></script>
+  <script>
+    
+    let currentUser = null;
+    
+    (async () => {
+      const isAuth = await Auth.requireAuth('/login');
+      if (!isAuth) return;
+      
+      currentUser = await Auth.getCurrentUser();
+      if (!currentUser) return;
+      
+      const displayName = currentUser.name || currentUser.email.split('@')[0];
+      const initial = displayName.charAt(0).toUpperCase();
+      
+      // Sidebar
+      document.getElementById('userNameSmall').textContent = displayName;
+      document.getElementById('userEmailSmall').textContent = currentUser.email;
+      document.getElementById('userAvatarSmall').textContent = initial;
+      
+      // Profile Header
+      document.getElementById('profileAvatar').textContent = initial;
+      document.getElementById('profileName').textContent = displayName;
+      document.getElementById('profileEmail').textContent = currentUser.email;
+      
+      // Admin Section
+      if (currentUser.is_admin || currentUser.role === 'super_admin') {
+        document.getElementById('adminSection').style.display = 'block';
+        document.getElementById('adminBadge').style.display = 'inline-flex';
+      }
+      
+      // Badges
+      const badges = document.getElementById('profileBadges');
+      let badgesHTML = '';
+      
+      if (currentUser.is_premium) {
+        const type = currentUser.premium_type === 'lifetime' ? 'LIFETIME PRO' : 'PRO';
+        badgesHTML += `<span class="badge badge-pro">💎 ${type}</span>`;
+      } else {
+        badgesHTML += `<span class="badge">🆓 Ücretsiz Plan</span>`;
+      }
+      
+      if (currentUser.role === 'super_admin') {
+        badgesHTML += `<span class="badge badge-warning">👑 Super Admin</span>`;
+      }
+      
+      badges.innerHTML = badgesHTML;
+      
+      // Premium Banner
+      renderPremiumBanner();
+      
+      // Hesap Bilgileri
+      document.getElementById('infoName').textContent = displayName;
+      document.getElementById('infoEmail').textContent = currentUser.email;
+      document.getElementById('infoMembership').textContent = currentUser.is_premium 
+        ? (currentUser.premium_type === 'lifetime' ? '💎 Lifetime Pro' : '⭐ Pro') 
+        : '🆓 Ücretsiz';
+      document.getElementById('infoRole').textContent = currentUser.role === 'super_admin' 
+        ? '👑 Super Admin' 
+        : currentUser.role === 'admin' 
+        ? '🛡️ Admin' 
+        : '👤 Kullanıcı';
+      
+      if (currentUser.created_at) {
+        document.getElementById('infoCreated').textContent = Utils.formatDate(currentUser.created_at);
+      }
+      if (currentUser.last_sign_in_at) {
+        document.getElementById('infoLastLogin').textContent = Utils.timeAgo(currentUser.last_sign_in_at);
+      }
+      
+      // Stats
+      const favorites = Utils.storage.get('favorites', []);
+      document.getElementById('statFavorites').textContent = favorites.length;
+      
+      const totalSearches = currentUser.total_searches || 0;
+      document.getElementById('statSearches').textContent = totalSearches;
+      
+      const aiChats = Utils.storage.get('ai_chat_history', []);
+      document.getElementById('statAI').textContent = Math.floor(aiChats.length / 2);
+      
+      // Üyelik günü
+      if (currentUser.created_at) {
+        const created = new Date(currentUser.created_at);
+        const diffDays = Math.floor((new Date() - created) / (1000 * 60 * 60 * 24));
+        document.getElementById('statDays').textContent = diffDays;
+      }
+      
+      loadLifetimeStock();
+    })();
+    
+    function renderPremiumBanner() {
+      const banner = document.getElementById('premiumBanner');
+      
+      if (currentUser.is_premium) {
+        banner.classList.add('active');
+        banner.innerHTML = `
+          <div class="premium-icon">💎</div>
+          <h2>Sen bir <span class="gradient-text">${currentUser.premium_type === 'lifetime' ? 'LIFETIME PRO' : 'PRO'}</span> üyesin!</h2>
+          <p>Tüm özelliklere ${currentUser.premium_type === 'lifetime' ? 'ömür boyu' : ''} sınırsız erişimin var. Bizimle olduğun için teşekkürler! 🎉</p>
+          <a href="/dashboard" class="btn btn-success">
+            🚀 Özellikleri Kullan
+          </a>
+        `;
+      } else {
+        banner.innerHTML = `
+          <div class="premium-icon">🚀</div>
+          <h2>Lifetime <span class="gradient-text-warm">PRO</span> ile Daha Fazlasını Yapın</h2>
+          <p>İlk 100 kişiye özel <strong>$89 tek seferlik</strong> ödeme ile ömür boyu erişim kazan.</p>
+          <a href="/fiyatlandirma" class="btn btn-primary btn-lg pulse-glow">
+            💎 Lifetime Al - $89
+          </a>
+        `;
+      }
+    }
+    
+    async function loadLifetimeStock() {
+      try {
+        const supabase = await Auth.init();
+        const { count } = await supabase
+          .from('users')
+          .select('*', { count: 'exact', head: true })
+          .eq('premium_type', 'lifetime');
+        const remaining = CONFIG.LIFETIME_MAX_SLOTS - (count || 0);
+        document.getElementById('lifetimeStock').textContent = remaining;
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    
+    // Şifre değiştirme
+    document.getElementById('passwordForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const newPassword = document.getElementById('newPassword').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+      const btn = document.getElementById('changePasswordBtn');
+      
+      if (newPassword !== confirmPassword) {
+        Utils.toast.error('Şifreler eşleşmiyor!');
+        return;
+      }
+      
+      if (newPassword.length < 6) {
+        Utils.toast.error('Şifre en az 6 karakter olmalı!');
+        return;
+      }
+      
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner spinner-sm"></span> Güncelleniyor...';
+      
+      try {
+        const supabase = await Auth.init();
+        const { error } = await supabase.auth.updateUser({
+          password: newPassword
+        });
+        
+        if (error) {
+          Utils.toast.error('Hata: ' + error.message);
+        } else {
+          Utils.toast.success('✅ Şifren başarıyla güncellendi!');
+          document.getElementById('passwordForm').reset();
+        }
+      } catch (error) {
+        Utils.toast.error('Hata: ' + error.message);
+      }
+      
+      btn.disabled = false;
+      btn.innerHTML = '🔒 Şifreyi Güncelle';
+    });
+    
+    // Hesap silme
+    document.getElementById('deleteAccountBtn').addEventListener('click', async () => {
+      const confirm1 = confirm('⚠️ DİKKAT!\n\nHesabını silmek istediğinden emin misin? Bu işlem GERİ ALINAMAZ!');
+      if (!confirm1) return;
+      
+      const confirm2 = prompt('Onaylamak için "HESABIMI SİL" yaz:');
+      if (confirm2 !== 'HESABIMI SİL') {
+        Utils.toast.warning('İptal edildi');
+        return;
+      }
+      
+      Utils.toast.info('Bu özellik yakında aktif olacak. Şimdilik admin ile iletişime geçin: bucun648@gmail.com');
+    });
+    
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      if (confirm('Çıkış yapmak istediğinizden emin misiniz?')) {
+        await Auth.logout();
+      }
+    });
+    
+    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('sidebarOverlay').classList.toggle('active');
+    });
+    
+    document.getElementById('sidebarOverlay').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sidebarOverlay').classList.remove('active');
+    });
+    
+  </script>
+</body>
+</html>
