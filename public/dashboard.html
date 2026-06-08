@@ -466,6 +466,54 @@
     }
     
     // ============================================
+    // CANLI HABERLER YÜKLE (RSS)
+    // ============================================
+    async function loadLiveNews() {
+      try {
+        const response = await fetch('/api/news');
+        const result = await response.json();
+        
+        if (result.success && result.news && result.news.length > 0) {
+          renderNews(result.news);
+        }
+      } catch (error) {
+        console.error('News load error:', error);
+      }
+    }
+    
+    function renderNews(newsItems) {
+      const container = document.getElementById('youtubeNews');
+      if (!container) return;
+      
+      container.innerHTML = newsItems.slice(0, 6).map(item => {
+        const icon = getNewsIcon(item.source);
+        const timeAgo = item.published_at ? Utils.timeAgo(item.published_at) : 'Yeni';
+        
+        return `
+          <div class="news-item" onclick="window.open('${item.link}', '_blank')" style="cursor: pointer;">
+            <div class="news-item-title">
+              <span>${icon}</span>
+              <span>${Utils.truncate(item.title, 80)}</span>
+            </div>
+            <div class="news-item-meta">
+              <span class="badge badge-primary badge-sm">${item.source}</span>
+              <span>${timeAgo}</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+    
+    function getNewsIcon(source) {
+      const icons = {
+        'YouTube Creator Blog': '🎬',
+        'TechCrunch': '💻',
+        'The Verge': '⚡',
+        'Google News - YouTube': '📰'
+      };
+      return icons[source] || '📰';
+    }
+    // ============================================
     // SEARCH
     // ============================================
     document.getElementById('searchBtn').addEventListener('click', () => {
