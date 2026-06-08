@@ -481,16 +481,16 @@
       }
     }
     
-    function renderNews(newsItems) {
+       function renderNews(newsItems) {
       const container = document.getElementById('youtubeNews');
       if (!container) return;
       
-      container.innerHTML = newsItems.slice(0, 6).map(item => {
+      container.innerHTML = newsItems.slice(0, 6).map((item, index) => {
         const icon = getNewsIcon(item.source);
         const timeAgo = item.published_at ? Utils.timeAgo(item.published_at) : 'Yeni';
         
         return `
-          <div class="news-item" onclick="window.open('${item.link}', '_blank')" style="cursor: pointer;">
+          <div class="news-item" data-news-index="${index}" style="cursor: pointer;">
             <div class="news-item-title">
               <span>${icon}</span>
               <span>${Utils.truncate(item.title, 80)}</span>
@@ -502,6 +502,15 @@
           </div>
         `;
       }).join('');
+      
+      container.querySelectorAll('.news-item').forEach((el, index) => {
+        el.addEventListener('click', () => {
+          const link = newsItems[index].link;
+          if (link) {
+            window.open(link, '_blank', 'noopener,noreferrer');
+          }
+        });
+      });
     }
     
     function getNewsIcon(source) {
