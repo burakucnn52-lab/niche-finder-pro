@@ -40,7 +40,7 @@ def call_gemini_api(messages, max_tokens=1500):
     if not api_key:
         return {'error': 'Gemini API key bulunamadı. Lütfen yöneticiyle iletişime geçin.'}
     
-    url = f'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={api_key}'
+    url = f'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}'
     
     # Gemini formatına çevir
     gemini_contents = []
@@ -336,7 +336,7 @@ class handler(BaseHTTPRequestHandler):
         self.wfile.write(json.dumps({
             'status': 'ok' if api_key else 'no_api_key',
             'service': 'NICHIFY AI Assistant',
-            'model': 'gemini-1.5-flash',
+            'model': 'gemini-2.0-flash',
             'has_key': bool(api_key)
         }).encode())
     
