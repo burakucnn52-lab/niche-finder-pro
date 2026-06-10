@@ -13,113 +13,357 @@
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
   
   <style>
-    .coming-soon-container {
-      max-width: 800px;
-      margin: 0 auto;
-      text-align: center;
-      padding: var(--space-2xl);
-    }
-    
-    .coming-soon-icon {
-      font-size: 6rem;
-      margin-bottom: var(--space-lg);
-      animation: float 3s ease-in-out infinite;
-      display: inline-block;
-    }
-    
-    .coming-soon-title {
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 800;
-      margin-bottom: var(--space-md);
-      line-height: 1.2;
-    }
-    
-    .coming-soon-subtitle {
-      font-size: 1.125rem;
-      color: var(--text-secondary);
-      margin-bottom: var(--space-2xl);
-      line-height: 1.7;
-    }
-    
-    .features-preview {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-md);
-      margin: var(--space-2xl) 0;
-      text-align: left;
-    }
-    
-    @media (max-width: 640px) {
-      .features-preview {
-        grid-template-columns: 1fr;
-      }
-    }
-    
-    .feature-preview-card {
+    .ai-container {
+      display: flex;
+      flex-direction: column;
+      height: calc(100vh - 100px);
+      max-height: 800px;
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    
+    .ai-quick-actions {
+      display: flex;
+      gap: var(--space-sm);
+      padding: var(--space-md);
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+      overflow-x: auto;
+      flex-shrink: 0;
+    }
+    
+    .ai-quick-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      font-size: 0.8125rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    
+    .ai-quick-action:hover {
+      background: var(--bg-elevated);
+      border-color: var(--accent-blue);
+      color: var(--text-primary);
+    }
+    
+    .ai-messages {
+      flex: 1;
+      overflow-y: auto;
       padding: var(--space-lg);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-md);
+    }
+    
+    .ai-welcome {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: var(--space-2xl);
+      flex: 1;
+    }
+    
+    .ai-welcome-icon {
+      font-size: 4rem;
+      margin-bottom: var(--space-lg);
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    .ai-welcome h2 {
+      font-size: 1.75rem;
+      margin-bottom: var(--space-md);
+    }
+    
+    .ai-welcome p {
+      color: var(--text-secondary);
+      max-width: 500px;
+      margin: 0 auto var(--space-xl);
+      line-height: 1.7;
+    }
+    
+    .ai-suggestions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-sm);
+      max-width: 600px;
+      width: 100%;
+    }
+    
+    @media (max-width: 640px) {
+      .ai-suggestions { grid-template-columns: 1fr; }
+    }
+    
+    .ai-suggestion-card {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: var(--space-md);
+      text-align: left;
+      cursor: pointer;
       transition: all var(--transition-base);
     }
     
-    .feature-preview-card:hover {
+    .ai-suggestion-card:hover {
       border-color: var(--accent-blue);
       transform: translateY(-2px);
     }
     
-    .feature-preview-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: var(--radius-md);
-      background: linear-gradient(135deg, rgba(167, 139, 250, 0.15), rgba(244, 114, 182, 0.15));
+    .ai-suggestion-icon { font-size: 1.5rem; margin-bottom: var(--space-sm); }
+    .ai-suggestion-text { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.5; }
+    
+    .ai-message {
+      display: flex;
+      gap: var(--space-md);
+      animation: fadeInUp 0.4s ease-out;
+    }
+    
+    .ai-message-user { flex-direction: row-reverse; }
+    
+    .ai-message-avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.5rem;
-      margin-bottom: var(--space-md);
+      font-size: 1.125rem;
+      flex-shrink: 0;
+      font-weight: 700;
     }
     
-    .feature-preview-card h3 {
-      font-size: 1.0625rem;
-      margin-bottom: var(--space-sm);
+    .ai-message-user .ai-message-avatar {
+      background: var(--gradient-primary);
+      color: white;
     }
     
-    .feature-preview-card p {
-      font-size: 0.875rem;
-      color: var(--text-muted);
+    .ai-message-bot .ai-message-avatar {
+      background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+      color: white;
+    }
+    
+    .ai-message-bubble {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--space-md) var(--space-lg);
+      max-width: 75%;
+      font-size: 0.9375rem;
       line-height: 1.6;
+      color: var(--text-primary);
+      white-space: pre-wrap;
+      word-wrap: break-word;
     }
     
-    .countdown {
+    .ai-message-user .ai-message-bubble {
+      background: var(--gradient-primary);
+      color: white;
+      border: none;
+    }
+    
+    .ai-message-bubble strong { color: var(--accent-blue); }
+    .ai-message-user .ai-message-bubble strong { color: white; text-decoration: underline; }
+    
+    .ai-message-bubble code {
+      background: var(--bg-primary);
+      padding: 2px 6px;
+      border-radius: var(--radius-sm);
+      font-size: 0.875em;
+      color: var(--accent-cyan);
+    }
+    
+    .ai-message-time {
+      font-size: 0.6875rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      display: block;
+    }
+    
+    .ai-message-user .ai-message-time { text-align: right; }
+    
+    .ai-typing {
       display: inline-flex;
       align-items: center;
+      gap: 4px;
+      padding: var(--space-md) var(--space-lg);
+    }
+    
+    .ai-typing-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--text-muted);
+      animation: typingBounce 1.4s infinite ease-in-out;
+    }
+    
+    .ai-typing-dot:nth-child(1) { animation-delay: -0.32s; }
+    .ai-typing-dot:nth-child(2) { animation-delay: -0.16s; }
+    
+    @keyframes typingBounce {
+      0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
+      40% { transform: scale(1); opacity: 1; }
+    }
+    
+    .ai-input-area {
+      padding: var(--space-md);
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-color);
+      flex-shrink: 0;
+    }
+    
+    .ai-input-wrapper {
+      display: flex;
       gap: var(--space-sm);
-      padding: 12px 24px;
+      align-items: flex-end;
+    }
+    
+    .ai-input {
+      flex: 1;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+      color: var(--text-primary);
+      font-size: 0.9375rem;
+      font-family: inherit;
+      resize: none;
+      min-height: 48px;
+      max-height: 150px;
+      transition: all var(--transition-base);
+      line-height: 1.5;
+    }
+    
+    .ai-input:focus {
+      border-color: var(--accent-blue);
+      background: var(--bg-elevated);
+      box-shadow: 0 0 0 3px rgba(77, 163, 255, 0.15);
+    }
+    
+    .ai-send-btn {
+      width: 48px; height: 48px;
+      border-radius: var(--radius-md);
+      background: var(--gradient-primary);
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      cursor: pointer;
+      transition: all var(--transition-base);
+      flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(77, 163, 255, 0.3);
+    }
+    
+    .ai-send-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(77, 163, 255, 0.5);
+    }
+    
+    .ai-send-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    .ai-input-info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: var(--space-sm);
+      font-size: 0.6875rem;
+      color: var(--text-muted);
+    }
+    
+    .ai-input-hint {
+      display: flex;
+      align-items: center;
+      gap: var(--space-md);
+    }
+    
+    .ai-input-hint kbd {
+      background: var(--bg-elevated);
+      padding: 1px 6px;
+      border-radius: 3px;
+      border: 1px solid var(--border-color);
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+    }
+    
+    .ai-clear-btn {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: color var(--transition-fast);
+    }
+    
+    .ai-clear-btn:hover { color: var(--danger); }
+    
+    .ai-error {
+      background: rgba(255, 92, 122, 0.1);
+      border: 1px solid rgba(255, 92, 122, 0.3);
+      color: var(--danger);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
+      font-size: 0.875rem;
+      margin: var(--space-md) 0;
+    }
+    
+    .ai-status {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-sm) var(--space-md);
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+    
+    .ai-status-info {
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    
+    .ai-model-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
       background: linear-gradient(135deg, rgba(167, 139, 250, 0.15), rgba(244, 114, 182, 0.15));
       border: 1px solid rgba(167, 139, 250, 0.3);
       border-radius: var(--radius-full);
-      font-weight: 700;
+      font-size: 0.6875rem;
       color: var(--accent-purple);
-      font-size: 0.9375rem;
-      margin-bottom: var(--space-xl);
+      font-weight: 600;
     }
     
-    .notify-box {
-      background: var(--bg-card);
-      border: 2px dashed var(--border-color);
-      border-radius: var(--radius-xl);
-      padding: var(--space-xl);
-      margin-top: var(--space-xl);
+    .ai-limit-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      background: rgba(255, 209, 102, 0.15);
+      border: 1px solid rgba(255, 209, 102, 0.3);
+      border-radius: var(--radius-full);
+      font-size: 0.6875rem;
+      color: var(--warning);
+      font-weight: 600;
     }
     
-    .notify-box h3 {
-      margin-bottom: var(--space-sm);
-    }
-    
-    .notify-box p {
-      color: var(--text-muted);
-      margin-bottom: var(--space-md);
+    @media (max-width: 768px) {
+      .ai-container { height: calc(100vh - 80px); }
+      .ai-message-bubble { max-width: 85%; }
+      .ai-quick-actions { padding: var(--space-sm); }
     }
   </style>
 </head>
@@ -134,7 +378,6 @@
   
   <div class="dash-layout">
     
-    <!-- SIDEBAR -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-logo">
         <span class="sidebar-logo-icon">🎯</span>
@@ -174,7 +417,7 @@
           <a href="/ai-asistan" class="sidebar-item active">
             <span class="sidebar-item-icon">🤖</span>
             <span>AI Asistan</span>
-            <span class="badge badge-warning sidebar-item-badge">YAKINDA</span>
+            <span class="badge badge-pro sidebar-item-badge">AKTİF</span>
           </a>
           <a href="/yol-haritasi" class="sidebar-item">
             <span class="sidebar-item-icon">🗺️</span>
@@ -211,74 +454,125 @@
       </div>
     </aside>
     
-    <!-- MAIN -->
     <main class="main page-enter">
       
-      <div class="coming-soon-container">
-        
-        <div class="coming-soon-icon">🤖</div>
-        
-        <div class="countdown pulse-glow">
-          <span>⏱️</span>
-          <span>Çok Yakında Aktif Olacak!</span>
-        </div>
-        
-        <h1 class="coming-soon-title">
-          <span class="gradient-text-aurora">AI Asistan</span><br>
-          Yolda Geliyor 🚀
+      <div class="page-header">
+        <h1>
+          <span>🤖</span>
+          <span>AI Asistan</span>
+          <span class="badge badge-success">CANLI</span>
         </h1>
+        <p>YouTube nişleri, içerik fikirleri ve büyüme stratejileri için <strong>Google Gemini AI</strong> ile sohbet et.</p>
+      </div>
+      
+      <div class="ai-container">
         
-        <p class="coming-soon-subtitle">
-          Yapay zeka destekli kişisel YouTube danışmanın hazırlanıyor.<br>
-          <strong>Google Gemini AI</strong> ile sınırsız sohbet, niş önerileri, içerik fikirleri ve daha fazlası!
-        </p>
+        <div class="ai-status">
+          <div class="ai-status-info">
+            <span class="live-indicator"></span>
+            <span>AI Asistan Aktif</span>
+            <span class="ai-model-badge">
+              <span>✨</span>
+              <span>Gemini 1.5 Flash</span>
+            </span>
+            <span class="ai-limit-badge" id="limitBadge">
+              <span>📊</span>
+              <span id="limitText">Yükleniyor...</span>
+            </span>
+          </div>
+          <div class="ai-clear-btn" id="clearChatBtn">🗑️ Temizle</div>
+        </div>
         
-        <div class="features-preview">
-          
-          <div class="feature-preview-card">
-            <div class="feature-preview-icon">🎯</div>
-            <h3>Akıllı Niş Önerileri</h3>
-            <p>Senin ilgi alanlarına göre özelleştirilmiş, kazançlı niş önerileri</p>
+        <div class="ai-quick-actions">
+          <div class="ai-quick-action" data-action="niche_ideas">
+            <span>🎯</span><span>Niş Öner</span>
           </div>
-          
-          <div class="feature-preview-card">
-            <div class="feature-preview-icon">📝</div>
-            <h3>Video Başlık Üretici</h3>
-            <p>Viral olabilecek, tıklanabilir video başlıkları</p>
+          <div class="ai-quick-action" data-action="video_titles">
+            <span>📝</span><span>Video Başlığı</span>
           </div>
-          
-          <div class="feature-preview-card">
-            <div class="feature-preview-icon">🖼️</div>
-            <h3>Thumbnail Fikirleri</h3>
-            <p>Dikkat çeken thumbnail tasarımları için yaratıcı öneriler</p>
+          <div class="ai-quick-action" data-action="thumbnail_ideas">
+            <span>🖼️</span><span>Thumbnail Fikri</span>
           </div>
-          
-          <div class="feature-preview-card">
-            <div class="feature-preview-icon">🎣</div>
-            <h3>Hook Yazıcı</h3>
-            <p>İzleyiciyi ilk 5 saniyede yakalayan giriş cümleleri</p>
+          <div class="ai-quick-action" data-action="hook_writer">
+            <span>🎣</span><span>Hook Yaz</span>
           </div>
-          
-          <div class="feature-preview-card">
-            <div class="feature-preview-icon">📅</div>
-            <h3>30 Günlük İçerik Planı</h3>
-            <p>Hazır içerik takvimi ve video fikirleri</p>
+          <div class="ai-quick-action" data-action="content_plan">
+            <span>📅</span><span>30 Günlük Plan</span>
           </div>
+          <div class="ai-quick-action" data-action="seo_tips">
+            <span>🔍</span><span>SEO Tavsiyesi</span>
+          </div>
+          <div class="ai-quick-action" data-action="growth_strategy">
+            <span>📈</span><span>Büyüme Stratejisi</span>
+          </div>
+        </div>
+        
+        <div class="ai-messages" id="aiMessages">
           
-          <div class="feature-preview-card">
-            <div class="feature-preview-icon">📈</div>
-            <h3>Büyüme Stratejisi</h3>
-            <p>Kanalını büyütmek için kişiselleştirilmiş öneriler</p>
+          <div class="ai-welcome" id="aiWelcome">
+            <div class="ai-welcome-icon">🤖</div>
+            <h2>Merhaba! Ben NICHIFY AI</h2>
+            <p>
+              YouTube'da büyümen için her konuda yardımcı olabilirim.<br>
+              Niş öner, başlık yaz, içerik planı oluştur - her şey için sor!
+            </p>
+            
+            <div class="ai-suggestions">
+              <div class="ai-suggestion-card" onclick="sendSuggestion('Bana 5 tane düşük rekabetli ama yüksek kazançlı YouTube nişi öner')">
+                <div class="ai-suggestion-icon">🎯</div>
+                <div class="ai-suggestion-text">
+                  <strong>Düşük rekabetli niş öner</strong><br>
+                  5 tane yüksek kazançlı niş
+                </div>
+              </div>
+              
+              <div class="ai-suggestion-card" onclick="sendSuggestion('AI araçları nişinde viral olabilecek 10 video başlığı yaz')">
+                <div class="ai-suggestion-icon">📝</div>
+                <div class="ai-suggestion-text">
+                  <strong>Video başlığı üret</strong><br>
+                  Viral potansiyelli başlıklar
+                </div>
+              </div>
+              
+              <div class="ai-suggestion-card" onclick="sendSuggestion('Faceless YouTube kanalı için 30 günlük içerik planı oluştur')">
+                <div class="ai-suggestion-icon">📅</div>
+                <div class="ai-suggestion-text">
+                  <strong>30 günlük plan</strong><br>
+                  Faceless kanal için
+                </div>
+              </div>
+              
+              <div class="ai-suggestion-card" onclick="sendSuggestion('YouTube Shorts ile 0 aboneden 10K aboneye nasıl çıkarım?')">
+                <div class="ai-suggestion-icon">🚀</div>
+                <div class="ai-suggestion-text">
+                  <strong>Büyüme stratejisi</strong><br>
+                  0'dan 10K aboneye
+                </div>
+              </div>
+            </div>
           </div>
           
         </div>
         
-        <div class="notify-box">
-          <h3>🔔 Aktif Olduğunda Haber Vereceğiz!</h3>
-          <p>Kullanıcı bilgilerin sistemde kayıtlı. AI Asistan aktif olunca otomatik olarak kullanmaya başlayabilirsin.</p>
-          <a href="/dashboard" class="btn btn-primary">
-            ← Dashboard'a Dön
-          </a>
+        <div class="ai-input-area">
+          <div class="ai-input-wrapper">
+            <textarea 
+              class="ai-input" 
+              id="aiInput" 
+              placeholder="Mesajını yaz... (Örn: AI nişinde 10 video başlığı öner)"
+              rows="1"
+            ></textarea>
+            <button class="ai-send-btn" id="sendBtn" title="Gönder">
+              ➤
+            </button>
+          </div>
+          <div class="ai-input-info">
+            <div class="ai-input-hint">
+              <span><kbd>Enter</kbd> Gönder</span>
+              <span><kbd>Shift</kbd>+<kbd>Enter</kbd> Yeni satır</span>
+            </div>
+            <span id="charCount">0 / 2000</span>
+          </div>
         </div>
         
       </div>
@@ -292,27 +586,43 @@
   <script src="/js/utils.js"></script>
   <script>
     
+    let chatHistory = [];
+    let isLoading = false;
+    let currentUser = null;
+    let userLimit = { remaining: 5, limit: 5, used: 0 };
+    
     (async () => {
       const isAuth = await Auth.requireAuth('/login');
       if (!isAuth) return;
       
-      const user = await Auth.getCurrentUser();
-      if (user) {
-        const displayName = user.name || user.email.split('@')[0];
+      currentUser = await Auth.getCurrentUser();
+      if (currentUser) {
+        const displayName = currentUser.name || currentUser.email.split('@')[0];
         document.getElementById('userName').textContent = displayName;
-        document.getElementById('userEmail').textContent = user.email;
+        document.getElementById('userEmail').textContent = currentUser.email;
         document.getElementById('userAvatar').textContent = displayName.charAt(0).toUpperCase();
         
-        if (user.is_admin || user.role === 'super_admin') {
+        if (currentUser.is_admin || currentUser.role === 'super_admin') {
           document.getElementById('adminSection').style.display = 'block';
+          document.getElementById('limitText').textContent = 'Sınırsız (Admin)';
+        } else if (currentUser.is_premium) {
+          document.getElementById('limitText').textContent = 'Premium: 50/gün';
+        } else {
+          document.getElementById('limitText').textContent = 'Free: 5/gün';
         }
         
-        if (user.is_premium) {
+        if (currentUser.is_premium) {
           document.getElementById('lifetimeCard').style.display = 'none';
         }
       }
       
       loadLifetimeStock();
+      
+      const saved = Utils.storage.get('ai_chat_history', []);
+      if (saved && saved.length > 0) {
+        chatHistory = saved;
+        renderChatHistory();
+      }
     })();
     
     async function loadLifetimeStock() {
@@ -328,6 +638,213 @@
         console.error(error);
       }
     }
+    
+    async function sendMessage(messageText, isQuickAction = false, action = 'chat') {
+      if (isLoading) return;
+      if (!messageText.trim()) return;
+      if (!currentUser) return;
+      
+      isLoading = true;
+      
+      const welcome = document.getElementById('aiWelcome');
+      if (welcome) welcome.style.display = 'none';
+      
+      addMessage('user', messageText);
+      
+      document.getElementById('aiInput').value = '';
+      updateCharCount();
+      
+      const typingId = showTyping();
+      
+      try {
+        let body;
+        
+        if (isQuickAction) {
+          body = {
+            action: action,
+            context: messageText,
+            user_id: currentUser.id,
+            user_email: currentUser.email
+          };
+        } else {
+          chatHistory.push({ role: 'user', content: messageText });
+          body = {
+            action: 'chat',
+            messages: chatHistory,
+            user_id: currentUser.id,
+            user_email: currentUser.email
+          };
+        }
+        
+        const response = await fetch('/api/ai', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body)
+        });
+        
+        const result = await response.json();
+        
+        removeTyping(typingId);
+        
+        if (result.success && result.response) {
+          addMessage('bot', result.response);
+          
+          if (!isQuickAction) {
+            chatHistory.push({ role: 'assistant', content: result.response });
+            Utils.storage.set('ai_chat_history', chatHistory);
+          }
+        } else if (result.limit_reached) {
+          showError(result.error);
+        } else {
+          showError(result.error || 'Bir hata oluştu');
+        }
+      } catch (error) {
+        removeTyping(typingId);
+        showError('Bağlantı hatası: ' + error.message);
+      }
+      
+      isLoading = false;
+      document.getElementById('aiInput').focus();
+    }
+    
+    function addMessage(role, content) {
+      const messagesEl = document.getElementById('aiMessages');
+      
+      const messageEl = document.createElement('div');
+      messageEl.className = `ai-message ai-message-${role}`;
+      
+      const userName = currentUser?.name || currentUser?.email?.split('@')[0] || 'S';
+      const userInitial = userName.charAt(0).toUpperCase();
+      
+      const formatted = formatMessage(content);
+      
+      messageEl.innerHTML = `
+        <div class="ai-message-avatar">${role === 'user' ? userInitial : '🤖'}</div>
+        <div>
+          <div class="ai-message-bubble">${formatted}</div>
+          <span class="ai-message-time">${new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })}</span>
+        </div>
+      `;
+      
+      messagesEl.appendChild(messageEl);
+      scrollToBottom();
+    }
+    
+    function formatMessage(text) {
+      text = text.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+      text = text.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+      text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
+      return text;
+    }
+    
+    function showTyping() {
+      const messagesEl = document.getElementById('aiMessages');
+      const typingEl = document.createElement('div');
+      const id = 'typing-' + Date.now();
+      typingEl.id = id;
+      typingEl.className = 'ai-message ai-message-bot';
+      typingEl.innerHTML = `
+        <div class="ai-message-avatar">🤖</div>
+        <div class="ai-message-bubble" style="padding: 8px 16px;">
+          <div class="ai-typing">
+            <div class="ai-typing-dot"></div>
+            <div class="ai-typing-dot"></div>
+            <div class="ai-typing-dot"></div>
+          </div>
+        </div>
+      `;
+      messagesEl.appendChild(typingEl);
+      scrollToBottom();
+      return id;
+    }
+    
+    function removeTyping(id) {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+    }
+    
+    function showError(message) {
+      const messagesEl = document.getElementById('aiMessages');
+      const errorEl = document.createElement('div');
+      errorEl.className = 'ai-error';
+      errorEl.textContent = '⚠️ ' + message;
+      messagesEl.appendChild(errorEl);
+      scrollToBottom();
+    }
+    
+    function scrollToBottom() {
+      const messagesEl = document.getElementById('aiMessages');
+      setTimeout(() => {
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+      }, 100);
+    }
+    
+    function renderChatHistory() {
+      const welcome = document.getElementById('aiWelcome');
+      if (welcome) welcome.style.display = 'none';
+      
+      chatHistory.forEach(msg => {
+        addMessage(msg.role === 'user' ? 'user' : 'bot', msg.content);
+      });
+    }
+    
+    window.sendSuggestion = function(text) {
+      document.getElementById('aiInput').value = text;
+      sendMessage(text);
+    };
+    
+    document.getElementById('sendBtn').addEventListener('click', () => {
+      const text = document.getElementById('aiInput').value.trim();
+      if (text) sendMessage(text);
+    });
+    
+    document.getElementById('aiInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        const text = e.target.value.trim();
+        if (text) sendMessage(text);
+      }
+    });
+    
+    document.getElementById('aiInput').addEventListener('input', (e) => {
+      e.target.style.height = 'auto';
+      e.target.style.height = Math.min(e.target.scrollHeight, 150) + 'px';
+      updateCharCount();
+    });
+    
+    function updateCharCount() {
+      const input = document.getElementById('aiInput');
+      const count = input.value.length;
+      document.getElementById('charCount').textContent = `${count} / 2000`;
+      
+      if (count > 2000) {
+        input.value = input.value.substring(0, 2000);
+      }
+    }
+    
+    document.querySelectorAll('.ai-quick-action').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const action = btn.dataset.action;
+        const text = document.getElementById('aiInput').value.trim();
+        
+        if (!text) {
+          Utils.toast.warning('Önce konuyu yaz, sonra hızlı aksiyon seç');
+          document.getElementById('aiInput').focus();
+          return;
+        }
+        
+        sendMessage(text, true, action);
+      });
+    });
+    
+    document.getElementById('clearChatBtn').addEventListener('click', () => {
+      if (confirm('Sohbet geçmişini temizlemek istediğinden emin misin?')) {
+        chatHistory = [];
+        Utils.storage.remove('ai_chat_history');
+        document.getElementById('aiMessages').innerHTML = '';
+        location.reload();
+      }
+    });
     
     document.getElementById('logoutBtn').addEventListener('click', async () => {
       if (confirm('Çıkış yapmak istediğinizden emin misiniz?')) {
