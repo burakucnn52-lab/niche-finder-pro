@@ -14,28 +14,18 @@
 </head>
 <body>
   
-  <!-- Aurora Background -->
   <div class="aurora-bg">
     <div class="aurora-3"></div>
   </div>
   
-  <!-- Mobile Menu Button -->
   <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
   
-  <!-- Sidebar Overlay -->
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
   
-  <!-- ============================================
-       LAYOUT
-       ============================================ -->
   <div class="dash-layout">
     
-    <!-- ============================================
-         SIDEBAR
-         ============================================ -->
     <aside class="sidebar" id="sidebar">
       
-      <!-- Logo -->
       <div class="sidebar-logo">
         <span class="sidebar-logo-icon">🎯</span>
         <div>
@@ -44,7 +34,6 @@
         </div>
       </div>
       
-      <!-- Navigation -->
       <nav class="sidebar-nav">
         
         <div class="sidebar-section">
@@ -102,18 +91,17 @@
         
       </nav>
       
-      <!-- Lifetime Card -->
+      <!-- Lifetime Card - TL FİYATLARI -->
       <div class="sidebar-lifetime" id="lifetimeCard">
-        <div class="sidebar-lifetime-old">$149</div>
-        <div class="sidebar-lifetime-price">$89</div>
+        <div class="sidebar-lifetime-old">4.999 TL</div>
+        <div class="sidebar-lifetime-price">2.499 TL</div>
         <div class="sidebar-lifetime-label">🔥 Lifetime Deal</div>
         <a href="/fiyatlandirma" class="btn btn-primary btn-sm btn-block" style="margin-top: 8px;">
           Şimdi Al
         </a>
-        <div class="sidebar-lifetime-stock">⚡ <span id="lifetimeStock">88</span>/100 kaldı</div>
+        <div class="sidebar-lifetime-stock">⚡ <span id="lifetimeStock">99</span>/100 kaldı</div>
       </div>
       
-      <!-- User -->
       <div class="sidebar-user">
         <div class="avatar" id="userAvatar">U</div>
         <div class="sidebar-user-info">
@@ -127,12 +115,8 @@
       
     </aside>
     
-    <!-- ============================================
-         MAIN CONTENT
-         ============================================ -->
     <main class="main page-enter">
       
-      <!-- Welcome Banner -->
       <div class="welcome-banner">
         <div class="welcome-content">
           <h1>👋 Hoşgeldin, <span class="gradient-text" id="welcomeName">Kullanıcı</span>!</h1>
@@ -145,13 +129,11 @@
         </div>
       </div>
       
-      <!-- Live Status -->
       <div class="live-status">
         <span class="live-indicator"></span>
         <span>Canlı veri · <span id="lastUpdate">Az önce güncellendi</span></span>
       </div>
       
-      <!-- Search Bar -->
       <div class="dash-search">
         <div class="dash-search-input">
           <input 
@@ -165,7 +147,6 @@
         </div>
       </div>
       
-      <!-- Stats Grid -->
       <div class="dash-stats">
         
         <div class="stat-card">
@@ -194,10 +175,8 @@
         
       </div>
       
-      <!-- Main Grid -->
       <div class="dash-grid">
         
-        <!-- Yükselen Kanallar -->
         <div class="widget">
           <div class="widget-header">
             <div class="widget-title">
@@ -209,7 +188,6 @@
           <div class="widget-subtitle">Canlı YouTube verisi · Her gün güncellenir</div>
           
           <div id="trendingChannels">
-            <!-- Skeleton loader -->
             <div class="row-item">
               <div class="skeleton" style="width: 40px; height: 40px; border-radius: 50%;"></div>
               <div style="flex: 1;">
@@ -234,7 +212,6 @@
           </div>
         </div>
         
-        <!-- En İyi Nişler -->
         <div class="widget">
           <div class="widget-header">
             <div class="widget-title">
@@ -281,7 +258,6 @@
           </div>
         </div>
         
-        <!-- YouTube Haberleri -->
         <div class="widget">
           <div class="widget-header">
             <div class="widget-title">
@@ -348,34 +324,25 @@
   <script src="/js/animations.js"></script>
   <script>
     
-    // ============================================
-    // SAYFA YÜKLENDİĞİNDE
-    // ============================================
     (async () => {
       
-      // 1. Giriş yapmış mı kontrol et
       const isAuth = await Auth.requireAuth('/login');
       if (!isAuth) return;
       
-      // 2. Kullanıcı bilgilerini yükle
       const user = await Auth.getCurrentUser();
       if (user) {
-        // İsim
         const displayName = user.name || user.email.split('@')[0];
         const firstName = displayName.split(' ')[0];
         document.getElementById('welcomeName').textContent = firstName;
         document.getElementById('userName').textContent = displayName;
         document.getElementById('userEmail').textContent = user.email;
         
-        // Avatar (ilk harf)
         document.getElementById('userAvatar').textContent = displayName.charAt(0).toUpperCase();
         
-        // Admin ise admin menüsünü göster
         if (user.is_admin || user.role === 'super_admin') {
           document.getElementById('adminSection').style.display = 'block';
         }
         
-        // Premium badge
         const badgeContainer = document.getElementById('userBadge');
         if (user.is_premium) {
           badgeContainer.innerHTML = `
@@ -388,23 +355,16 @@
           `;
         }
         
-        // Son giriş zamanı
         if (user.last_sign_in_at) {
           document.getElementById('lastLogin').textContent = Utils.timeAgo(user.last_sign_in_at);
         }
       }
       
-      // 3. Lifetime stock güncelle (Supabase'den)
       await loadLifetimeStock();
-      
-      // 4. Yükselen kanalları yükle
       await loadTrendingChannels();
       
     })();
     
-    // ============================================
-    // LIFETIME STOCK
-    // ============================================
     async function loadLifetimeStock() {
       try {
         const supabase = await Auth.init();
@@ -421,9 +381,6 @@
       }
     }
     
-    // ============================================
-    // TRENDING CHANNELS
-    // ============================================
     async function loadTrendingChannels() {
       try {
         const response = await fetch('/api/youtube?endpoint=trending&region=TR');
@@ -465,9 +422,6 @@
       }).join('');
     }
     
-    // ============================================
-    // CANLI HABERLER YÜKLE (RSS)
-    // ============================================
     async function loadLiveNews() {
       try {
         const response = await fetch('/api/news');
@@ -481,7 +435,7 @@
       }
     }
     
-          function renderNews(newsItems) {
+    function renderNews(newsItems) {
       const container = document.getElementById('youtubeNews');
       if (!container) return;
       
@@ -513,9 +467,7 @@
       };
       return icons[source] || '📰';
     }
-    // ============================================
-    // SEARCH
-    // ============================================
+    
     document.getElementById('searchBtn').addEventListener('click', () => {
       const query = document.getElementById('searchInput').value.trim();
       if (query) {
@@ -529,18 +481,12 @@
       }
     });
     
-    // ============================================
-    // LOGOUT
-    // ============================================
     document.getElementById('logoutBtn').addEventListener('click', async () => {
       if (confirm('Çıkış yapmak istediğinizden emin misiniz?')) {
         await Auth.logout();
       }
     });
     
-    // ============================================
-    // MOBILE MENU
-    // ============================================
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('sidebarOverlay');
