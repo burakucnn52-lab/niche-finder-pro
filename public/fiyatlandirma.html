@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="/css/animations.css">
   <link rel="stylesheet" href="/css/components.css">
   <link rel="stylesheet" href="/css/landing.css">
-  <link rel="stylesheet" href="/css/pricing.css?v=2">
+  <link rel="stylesheet" href="/css/pricing.css">
   
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>">
 </head>
@@ -19,7 +19,6 @@
     <div class="aurora-3"></div>
   </div>
   
-  <!-- NAVBAR -->
   <nav class="navbar">
     <div class="container">
       <div class="nav-wrapper">
@@ -30,13 +29,12 @@
         </a>
         
         <div class="nav-links hide-mobile">
-          <a href="/#features" class="nav-link" data-i18n="nav.features">Özellikler</a>
-          <a href="/fiyatlandirma" class="nav-link" style="color: var(--accent-blue);" data-i18n="nav.pricing">Fiyatlandırma</a>
-          <a href="/sss" class="nav-link" data-i18n="nav.faq">SSS</a>
+          <a href="/#features" class="nav-link">Özellikler</a>
+          <a href="/fiyatlandirma" class="nav-link" style="color: var(--accent-blue);">Fiyatlandırma</a>
+          <a href="/sss" class="nav-link">SSS</a>
         </div>
         
         <div class="nav-actions">
-          <!-- Dil/Para Seçici -->
           <div class="lang-switcher">
             <button class="lang-btn" id="langToggle">
               <span id="currentFlag">🇹🇷</span>
@@ -57,9 +55,9 @@
             </div>
           </div>
           
-          <a href="/login" class="btn btn-ghost btn-sm" data-i18n="nav.login">Giriş Yap</a>
+          <a href="/login" class="btn btn-ghost btn-sm">Giriş Yap</a>
           <a href="/register" class="btn btn-primary btn-sm">
-            <span data-i18n="nav.signup">Ücretsiz Başla</span>
+            <span>Ücretsiz Başla</span>
             <span>→</span>
           </a>
         </div>
@@ -70,39 +68,37 @@
   <section class="hero" style="padding-top: var(--space-xl);">
     <div class="container">
       
-      <!-- HERO -->
       <div class="hero-content">
         <div class="hero-badge fade-in-down">
           <span class="live-indicator"></span>
-          <span data-i18n="hero.badge1">Lifetime Deal -</span>
+          <span>Lifetime Deal -</span>
           <strong id="stockText">88/100</strong>
-          <span data-i18n="hero.badge2">Slot Kaldı!</span>
+          <span>Slot Kaldı!</span>
         </div>
         
         <h1 class="hero-title fade-in-up stagger-1">
-          <span data-i18n="hero.title1">Kazançlı Nişleri</span><br>
-          <span class="gradient-text-aurora" data-i18n="hero.title2">Keşfet</span>
-          <span class="gradient-text" data-i18n="hero.title3">ve Büyüt</span>
+          Kazançlı Nişleri<br>
+          <span class="gradient-text-aurora">Keşfet</span>
+          <span class="gradient-text">ve Büyüt</span>
         </h1>
         
-        <p class="hero-subtitle fade-in-up stagger-2" data-i18n="hero.subtitle">
+        <p class="hero-subtitle fade-in-up stagger-2">
           Tüm planlar 14 gün iade garantilidir. İhtiyacın olan planı seç, istediğin zaman değiştir.
         </p>
       </div>
       
-      <!-- LIFETIME ÖZEL BANNER -->
       <div class="lifetime-banner fade-in-up stagger-3">
         <div class="lifetime-banner-content">
           <div class="lifetime-banner-left">
-            <div class="lifetime-badge-fire">🔥 <span data-i18n="lifetime.founder">KURUCU ÜYE FIRSATI</span></div>
-            <h2 data-i18n="lifetime.title">Bir Defa Öde, Ömür Boyu Kullan</h2>
-            <p data-i18n="lifetime.subtitle">İlk 100 kişiye özel. Tüm özellikler + gelecek güncellemeler dahil.</p>
+            <div class="lifetime-badge-fire">🔥 KURUCU ÜYE FIRSATI</div>
+            <h2>Bir Defa Öde, Ömür Boyu Kullan</h2>
+            <p>İlk 100 kişiye özel. Tüm özellikler + gelecek güncellemeler dahil.</p>
             
             <div class="lifetime-stock">
               <div class="stock-bar-mini">
                 <div class="stock-fill-mini" id="stockFill" style="width: 12%;"></div>
               </div>
-              <span><strong id="stockNumber">88</strong> <span data-i18n="lifetime.left">kişilik kontenjan kaldı!</span></span>
+              <span><strong id="stockNumber">88</strong> kişilik kontenjan kaldı!</span>
             </div>
           </div>
           
@@ -112,474 +108,162 @@
               <div class="lifetime-current-price">
                 <span class="lifetime-amount" data-price-tr="2.499 TL" data-price-en="$89">2.499 TL</span>
               </div>
-              <span class="lifetime-period" data-i18n="lifetime.oneTime">tek seferlik ödeme</span>
+              <span class="lifetime-period">tek seferlik ödeme</span>
             </div>
             
             <button class="btn btn-primary btn-xl btn-block pulse-glow" id="buyLifetimeBtn" data-plan="lifetime">
-              💎 <span data-i18n="lifetime.cta">Hemen Satın Al</span>
+              💎 Hemen Satın Al
             </button>
             
-            <p class="lifetime-guarantee" data-i18n="lifetime.guarantee">
+            <p class="lifetime-guarantee">
               ⚡ Anında aktivasyon · 🔒 Güvenli ödeme · 💯 14 gün iade
             </p>
           </div>
         </div>
       </div>
       
-      <!-- ARA BAŞLIK -->
       <div class="section-header text-center" style="margin-top: var(--space-2xl);">
-        <h2><span data-i18n="plans.title1">Aylık</span> <span class="gradient-text" data-i18n="plans.title2">Planlar</span></h2>
-        <p data-i18n="plans.subtitle">Bütçene ve ihtiyaçlarına göre planı seç</p>
+        <h2>Aylık <span class="gradient-text">Planlar</span></h2>
+        <p>Bütçene ve ihtiyaçlarına göre planı seç</p>
       </div>
       
-      <!-- 4 PLAN KARTI -->
       <div class="plans-grid">
         
-        <!-- STARTER -->
         <div class="plan-card pop-in" data-plan="starter">
           <div class="plan-header">
             <div class="plan-icon">🌱</div>
             <h3 class="plan-name">STARTER</h3>
-            <p class="plan-desc" data-i18n="starter.desc">Yeni başlayanlar için</p>
+            <p class="plan-desc">Yeni başlayanlar için</p>
           </div>
           
           <div class="plan-price">
             <span class="plan-currency" data-currency-symbol>₺</span>
             <span class="plan-amount" data-price-tr="299" data-price-en="9.99">299</span>
-            <span class="plan-period" data-i18n="plans.perMonth">/ay</span>
+            <span class="plan-period">/ay</span>
           </div>
           
           <ul class="plan-features">
-            <li>✅ <strong>30</strong> <span data-i18n="features.searchPerDay">niş arama/gün</span></li>
-            <li>✅ <span data-i18n="features.basicData">Temel niş verileri</span></li>
-            <li>✅ <span data-i18n="features.microNiche">Mikro niş üretici</span></li>
-            <li>✅ <strong>3</strong> <span data-i18n="features.countries">ülke trend verisi</span></li>
-            <li>✅ <strong>20</strong> <span data-i18n="features.favorites">favori</span></li>
-            <li>✅ <span data-i18n="features.estimatedEarnings">Tahmini kazanç</span></li>
-            <li>✅ <span data-i18n="features.emailSupport">Email destek</span></li>
-            <li class="disabled">❌ <span data-i18n="features.aiAssistant">AI Asistan</span></li>
-            <li class="disabled">❌ <span data-i18n="features.hiddenOpp">Hidden Opportunity</span></li>
-            <li class="disabled">❌ <span data-i18n="features.riskDetector">Risk Detector</span></li>
+            <li>✅ <strong>30</strong> niş arama/gün</li>
+            <li>✅ Temel niş verileri</li>
+            <li>✅ Mikro niş üretici</li>
+            <li>✅ <strong>3</strong> ülke trend verisi</li>
+            <li>✅ <strong>20</strong> favori</li>
+            <li>✅ Tahmini kazanç</li>
+            <li>✅ Email destek</li>
+            <li class="disabled">❌ AI Asistan</li>
+            <li class="disabled">❌ Hidden Opportunity</li>
+            <li class="disabled">❌ Risk Detector</li>
           </ul>
           
           <button class="btn btn-glass btn-block plan-btn" data-plan="starter">
-            <span data-i18n="plans.choose">Planı Seç</span>
+            Planı Seç
           </button>
         </div>
         
-        <!-- CREATOR (POPULAR) -->
         <div class="plan-card plan-popular pop-in" data-plan="creator">
-          <div class="plan-ribbon">⭐ <span data-i18n="plans.popular">EN POPÜLER</span></div>
+          <div class="plan-ribbon">⭐ EN POPÜLER</div>
           
           <div class="plan-header">
             <div class="plan-icon">🎬</div>
             <h3 class="plan-name">CREATOR</h3>
-            <p class="plan-desc" data-i18n="creator.desc">Aktif YouTuber'lar için</p>
+            <p class="plan-desc">Aktif YouTuber'lar için</p>
           </div>
           
           <div class="plan-price">
             <span class="plan-currency" data-currency-symbol>₺</span>
             <span class="plan-amount" data-price-tr="549" data-price-en="17.99">549</span>
-            <span class="plan-period" data-i18n="plans.perMonth">/ay</span>
+            <span class="plan-period">/ay</span>
           </div>
           
           <ul class="plan-features">
-            <li>✅ <strong>100</strong> <span data-i18n="features.searchPerDay">niş arama/gün</span></li>
-            <li>✅ <span data-i18n="features.basicData">Temel niş verileri</span></li>
-            <li>✅ <span data-i18n="features.microNiche">Mikro niş üretici</span></li>
-            <li>✅ <span data-i18n="features.hiddenOpp">Hidden Opportunity</span></li>
-            <li>✅ <span data-i18n="features.riskDetector">Risk Detector</span></li>
-            <li>✅ <strong>5</strong> <span data-i18n="features.countries">ülke trend verisi</span></li>
-            <li>✅ <strong>50</strong> <span data-i18n="features.favorites">favori</span></li>
-            <li>✅ <span data-i18n="features.pdfExport">PDF Export</span></li>
-            <li>✅ <span data-i18n="features.emailSupport">Email destek</span></li>
-            <li class="disabled">❌ <span data-i18n="features.aiAssistant">AI Asistan</span></li>
+            <li>✅ <strong>100</strong> niş arama/gün</li>
+            <li>✅ Temel niş verileri</li>
+            <li>✅ Mikro niş üretici</li>
+            <li>✅ Hidden Opportunity</li>
+            <li>✅ Risk Detector</li>
+            <li>✅ <strong>5</strong> ülke trend verisi</li>
+            <li>✅ <strong>50</strong> favori</li>
+            <li>✅ PDF Export</li>
+            <li>✅ Email destek</li>
+            <li class="disabled">❌ AI Asistan</li>
           </ul>
           
           <button class="btn btn-primary btn-block plan-btn pulse-glow" data-plan="creator">
-            <span data-i18n="plans.choose">Planı Seç</span>
+            Planı Seç
           </button>
         </div>
         
-        <!-- GROWTH -->
         <div class="plan-card pop-in" data-plan="growth">
           <div class="plan-header">
             <div class="plan-icon">🚀</div>
             <h3 class="plan-name">GROWTH</h3>
-            <p class="plan-desc" data-i18n="growth.desc">Büyüyen kanallar için</p>
+            <p class="plan-desc">Büyüyen kanallar için</p>
           </div>
           
           <div class="plan-price">
             <span class="plan-currency" data-currency-symbol>₺</span>
             <span class="plan-amount" data-price-tr="799" data-price-en="26.99">799</span>
-            <span class="plan-period" data-i18n="plans.perMonth">/ay</span>
+            <span class="plan-period">/ay</span>
           </div>
           
           <ul class="plan-features">
-            <li>✅ <strong>500</strong> <span data-i18n="features.searchPerDay">niş arama/gün</span></li>
-            <li>✅ <span data-i18n="features.allBasic">Tüm temel özellikler</span></li>
-            <li>✅ <span data-i18n="features.hiddenOpp">Hidden Opportunity</span></li>
-            <li>✅ <span data-i18n="features.riskDetector">Risk Detector</span></li>
-            <li>✅ <span data-i18n="features.channelAnalysis">Kanal Analizi</span></li>
-            <li>✅ <span data-i18n="features.aiAssistant">AI Asistan</span></li>
-            <li>✅ <span data-i18n="features.allCountries">11 ülke trend verisi</span></li>
-            <li>✅ <strong>200</strong> <span data-i18n="features.favorites">favori</span></li>
-            <li>✅ <span data-i18n="features.pdfExport">PDF Export</span></li>
-            <li>✅ <span data-i18n="features.prioritySupport">Öncelikli destek</span></li>
+            <li>✅ <strong>500</strong> niş arama/gün</li>
+            <li>✅ Tüm temel özellikler</li>
+            <li>✅ Hidden Opportunity</li>
+            <li>✅ Risk Detector</li>
+            <li>✅ Kanal Analizi</li>
+            <li>✅ AI Asistan</li>
+            <li>✅ 11 ülke trend verisi</li>
+            <li>✅ <strong>200</strong> favori</li>
+            <li>✅ PDF Export</li>
+            <li>✅ Öncelikli destek</li>
           </ul>
           
           <button class="btn btn-glass btn-block plan-btn" data-plan="growth">
-            <span data-i18n="plans.choose">Planı Seç</span>
+            Planı Seç
           </button>
         </div>
         
-        <!-- ALL-IN-ONE -->
         <div class="plan-card plan-premium pop-in" data-plan="allinone">
           <div class="plan-header">
             <div class="plan-icon">👑</div>
             <h3 class="plan-name">ALL-IN-ONE</h3>
-            <p class="plan-desc" data-i18n="allinone.desc">Profesyoneller için</p>
+            <p class="plan-desc">Profesyoneller için</p>
           </div>
           
           <div class="plan-price">
             <span class="plan-currency" data-currency-symbol>₺</span>
             <span class="plan-amount" data-price-tr="1099" data-price-en="33.99">1.099</span>
-            <span class="plan-period" data-i18n="plans.perMonth">/ay</span>
+            <span class="plan-period">/ay</span>
           </div>
           
           <ul class="plan-features">
-            <li>✅ <strong><span data-i18n="features.unlimited">Sınırsız</span></strong> <span data-i18n="features.searches">arama</span></li>
-            <li>✅ <span data-i18n="features.everything">Her şey dahil</span></li>
-            <li>✅ <span data-i18n="features.hiddenOpp">Hidden Opportunity</span></li>
-            <li>✅ <span data-i18n="features.riskDetector">Risk Detector</span></li>
-            <li>✅ <span data-i18n="features.channelAnalysis">Kanal Analizi</span></li>
-            <li>✅ <span data-i18n="features.aiAssistant">AI Asistan (Sınırsız)</span></li>
-            <li>✅ <span data-i18n="features.allCountries">11 ülke trend verisi</span></li>
-            <li>✅ <strong><span data-i18n="features.unlimited">Sınırsız</span></strong> <span data-i18n="features.favorites">favori</span></li>
-            <li>✅ <span data-i18n="features.apiAccess">API Erişimi</span></li>
-            <li>✅ <span data-i18n="features.whiteLabel">Beyaz Etiket</span></li>
-            <li>✅ <span data-i18n="features.vipSupport">VIP Destek</span></li>
+            <li>✅ <strong>Sınırsız</strong> arama</li>
+            <li>✅ Her şey dahil</li>
+            <li>✅ Hidden Opportunity</li>
+            <li>✅ Risk Detector</li>
+            <li>✅ Kanal Analizi</li>
+            <li>✅ AI Asistan (Sınırsız)</li>
+            <li>✅ 11 ülke trend verisi</li>
+            <li>✅ <strong>Sınırsız</strong> favori</li>
+            <li>✅ API Erişimi</li>
+            <li>✅ VIP Destek</li>
           </ul>
           
           <button class="btn btn-glass btn-block plan-btn" data-plan="allinone">
-            <span data-i18n="plans.choose">Planı Seç</span>
+            Planı Seç
           </button>
         </div>
         
       </div>
       
-      <!-- FREE PLAN BANNER -->
-      <div class="free-plan-banner fade-in-up">
-        <div class="free-plan-content">
-          <div class="free-plan-icon">🆓</div>
-          <div class="free-plan-text">
-            <h3 data-i18n="free.title">Ücretsiz Başla, Sonra Yükselt</h3>
-            <p data-i18n="free.subtitle">Kredi kartı gerekmez · 3 niş arama/gün · Temel özellikler · Sonsuza dek ücretsiz</p>
-          </div>
-          <a href="/register" class="btn btn-primary btn-lg">
-            <span data-i18n="free.cta">Ücretsiz Hesap Aç</span> →
-          </a>
-        </div>
-      </div>
-      
-      <!-- COMPARISON TABLE -->
-      <div class="section-header text-center" style="margin-top: var(--space-2xl);">
-        <h2><span data-i18n="compare.title1">Karşılaştırma</span> <span class="gradient-text" data-i18n="compare.title2">Tablosu</span></h2>
-        <p data-i18n="compare.subtitle">Tüm planları detaylı karşılaştırın</p>
-      </div>
-      
-      <div class="compare-table">
-        <table>
-          <thead>
-            <tr>
-              <th data-i18n="compare.feature">Özellik</th>
-              <th data-i18n="compare.free">Ücretsiz</th>
-              <th>STARTER</th>
-              <th class="featured">CREATOR ⭐</th>
-              <th>GROWTH</th>
-              <th>ALL-IN-ONE</th>
-              <th class="lifetime-col">💎 LIFETIME</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td data-i18n="compare.search">Niş Arama</td>
-              <td>3/<span data-i18n="compare.day">gün</span></td>
-              <td>30/<span data-i18n="compare.day">gün</span></td>
-              <td class="featured">100/<span data-i18n="compare.day">gün</span></td>
-              <td>500/<span data-i18n="compare.day">gün</span></td>
-              <td>∞</td>
-              <td class="lifetime-col">∞</td>
-            </tr>
-            <tr>
-              <td data-i18n="features.microNiche">Mikro Niş Üretici</td>
-              <td><span class="compare-no">✗</span></td>
-              <td><span class="compare-yes">✓</span></td>
-              <td class="featured"><span class="compare-yes">✓</span></td>
-              <td><span class="compare-yes">✓</span></td>
-              <td><span class="compare-yes">✓</span></td>
-              <td class="lifetime-col"><span class="compare-yes">✓</span></td>
-            </tr>
-            <tr>
-              <td data-i18n="features.hiddenOpp">Hidden Opportunity</td>
-              <td><span class="compare-no">✗</span></td>
-              <td><span class="compare-no">✗</span></td>
-              <td class="featured"><span class="compare-yes">✓</span></td>
-              <td><span class="compare-yes">✓</span></td>
-              <td><span class="compare-yes">✓</span></td>
-              <td class="lifetime-col"><span class="compare-yes">✓</span></td>
-            </tr>
-            <tr>
-              <td data-i18n="features.riskDetector">Risk Detector</td>
-              <td><span class="compare-no">✗</span></td>
-              <td><span class="compare-no">✗</span></td>
-              <td class="featured"><span class="compare-yes">✓</span></td>
-              <td><span class="compare-yes">✓</span></td>
-              <td><span class="compare-yes">✓</span></td>
-              <td class="lifetime-col"><span class="compare-yes">✓</span></td>
-            </tr>
-            <tr>
-              <td data-i18n="features.channelAnalysis">Kanal Analizi</td>
-              <td><span class="compare-no">✗</span></td>
-              <td><span class="compare-no">✗</span></td>
-              <td class="featured"><span class="compare-no">✗</span></td>
-              <td><span class="compare-yes">✓</span></td>
-              <td><span class="compare-yes">✓</span></td>
-              <td class="lifetime-col"><span class="compare-yes">✓</span></td>
-            </tr>
-            <tr>
-              <td data-i18n="features.aiAssistant">AI Asistan</td>
-              <td><span class="compare-no">✗</span></td>
-              <td><span class="compare-no">✗</span></td>
-              <td class="featured"><span class="compare-no">✗</span></td>
-              <td><span class="compare-yes">✓</span></td>
-              <td><span class="compare-yes">✓ ∞</span></td>
-              <td class="lifetime-col"><span class="compare-yes">✓ ∞</span></td>
-            </tr>
-            <tr>
-              <td data-i18n="features.countries">Ülke Trend Verisi</td>
-              <td>1</td>
-              <td>3</td>
-              <td class="featured">5</td>
-              <td>11</td>
-              <td>11</td>
-              <td class="lifetime-col">11</td>
-            </tr>
-            <tr>
-              <td data-i18n="features.favorites">Favoriler</td>
-              <td>3</td>
-              <td>20</td>
-              <td class="featured">50</td>
-              <td>200</td>
-              <td>∞</td>
-              <td class="lifetime-col">∞</td>
-            </tr>
-            <tr>
-              <td data-i18n="features.pdfExport">PDF Export</td>
-              <td><span class="compare-no">✗</span></td>
-              <td><span class="compare-no">✗</span></td>
-              <td class="featured"><span class="compare-yes">✓</span></td>
-              <td><span class="compare-yes">✓</span></td>
-              <td><span class="compare-yes">✓</span></td>
-              <td class="lifetime-col"><span class="compare-yes">✓</span></td>
-            </tr>
-            <tr>
-              <td data-i18n="features.apiAccess">API Erişimi</td>
-              <td><span class="compare-no">✗</span></td>
-              <td><span class="compare-no">✗</span></td>
-              <td class="featured"><span class="compare-no">✗</span></td>
-              <td><span class="compare-no">✗</span></td>
-              <td><span class="compare-yes">✓</span></td>
-              <td class="lifetime-col"><span class="compare-yes">✓</span></td>
-            </tr>
-            <tr>
-              <td data-i18n="compare.support">Destek</td>
-              <td data-i18n="compare.community">Topluluk</td>
-              <td>Email</td>
-              <td class="featured">Email</td>
-              <td data-i18n="compare.priority">Öncelikli</td>
-              <td>VIP</td>
-              <td class="lifetime-col">VIP + Discord</td>
-            </tr>
-            <tr style="background: var(--bg-tertiary);">
-              <td><strong data-i18n="compare.yearlyTotal">Yıllık Toplam</strong></td>
-              <td><strong>0</strong></td>
-              <td><strong data-yearly-tr="3.588 TL" data-yearly-en="$119">3.588 TL</strong></td>
-              <td class="featured"><strong data-yearly-tr="6.588 TL" data-yearly-en="$215">6.588 TL</strong></td>
-              <td><strong data-yearly-tr="9.588 TL" data-yearly-en="$323">9.588 TL</strong></td>
-              <td><strong data-yearly-tr="13.188 TL" data-yearly-en="$407">13.188 TL</strong></td>
-              <td class="lifetime-col"><strong style="color: var(--success);" data-yearly-tr="2.499 TL ÖMÜR" data-yearly-en="$89 LIFETIME">2.499 TL ÖMÜR</strong></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      
-      <!-- TESTIMONIALS -->
-      <div class="section-header text-center" style="margin-top: var(--space-2xl);">
-        <div class="badge badge-success">⭐ <span data-i18n="testimonials.badge">KULLANICI YORUMLARI</span></div>
-        <h2><span data-i18n="testimonials.title1">Erken Üyelerimiz</span> <span class="gradient-text" data-i18n="testimonials.title2">Ne Diyor?</span></h2>
-      </div>
-      
-      <div class="testimonials">
-        <div class="testimonial fade-in-up">
-          <div class="testimonial-quote" data-i18n="testimonials.t1">
-            NICHIFY ile 2 hafta içinde doğru nişi buldum ve YouTube kanalımı başlattım. Risk detector özelliği harika!
-          </div>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar">A</div>
-            <div>
-              <strong>Ahmet K.</strong>
-              <span data-i18n="testimonials.t1Role">YouTuber, 3K abone</span>
-            </div>
-          </div>
-        </div>
-        
-        <div class="testimonial fade-in-up stagger-2">
-          <div class="testimonial-quote" data-i18n="testimonials.t2">
-            Hidden Opportunity özelliği sayesinde kimsenin görmediği bir niş yakaladım. RPM'im $15+!
-          </div>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar" style="background: var(--gradient-warm);">M</div>
-            <div>
-              <strong>Merve S.</strong>
-              <span data-i18n="testimonials.t2Role">İçerik üreticisi</span>
-            </div>
-          </div>
-        </div>
-        
-        <div class="testimonial fade-in-up stagger-3">
-          <div class="testimonial-quote" data-i18n="testimonials.t3">
-            Lifetime planı inanılmaz bir fırsat. Diğer araçların aylık ücretine geliyor. Tavsiye ederim!
-          </div>
-          <div class="testimonial-author">
-            <div class="testimonial-avatar" style="background: var(--gradient-secondary);">D</div>
-            <div>
-              <strong>Deniz Y.</strong>
-              <span data-i18n="testimonials.t3Role">Faceless kanal sahibi</span>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <!-- FAQ -->
-      <div class="section-header text-center" style="margin-top: var(--space-2xl);">
-        <h2><span data-i18n="faq.title1">Sıkça Sorulan</span> <span class="gradient-text" data-i18n="faq.title2">Sorular</span></h2>
-      </div>
-      
-      <div class="faq-list" style="max-width: 800px; margin: 0 auto;">
-        <details class="faq-item">
-          <summary>
-            <span data-i18n="faq.q1">Lifetime gerçekten ömür boyu mu?</span>
-            <span class="faq-icon">+</span>
-          </summary>
-          <div class="faq-answer" data-i18n="faq.a1">
-            Evet! Tek seferlik ödeme yaparsın, NICHIFY hizmette olduğu sürece sonsuza kadar kullanırsın. Gelecek tüm güncellemeler ve yeni özellikler ücretsiz olarak hesabına eklenir.
-          </div>
-        </details>
-        
-        <details class="faq-item">
-          <summary>
-            <span data-i18n="faq.q2">İstediğim zaman planımı değiştirebilir miyim?</span>
-            <span class="faq-icon">+</span>
-          </summary>
-          <div class="faq-answer" data-i18n="faq.a2">
-            Evet, istediğin zaman planını yükseltebilir veya düşürebilirsin. Yükseltme anında aktif olur, düşürme sonraki fatura döneminde geçerli olur.
-          </div>
-        </details>
-        
-        <details class="faq-item">
-          <summary>
-            <span data-i18n="faq.q3">Para iade garantisi var mı?</span>
-            <span class="faq-icon">+</span>
-          </summary>
-          <div class="faq-answer" data-i18n="faq.a3">
-            Evet, tüm planlarımız için 14 gün koşulsuz para iade garantisi sunuyoruz. Memnun kalmazsan tam iade alırsın, soru sormadan.
-          </div>
-        </details>
-        
-        <details class="faq-item">
-          <summary>
-            <span data-i18n="faq.q4">Hangi ödeme yöntemlerini kabul ediyorsunuz?</span>
-            <span class="faq-icon">+</span>
-          </summary>
-          <div class="faq-answer" data-i18n="faq.a4">
-            Kredi kartı, banka kartı, Apple Pay, Google Pay ve PayPal kabul ediyoruz. Tüm ödemeler LemonSqueezy üzerinden güvenli şekilde işlenir.
-          </div>
-        </details>
-        
-        <details class="faq-item">
-          <summary>
-            <span data-i18n="faq.q5">Aboneliği iptal etmek kolay mı?</span>
-            <span class="faq-icon">+</span>
-          </summary>
-          <div class="faq-answer" data-i18n="faq.a5">
-            Evet, hesap ayarlarından tek tıkla iptal edebilirsin. Hiçbir sorun çıkarılmaz. İptal sonrası dönem sonuna kadar kullanmaya devam edebilirsin.
-          </div>
-        </details>
-      </div>
-      
-      <!-- FINAL CTA -->
-      <div class="final-cta">
-        <div class="cta-box gradient-border">
-          <div class="gradient-border-content">
-            <h2 data-i18n="finalCta.title">Karar Verme Zamanı 🚀</h2>
-            <p data-i18n="finalCta.subtitle">İlk 100 kurucu üyenin biri ol, ömür boyu erişim kazan.</p>
-            
-            <div class="cta-buttons">
-              <button class="btn btn-primary btn-xl pulse-glow" id="buyLifetimeBtn2" data-plan="lifetime">
-                💎 <span data-i18n="finalCta.lifetimeCta">Lifetime Al</span> - <span data-price-tr="2.499 TL" data-price-en="$89">2.499 TL</span>
-              </button>
-              <a href="/register" class="btn btn-glass btn-xl">
-                🆓 <span data-i18n="finalCta.freeCta">Ücretsiz Dene</span>
-              </a>
-            </div>
-            
-            <p class="cta-note" data-i18n="finalCta.note">⚡ Anında aktivasyon · 🔒 14 gün iade garantisi · 💳 Güvenli ödeme</p>
-          </div>
-        </div>
-      </div>
-      
     </div>
   </section>
   
-  <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
-      <div class="footer-grid">
-        <div class="footer-col">
-          <a href="/" class="nav-logo">
-            <span class="nav-logo-icon">🎯</span>
-            <span class="nav-logo-text gradient-text-aurora">NICHIFY</span>
-            <span class="badge badge-pro badge-sm">PRO</span>
-          </a>
-          <p class="footer-desc" data-i18n="footer.desc">YouTube'da kazançlı niş bulmanın en akıllı yolu.</p>
-        </div>
-        
-        <div class="footer-col">
-          <h4 data-i18n="footer.product">Ürün</h4>
-          <a href="/#features" data-i18n="nav.features">Özellikler</a>
-          <a href="/fiyatlandirma" data-i18n="nav.pricing">Fiyatlandırma</a>
-          <a href="/sss" data-i18n="nav.faq">SSS</a>
-        </div>
-        
-        <div class="footer-col">
-          <h4 data-i18n="footer.account">Hesap</h4>
-          <a href="/login" data-i18n="nav.login">Giriş Yap</a>
-          <a href="/register" data-i18n="footer.signup">Kayıt Ol</a>
-          <a href="/dashboard" data-i18n="footer.dashboard">Dashboard</a>
-        </div>
-        
-        <div class="footer-col">
-          <h4 data-i18n="footer.legal">Yasal</h4>
-          <a href="/gizlilik" data-i18n="footer.privacy">Gizlilik Politikası</a>
-          <a href="/kvkk">KVKK</a>
-          <a href="/sartlar" data-i18n="footer.terms">Kullanım Şartları</a>
-        </div>
-      </div>
-      
       <div class="footer-bottom">
-        <p>© 2025 NICHIFY PRO. <span data-i18n="footer.rights">Tüm hakları saklıdır.</span></p>
-        <p>Made with ❤️ for YouTube Creators</p>
+        <p>© 2025 NICHIFY PRO. Tüm hakları saklıdır.</p>
       </div>
     </div>
   </footer>
@@ -588,6 +272,6 @@
   <script src="/js/auth.js"></script>
   <script src="/js/utils.js"></script>
   <script src="/js/animations.js"></script>
-  <script src="/js/pricing.js?v=2"></script>
+  <script src="/js/pricing.js"></script>
 </body>
 </html>
