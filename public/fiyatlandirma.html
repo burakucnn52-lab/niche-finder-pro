@@ -32,9 +32,9 @@
         </a>
         
         <div class="nav-links hide-mobile">
-          <a href="/#features" class="nav-link">Özellikler</a>
-          <a href="/fiyatlandirma" class="nav-link" style="color: var(--accent-blue);">Fiyatlandırma</a>
-          <a href="/sss" class="nav-link">SSS</a>
+          <a href="/#features" class="nav-link" data-i18n="nav.features">Özellikler</a>
+          <a href="/fiyatlandirma" class="nav-link" style="color: var(--accent-blue);" data-i18n="nav.pricing">Fiyatlandırma</a>
+          <a href="/sss" class="nav-link" data-i18n="nav.faq">SSS</a>
         </div>
         
         <div class="nav-actions">
@@ -58,9 +58,9 @@
             </div>
           </div>
           
-          <a href="/login" class="btn btn-ghost btn-sm">Giriş Yap</a>
+          <a href="/login" class="btn btn-ghost btn-sm" data-i18n="nav.login">Giriş Yap</a>
           <a href="/register" class="btn btn-primary btn-sm">
-            <span>Ücretsiz Başla</span>
+            <span data-i18n="nav.signup">Ücretsiz Başla</span>
             <span>→</span>
           </a>
         </div>
@@ -74,18 +74,18 @@
       <div class="hero-content">
         <div class="hero-badge fade-in-down">
           <span class="live-indicator"></span>
-          <span>Lifetime Deal -</span>
+          <span data-i18n="hero.badge1">Lifetime Deal -</span>
           <strong id="stockText">88/100</strong>
-          <span>Slot Kaldı!</span>
+          <span data-i18n="hero.badge2">Slot Kaldı!</span>
         </div>
         
         <h1 class="hero-title fade-in-up stagger-1">
-          Kazançlı Nişleri<br>
-          <span class="gradient-text-aurora">Keşfet</span>
-          <span class="gradient-text">ve Büyüt</span>
+          <span data-i18n="hero.title1">Kazançlı Nişleri</span><br>
+          <span class="gradient-text-aurora" data-i18n="hero.title2">Keşfet</span>
+          <span class="gradient-text" data-i18n="hero.title3">ve Büyüt</span>
         </h1>
         
-        <p class="hero-subtitle fade-in-up stagger-2">
+        <p class="hero-subtitle fade-in-up stagger-2" data-i18n="hero.subtitle">
           Tüm planlar 14 gün iade garantilidir. İhtiyacın olan planı seç, istediğin zaman değiştir.
         </p>
       </div>
@@ -93,15 +93,15 @@
       <div class="lifetime-banner fade-in-up stagger-3">
         <div class="lifetime-banner-content">
           <div class="lifetime-banner-left">
-            <div class="lifetime-badge-fire">🔥 KURUCU ÜYE FIRSATI</div>
-            <h2>Bir Defa Öde, Ömür Boyu Kullan</h2>
-            <p>İlk 100 kişiye özel. Tüm özellikler + gelecek güncellemeler dahil.</p>
+            <div class="lifetime-badge-fire">🔥 <span data-i18n="lifetime.founder">KURUCU ÜYE FIRSATI</span></div>
+            <h2 data-i18n="lifetime.title">Bir Defa Öde, Ömür Boyu Kullan</h2>
+            <p data-i18n="lifetime.subtitle">İlk 100 kişiye özel. Tüm özellikler + gelecek güncellemeler dahil.</p>
             
             <div class="lifetime-stock">
               <div class="stock-bar-mini">
                 <div class="stock-fill-mini" id="stockFill" style="width: 12%;"></div>
               </div>
-              <span><strong id="stockNumber">88</strong> kişilik kontenjan kaldı!</span>
+              <span><strong id="stockNumber">88</strong> <span data-i18n="lifetime.left">kişilik kontenjan kaldı!</span></span>
             </div>
           </div>
           
@@ -111,14 +111,14 @@
               <div class="lifetime-current-price">
                 <span class="lifetime-amount" data-price-tr="2.499 TL" data-price-en="$89">2.499 TL</span>
               </div>
-              <span class="lifetime-period">tek seferlik ödeme</span>
+              <span class="lifetime-period" data-i18n="lifetime.oneTime">tek seferlik ödeme</span>
             </div>
             
             <button class="btn btn-primary btn-xl btn-block pulse-glow" id="buyLifetimeBtn" data-plan="lifetime">
-              💎 Hemen Satın Al
+              💎 <span data-i18n="lifetime.cta">Hemen Satın Al</span>
             </button>
             
-            <p class="lifetime-guarantee">
+            <p class="lifetime-guarantee" data-i18n="lifetime.guarantee">
               ⚡ Anında aktivasyon · 🔒 Güvenli ödeme · 💯 14 gün iade
             </p>
           </div>
@@ -126,8 +126,8 @@
       </div>
       
       <div class="section-header text-center" style="margin-top: var(--space-2xl);">
-        <h2>Aylık <span class="gradient-text">Planlar</span></h2>
-        <p>Bütçene ve ihtiyaçlarına göre planı seç</p>
+        <h2><span data-i18n="plans.title1">Aylık</span> <span class="gradient-text" data-i18n="plans.title2">Planlar</span></h2>
+        <p data-i18n="plans.subtitle">Bütçene ve ihtiyaçlarına göre planı seç</p>
       </div>
       
       <div class="plans-grid">
@@ -136,63 +136,63 @@
           <div class="plan-header">
             <div class="plan-icon">🌱</div>
             <h3 class="plan-name">STARTER</h3>
-            <p class="plan-desc">Yeni başlayanlar için</p>
+            <p class="plan-desc" data-i18n="starter.desc">Yeni başlayanlar için</p>
           </div>
           
           <div class="plan-price">
             <span class="plan-currency" data-currency-symbol>₺</span>
             <span class="plan-amount" data-price-tr="299" data-price-en="9.99">299</span>
-            <span class="plan-period">/ay</span>
+            <span class="plan-period" data-i18n="plans.perMonth">/ay</span>
           </div>
           
           <ul class="plan-features">
-            <li>✅ <strong>30</strong> niş arama/gün</li>
-            <li>✅ Temel niş verileri</li>
-            <li>✅ Mikro niş üretici</li>
-            <li>✅ <strong>3</strong> ülke trend verisi</li>
-            <li>✅ <strong>20</strong> favori</li>
-            <li>✅ Tahmini kazanç</li>
-            <li>✅ Email destek</li>
-            <li class="disabled">❌ AI Asistan</li>
-            <li class="disabled">❌ Hidden Opportunity</li>
-            <li class="disabled">❌ Risk Detector</li>
+            <li>✅ <strong>30</strong> <span data-i18n="features.searchPerDay">niş arama/gün</span></li>
+            <li>✅ <span data-i18n="features.basicData">Temel niş verileri</span></li>
+            <li>✅ <span data-i18n="features.microNiche">Mikro niş üretici</span></li>
+            <li>✅ <strong>3</strong> <span data-i18n="features.countries">ülke trend verisi</span></li>
+            <li>✅ <strong>20</strong> <span data-i18n="features.favorites">favori</span></li>
+            <li>✅ <span data-i18n="features.estimatedEarnings">Tahmini kazanç</span></li>
+            <li>✅ <span data-i18n="features.emailSupport">Email destek</span></li>
+            <li class="disabled">❌ <span data-i18n="features.aiAssistant">AI Asistan</span></li>
+            <li class="disabled">❌ <span data-i18n="features.hiddenOpp">Hidden Opportunity</span></li>
+            <li class="disabled">❌ <span data-i18n="features.riskDetector">Risk Detector</span></li>
           </ul>
           
           <button class="btn btn-glass btn-block plan-btn" data-plan="starter">
-            Planı Seç
+            <span data-i18n="plans.choose">Planı Seç</span>
           </button>
         </div>
         
         <div class="plan-card plan-popular pop-in" data-plan="creator">
-          <div class="plan-ribbon">⭐ EN POPÜLER</div>
+          <div class="plan-ribbon">⭐ <span data-i18n="plans.popular">EN POPÜLER</span></div>
           
           <div class="plan-header">
             <div class="plan-icon">🎬</div>
             <h3 class="plan-name">CREATOR</h3>
-            <p class="plan-desc">Aktif YouTuber'lar için</p>
+            <p class="plan-desc" data-i18n="creator.desc">Aktif YouTuber'lar için</p>
           </div>
           
           <div class="plan-price">
             <span class="plan-currency" data-currency-symbol>₺</span>
             <span class="plan-amount" data-price-tr="549" data-price-en="17.99">549</span>
-            <span class="plan-period">/ay</span>
+            <span class="plan-period" data-i18n="plans.perMonth">/ay</span>
           </div>
           
           <ul class="plan-features">
-            <li>✅ <strong>100</strong> niş arama/gün</li>
-            <li>✅ Temel niş verileri</li>
-            <li>✅ Mikro niş üretici</li>
-            <li>✅ Hidden Opportunity</li>
-            <li>✅ Risk Detector</li>
-            <li>✅ <strong>5</strong> ülke trend verisi</li>
-            <li>✅ <strong>50</strong> favori</li>
-            <li>✅ PDF Export</li>
-            <li>✅ Email destek</li>
-            <li class="disabled">❌ AI Asistan</li>
+            <li>✅ <strong>100</strong> <span data-i18n="features.searchPerDay">niş arama/gün</span></li>
+            <li>✅ <span data-i18n="features.basicData">Temel niş verileri</span></li>
+            <li>✅ <span data-i18n="features.microNiche">Mikro niş üretici</span></li>
+            <li>✅ <span data-i18n="features.hiddenOpp">Hidden Opportunity</span></li>
+            <li>✅ <span data-i18n="features.riskDetector">Risk Detector</span></li>
+            <li>✅ <strong>5</strong> <span data-i18n="features.countries">ülke trend verisi</span></li>
+            <li>✅ <strong>50</strong> <span data-i18n="features.favorites">favori</span></li>
+            <li>✅ <span data-i18n="features.pdfExport">PDF Export</span></li>
+            <li>✅ <span data-i18n="features.emailSupport">Email destek</span></li>
+            <li class="disabled">❌ <span data-i18n="features.aiAssistant">AI Asistan</span></li>
           </ul>
           
           <button class="btn btn-primary btn-block plan-btn pulse-glow" data-plan="creator">
-            Planı Seç
+            <span data-i18n="plans.choose">Planı Seç</span>
           </button>
         </div>
         
@@ -200,30 +200,30 @@
           <div class="plan-header">
             <div class="plan-icon">🚀</div>
             <h3 class="plan-name">GROWTH</h3>
-            <p class="plan-desc">Büyüyen kanallar için</p>
+            <p class="plan-desc" data-i18n="growth.desc">Büyüyen kanallar için</p>
           </div>
           
           <div class="plan-price">
             <span class="plan-currency" data-currency-symbol>₺</span>
             <span class="plan-amount" data-price-tr="799" data-price-en="26.99">799</span>
-            <span class="plan-period">/ay</span>
+            <span class="plan-period" data-i18n="plans.perMonth">/ay</span>
           </div>
           
           <ul class="plan-features">
-            <li>✅ <strong>500</strong> niş arama/gün</li>
-            <li>✅ Tüm temel özellikler</li>
-            <li>✅ Hidden Opportunity</li>
-            <li>✅ Risk Detector</li>
-            <li>✅ Kanal Analizi</li>
-            <li>✅ AI Asistan</li>
-            <li>✅ 11 ülke trend verisi</li>
-            <li>✅ <strong>200</strong> favori</li>
-            <li>✅ PDF Export</li>
-            <li>✅ Öncelikli destek</li>
+            <li>✅ <strong>500</strong> <span data-i18n="features.searchPerDay">niş arama/gün</span></li>
+            <li>✅ <span data-i18n="features.allBasic">Tüm temel özellikler</span></li>
+            <li>✅ <span data-i18n="features.hiddenOpp">Hidden Opportunity</span></li>
+            <li>✅ <span data-i18n="features.riskDetector">Risk Detector</span></li>
+            <li>✅ <span data-i18n="features.channelAnalysis">Kanal Analizi</span></li>
+            <li>✅ <span data-i18n="features.aiAssistant">AI Asistan</span></li>
+            <li>✅ <span data-i18n="features.allCountries">11 ülke trend verisi</span></li>
+            <li>✅ <strong>200</strong> <span data-i18n="features.favorites">favori</span></li>
+            <li>✅ <span data-i18n="features.pdfExport">PDF Export</span></li>
+            <li>✅ <span data-i18n="features.prioritySupport">Öncelikli destek</span></li>
           </ul>
           
           <button class="btn btn-glass btn-block plan-btn" data-plan="growth">
-            Planı Seç
+            <span data-i18n="plans.choose">Planı Seç</span>
           </button>
         </div>
         
@@ -231,30 +231,30 @@
           <div class="plan-header">
             <div class="plan-icon">👑</div>
             <h3 class="plan-name">ALL-IN-ONE</h3>
-            <p class="plan-desc">Profesyoneller için</p>
+            <p class="plan-desc" data-i18n="allinone.desc">Profesyoneller için</p>
           </div>
           
           <div class="plan-price">
             <span class="plan-currency" data-currency-symbol>₺</span>
             <span class="plan-amount" data-price-tr="1099" data-price-en="33.99">1.099</span>
-            <span class="plan-period">/ay</span>
+            <span class="plan-period" data-i18n="plans.perMonth">/ay</span>
           </div>
           
           <ul class="plan-features">
-            <li>✅ <strong>Sınırsız</strong> arama</li>
-            <li>✅ Her şey dahil</li>
-            <li>✅ Hidden Opportunity</li>
-            <li>✅ Risk Detector</li>
-            <li>✅ Kanal Analizi</li>
-            <li>✅ AI Asistan (Sınırsız)</li>
-            <li>✅ 11 ülke trend verisi</li>
-            <li>✅ <strong>Sınırsız</strong> favori</li>
-            <li>✅ API Erişimi</li>
-            <li>✅ VIP Destek</li>
+            <li>✅ <strong><span data-i18n="features.unlimited">Sınırsız</span></strong> <span data-i18n="features.searches">arama</span></li>
+            <li>✅ <span data-i18n="features.everything">Her şey dahil</span></li>
+            <li>✅ <span data-i18n="features.hiddenOpp">Hidden Opportunity</span></li>
+            <li>✅ <span data-i18n="features.riskDetector">Risk Detector</span></li>
+            <li>✅ <span data-i18n="features.channelAnalysis">Kanal Analizi</span></li>
+            <li>✅ <span data-i18n="features.aiAssistant">AI Asistan (Sınırsız)</span></li>
+            <li>✅ <span data-i18n="features.allCountries">11 ülke trend verisi</span></li>
+            <li>✅ <strong><span data-i18n="features.unlimited">Sınırsız</span></strong> <span data-i18n="features.favorites">favori</span></li>
+            <li>✅ <span data-i18n="features.apiAccess">API Erişimi</span></li>
+            <li>✅ <span data-i18n="features.vipSupport">VIP Destek</span></li>
           </ul>
           
           <button class="btn btn-glass btn-block plan-btn" data-plan="allinone">
-            Planı Seç
+            <span data-i18n="plans.choose">Planı Seç</span>
           </button>
         </div>
         
@@ -266,7 +266,7 @@
   <footer class="footer">
     <div class="container">
       <div class="footer-bottom">
-        <p>© 2025 NICHIFY PRO. Tüm hakları saklıdır.</p>
+        <p>© 2025 NICHIFY PRO. <span data-i18n="footer.rights">Tüm hakları saklıdır.</span></p>
       </div>
     </div>
   </footer>
