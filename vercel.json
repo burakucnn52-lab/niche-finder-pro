@@ -21,5 +21,25 @@
     { "source": "/gizlilik", "destination": "/gizlilik.html" },
     { "source": "/kvkk", "destination": "/kvkk.html" },
     { "source": "/sartlar", "destination": "/sartlar.html" }
+  ],
+  "headers": [
+    {
+      "source": "/fiyatlandirma",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, must-revalidate"
+        }
+      ]
+    },
+    {
+      "source": "/(.*).html",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, must-revalidate"
+        }
+      ]
+    }
   ]
 }
