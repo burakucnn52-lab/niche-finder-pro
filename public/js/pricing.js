@@ -263,8 +263,8 @@ function setupEvents() {
   }
 }
 
-// BAŞLAT
-(async function() {
+// BAŞLAT - HTML yüklendikten sonra çalıştır
+async function startApp() {
   console.log('🎬 Init başlıyor...');
   await detectLocation();
   applyTranslations();
@@ -272,4 +272,13 @@ function setupEvents() {
   updateSwitcher();
   setupEvents();
   console.log('✅ TÜM SİSTEM HAZIR!');
-})();
+}
+
+// HTML hazırsa hemen başlat, değilse bekle
+if (document.readyState === 'loading') {
+  console.log('⏳ HTML yükleniyor, bekleniyor...');
+  document.addEventListener('DOMContentLoaded', startApp);
+} else {
+  console.log('✅ HTML hazır, hemen başla');
+  startApp();
+}
