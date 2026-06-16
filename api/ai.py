@@ -40,7 +40,7 @@ def call_gemini_api(messages, max_tokens=1500):
     if not api_key:
         return {'error': 'Gemini API key bulunamadı. Lütfen yöneticiyle iletişime geçin.'}
     
-    url = f'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key={api_key}'
+    url = f'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}'
     
     # Gemini formatına çevir
     gemini_contents = []
