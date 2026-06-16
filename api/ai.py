@@ -175,7 +175,7 @@ class handler(BaseHTTPRequestHandler):
             user_id = data.get('user_id', '')
             user_email = data.get('user_email', '')
             
-            # GET API KEY - Frontend için key sağla
+                       # GET API KEYS - Frontend için TÜM keyleri sağla
             if action == 'get_key':
                 # Tüm Gemini keyleri topla
                 all_keys = []
@@ -205,6 +205,15 @@ class handler(BaseHTTPRequestHandler):
                             'limit_reached': True
                         }).encode())
                         return
+                
+                # ✅ TÜM KEYLERİ DÖN (random değil)
+                self.wfile.write(json.dumps({
+                    'success': True,
+                    'api_keys': all_keys,  # Liste olarak gönder
+                    'is_admin': is_admin,
+                    'total_keys': len(all_keys)
+                }).encode())
+                return
                 
                 # Random key seç (load balancing)
                 selected_key = random.choice(all_keys)
