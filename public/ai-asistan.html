@@ -322,7 +322,7 @@ YASAK:
     // ============================================
     // API KEY AL (Backend'den)
     // ============================================
-    async function getApiKey() {
+        async function getApiKeys() {
       try {
         const response = await fetch('/api/ai', {
           method: 'POST',
@@ -340,8 +340,8 @@ YASAK:
           return { error: result.error, limit_reached: true };
         }
         
-        if (result.success && result.api_key) {
-          return { apiKey: result.api_key, isAdmin: result.is_admin };
+        if (result.success && result.api_keys) {
+          return { apiKeys: result.api_keys, isAdmin: result.is_admin };
         }
         
         return { error: result.error || 'API key alınamadı' };
@@ -446,9 +446,9 @@ YASAK:
       
       const typingId = showTyping();
       
-      try {
-        // 1. API key al
-        const keyResult = await getApiKey();
+            try {
+        // 1. API keyleri al
+        const keyResult = await getApiKeys();
         
         if (keyResult.error) {
           removeTyping(typingId);
@@ -469,10 +469,32 @@ YASAK:
           messages = chatHistory;
         }
         
-        // 3. Gemini'ye direkt çağrı
-        const result = await callGeminiDirect(messages, keyResult.apiKey, isQuickAction ? 2000 : 1500);
+        // 3. ✅ TÜM KEYLERİ SIRAYLA DENE
+        let result = null;
+        let lastError = null;
+        
+        for (let i = 0; i < keyResult.apiKeys.length; i++) {
+          const currentKey = keyResult.apiKeys[i];
+          console.log(`🔑 Key #${i + 1} deneniyor...`);
+          
+          result = await callGeminiDirect(messages, currentKey, isQuickAction ? 2000 : 1500);
+          
+          if (result.success) {
+            console.log(`✅ Key #${i + 1} başarılı!`);
+            break;
+          }
+          
+          console.log(`⚠️ Key #${i + 1} hatası: ${result.error}`);
+          lastError = result.error;
+        }
         
         removeTyping(typingId);
+        
+        if (!result || !result.success) {
+          showError(lastError || '⚠️ Tüm API keyler dolu. Yarın tekrar deneyin.');
+          isLoading = false;
+          return;
+        }
         
         if (result.success && result.response) {
           addMessage('bot', result.response);
