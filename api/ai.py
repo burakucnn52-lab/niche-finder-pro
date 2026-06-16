@@ -10,7 +10,7 @@ import urllib.parse
 ADMIN_EMAILS = ['bucun648@gmail.com']
 
 # ============================================
-# SYSTEM PROMPT - AI'ın kimliği
+# SYSTEM PROMPT
 # ============================================
 SYSTEM_PROMPT = """Sen NICHIFY PRO'nun yapay zeka asistanısın. YouTube niş bulma, kanal analizi, içerik üretimi ve YouTube büyütme konularında uzmansın.
 
@@ -44,7 +44,6 @@ YASAK:
 # ADMIN KONTROLÜ
 # ============================================
 def is_admin_user(user_email, db_user=None):
-    """Admin kontrolü - 3 farklı yolla"""
     if user_email:
         clean_email = user_email.strip().lower()
         if clean_email in [e.lower() for e in ADMIN_EMAILS]:
@@ -60,10 +59,70 @@ def is_admin_user(user_email, db_user=None):
 
 
 # ============================================
-# GROQ API ÇAĞRISI (Llama 3.3 70B)
+# CEREBRAS API ÇAĞRISI (Llama 3.3 70B) - ANA
+# ============================================
+def call_cerebras_api(messages, max_tokens=1500):
+    """Cerebras API'ye istek at - Vercel uyumlu, süper hızlı"""
+    api_key = os.environ.get('CEREBRAS_API_KEY', '')
+    
+    if not api_key:
+        return {'error': 'Cerebras API key yok', 'skip': True}
+    
+    url = 'https://api.cerebras.ai/v1/chat/completions'
+    
+    # System + user/assistant mesajlar
+    cerebras_messages = [{'role': 'system', 'content': SYSTEM_PROMPT}]
+    
+    for msg in messages:
+        role = msg.get('role', 'user')
+        if role == 'assistant':
+            cerebras_messages.append({'role': 'assistant', 'content': msg.get('content', '')})
+        else:
+            cerebras_messages.append({'role': 'user', 'content': msg.get('content', '')})
+    
+    payload = {
+        'model': 'llama-3.3-70b',
+        'messages': cerebras_messages,
+        'temperature': 0.7,
+        'max_tokens': max_tokens,
+        'top_p': 0.95
+    }
+    
+    try:
+        data = json.dumps(payload).encode('utf-8')
+        req = urllib.request.Request(url, data=data, method='POST')
+        req.add_header('Content-Type', 'application/json')
+        req.add_header('Authorization', f'Bearer {api_key}')
+        
+        with urllib.request.urlopen(req, timeout=30) as response:
+            result = json.loads(response.read().decode('utf-8'))
+            
+            if 'choices' in result and len(result['choices']) > 0:
+                text = result['choices'][0]['message']['content']
+                print(f"✅ Cerebras başarılı!")
+                return {
+                    'success': True,
+                    'response': text,
+                    'provider': 'cerebras'
+                }
+            else:
+                return {'error': 'Cerebras yanıt veremedi', 'skip': True}
+    
+    except urllib.error.HTTPError as e:
+        error_body = e.read().decode('utf-8')
+        print(f"⚠️ Cerebras hatası: {e.code} - {error_body[:200]}")
+        return {'error': f'Cerebras hatası: {e.code}', 'skip': True}
+    
+    except Exception as e:
+        print(f"❌ Cerebras bağlantı hatası: {e}")
+        return {'error': f'Cerebras bağlantı hatası: {str(e)}', 'skip': True}
+
+
+# ============================================
+# GROQ API ÇAĞRISI (Llama 3.3 70B) - YEDEK
 # ============================================
 def call_groq_api(messages, max_tokens=1500):
-    """Groq API'ye istek at (Llama 3.3 70B)"""
+    """Groq API'ye istek at"""
     api_key = os.environ.get('GROQ_API_KEY', '')
     
     if not api_key:
@@ -71,7 +130,6 @@ def call_groq_api(messages, max_tokens=1500):
     
     url = 'https://api.groq.com/openai/v1/chat/completions'
     
-    # Groq formatı: system + user/assistant mesajlar
     groq_messages = [{'role': 'system', 'content': SYSTEM_PROMPT}]
     
     for msg in messages:
@@ -112,9 +170,7 @@ def call_groq_api(messages, max_tokens=1500):
     except urllib.error.HTTPError as e:
         error_body = e.read().decode('utf-8')
         print(f"⚠️ Groq hatası: {e.code} - {error_body[:200]}")
-        if e.code in [429, 403]:
-            return {'error': 'Groq limit doldu', 'skip': True}
-        return {'error': f'Groq API hatası: {e.code}', 'skip': True}
+        return {'error': f'Groq hatası: {e.code}', 'skip': True}
     
     except Exception as e:
         print(f"❌ Groq bağlantı hatası: {e}")
@@ -122,12 +178,11 @@ def call_groq_api(messages, max_tokens=1500):
 
 
 # ============================================
-# GEMINI API ÇAĞRISI (Multi Key Rotation)
+# GEMINI API ÇAĞRISI (Multi Key) - YEDEK
 # ============================================
 def call_gemini_api(messages, max_tokens=1500):
     """Gemini API'ye istek at - Multi key rotation"""
     
-    # Tüm Gemini key'leri topla
     api_keys = []
     
     key1 = os.environ.get('GEMINI_API_KEY', '')
@@ -144,7 +199,6 @@ def call_gemini_api(messages, max_tokens=1500):
     
     print(f"🔑 Toplam {len(api_keys)} Gemini key bulundu")
     
-    # Gemini formatına çevir
     gemini_contents = []
     for msg in messages:
         role = 'user' if msg.get('role') == 'user' else 'model'
@@ -172,7 +226,6 @@ def call_gemini_api(messages, max_tokens=1500):
         ]
     }
     
-    # Her Gemini key'i sırayla dene
     for index, api_key in enumerate(api_keys):
         key_number = index + 1
         print(f"🔄 Gemini Key #{key_number} deneniyor...")
@@ -200,43 +253,52 @@ def call_gemini_api(messages, max_tokens=1500):
                         }
         
         except urllib.error.HTTPError as e:
-            print(f"⚠️ Gemini Key #{key_number} hatası: {e.code}")
-            if e.code in [429, 403]:
-                continue  # Sonraki key'i dene
-            return {'error': f'Gemini API hatası: {e.code}', 'skip': True}
+            error_body = e.read().decode('utf-8')
+            print(f"⚠️ Gemini Key #{key_number} hatası: {e.code} - {error_body[:150]}")
+            continue
         
         except Exception as e:
             print(f"❌ Gemini Key #{key_number} bağlantı hatası: {e}")
             continue
     
-    return {'error': 'Tüm Gemini keyler doldu', 'skip': True}
+    return {'error': 'Tüm Gemini keyler başarısız', 'skip': True}
 
 
 # ============================================
-# ANA AI ÇAĞRISI (Groq + Gemini Rotation)
+# ANA AI ÇAĞRISI (Cerebras → Gemini → Groq)
 # ============================================
 def call_ai(messages, max_tokens=1500):
     """
-    AI servisi çağırma - Groq öncelikli, sonra Gemini
-    Sıralama: Groq → Gemini Key 1 → Gemini Key 2 → ...
+    AI servisi çağırma - Öncelik sırası:
+    1. Cerebras (en hızlı, Vercel uyumlu)
+    2. Gemini (çoklu key, yedek)
+    3. Groq (Cloudflare 1010 nedeniyle son çare)
     """
     
-    # 1️⃣ ÖNCE GROQ DENE (en yüksek limit, en hızlı)
-    print("🚀 Groq deneniyor...")
-    groq_result = call_groq_api(messages, max_tokens)
+    # 1️⃣ CEREBRAS DENE (Ana - en hızlı)
+    print("🧠 Cerebras deneniyor...")
+    cerebras_result = call_cerebras_api(messages, max_tokens)
     
-    if groq_result.get('success'):
-        return groq_result
+    if cerebras_result.get('success'):
+        return cerebras_result
     
-    print(f"⚠️ Groq başarısız, Gemini'ye geçiliyor...")
+    print(f"⚠️ Cerebras başarısız, Gemini'ye geçiliyor...")
     
-    # 2️⃣ GROQ DOLU/HATA → GEMINI'YE GEÇ
+    # 2️⃣ GEMINI DENE (Yedek)
     gemini_result = call_gemini_api(messages, max_tokens)
     
     if gemini_result.get('success'):
         return gemini_result
     
-    # 3️⃣ HER İKİSİ DE BAŞARISIZ
+    print(f"⚠️ Gemini de başarısız, Groq deneniyor...")
+    
+    # 3️⃣ GROQ DENE (Son çare - Cloudflare sorunu olabilir)
+    groq_result = call_groq_api(messages, max_tokens)
+    
+    if groq_result.get('success'):
+        return groq_result
+    
+    # ❌ HEPSİ BAŞARISIZ
     print("❌ Tüm AI servisleri başarısız")
     return {
         'error': '⚠️ AI servisi şu an çok yoğun. Lütfen 1-2 dakika sonra tekrar deneyin.'
@@ -247,12 +309,10 @@ def call_ai(messages, max_tokens=1500):
 # KULLANICI LİMİT KONTROLÜ
 # ============================================
 def check_user_limit(user_id, user_email):
-    """Kullanıcının günlük limitini kontrol et"""
     try:
         supabase_url = os.environ.get('SUPABASE_URL', '')
         supabase_key = os.environ.get('SUPABASE_SERVICE_ROLE_KEY', '')
         
-        # Email ile admin kontrolü
         if is_admin_user(user_email):
             print(f"✅ Admin tanındı (email): {user_email}")
             return {'allowed': True, 'remaining': 999, 'is_admin': True, 'limit': 999, 'used': 0}
@@ -260,7 +320,6 @@ def check_user_limit(user_id, user_email):
         if not supabase_url or not supabase_key:
             return {'allowed': True, 'remaining': 999}
         
-        # Kullanıcı bilgisini çek
         url = f"{supabase_url}/rest/v1/users?id=eq.{user_id}&select=is_premium,premium_type,is_admin,role,email"
         req = urllib.request.Request(url)
         req.add_header('apikey', supabase_key)
@@ -274,7 +333,6 @@ def check_user_limit(user_id, user_email):
             
             user = users[0]
             
-            # Database admin kontrolü
             if is_admin_user(user_email, user):
                 print(f"✅ Admin tanındı (database): {user.get('email')}")
                 return {'allowed': True, 'remaining': 999, 'is_admin': True, 'limit': 999, 'used': 0}
@@ -318,7 +376,6 @@ def check_user_limit(user_id, user_email):
 # KULLANIM SAYACI
 # ============================================
 def increment_usage(user_id, is_admin=False):
-    """Kullanım sayacını artır (admin için artırma)"""
     if is_admin:
         print("✅ Admin - sayaç artırılmadı")
         return
@@ -381,7 +438,6 @@ def increment_usage(user_id, is_admin=False):
 # QUICK PROMPT ŞABLONLARI
 # ============================================
 def get_quick_prompt(action, context=''):
-    """Hızlı prompt şablonları"""
     prompts = {
         'niche_ideas': f"YouTube'da kazançlı niş önerileri ver. Eğer kullanıcı belirli bir alan belirttiyse o alanda spesifik olsun. Context: {context}",
         'video_titles': f"Bu konu için 10 adet viral olabilecek YouTube video başlığı öner: {context}",
@@ -418,7 +474,6 @@ class handler(BaseHTTPRequestHandler):
             
             print(f"📨 Request: action={action}, user_email={user_email}")
             
-            # Limit kontrolü
             is_admin = False
             if action != 'status' and user_id:
                 limit_check = check_user_limit(user_id, user_email)
@@ -432,7 +487,6 @@ class handler(BaseHTTPRequestHandler):
                     }).encode())
                     return
             
-            # CHAT
             if action == 'chat':
                 messages = data.get('messages', [])
                 
@@ -448,7 +502,6 @@ class handler(BaseHTTPRequestHandler):
                 self.wfile.write(json.dumps(result).encode())
                 return
             
-            # QUICK ACTIONS
             elif action in ['niche_ideas', 'video_titles', 'thumbnail_ideas', 'hook_writer', 'content_plan', 'channel_audit', 'seo_tips', 'growth_strategy']:
                 context = data.get('context', '')
                 prompt = get_quick_prompt(action, context)
@@ -462,8 +515,8 @@ class handler(BaseHTTPRequestHandler):
                 self.wfile.write(json.dumps(result).encode())
                 return
             
-            # STATUS
             elif action == 'status':
+                cerebras_active = bool(os.environ.get('CEREBRAS_API_KEY'))
                 groq_active = bool(os.environ.get('GROQ_API_KEY'))
                 gemini_count = 0
                 if os.environ.get('GEMINI_API_KEY'):
@@ -474,9 +527,12 @@ class handler(BaseHTTPRequestHandler):
                 
                 self.wfile.write(json.dumps({
                     'status': 'ok',
-                    'service': 'NICHIFY AI (Groq + Gemini)',
-                    'groq_active': groq_active,
-                    'gemini_keys': gemini_count
+                    'service': 'NICHIFY AI (Cerebras + Gemini + Groq)',
+                    'providers': {
+                        'cerebras': cerebras_active,
+                        'groq': groq_active,
+                        'gemini_keys': gemini_count
+                    }
                 }).encode())
                 return
             
@@ -493,6 +549,7 @@ class handler(BaseHTTPRequestHandler):
         self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
         
+        cerebras_active = bool(os.environ.get('CEREBRAS_API_KEY'))
         groq_active = bool(os.environ.get('GROQ_API_KEY'))
         gemini_count = 0
         if os.environ.get('GEMINI_API_KEY'):
@@ -505,6 +562,7 @@ class handler(BaseHTTPRequestHandler):
             'status': 'ok',
             'service': 'NICHIFY AI Assistant',
             'providers': {
+                'cerebras': cerebras_active,
                 'groq': groq_active,
                 'gemini_keys': gemini_count
             }
