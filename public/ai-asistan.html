@@ -13,358 +13,56 @@
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
   
   <style>
-    .ai-container {
-      display: flex;
-      flex-direction: column;
-      height: calc(100vh - 100px);
-      max-height: 800px;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-    }
-    
-    .ai-quick-actions {
-      display: flex;
-      gap: var(--space-sm);
-      padding: var(--space-md);
-      background: var(--bg-secondary);
-      border-bottom: 1px solid var(--border-color);
-      overflow-x: auto;
-      flex-shrink: 0;
-    }
-    
-    .ai-quick-action {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 8px 14px;
-      background: var(--bg-tertiary);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      font-size: 0.8125rem;
-      font-weight: 600;
-      color: var(--text-secondary);
-      cursor: pointer;
-      transition: all var(--transition-fast);
-      white-space: nowrap;
-      flex-shrink: 0;
-    }
-    
-    .ai-quick-action:hover {
-      background: var(--bg-elevated);
-      border-color: var(--accent-blue);
-      color: var(--text-primary);
-    }
-    
-    .ai-messages {
-      flex: 1;
-      overflow-y: auto;
-      padding: var(--space-lg);
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-md);
-    }
-    
-    .ai-welcome {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: var(--space-2xl);
-      flex: 1;
-    }
-    
-    .ai-welcome-icon {
-      font-size: 4rem;
-      margin-bottom: var(--space-lg);
-      animation: float 3s ease-in-out infinite;
-    }
-    
-    .ai-welcome h2 {
-      font-size: 1.75rem;
-      margin-bottom: var(--space-md);
-    }
-    
-    .ai-welcome p {
-      color: var(--text-secondary);
-      max-width: 500px;
-      margin: 0 auto var(--space-xl);
-      line-height: 1.7;
-    }
-    
-    .ai-suggestions {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-sm);
-      max-width: 600px;
-      width: 100%;
-    }
-    
-    @media (max-width: 640px) {
-      .ai-suggestions { grid-template-columns: 1fr; }
-    }
-    
-    .ai-suggestion-card {
-      background: var(--bg-elevated);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: var(--space-md);
-      text-align: left;
-      cursor: pointer;
-      transition: all var(--transition-base);
-    }
-    
-    .ai-suggestion-card:hover {
-      border-color: var(--accent-blue);
-      transform: translateY(-2px);
-    }
-    
+    .ai-container { display: flex; flex-direction: column; height: calc(100vh - 100px); max-height: 800px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); overflow: hidden; }
+    .ai-quick-actions { display: flex; gap: var(--space-sm); padding: var(--space-md); background: var(--bg-secondary); border-bottom: 1px solid var(--border-color); overflow-x: auto; flex-shrink: 0; }
+    .ai-quick-action { display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: var(--radius-md); font-size: 0.8125rem; font-weight: 600; color: var(--text-secondary); cursor: pointer; transition: all var(--transition-fast); white-space: nowrap; flex-shrink: 0; }
+    .ai-quick-action:hover { background: var(--bg-elevated); border-color: var(--accent-blue); color: var(--text-primary); }
+    .ai-messages { flex: 1; overflow-y: auto; padding: var(--space-lg); display: flex; flex-direction: column; gap: var(--space-md); }
+    .ai-welcome { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: var(--space-2xl); flex: 1; }
+    .ai-welcome-icon { font-size: 4rem; margin-bottom: var(--space-lg); animation: float 3s ease-in-out infinite; }
+    .ai-welcome h2 { font-size: 1.75rem; margin-bottom: var(--space-md); }
+    .ai-welcome p { color: var(--text-secondary); max-width: 500px; margin: 0 auto var(--space-xl); line-height: 1.7; }
+    .ai-suggestions { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-sm); max-width: 600px; width: 100%; }
+    @media (max-width: 640px) { .ai-suggestions { grid-template-columns: 1fr; } }
+    .ai-suggestion-card { background: var(--bg-elevated); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: var(--space-md); text-align: left; cursor: pointer; transition: all var(--transition-base); }
+    .ai-suggestion-card:hover { border-color: var(--accent-blue); transform: translateY(-2px); }
     .ai-suggestion-icon { font-size: 1.5rem; margin-bottom: var(--space-sm); }
     .ai-suggestion-text { font-size: 0.875rem; color: var(--text-secondary); line-height: 1.5; }
-    
-    .ai-message {
-      display: flex;
-      gap: var(--space-md);
-      animation: fadeInUp 0.4s ease-out;
-    }
-    
+    .ai-message { display: flex; gap: var(--space-md); animation: fadeInUp 0.4s ease-out; }
     .ai-message-user { flex-direction: row-reverse; }
-    
-    .ai-message-avatar {
-      width: 36px; height: 36px;
-      border-radius: 50%;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.125rem;
-      flex-shrink: 0;
-      font-weight: 700;
-    }
-    
-    .ai-message-user .ai-message-avatar {
-      background: var(--gradient-primary);
-      color: white;
-    }
-    
-    .ai-message-bot .ai-message-avatar {
-      background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
-      color: white;
-    }
-    
-    .ai-message-bubble {
-      background: var(--bg-elevated);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-lg);
-      padding: var(--space-md) var(--space-lg);
-      max-width: 75%;
-      font-size: 0.9375rem;
-      line-height: 1.6;
-      color: var(--text-primary);
-      white-space: pre-wrap;
-      word-wrap: break-word;
-    }
-    
-    .ai-message-user .ai-message-bubble {
-      background: var(--gradient-primary);
-      color: white;
-      border: none;
-    }
-    
+    .ai-message-avatar { width: 36px; height: 36px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 1.125rem; flex-shrink: 0; font-weight: 700; }
+    .ai-message-user .ai-message-avatar { background: var(--gradient-primary); color: white; }
+    .ai-message-bot .ai-message-avatar { background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink)); color: white; }
+    .ai-message-bubble { background: var(--bg-elevated); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: var(--space-md) var(--space-lg); max-width: 75%; font-size: 0.9375rem; line-height: 1.6; color: var(--text-primary); white-space: pre-wrap; word-wrap: break-word; }
+    .ai-message-user .ai-message-bubble { background: var(--gradient-primary); color: white; border: none; }
     .ai-message-bubble strong { color: var(--accent-blue); }
     .ai-message-user .ai-message-bubble strong { color: white; text-decoration: underline; }
-    
-    .ai-message-bubble code {
-      background: var(--bg-primary);
-      padding: 2px 6px;
-      border-radius: var(--radius-sm);
-      font-size: 0.875em;
-      color: var(--accent-cyan);
-    }
-    
-    .ai-message-time {
-      font-size: 0.6875rem;
-      color: var(--text-muted);
-      margin-top: 4px;
-      display: block;
-    }
-    
+    .ai-message-bubble code { background: var(--bg-primary); padding: 2px 6px; border-radius: var(--radius-sm); font-size: 0.875em; color: var(--accent-cyan); }
+    .ai-message-time { font-size: 0.6875rem; color: var(--text-muted); margin-top: 4px; display: block; }
     .ai-message-user .ai-message-time { text-align: right; }
-    
-    .ai-typing {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: var(--space-md) var(--space-lg);
-    }
-    
-    .ai-typing-dot {
-      width: 8px; height: 8px;
-      border-radius: 50%;
-      background: var(--text-muted);
-      animation: typingBounce 1.4s infinite ease-in-out;
-    }
-    
+    .ai-typing { display: inline-flex; align-items: center; gap: 4px; padding: var(--space-md) var(--space-lg); }
+    .ai-typing-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--text-muted); animation: typingBounce 1.4s infinite ease-in-out; }
     .ai-typing-dot:nth-child(1) { animation-delay: -0.32s; }
     .ai-typing-dot:nth-child(2) { animation-delay: -0.16s; }
-    
-    @keyframes typingBounce {
-      0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; }
-      40% { transform: scale(1); opacity: 1; }
-    }
-    
-    .ai-input-area {
-      padding: var(--space-md);
-      background: var(--bg-secondary);
-      border-top: 1px solid var(--border-color);
-      flex-shrink: 0;
-    }
-    
-    .ai-input-wrapper {
-      display: flex;
-      gap: var(--space-sm);
-      align-items: flex-end;
-    }
-    
-    .ai-input {
-      flex: 1;
-      background: var(--bg-tertiary);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 12px 16px;
-      color: var(--text-primary);
-      font-size: 0.9375rem;
-      font-family: inherit;
-      resize: none;
-      min-height: 48px;
-      max-height: 150px;
-      transition: all var(--transition-base);
-      line-height: 1.5;
-    }
-    
-    .ai-input:focus {
-      border-color: var(--accent-blue);
-      background: var(--bg-elevated);
-      box-shadow: 0 0 0 3px rgba(77, 163, 255, 0.15);
-    }
-    
-    .ai-send-btn {
-      width: 48px; height: 48px;
-      border-radius: var(--radius-md);
-      background: var(--gradient-primary);
-      color: white;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.25rem;
-      cursor: pointer;
-      transition: all var(--transition-base);
-      flex-shrink: 0;
-      box-shadow: 0 4px 14px rgba(77, 163, 255, 0.3);
-    }
-    
-    .ai-send-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(77, 163, 255, 0.5);
-    }
-    
-    .ai-send-btn:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-    
-    .ai-input-info {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: var(--space-sm);
-      font-size: 0.6875rem;
-      color: var(--text-muted);
-    }
-    
-    .ai-input-hint {
-      display: flex;
-      align-items: center;
-      gap: var(--space-md);
-    }
-    
-    .ai-input-hint kbd {
-      background: var(--bg-elevated);
-      padding: 1px 6px;
-      border-radius: 3px;
-      border: 1px solid var(--border-color);
-      font-family: var(--font-mono);
-      font-size: 0.65rem;
-    }
-    
-    .ai-clear-btn {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: color var(--transition-fast);
-    }
-    
+    @keyframes typingBounce { 0%, 80%, 100% { transform: scale(0.8); opacity: 0.5; } 40% { transform: scale(1); opacity: 1; } }
+    .ai-input-area { padding: var(--space-md); background: var(--bg-secondary); border-top: 1px solid var(--border-color); flex-shrink: 0; }
+    .ai-input-wrapper { display: flex; gap: var(--space-sm); align-items: flex-end; }
+    .ai-input { flex: 1; background: var(--bg-tertiary); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 12px 16px; color: var(--text-primary); font-size: 0.9375rem; font-family: inherit; resize: none; min-height: 48px; max-height: 150px; transition: all var(--transition-base); line-height: 1.5; }
+    .ai-input:focus { border-color: var(--accent-blue); background: var(--bg-elevated); box-shadow: 0 0 0 3px rgba(77, 163, 255, 0.15); }
+    .ai-send-btn { width: 48px; height: 48px; border-radius: var(--radius-md); background: var(--gradient-primary); color: white; display: inline-flex; align-items: center; justify-content: center; font-size: 1.25rem; cursor: pointer; transition: all var(--transition-base); flex-shrink: 0; box-shadow: 0 4px 14px rgba(77, 163, 255, 0.3); }
+    .ai-send-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(77, 163, 255, 0.5); }
+    .ai-send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .ai-input-info { display: flex; align-items: center; justify-content: space-between; margin-top: var(--space-sm); font-size: 0.6875rem; color: var(--text-muted); }
+    .ai-input-hint { display: flex; align-items: center; gap: var(--space-md); }
+    .ai-input-hint kbd { background: var(--bg-elevated); padding: 1px 6px; border-radius: 3px; border: 1px solid var(--border-color); font-family: var(--font-mono); font-size: 0.65rem; }
+    .ai-clear-btn { font-size: 0.75rem; color: var(--text-muted); cursor: pointer; transition: color var(--transition-fast); }
     .ai-clear-btn:hover { color: var(--danger); }
-    
-    .ai-error {
-      background: rgba(255, 92, 122, 0.1);
-      border: 1px solid rgba(255, 92, 122, 0.3);
-      color: var(--danger);
-      padding: var(--space-md);
-      border-radius: var(--radius-md);
-      font-size: 0.875rem;
-      margin: var(--space-md) 0;
-    }
-    
-    .ai-status {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: var(--space-sm) var(--space-md);
-      background: var(--bg-secondary);
-      border-bottom: 1px solid var(--border-color);
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-    
-    .ai-status-info {
-      display: flex;
-      align-items: center;
-      gap: var(--space-sm);
-    }
-    
-    .ai-model-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 2px 8px;
-      background: linear-gradient(135deg, rgba(167, 139, 250, 0.15), rgba(244, 114, 182, 0.15));
-      border: 1px solid rgba(167, 139, 250, 0.3);
-      border-radius: var(--radius-full);
-      font-size: 0.6875rem;
-      color: var(--accent-purple);
-      font-weight: 600;
-    }
-    
-    .ai-limit-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 2px 8px;
-      background: rgba(255, 209, 102, 0.15);
-      border: 1px solid rgba(255, 209, 102, 0.3);
-      border-radius: var(--radius-full);
-      font-size: 0.6875rem;
-      color: var(--warning);
-      font-weight: 600;
-    }
-    
-    @media (max-width: 768px) {
-      .ai-container { height: calc(100vh - 80px); }
-      .ai-message-bubble { max-width: 85%; }
-      .ai-quick-actions { padding: var(--space-sm); }
-    }
+    .ai-error { background: rgba(255, 92, 122, 0.1); border: 1px solid rgba(255, 92, 122, 0.3); color: var(--danger); padding: var(--space-md); border-radius: var(--radius-md); font-size: 0.875rem; margin: var(--space-md) 0; }
+    .ai-status { display: flex; align-items: center; justify-content: space-between; padding: var(--space-sm) var(--space-md); background: var(--bg-secondary); border-bottom: 1px solid var(--border-color); font-size: 0.75rem; color: var(--text-muted); }
+    .ai-status-info { display: flex; align-items: center; gap: var(--space-sm); }
+    .ai-model-badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; background: linear-gradient(135deg, rgba(167, 139, 250, 0.15), rgba(244, 114, 182, 0.15)); border: 1px solid rgba(167, 139, 250, 0.3); border-radius: var(--radius-full); font-size: 0.6875rem; color: var(--accent-purple); font-weight: 600; }
+    .ai-limit-badge { display: inline-flex; align-items: center; gap: 4px; padding: 2px 8px; background: rgba(255, 209, 102, 0.15); border: 1px solid rgba(255, 209, 102, 0.3); border-radius: var(--radius-full); font-size: 0.6875rem; color: var(--warning); font-weight: 600; }
+    @media (max-width: 768px) { .ai-container { height: calc(100vh - 80px); } .ai-message-bubble { max-width: 85%; } .ai-quick-actions { padding: var(--space-sm); } }
   </style>
 </head>
 <body>
@@ -390,47 +88,26 @@
       <nav class="sidebar-nav">
         <div class="sidebar-section">
           <div class="sidebar-section-title">Ana Menü</div>
-          <a href="/dashboard" class="sidebar-item">
-            <span class="sidebar-item-icon">🏠</span>
-            <span>Anasayfa</span>
-          </a>
-          <a href="/nis-kesfi" class="sidebar-item">
-            <span class="sidebar-item-icon">🎯</span>
-            <span>Niş Keşfi</span>
-          </a>
-          <a href="/yukselen-kanallar" class="sidebar-item">
-            <span class="sidebar-item-icon">🔥</span>
-            <span>Yükselen Kanallar</span>
-          </a>
-          <a href="/kanal-analizi" class="sidebar-item">
-            <span class="sidebar-item-icon">📊</span>
-            <span>Kanal Analizi</span>
-          </a>
+          <a href="/dashboard" class="sidebar-item"><span class="sidebar-item-icon">🏠</span><span>Anasayfa</span></a>
+          <a href="/nis-kesfi" class="sidebar-item"><span class="sidebar-item-icon">🎯</span><span>Niş Keşfi</span></a>
+          <a href="/yukselen-kanallar" class="sidebar-item"><span class="sidebar-item-icon">🔥</span><span>Yükselen Kanallar</span></a>
+          <a href="/kanal-analizi" class="sidebar-item"><span class="sidebar-item-icon">📊</span><span>Kanal Analizi</span></a>
         </div>
         
         <div class="sidebar-section">
           <div class="sidebar-section-title">Araçlar</div>
-          <a href="/risk-detector" class="sidebar-item">
-            <span class="sidebar-item-icon">🛡️</span>
-            <span>Risk Detector</span>
-          </a>
+          <a href="/risk-detector" class="sidebar-item"><span class="sidebar-item-icon">🛡️</span><span>Risk Detector</span></a>
           <a href="/ai-asistan" class="sidebar-item active">
             <span class="sidebar-item-icon">🤖</span>
             <span>AI Asistan</span>
             <span class="badge badge-pro sidebar-item-badge">AKTİF</span>
           </a>
-          <a href="/yol-haritasi" class="sidebar-item">
-            <span class="sidebar-item-icon">🗺️</span>
-            <span>Yol Haritası</span>
-          </a>
+          <a href="/yol-haritasi" class="sidebar-item"><span class="sidebar-item-icon">🗺️</span><span>Yol Haritası</span></a>
         </div>
         
         <div class="sidebar-section" id="adminSection" style="display: none;">
           <div class="sidebar-section-title">👑 Admin</div>
-          <a href="/admin" class="sidebar-item">
-            <span class="sidebar-item-icon">⚙️</span>
-            <span>Yönetim Paneli</span>
-          </a>
+          <a href="/admin" class="sidebar-item"><span class="sidebar-item-icon">⚙️</span><span>Yönetim Paneli</span></a>
         </div>
       </nav>
       
@@ -438,9 +115,7 @@
         <div class="sidebar-lifetime-old">$149</div>
         <div class="sidebar-lifetime-price">$89</div>
         <div class="sidebar-lifetime-label">🔥 Lifetime Deal</div>
-        <a href="/fiyatlandirma" class="btn btn-primary btn-sm btn-block" style="margin-top: 8px;">
-          Şimdi Al
-        </a>
+        <a href="/fiyatlandirma" class="btn btn-primary btn-sm btn-block" style="margin-top: 8px;">Şimdi Al</a>
         <div class="sidebar-lifetime-stock">⚡ <span id="lifetimeStock">88</span>/100 kaldı</div>
       </div>
       
@@ -471,10 +146,7 @@
           <div class="ai-status-info">
             <span class="live-indicator"></span>
             <span>AI Asistan Aktif</span>
-            <span class="ai-model-badge">
-              <span>✨</span>
-              <span>Gemini 1.5 Flash</span>
-            </span>
+            <span class="ai-model-badge"><span>✨</span><span>Gemini 2.0 Flash</span></span>
             <span class="ai-limit-badge" id="limitBadge">
               <span>📊</span>
               <span id="limitText">Yükleniyor...</span>
@@ -484,27 +156,13 @@
         </div>
         
         <div class="ai-quick-actions">
-          <div class="ai-quick-action" data-action="niche_ideas">
-            <span>🎯</span><span>Niş Öner</span>
-          </div>
-          <div class="ai-quick-action" data-action="video_titles">
-            <span>📝</span><span>Video Başlığı</span>
-          </div>
-          <div class="ai-quick-action" data-action="thumbnail_ideas">
-            <span>🖼️</span><span>Thumbnail Fikri</span>
-          </div>
-          <div class="ai-quick-action" data-action="hook_writer">
-            <span>🎣</span><span>Hook Yaz</span>
-          </div>
-          <div class="ai-quick-action" data-action="content_plan">
-            <span>📅</span><span>30 Günlük Plan</span>
-          </div>
-          <div class="ai-quick-action" data-action="seo_tips">
-            <span>🔍</span><span>SEO Tavsiyesi</span>
-          </div>
-          <div class="ai-quick-action" data-action="growth_strategy">
-            <span>📈</span><span>Büyüme Stratejisi</span>
-          </div>
+          <div class="ai-quick-action" data-action="niche_ideas"><span>🎯</span><span>Niş Öner</span></div>
+          <div class="ai-quick-action" data-action="video_titles"><span>📝</span><span>Video Başlığı</span></div>
+          <div class="ai-quick-action" data-action="thumbnail_ideas"><span>🖼️</span><span>Thumbnail Fikri</span></div>
+          <div class="ai-quick-action" data-action="hook_writer"><span>🎣</span><span>Hook Yaz</span></div>
+          <div class="ai-quick-action" data-action="content_plan"><span>📅</span><span>30 Günlük Plan</span></div>
+          <div class="ai-quick-action" data-action="seo_tips"><span>🔍</span><span>SEO Tavsiyesi</span></div>
+          <div class="ai-quick-action" data-action="growth_strategy"><span>📈</span><span>Büyüme Stratejisi</span></div>
         </div>
         
         <div class="ai-messages" id="aiMessages">
@@ -512,42 +170,24 @@
           <div class="ai-welcome" id="aiWelcome">
             <div class="ai-welcome-icon">🤖</div>
             <h2>Merhaba! Ben NICHIFY AI</h2>
-            <p>
-              YouTube'da büyümen için her konuda yardımcı olabilirim.<br>
-              Niş öner, başlık yaz, içerik planı oluştur - her şey için sor!
-            </p>
+            <p>YouTube'da büyümen için her konuda yardımcı olabilirim.<br>Niş öner, başlık yaz, içerik planı oluştur - her şey için sor!</p>
             
             <div class="ai-suggestions">
               <div class="ai-suggestion-card" onclick="sendSuggestion('Bana 5 tane düşük rekabetli ama yüksek kazançlı YouTube nişi öner')">
                 <div class="ai-suggestion-icon">🎯</div>
-                <div class="ai-suggestion-text">
-                  <strong>Düşük rekabetli niş öner</strong><br>
-                  5 tane yüksek kazançlı niş
-                </div>
+                <div class="ai-suggestion-text"><strong>Düşük rekabetli niş öner</strong><br>5 tane yüksek kazançlı niş</div>
               </div>
-              
               <div class="ai-suggestion-card" onclick="sendSuggestion('AI araçları nişinde viral olabilecek 10 video başlığı yaz')">
                 <div class="ai-suggestion-icon">📝</div>
-                <div class="ai-suggestion-text">
-                  <strong>Video başlığı üret</strong><br>
-                  Viral potansiyelli başlıklar
-                </div>
+                <div class="ai-suggestion-text"><strong>Video başlığı üret</strong><br>Viral potansiyelli başlıklar</div>
               </div>
-              
               <div class="ai-suggestion-card" onclick="sendSuggestion('Faceless YouTube kanalı için 30 günlük içerik planı oluştur')">
                 <div class="ai-suggestion-icon">📅</div>
-                <div class="ai-suggestion-text">
-                  <strong>30 günlük plan</strong><br>
-                  Faceless kanal için
-                </div>
+                <div class="ai-suggestion-text"><strong>30 günlük plan</strong><br>Faceless kanal için</div>
               </div>
-              
               <div class="ai-suggestion-card" onclick="sendSuggestion('YouTube Shorts ile 0 aboneden 10K aboneye nasıl çıkarım?')">
                 <div class="ai-suggestion-icon">🚀</div>
-                <div class="ai-suggestion-text">
-                  <strong>Büyüme stratejisi</strong><br>
-                  0'dan 10K aboneye
-                </div>
+                <div class="ai-suggestion-text"><strong>Büyüme stratejisi</strong><br>0'dan 10K aboneye</div>
               </div>
             </div>
           </div>
@@ -556,15 +196,8 @@
         
         <div class="ai-input-area">
           <div class="ai-input-wrapper">
-            <textarea 
-              class="ai-input" 
-              id="aiInput" 
-              placeholder="Mesajını yaz... (Örn: AI nişinde 10 video başlığı öner)"
-              rows="1"
-            ></textarea>
-            <button class="ai-send-btn" id="sendBtn" title="Gönder">
-              ➤
-            </button>
+            <textarea class="ai-input" id="aiInput" placeholder="Mesajını yaz... (Örn: AI nişinde 10 video başlığı öner)" rows="1"></textarea>
+            <button class="ai-send-btn" id="sendBtn" title="Gönder">➤</button>
           </div>
           <div class="ai-input-info">
             <div class="ai-input-hint">
@@ -586,11 +219,58 @@
   <script src="/js/utils.js"></script>
   <script>
     
+    // ============================================
+    // SYSTEM PROMPT
+    // ============================================
+    const SYSTEM_PROMPT = `Sen NICHIFY PRO'nun yapay zeka asistanısın. YouTube niş bulma, kanal analizi, içerik üretimi ve YouTube büyütme konularında uzmansın.
+
+GÖREVLERİN:
+- YouTube niş önerileri vermek
+- Video başlığı ve thumbnail fikirleri üretmek  
+- İçerik stratejisi geliştirmek
+- Kanal büyütme tavsiyeleri vermek
+- Trend analizi yapmak
+- Telif/risk konularında uyarmak
+- Hook ve giriş cümleleri yazmak
+
+KURALLAR:
+- Her zaman Türkçe yanıt ver
+- Pratik, uygulanabilir tavsiyeler ver
+- Madde madde ve net açıkla
+- Kısa ve öz ol (gerektiğinde detaylı)
+- Emoji kullan ama abartma
+- Türk YouTuber'ların ihtiyaçlarını anla
+- Güncel YouTube algoritmasını bil
+- Yanlış bilgi verme, bilmediğin şeyi söyle
+
+YASAK:
+- Telif ihlali öner
+- Yanıltıcı/yasadışı taktikler önerme
+- AI olduğunu sürekli vurgulama
+- Çok uzun ve gereksiz cevaplar verme`;
+    
+    // ============================================
+    // QUICK PROMPTS
+    // ============================================
+    const QUICK_PROMPTS = {
+      'niche_ideas': (ctx) => `YouTube'da kazançlı niş önerileri ver. Eğer kullanıcı belirli bir alan belirttiyse o alanda spesifik olsun. Context: ${ctx}`,
+      'video_titles': (ctx) => `Bu konu için 10 adet viral olabilecek YouTube video başlığı öner: ${ctx}`,
+      'thumbnail_ideas': (ctx) => `Bu video konusu için yaratıcı thumbnail fikirleri öner (renk, kompozisyon, metin): ${ctx}`,
+      'hook_writer': (ctx) => `Bu video için izleyiciyi hemen yakalayacak 5 farklı hook (giriş cümlesi) yaz: ${ctx}`,
+      'content_plan': (ctx) => `Bu niş için 30 günlük detaylı içerik takvimi oluştur (video başlıkları, formatlar, hashtagler): ${ctx}`,
+      'channel_audit': (ctx) => `Bu kanalı analiz et ve büyütme önerileri ver: ${ctx}`,
+      'seo_tips': (ctx) => `Bu video için SEO optimizasyonu öner (başlık, açıklama, tag, hashtag): ${ctx}`,
+      'growth_strategy': (ctx) => `Bu kanal için detaylı büyüme stratejisi oluştur: ${ctx}`
+    };
+    
     let chatHistory = [];
     let isLoading = false;
     let currentUser = null;
-    let userLimit = { remaining: 5, limit: 5, used: 0 };
+    let cachedApiKey = null;
     
+    // ============================================
+    // INIT
+    // ============================================
     (async () => {
       const isAuth = await Auth.requireAuth('/login');
       if (!isAuth) return;
@@ -639,6 +319,116 @@
       }
     }
     
+    // ============================================
+    // API KEY AL (Backend'den)
+    // ============================================
+    async function getApiKey() {
+      try {
+        const response = await fetch('/api/ai', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action: 'get_key',
+            user_id: currentUser.id,
+            user_email: currentUser.email
+          })
+        });
+        
+        const result = await response.json();
+        
+        if (result.limit_reached) {
+          return { error: result.error, limit_reached: true };
+        }
+        
+        if (result.success && result.api_key) {
+          return { apiKey: result.api_key, isAdmin: result.is_admin };
+        }
+        
+        return { error: result.error || 'API key alınamadı' };
+      } catch (error) {
+        return { error: 'Bağlantı hatası: ' + error.message };
+      }
+    }
+    
+    // ============================================
+    // GEMINI'YE DİREKT İSTEK
+    // ============================================
+    async function callGeminiDirect(messages, apiKey, maxTokens = 1500) {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+      
+      const geminiContents = messages.map(msg => ({
+        role: msg.role === 'user' ? 'user' : 'model',
+        parts: [{ text: msg.content }]
+      }));
+      
+      const payload = {
+        contents: geminiContents,
+        systemInstruction: {
+          parts: [{ text: SYSTEM_PROMPT }]
+        },
+        generationConfig: {
+          temperature: 0.7,
+          maxOutputTokens: maxTokens,
+          topP: 0.95,
+          topK: 40
+        },
+        safetySettings: [
+          { category: 'HARM_CATEGORY_HARASSMENT', threshold: 'BLOCK_ONLY_HIGH' },
+          { category: 'HARM_CATEGORY_HATE_SPEECH', threshold: 'BLOCK_ONLY_HIGH' },
+          { category: 'HARM_CATEGORY_SEXUALLY_EXPLICIT', threshold: 'BLOCK_ONLY_HIGH' },
+          { category: 'HARM_CATEGORY_DANGEROUS_CONTENT', threshold: 'BLOCK_ONLY_HIGH' }
+        ]
+      };
+      
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        
+        const result = await response.json();
+        
+        if (response.status === 429) {
+          return { error: '⚠️ Bu API key günlük limiti dolmuş. Lütfen birkaç saat sonra deneyin.' };
+        }
+        
+        if (!response.ok) {
+          return { error: result.error?.message || 'Gemini API hatası' };
+        }
+        
+        if (result.candidates && result.candidates[0]?.content?.parts?.[0]?.text) {
+          return { success: true, response: result.candidates[0].content.parts[0].text };
+        }
+        
+        return { error: 'AI yanıt veremedi' };
+      } catch (error) {
+        return { error: 'Bağlantı hatası: ' + error.message };
+      }
+    }
+    
+    // ============================================
+    // INCREMENT USAGE
+    // ============================================
+    async function incrementUsage() {
+      try {
+        await fetch('/api/ai', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action: 'increment',
+            user_id: currentUser.id,
+            user_email: currentUser.email
+          })
+        });
+      } catch (e) {
+        console.error('Increment error:', e);
+      }
+    }
+    
+    // ============================================
+    // SEND MESSAGE
+    // ============================================
     async function sendMessage(messageText, isQuickAction = false, action = 'chat') {
       if (isLoading) return;
       if (!messageText.trim()) return;
@@ -657,32 +447,30 @@
       const typingId = showTyping();
       
       try {
-        let body;
+        // 1. API key al
+        const keyResult = await getApiKey();
         
-        if (isQuickAction) {
-          body = {
-            action: action,
-            context: messageText,
-            user_id: currentUser.id,
-            user_email: currentUser.email
-          };
-        } else {
-          chatHistory.push({ role: 'user', content: messageText });
-          body = {
-            action: 'chat',
-            messages: chatHistory,
-            user_id: currentUser.id,
-            user_email: currentUser.email
-          };
+        if (keyResult.error) {
+          removeTyping(typingId);
+          showError(keyResult.error);
+          isLoading = false;
+          return;
         }
         
-        const response = await fetch('/api/ai', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(body)
-        });
+        // 2. Mesajları hazırla
+        let messages;
+        let finalText;
         
-        const result = await response.json();
+        if (isQuickAction) {
+          finalText = QUICK_PROMPTS[action](messageText);
+          messages = [{ role: 'user', content: finalText }];
+        } else {
+          chatHistory.push({ role: 'user', content: messageText });
+          messages = chatHistory;
+        }
+        
+        // 3. Gemini'ye direkt çağrı
+        const result = await callGeminiDirect(messages, keyResult.apiKey, isQuickAction ? 2000 : 1500);
         
         removeTyping(typingId);
         
@@ -693,14 +481,15 @@
             chatHistory.push({ role: 'assistant', content: result.response });
             Utils.storage.set('ai_chat_history', chatHistory);
           }
-        } else if (result.limit_reached) {
-          showError(result.error);
+          
+          // Sayacı artır
+          incrementUsage();
         } else {
           showError(result.error || 'Bir hata oluştu');
         }
       } catch (error) {
         removeTyping(typingId);
-        showError('Bağlantı hatası: ' + error.message);
+        showError('Hata: ' + error.message);
       }
       
       isLoading = false;
@@ -709,7 +498,6 @@
     
     function addMessage(role, content) {
       const messagesEl = document.getElementById('aiMessages');
-      
       const messageEl = document.createElement('div');
       messageEl.className = `ai-message ai-message-${role}`;
       
@@ -774,15 +562,12 @@
     
     function scrollToBottom() {
       const messagesEl = document.getElementById('aiMessages');
-      setTimeout(() => {
-        messagesEl.scrollTop = messagesEl.scrollHeight;
-      }, 100);
+      setTimeout(() => { messagesEl.scrollTop = messagesEl.scrollHeight; }, 100);
     }
     
     function renderChatHistory() {
       const welcome = document.getElementById('aiWelcome');
       if (welcome) welcome.style.display = 'none';
-      
       chatHistory.forEach(msg => {
         addMessage(msg.role === 'user' ? 'user' : 'bot', msg.content);
       });
@@ -816,23 +601,18 @@
       const input = document.getElementById('aiInput');
       const count = input.value.length;
       document.getElementById('charCount').textContent = `${count} / 2000`;
-      
-      if (count > 2000) {
-        input.value = input.value.substring(0, 2000);
-      }
+      if (count > 2000) { input.value = input.value.substring(0, 2000); }
     }
     
     document.querySelectorAll('.ai-quick-action').forEach(btn => {
       btn.addEventListener('click', () => {
         const action = btn.dataset.action;
         const text = document.getElementById('aiInput').value.trim();
-        
         if (!text) {
           Utils.toast.warning('Önce konuyu yaz, sonra hızlı aksiyon seç');
           document.getElementById('aiInput').focus();
           return;
         }
-        
         sendMessage(text, true, action);
       });
     });
