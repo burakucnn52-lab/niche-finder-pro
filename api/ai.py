@@ -60,29 +60,89 @@ def is_admin_user(user_email, db_user=None):
 
 
 # ============================================
-# GEMINI API - MULTI KEY ROTATION
+# GROQ API ÇAĞRISI (Llama 3.3 70B)
+# ============================================
+def call_groq_api(messages, max_tokens=1500):
+    """Groq API'ye istek at (Llama 3.3 70B)"""
+    api_key = os.environ.get('GROQ_API_KEY', '')
+    
+    if not api_key:
+        return {'error': 'Groq API key yok', 'skip': True}
+    
+    url = 'https://api.groq.com/openai/v1/chat/completions'
+    
+    # Groq formatı: system + user/assistant mesajlar
+    groq_messages = [{'role': 'system', 'content': SYSTEM_PROMPT}]
+    
+    for msg in messages:
+        role = msg.get('role', 'user')
+        if role == 'assistant':
+            groq_messages.append({'role': 'assistant', 'content': msg.get('content', '')})
+        else:
+            groq_messages.append({'role': 'user', 'content': msg.get('content', '')})
+    
+    payload = {
+        'model': 'llama-3.3-70b-versatile',
+        'messages': groq_messages,
+        'temperature': 0.7,
+        'max_tokens': max_tokens,
+        'top_p': 0.95
+    }
+    
+    try:
+        data = json.dumps(payload).encode('utf-8')
+        req = urllib.request.Request(url, data=data, method='POST')
+        req.add_header('Content-Type', 'application/json')
+        req.add_header('Authorization', f'Bearer {api_key}')
+        
+        with urllib.request.urlopen(req, timeout=30) as response:
+            result = json.loads(response.read().decode('utf-8'))
+            
+            if 'choices' in result and len(result['choices']) > 0:
+                text = result['choices'][0]['message']['content']
+                print(f"✅ Groq başarılı!")
+                return {
+                    'success': True,
+                    'response': text,
+                    'provider': 'groq'
+                }
+            else:
+                return {'error': 'Groq yanıt veremedi', 'skip': True}
+    
+    except urllib.error.HTTPError as e:
+        error_body = e.read().decode('utf-8')
+        print(f"⚠️ Groq hatası: {e.code} - {error_body[:200]}")
+        if e.code in [429, 403]:
+            return {'error': 'Groq limit doldu', 'skip': True}
+        return {'error': f'Groq API hatası: {e.code}', 'skip': True}
+    
+    except Exception as e:
+        print(f"❌ Groq bağlantı hatası: {e}")
+        return {'error': f'Groq bağlantı hatası: {str(e)}', 'skip': True}
+
+
+# ============================================
+# GEMINI API ÇAĞRISI (Multi Key Rotation)
 # ============================================
 def call_gemini_api(messages, max_tokens=1500):
-    """Gemini API'ye istek at - Otomatik API key rotation"""
+    """Gemini API'ye istek at - Multi key rotation"""
     
-    # ✅ TÜM API KEY'LERİ TOPLA (Vercel env'den otomatik)
+    # Tüm Gemini key'leri topla
     api_keys = []
     
-    # Ana key
     key1 = os.environ.get('GEMINI_API_KEY', '')
     if key1:
         api_keys.append(key1)
     
-    # Yedek keyler (KEY_2'den KEY_10'a kadar otomatik bul)
     for i in range(2, 11):
         key = os.environ.get(f'GEMINI_API_KEY_{i}', '')
         if key:
             api_keys.append(key)
     
     if not api_keys:
-        return {'error': 'Gemini API key bulunamadı. Lütfen yöneticiyle iletişime geçin.'}
+        return {'error': 'Gemini API key yok', 'skip': True}
     
-    print(f"🔑 Toplam {len(api_keys)} API key bulundu")
+    print(f"🔑 Toplam {len(api_keys)} Gemini key bulundu")
     
     # Gemini formatına çevir
     gemini_contents = []
@@ -112,12 +172,10 @@ def call_gemini_api(messages, max_tokens=1500):
         ]
     }
     
-    last_error = None
-    
-    # ✅ HER API KEY'İ SIRAYLA DENE
+    # Her Gemini key'i sırayla dene
     for index, api_key in enumerate(api_keys):
         key_number = index + 1
-        print(f"🔄 API Key #{key_number} deneniyor...")
+        print(f"🔄 Gemini Key #{key_number} deneniyor...")
         
         url = f'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}'
         
@@ -134,48 +192,54 @@ def call_gemini_api(messages, max_tokens=1500):
                     
                     if 'content' in candidate and 'parts' in candidate['content']:
                         text = candidate['content']['parts'][0].get('text', '')
-                        print(f"✅ API Key #{key_number} ile başarılı!")
+                        print(f"✅ Gemini Key #{key_number} başarılı!")
                         return {
                             'success': True,
                             'response': text,
-                            'usage': result.get('usageMetadata', {}),
-                            'key_used': key_number
+                            'provider': f'gemini-key-{key_number}'
                         }
-                    else:
-                        last_error = 'AI yanıt veremedi'
-                        continue
-                else:
-                    last_error = 'AI yanıt vermedi'
-                    continue
         
         except urllib.error.HTTPError as e:
-            error_body = e.read().decode('utf-8')
-            try:
-                error_json = json.loads(error_body)
-                error_msg = error_json.get('error', {}).get('message', str(e))
-            except:
-                error_msg = str(e)
-            
-            print(f"⚠️ API Key #{key_number} hatası: {e.code} - {error_msg}")
-            
-            # ✅ 429 (rate limit) veya 403 (quota) → SONRAKİ KEY'E GEÇ
+            print(f"⚠️ Gemini Key #{key_number} hatası: {e.code}")
             if e.code in [429, 403]:
-                last_error = f'Key #{key_number} limit doldu'
-                continue
-            
-            # Diğer hatalar (400, 500 vs.) → DURDUR
-            last_error = f'API hatası: {error_msg}'
-            return {'error': last_error}
+                continue  # Sonraki key'i dene
+            return {'error': f'Gemini API hatası: {e.code}', 'skip': True}
         
         except Exception as e:
-            print(f"❌ API Key #{key_number} bağlantı hatası: {e}")
-            last_error = f'Bağlantı hatası: {str(e)}'
+            print(f"❌ Gemini Key #{key_number} bağlantı hatası: {e}")
             continue
     
-    # ✅ TÜM KEY'LER DOLU
-    print(f"❌ Tüm {len(api_keys)} API key denendi, hepsi başarısız")
+    return {'error': 'Tüm Gemini keyler doldu', 'skip': True}
+
+
+# ============================================
+# ANA AI ÇAĞRISI (Groq + Gemini Rotation)
+# ============================================
+def call_ai(messages, max_tokens=1500):
+    """
+    AI servisi çağırma - Groq öncelikli, sonra Gemini
+    Sıralama: Groq → Gemini Key 1 → Gemini Key 2 → ...
+    """
+    
+    # 1️⃣ ÖNCE GROQ DENE (en yüksek limit, en hızlı)
+    print("🚀 Groq deneniyor...")
+    groq_result = call_groq_api(messages, max_tokens)
+    
+    if groq_result.get('success'):
+        return groq_result
+    
+    print(f"⚠️ Groq başarısız, Gemini'ye geçiliyor...")
+    
+    # 2️⃣ GROQ DOLU/HATA → GEMINI'YE GEÇ
+    gemini_result = call_gemini_api(messages, max_tokens)
+    
+    if gemini_result.get('success'):
+        return gemini_result
+    
+    # 3️⃣ HER İKİSİ DE BAŞARISIZ
+    print("❌ Tüm AI servisleri başarısız")
     return {
-        'error': f'⚠️ AI servisi şu an çok yoğun (Tüm {len(api_keys)} API key limit). Lütfen 1-2 dakika sonra tekrar deneyin.'
+        'error': '⚠️ AI servisi şu an çok yoğun. Lütfen 1-2 dakika sonra tekrar deneyin.'
     }
 
 
@@ -188,7 +252,7 @@ def check_user_limit(user_id, user_email):
         supabase_url = os.environ.get('SUPABASE_URL', '')
         supabase_key = os.environ.get('SUPABASE_SERVICE_ROLE_KEY', '')
         
-        # ✅ ÖNCE EMAIL İLE ADMIN KONTROLÜ
+        # Email ile admin kontrolü
         if is_admin_user(user_email):
             print(f"✅ Admin tanındı (email): {user_email}")
             return {'allowed': True, 'remaining': 999, 'is_admin': True, 'limit': 999, 'used': 0}
@@ -210,7 +274,7 @@ def check_user_limit(user_id, user_email):
             
             user = users[0]
             
-            # ✅ DATABASE'DEN ADMIN KONTROLÜ
+            # Database admin kontrolü
             if is_admin_user(user_email, user):
                 print(f"✅ Admin tanındı (database): {user.get('email')}")
                 return {'allowed': True, 'remaining': 999, 'is_admin': True, 'limit': 999, 'used': 0}
@@ -376,7 +440,7 @@ class handler(BaseHTTPRequestHandler):
                     self.wfile.write(json.dumps({'error': 'Mesaj gerekli'}).encode())
                     return
                 
-                result = call_gemini_api(messages, max_tokens=1500)
+                result = call_ai(messages, max_tokens=1500)
                 
                 if result.get('success') and user_id:
                     increment_usage(user_id, is_admin=is_admin)
@@ -390,7 +454,7 @@ class handler(BaseHTTPRequestHandler):
                 prompt = get_quick_prompt(action, context)
                 
                 messages = [{'role': 'user', 'content': prompt}]
-                result = call_gemini_api(messages, max_tokens=2000)
+                result = call_ai(messages, max_tokens=2000)
                 
                 if result.get('success') and user_id:
                     increment_usage(user_id, is_admin=is_admin)
@@ -400,17 +464,19 @@ class handler(BaseHTTPRequestHandler):
             
             # STATUS
             elif action == 'status':
-                api_keys_count = 0
+                groq_active = bool(os.environ.get('GROQ_API_KEY'))
+                gemini_count = 0
                 if os.environ.get('GEMINI_API_KEY'):
-                    api_keys_count += 1
+                    gemini_count += 1
                 for i in range(2, 11):
                     if os.environ.get(f'GEMINI_API_KEY_{i}'):
-                        api_keys_count += 1
+                        gemini_count += 1
                 
                 self.wfile.write(json.dumps({
-                    'status': 'ok' if api_keys_count > 0 else 'no_api_key',
-                    'service': 'NICHIFY AI (Gemini 2.0 Flash)',
-                    'total_keys': api_keys_count
+                    'status': 'ok',
+                    'service': 'NICHIFY AI (Groq + Gemini)',
+                    'groq_active': groq_active,
+                    'gemini_keys': gemini_count
                 }).encode())
                 return
             
@@ -427,18 +493,21 @@ class handler(BaseHTTPRequestHandler):
         self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
         
-        api_keys_count = 0
+        groq_active = bool(os.environ.get('GROQ_API_KEY'))
+        gemini_count = 0
         if os.environ.get('GEMINI_API_KEY'):
-            api_keys_count += 1
+            gemini_count += 1
         for i in range(2, 11):
             if os.environ.get(f'GEMINI_API_KEY_{i}'):
-                api_keys_count += 1
+                gemini_count += 1
         
         self.wfile.write(json.dumps({
-            'status': 'ok' if api_keys_count > 0 else 'no_api_key',
+            'status': 'ok',
             'service': 'NICHIFY AI Assistant',
-            'model': 'gemini-2.0-flash',
-            'total_api_keys': api_keys_count
+            'providers': {
+                'groq': groq_active,
+                'gemini_keys': gemini_count
+            }
         }).encode())
     
     def do_OPTIONS(self):
