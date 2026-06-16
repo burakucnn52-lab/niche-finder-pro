@@ -4,7 +4,14 @@ import os
 import urllib.request
 import urllib.parse
 
-# System prompt - AI'ın kimliği
+# ============================================
+# ADMIN AYARLARI
+# ============================================
+ADMIN_EMAILS = ['bucun648@gmail.com']
+
+# ============================================
+# SYSTEM PROMPT - AI'ın kimliği
+# ============================================
 SYSTEM_PROMPT = """Sen NICHIFY PRO'nun yapay zeka asistanısın. YouTube niş bulma, kanal analizi, içerik üretimi ve YouTube büyütme konularında uzmansın.
 
 GÖREVLERİN:
@@ -33,18 +40,52 @@ YASAK:
 - Çok uzun ve gereksiz cevaplar verme"""
 
 
-def call_gemini_api(messages, max_tokens=1500):
-    """Gemini API'ye istek at"""
-    api_key = os.environ.get('GEMINI_API_KEY', '')
+# ============================================
+# ADMIN KONTROLÜ
+# ============================================
+def is_admin_user(user_email, db_user=None):
+    """Admin kontrolü - 3 farklı yolla"""
+    if user_email:
+        clean_email = user_email.strip().lower()
+        if clean_email in [e.lower() for e in ADMIN_EMAILS]:
+            return True
     
-    if not api_key:
+    if db_user:
+        if db_user.get('is_admin') is True:
+            return True
+        if db_user.get('role') == 'super_admin':
+            return True
+    
+    return False
+
+
+# ============================================
+# GEMINI API - MULTI KEY ROTATION
+# ============================================
+def call_gemini_api(messages, max_tokens=1500):
+    """Gemini API'ye istek at - Otomatik API key rotation"""
+    
+    # ✅ TÜM API KEY'LERİ TOPLA (Vercel env'den otomatik)
+    api_keys = []
+    
+    # Ana key
+    key1 = os.environ.get('GEMINI_API_KEY', '')
+    if key1:
+        api_keys.append(key1)
+    
+    # Yedek keyler (KEY_2'den KEY_10'a kadar otomatik bul)
+    for i in range(2, 11):
+        key = os.environ.get(f'GEMINI_API_KEY_{i}', '')
+        if key:
+            api_keys.append(key)
+    
+    if not api_keys:
         return {'error': 'Gemini API key bulunamadı. Lütfen yöneticiyle iletişime geçin.'}
     
-    url = f'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}'
+    print(f"🔑 Toplam {len(api_keys)} API key bulundu")
     
     # Gemini formatına çevir
     gemini_contents = []
-    
     for msg in messages:
         role = 'user' if msg.get('role') == 'user' else 'model'
         gemini_contents.append({
@@ -71,62 +112,92 @@ def call_gemini_api(messages, max_tokens=1500):
         ]
     }
     
-    try:
-        data = json.dumps(payload).encode('utf-8')
-        req = urllib.request.Request(url, data=data, method='POST')
-        req.add_header('Content-Type', 'application/json')
-        
-        with urllib.request.urlopen(req, timeout=30) as response:
-            result = json.loads(response.read().decode('utf-8'))
-            
-            if 'candidates' in result and len(result['candidates']) > 0:
-                candidate = result['candidates'][0]
-                
-                if 'content' in candidate and 'parts' in candidate['content']:
-                    text = candidate['content']['parts'][0].get('text', '')
-                    
-                    return {
-                        'success': True,
-                        'response': text,
-                        'usage': result.get('usageMetadata', {})
-                    }
-                else:
-                    return {'error': 'AI yanıt veremedi. Lütfen tekrar deneyin.'}
-            else:
-                return {'error': 'AI yanıt vermedi'}
+    last_error = None
     
-    except urllib.error.HTTPError as e:
-        error_body = e.read().decode('utf-8')
+    # ✅ HER API KEY'İ SIRAYLA DENE
+    for index, api_key in enumerate(api_keys):
+        key_number = index + 1
+        print(f"🔄 API Key #{key_number} deneniyor...")
+        
+        url = f'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}'
+        
         try:
-            error_json = json.loads(error_body)
-            error_msg = error_json.get('error', {}).get('message', str(e))
-        except:
-            error_msg = str(e)
+            data = json.dumps(payload).encode('utf-8')
+            req = urllib.request.Request(url, data=data, method='POST')
+            req.add_header('Content-Type', 'application/json')
+            
+            with urllib.request.urlopen(req, timeout=30) as response:
+                result = json.loads(response.read().decode('utf-8'))
+                
+                if 'candidates' in result and len(result['candidates']) > 0:
+                    candidate = result['candidates'][0]
+                    
+                    if 'content' in candidate and 'parts' in candidate['content']:
+                        text = candidate['content']['parts'][0].get('text', '')
+                        print(f"✅ API Key #{key_number} ile başarılı!")
+                        return {
+                            'success': True,
+                            'response': text,
+                            'usage': result.get('usageMetadata', {}),
+                            'key_used': key_number
+                        }
+                    else:
+                        last_error = 'AI yanıt veremedi'
+                        continue
+                else:
+                    last_error = 'AI yanıt vermedi'
+                    continue
         
-        if e.code == 429:
-                        return {'error': '⚠️ AI servisi şu an yoğun (Gemini API limit). Lütfen 1-2 dakika sonra tekrar deneyin.'}
+        except urllib.error.HTTPError as e:
+            error_body = e.read().decode('utf-8')
+            try:
+                error_json = json.loads(error_body)
+                error_msg = error_json.get('error', {}).get('message', str(e))
+            except:
+                error_msg = str(e)
+            
+            print(f"⚠️ API Key #{key_number} hatası: {e.code} - {error_msg}")
+            
+            # ✅ 429 (rate limit) veya 403 (quota) → SONRAKİ KEY'E GEÇ
+            if e.code in [429, 403]:
+                last_error = f'Key #{key_number} limit doldu'
+                continue
+            
+            # Diğer hatalar (400, 500 vs.) → DURDUR
+            last_error = f'API hatası: {error_msg}'
+            return {'error': last_error}
         
-        return {'error': f'API hatası: {error_msg}'}
+        except Exception as e:
+            print(f"❌ API Key #{key_number} bağlantı hatası: {e}")
+            last_error = f'Bağlantı hatası: {str(e)}'
+            continue
     
-    except Exception as e:
-        return {'error': f'Bağlantı hatası: {str(e)}'}
+    # ✅ TÜM KEY'LER DOLU
+    print(f"❌ Tüm {len(api_keys)} API key denendi, hepsi başarısız")
+    return {
+        'error': f'⚠️ AI servisi şu an çok yoğun (Tüm {len(api_keys)} API key limit). Lütfen 1-2 dakika sonra tekrar deneyin.'
+    }
 
 
+# ============================================
+# KULLANICI LİMİT KONTROLÜ
+# ============================================
 def check_user_limit(user_id, user_email):
     """Kullanıcının günlük limitini kontrol et"""
     try:
         supabase_url = os.environ.get('SUPABASE_URL', '')
         supabase_key = os.environ.get('SUPABASE_SERVICE_ROLE_KEY', '')
         
+        # ✅ ÖNCE EMAIL İLE ADMIN KONTROLÜ
+        if is_admin_user(user_email):
+            print(f"✅ Admin tanındı (email): {user_email}")
+            return {'allowed': True, 'remaining': 999, 'is_admin': True, 'limit': 999, 'used': 0}
+        
         if not supabase_url or not supabase_key:
             return {'allowed': True, 'remaining': 999}
         
-        # Admin sınırsız
-        if user_email == 'bucun648@gmail.com':
-            return {'allowed': True, 'remaining': 999, 'is_admin': True}
-        
         # Kullanıcı bilgisini çek
-        url = f"{supabase_url}/rest/v1/users?id=eq.{user_id}&select=is_premium,premium_type"
+        url = f"{supabase_url}/rest/v1/users?id=eq.{user_id}&select=is_premium,premium_type,is_admin,role,email"
         req = urllib.request.Request(url)
         req.add_header('apikey', supabase_key)
         req.add_header('Authorization', f'Bearer {supabase_key}')
@@ -135,15 +206,18 @@ def check_user_limit(user_id, user_email):
             users = json.loads(response.read().decode())
             
             if not users:
-                return {'allowed': False, 'error': 'Kullanıcı bulunamadı'}
+                return {'allowed': True, 'remaining': 5}
             
             user = users[0]
-            is_premium = user.get('is_premium', False)
             
-            # Limit belirle
+            # ✅ DATABASE'DEN ADMIN KONTROLÜ
+            if is_admin_user(user_email, user):
+                print(f"✅ Admin tanındı (database): {user.get('email')}")
+                return {'allowed': True, 'remaining': 999, 'is_admin': True, 'limit': 999, 'used': 0}
+            
+            is_premium = user.get('is_premium', False)
             daily_limit = 50 if is_premium else 5
             
-            # Bugünkü kullanımı çek
             from datetime import date
             today = date.today().isoformat()
             
@@ -170,12 +244,21 @@ def check_user_limit(user_id, user_email):
                 }
     
     except Exception as e:
-        print(f"Limit check error: {e}")
+        print(f"❌ Limit check error: {e}")
+        if is_admin_user(user_email):
+            return {'allowed': True, 'remaining': 999, 'is_admin': True}
         return {'allowed': True, 'remaining': 5}
 
 
-def increment_usage(user_id):
-    """Kullanım sayacını artır"""
+# ============================================
+# KULLANIM SAYACI
+# ============================================
+def increment_usage(user_id, is_admin=False):
+    """Kullanım sayacını artır (admin için artırma)"""
+    if is_admin:
+        print("✅ Admin - sayaç artırılmadı")
+        return
+    
     try:
         supabase_url = os.environ.get('SUPABASE_URL', '')
         supabase_key = os.environ.get('SUPABASE_SERVICE_ROLE_KEY', '')
@@ -186,7 +269,6 @@ def increment_usage(user_id):
         from datetime import date, datetime
         today = date.today().isoformat()
         
-        # Önce mevcut kayıt var mı kontrol et
         check_url = f"{supabase_url}/rest/v1/ai_usage?user_id=eq.{user_id}&usage_date=eq.{today}"
         check_req = urllib.request.Request(check_url)
         check_req.add_header('apikey', supabase_key)
@@ -196,7 +278,6 @@ def increment_usage(user_id):
             existing = json.loads(response.read().decode())
             
             if existing:
-                # Güncelle
                 new_count = existing[0].get('request_count', 0) + 1
                 update_url = f"{supabase_url}/rest/v1/ai_usage?user_id=eq.{user_id}&usage_date=eq.{today}"
                 payload = json.dumps({
@@ -212,7 +293,6 @@ def increment_usage(user_id):
                 
                 urllib.request.urlopen(update_req, timeout=5)
             else:
-                # Yeni kayıt
                 insert_url = f"{supabase_url}/rest/v1/ai_usage"
                 payload = json.dumps({
                     'user_id': user_id,
@@ -230,9 +310,12 @@ def increment_usage(user_id):
                 urllib.request.urlopen(insert_req, timeout=5)
     
     except Exception as e:
-        print(f"Usage increment error: {e}")
+        print(f"❌ Usage increment error: {e}")
 
 
+# ============================================
+# QUICK PROMPT ŞABLONLARI
+# ============================================
 def get_quick_prompt(action, context=''):
     """Hızlı prompt şablonları"""
     prompts = {
@@ -245,10 +328,12 @@ def get_quick_prompt(action, context=''):
         'seo_tips': f"Bu video için SEO optimizasyonu öner (başlık, açıklama, tag, hashtag): {context}",
         'growth_strategy': f"Bu kanal için detaylı büyüme stratejisi oluştur: {context}"
     }
-    
     return prompts.get(action, context)
 
 
+# ============================================
+# HTTP HANDLER
+# ============================================
 class handler(BaseHTTPRequestHandler):
     def do_POST(self):
         self.send_response(200)
@@ -267,9 +352,13 @@ class handler(BaseHTTPRequestHandler):
             user_id = data.get('user_id', '')
             user_email = data.get('user_email', '')
             
-            # Limit kontrolü (sadece chat ve quick actions için)
+            print(f"📨 Request: action={action}, user_email={user_email}")
+            
+            # Limit kontrolü
+            is_admin = False
             if action != 'status' and user_id:
                 limit_check = check_user_limit(user_id, user_email)
+                is_admin = limit_check.get('is_admin', False)
                 
                 if not limit_check.get('allowed'):
                     self.wfile.write(json.dumps({
@@ -289,9 +378,8 @@ class handler(BaseHTTPRequestHandler):
                 
                 result = call_gemini_api(messages, max_tokens=1500)
                 
-                # Başarılı ise sayacı artır
                 if result.get('success') and user_id:
-                    increment_usage(user_id)
+                    increment_usage(user_id, is_admin=is_admin)
                 
                 self.wfile.write(json.dumps(result).encode())
                 return
@@ -305,18 +393,24 @@ class handler(BaseHTTPRequestHandler):
                 result = call_gemini_api(messages, max_tokens=2000)
                 
                 if result.get('success') and user_id:
-                    increment_usage(user_id)
+                    increment_usage(user_id, is_admin=is_admin)
                 
                 self.wfile.write(json.dumps(result).encode())
                 return
             
             # STATUS
             elif action == 'status':
-                api_key = os.environ.get('GEMINI_API_KEY', '')
+                api_keys_count = 0
+                if os.environ.get('GEMINI_API_KEY'):
+                    api_keys_count += 1
+                for i in range(2, 11):
+                    if os.environ.get(f'GEMINI_API_KEY_{i}'):
+                        api_keys_count += 1
+                
                 self.wfile.write(json.dumps({
-                    'status': 'ok' if api_key else 'no_api_key',
-                    'service': 'NICHIFY AI (Gemini 1.5 Flash)',
-                    'has_key': bool(api_key)
+                    'status': 'ok' if api_keys_count > 0 else 'no_api_key',
+                    'service': 'NICHIFY AI (Gemini 2.0 Flash)',
+                    'total_keys': api_keys_count
                 }).encode())
                 return
             
@@ -324,6 +418,7 @@ class handler(BaseHTTPRequestHandler):
                 self.wfile.write(json.dumps({'error': f'Bilinmeyen action: {action}'}).encode())
         
         except Exception as e:
+            print(f"❌ Handler error: {e}")
             self.wfile.write(json.dumps({'error': str(e)}).encode())
     
     def do_GET(self):
@@ -332,12 +427,18 @@ class handler(BaseHTTPRequestHandler):
         self.send_header('Access-Control-Allow-Origin', '*')
         self.end_headers()
         
-        api_key = os.environ.get('GEMINI_API_KEY', '')
+        api_keys_count = 0
+        if os.environ.get('GEMINI_API_KEY'):
+            api_keys_count += 1
+        for i in range(2, 11):
+            if os.environ.get(f'GEMINI_API_KEY_{i}'):
+                api_keys_count += 1
+        
         self.wfile.write(json.dumps({
-            'status': 'ok' if api_key else 'no_api_key',
+            'status': 'ok' if api_keys_count > 0 else 'no_api_key',
             'service': 'NICHIFY AI Assistant',
             'model': 'gemini-2.0-flash',
-            'has_key': bool(api_key)
+            'total_api_keys': api_keys_count
         }).encode())
     
     def do_OPTIONS(self):
