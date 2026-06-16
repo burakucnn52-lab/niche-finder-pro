@@ -40,7 +40,7 @@ def call_gemini_api(messages, max_tokens=1500):
     if not api_key:
         return {'error': 'Gemini API key bulunamadı. Lütfen yöneticiyle iletişime geçin.'}
     
-    url = f'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={api_key}'
+    url = f'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-8b:generateContent?key={api_key}'
     
     # Gemini formatına çevir
     gemini_contents = []
@@ -104,7 +104,7 @@ def call_gemini_api(messages, max_tokens=1500):
             error_msg = str(e)
         
         if e.code == 429:
-            return {'error': 'Günlük AI kullanım limitine ulaşıldı. Lütfen yarın tekrar deneyin.'}
+                        return {'error': '⚠️ AI servisi şu an yoğun (Gemini API limit). Lütfen 1-2 dakika sonra tekrar deneyin.'}
         
         return {'error': f'API hatası: {error_msg}'}
     
