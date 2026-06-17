@@ -183,6 +183,86 @@
         </div>
       </div>
       
+          <!-- ===== TRENDING NICHES SECTION (YENİ) ===== -->
+      <div id="trendingSection" style="margin-bottom: 32px; display: none;">
+        <div style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-bottom: 16px;
+          padding: 16px 20px;
+          background: linear-gradient(135deg, rgba(255, 92, 122, 0.1), rgba(255, 159, 67, 0.1));
+          border: 1px solid rgba(255, 92, 122, 0.3);
+          border-radius: 16px;
+        ">
+          <div>
+            <h2 style="
+              font-size: 1.25rem;
+              margin: 0 0 4px 0;
+              display: flex;
+              align-items: center;
+              gap: 8px;
+            ">
+              <span style="font-size: 1.5rem;">🔥</span>
+              <span style="
+                background: linear-gradient(135deg, #ff5c7a, #ff9f43);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                font-weight: 700;
+              ">Bugün Trend Olan Nişler</span>
+              <span style="
+                background: rgba(255, 92, 122, 0.2);
+                color: #ff5c7a;
+                font-size: 0.65rem;
+                padding: 2px 8px;
+                border-radius: 10px;
+                font-weight: 700;
+              ">CANLI</span>
+            </h2>
+            <p style="
+              color: rgba(255,255,255,0.6);
+              font-size: 0.8125rem;
+              margin: 0;
+            ">YouTube Türkiye'de bugün trend olan nişler</p>
+          </div>
+          <div id="trendingCount" style="
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
+          "></div>
+        </div>
+        
+        <div class="niches-grid" id="trendingGrid">
+          <!-- JS ile doldurulacak -->
+        </div>
+      </div>
+      
+      <!-- ===== ÖNERİLEN NICHES SECTION ===== -->
+      <div style="
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 16px;
+        padding: 12px 20px;
+        background: linear-gradient(135deg, rgba(77, 163, 255, 0.1), rgba(167, 139, 250, 0.1));
+        border: 1px solid rgba(77, 163, 255, 0.3);
+        border-radius: 16px;
+      ">
+        <span style="font-size: 1.25rem;">📦</span>
+        <h2 style="
+          font-size: 1.125rem;
+          margin: 0;
+          background: linear-gradient(135deg, #4da3ff, #a78bfa);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          font-weight: 700;
+        ">Önerilen Nişler</h2>
+        <span style="
+          color: rgba(255,255,255,0.5);
+          font-size: 0.8125rem;
+          margin-left: auto;
+        ">100+ kürate edilmiş niş</span>
+      </div>
+      
       <!-- Niches Grid -->
       <div class="niches-grid" id="nichesGrid">
         <!-- JS ile doldurulacak -->
@@ -407,7 +487,9 @@
       
       // Lifetime stock
       loadLifetimeStock();
-      
+           
+      // ✅ YouTube Trending Nişleri Yükle
+      loadTrendingNiches(); 
       // Process all niches (score & enrich)
       state.allNiches = NICHES_DATA.map(niche => ({
         ...niche,
@@ -870,7 +952,215 @@
         document.getElementById('nicheModal').classList.add('hidden');
       }
     });
+      
+    // ============================================
+    // YOUTUBE TRENDING NİŞ YÜKLE
+    // ============================================
+    async function loadTrendingNiches() {
+      try {
+        const response = await fetch('/api/youtube?endpoint=niche_discovery&region=TR');
+        const result = await response.json();
+        
+        if (!result.niches || result.niches.length === 0) {
+          console.log('Trending niş bulunamadı');
+          return;
+        }
+        
+        // Premium kontrolü
+        const currentUser = await Auth.getCurrentUser();
+        const isPremium = currentUser?.is_premium || currentUser?.is_admin || currentUser?.role === 'super_admin';
+        
+        let trendingNiches = result.niches;
+        let lockedCount = 0;
+        
+        // Free için sadece ilk 3 niş
+        if (!isPremium && trendingNiches.length > 3) {
+          lockedCount = trendingNiches.length - 3;
+          trendingNiches = trendingNiches.slice(0, 3);
+        }
+        
+        // Bölümü göster
+        document.getElementById('trendingSection').style.display = 'block';
+        document.getElementById('trendingCount').textContent = 
+          `${trendingNiches.length} niş • ${result.source === 'cache' ? '⚡ Cache' : '🔴 Canlı'}`;
+        
+        // Trending grid'i doldur
+        const grid = document.getElementById('trendingGrid');
+        
+        let html = trendingNiches.map(niche => {
+          const videosHtml = (niche.trending_videos || []).slice(0, 3).map(v => `
+            <div style="
+              display: flex;
+              gap: 8px;
+              padding: 8px;
+              background: rgba(255,255,255,0.03);
+              border-radius: 8px;
+              margin-bottom: 6px;
+              cursor: pointer;
+              transition: background 0.2s;
+            " onmouseover="this.style.background='rgba(255,255,255,0.08)'" 
+               onmouseout="this.style.background='rgba(255,255,255,0.03)'"
+               onclick="event.stopPropagation(); window.open('https://www.youtube.com/watch?v=${v.videoId}', '_blank')">
+              <img src="${v.thumbnail}" style="
+                width: 60px;
+                height: 40px;
+                border-radius: 4px;
+                object-fit: cover;
+                flex-shrink: 0;
+              " alt="" loading="lazy">
+              <div style="flex: 1; min-width: 0;">
+                <div style="
+                  font-size: 0.75rem;
+                  color: rgba(255,255,255,0.9);
+                  line-height: 1.3;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                  display: -webkit-box;
+                  -webkit-line-clamp: 2;
+                  -webkit-box-orient: vertical;
+                ">${v.title}</div>
+                <div style="
+                  font-size: 0.6875rem;
+                  color: rgba(255,255,255,0.5);
+                  margin-top: 2px;
+                ">👁️ ${formatViews(v.views)} • ${v.channel}</div>
+              </div>
+            </div>
+          `).join('');
+          
+          const subCatsHtml = (niche.subCategories || []).slice(0, 3).map(s => `
+            <span style="
+              background: rgba(255, 92, 122, 0.15);
+              color: #ff9f43;
+              padding: 2px 8px;
+              border-radius: 10px;
+              font-size: 0.65rem;
+              font-weight: 600;
+            ">${s}</span>
+          `).join('');
+          
+          return `
+            <div class="niche-card" style="
+              background: linear-gradient(135deg, rgba(255, 92, 122, 0.05), rgba(255, 159, 67, 0.05));
+              border: 1px solid rgba(255, 92, 122, 0.3);
+              position: relative;
+            ">
+              <div style="
+                position: absolute;
+                top: 8px;
+                right: 8px;
+                background: linear-gradient(135deg, #ff5c7a, #ff9f43);
+                color: white;
+                padding: 3px 10px;
+                border-radius: 10px;
+                font-size: 0.65rem;
+                font-weight: 700;
+                display: flex;
+                align-items: center;
+                gap: 4px;
+              ">🔥 TREND</div>
+              
+              <div style="display: flex; gap: 12px; margin-bottom: 12px; align-items: flex-start;">
+                <div style="font-size: 2.5rem; line-height: 1;">${niche.icon}</div>
+                <div style="flex: 1;">
+                  <h3 style="
+                    font-size: 1rem;
+                    margin: 0 0 4px 0;
+                    color: white;
+                    font-weight: 700;
+                  ">${niche.name}</h3>
+                  <div style="
+                    font-size: 0.6875rem;
+                    color: rgba(255,255,255,0.5);
+                  ">${niche.category}</div>
+                </div>
+              </div>
+              
+              <p style="
+                color: rgba(255,255,255,0.6);
+                font-size: 0.8125rem;
+                margin: 0 0 12px 0;
+                line-height: 1.5;
+              ">${niche.description}</p>
+              
+              ${subCatsHtml ? `
+                <div style="display: flex; gap: 4px; flex-wrap: wrap; margin-bottom: 12px;">
+                  ${subCatsHtml}
+                </div>
+              ` : ''}
+              
+              ${videosHtml ? `
+                <div style="
+                  border-top: 1px solid rgba(255,255,255,0.1);
+                  padding-top: 12px;
+                  margin-top: 12px;
+                ">
+                  <div style="
+                    font-size: 0.6875rem;
+                    color: rgba(255,255,255,0.5);
+                    margin-bottom: 8px;
+                    font-weight: 600;
+                  ">📺 TREND VİDEOLAR:</div>
+                  ${videosHtml}
+                </div>
+              ` : ''}
+            </div>
+          `;
+        }).join('');
+        
+        // Free kullanıcı için Premium kart
+        if (!isPremium && lockedCount > 0) {
+          html += `
+            <div style="
+              grid-column: 1/-1;
+              background: linear-gradient(135deg, rgba(167, 139, 250, 0.1), rgba(244, 114, 182, 0.1));
+              border: 2px dashed rgba(167, 139, 250, 0.4);
+              border-radius: 24px;
+              padding: 32px;
+              text-align: center;
+            ">
+              <div style="font-size: 3rem; margin-bottom: 12px;">🔒</div>
+              <h3 style="
+                font-size: 1.25rem;
+                margin: 0 0 8px 0;
+                background: linear-gradient(135deg, #4da3ff, #a78bfa);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                font-weight: 700;
+              ">${lockedCount} Trending Niş Daha</h3>
+              <p style="
+                color: rgba(255,255,255,0.7);
+                margin: 0 0 20px 0;
+                font-size: 0.875rem;
+              ">Premium ile tüm trend nişleri keşfet!</p>
+              <a href="/fiyatlandirma" style="
+                display: inline-block;
+                background: linear-gradient(135deg, #4da3ff, #a78bfa);
+                color: white;
+                padding: 12px 28px;
+                border-radius: 12px;
+                text-decoration: none;
+                font-weight: 700;
+                font-size: 0.875rem;
+              ">💎 Premium'a Geç</a>
+            </div>
+          `;
+        }
+        
+        grid.innerHTML = html;
+        
+      } catch (error) {
+        console.error('Trending niş yükleme hatası:', error);
+      }
+    }
     
+    function formatViews(views) {
+      const n = parseInt(views) || 0;
+      if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
+      if (n >= 1000) return (n / 1000).toFixed(1) + 'K';
+      return n.toString();
+    }
+      
   </script>
 </body>
 </html>
