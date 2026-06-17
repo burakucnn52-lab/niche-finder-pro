@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="/css/dashboard.css">
   <link rel="stylesheet" href="/css/channels.css">
   
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔥</text></svg>">
 </head>
 <body>
   
@@ -24,7 +24,6 @@
   
   <div class="dash-layout">
     
-    <!-- SIDEBAR -->
     <aside class="sidebar" id="sidebar">
       <div class="sidebar-logo">
         <span class="sidebar-logo-icon">🎯</span>
@@ -101,128 +100,53 @@
       </div>
     </aside>
     
-    <!-- MAIN -->
     <main class="main page-enter">
       
-      <!-- Page Header -->
       <div class="page-header">
         <h1>
           <span>🔥</span>
           <span>Yükselen Kanallar</span>
-          <span class="live-indicator">CANLI</span>
+          <span class="badge badge-success">CANLI</span>
         </h1>
-        <p>YouTube'da şu an trend olan videolar ve kanallar. <strong>Veri kaynağı:</strong> <span id="dataSourceText">YouTube Data API v3</span></p>
+        <p>YouTube'da <strong class="text-warning">trend olan kanalları</strong> ve <strong class="text-blue">viral videoları</strong> keşfet.</p>
       </div>
       
       <!-- Region Selector -->
-      <div class="filters">
-        <div style="margin-bottom: var(--space-md);">
-          <label class="form-label">🌍 BÖLGE SEÇ</label>
-          <div class="region-selector" id="regionSelector">
-            <div class="region-pill active" data-region="TR">
-              <span class="region-flag">🇹🇷</span>
-              <span>Türkiye</span>
-            </div>
-            <div class="region-pill" data-region="US">
-              <span class="region-flag">🇺🇸</span>
-              <span>ABD</span>
-            </div>
-            <div class="region-pill" data-region="GB">
-              <span class="region-flag">🇬🇧</span>
-              <span>İngiltere</span>
-            </div>
-            <div class="region-pill" data-region="DE">
-              <span class="region-flag">🇩🇪</span>
-              <span>Almanya</span>
-            </div>
-            <div class="region-pill" data-region="FR">
-              <span class="region-flag">🇫🇷</span>
-              <span>Fransa</span>
-            </div>
-            <div class="region-pill" data-region="ES">
-              <span class="region-flag">🇪🇸</span>
-              <span>İspanya</span>
-            </div>
-            <div class="region-pill" data-region="IT">
-              <span class="region-flag">🇮🇹</span>
-              <span>İtalya</span>
-            </div>
-            <div class="region-pill" data-region="JP">
-              <span class="region-flag">🇯🇵</span>
-              <span>Japonya</span>
-            </div>
-            <div class="region-pill" data-region="KR">
-              <span class="region-flag">🇰🇷</span>
-              <span>Kore</span>
-            </div>
-            <div class="region-pill" data-region="BR">
-              <span class="region-flag">🇧🇷</span>
-              <span>Brezilya</span>
-            </div>
-            <div class="region-pill" data-region="IN">
-              <span class="region-flag">🇮🇳</span>
-              <span>Hindistan</span>
-            </div>
-          </div>
-        </div>
-        
-        <div>
-          <label class="form-label">📂 KATEGORİ</label>
-          <div class="category-selector" id="categorySelector">
-            <div class="cat-pill active" data-category="">📊 Tümü</div>
-            <div class="cat-pill" data-category="10">🎵 Müzik</div>
-            <div class="cat-pill" data-category="20">🎮 Oyun</div>
-            <div class="cat-pill" data-category="17">⚽ Spor</div>
-            <div class="cat-pill" data-category="24">🎭 Eğlence</div>
-            <div class="cat-pill" data-category="28">💻 Teknoloji</div>
-            <div class="cat-pill" data-category="22">👥 İnsanlar</div>
-            <div class="cat-pill" data-category="25">📰 Haber</div>
-            <div class="cat-pill" data-category="26">🎨 Stil</div>
-            <div class="cat-pill" data-category="27">📚 Eğitim</div>
-          </div>
-        </div>
+      <div class="region-selector">
+        <div class="region-pill active" data-region="TR">🇹🇷 Türkiye</div>
+        <div class="region-pill" data-region="US">🇺🇸 ABD</div>
+        <div class="region-pill" data-region="GB">🇬🇧 İngiltere</div>
+        <div class="region-pill" data-region="DE">🇩🇪 Almanya</div>
+        <div class="region-pill" data-region="FR">🇫🇷 Fransa</div>
+        <div class="region-pill" data-region="JP">🇯🇵 Japonya</div>
+      </div>
+      
+      <!-- Category Selector -->
+      <div class="cat-selector">
+        <div class="cat-pill active" data-category="0">🌐 Tümü</div>
+        <div class="cat-pill" data-category="10">🎵 Müzik</div>
+        <div class="cat-pill" data-category="20">🎮 Oyun</div>
+        <div class="cat-pill" data-category="22">📹 Vlog</div>
+        <div class="cat-pill" data-category="23">😂 Komedi</div>
+        <div class="cat-pill" data-category="24">🎭 Eğlence</div>
+        <div class="cat-pill" data-category="25">📰 Haberler</div>
+        <div class="cat-pill" data-category="26">🎨 Yaşam Stili</div>
+        <div class="cat-pill" data-category="27">📚 Eğitim</div>
+        <div class="cat-pill" data-category="28">🔬 Bilim</div>
       </div>
       
       <!-- Results Info -->
       <div class="results-info">
         <div class="results-count">
-          <strong id="resultsCount">0</strong> trend video
-          <span class="data-source" id="dataSource">📡 yükleniyor...</span>
+          <strong id="resultsCount">0</strong> kanal
+          <span class="data-source live" id="dataSource">🔴 Canlı</span>
         </div>
-        <div>
-          <button class="btn btn-secondary btn-sm" id="refreshBtn">
-            🔄 Yenile
-          </button>
-        </div>
+        <button class="btn btn-primary btn-sm" id="refreshBtn">🔄 Yenile</button>
       </div>
       
       <!-- Channels Grid -->
       <div class="channels-grid" id="channelsGrid">
-        <!-- Loading -->
-        <div class="channel-skeleton">
-          <div class="channel-skeleton-thumb shimmer"></div>
-          <div class="channel-skeleton-body">
-            <div class="channel-skeleton-row shimmer" style="width: 80%;"></div>
-            <div class="channel-skeleton-row shimmer" style="width: 60%;"></div>
-            <div class="channel-skeleton-row shimmer" style="width: 40%;"></div>
-          </div>
-        </div>
-        <div class="channel-skeleton">
-          <div class="channel-skeleton-thumb shimmer"></div>
-          <div class="channel-skeleton-body">
-            <div class="channel-skeleton-row shimmer" style="width: 75%;"></div>
-            <div class="channel-skeleton-row shimmer" style="width: 55%;"></div>
-            <div class="channel-skeleton-row shimmer" style="width: 35%;"></div>
-          </div>
-        </div>
-        <div class="channel-skeleton">
-          <div class="channel-skeleton-thumb shimmer"></div>
-          <div class="channel-skeleton-body">
-            <div class="channel-skeleton-row shimmer" style="width: 70%;"></div>
-            <div class="channel-skeleton-row shimmer" style="width: 50%;"></div>
-            <div class="channel-skeleton-row shimmer" style="width: 30%;"></div>
-          </div>
-        </div>
+        <!-- JS ile doldurulacak -->
       </div>
       
     </main>
@@ -233,15 +157,14 @@
   <script src="/js/auth.js"></script>
   <script src="/js/utils.js"></script>
   <script src="/js/youtube.js"></script>
-  <script src="/js/animations.js"></script>
   <script>
     
     // ============================================
     // STATE
     // ============================================
-    let state = {
+    const state = {
       region: 'TR',
-      category: '',
+      category: '0',
       loading: false
     };
     
@@ -324,9 +247,8 @@
         const result = await YouTube.getTrending(state.region, state.category);
         
         if (result.success && result.data && result.data.items) {
-          renderVideos(result.data.items);
+          await renderVideos(result.data.items);
           
-          // Data source indicator
           if (result.source === 'cache') {
             dataSource.className = 'data-source cache';
             dataSource.innerHTML = '⚡ Cache';
@@ -347,11 +269,24 @@
     }
     
     // ============================================
-    // RENDER VIDEOS
+    // RENDER VIDEOS (Premium Kontrolü ile)
     // ============================================
-    function renderVideos(videos) {
+    async function renderVideos(videos) {
       const grid = document.getElementById('channelsGrid');
       const countEl = document.getElementById('resultsCount');
+      
+      // ✅ PREMIUM KONTROLÜ
+      const currentUser = await Auth.getCurrentUser();
+      const isPremium = currentUser?.is_premium || currentUser?.is_admin || currentUser?.role === 'super_admin';
+      
+      // Free kullanıcı için sadece ilk 10
+      let lockedCount = 0;
+      let displayVideos = videos;
+      
+      if (!isPremium && videos.length > 10) {
+        lockedCount = videos.length - 10;
+        displayVideos = videos.slice(0, 10);
+      }
       
       countEl.textContent = videos.length;
       
@@ -366,7 +301,7 @@
         return;
       }
       
-      grid.innerHTML = videos.map((video, index) => {
+      let html = displayVideos.map((video, index) => {
         const snippet = video.snippet || {};
         const stats = video.statistics || {};
         const thumb = snippet.thumbnails?.high?.url || snippet.thumbnails?.medium?.url || '';
@@ -420,6 +355,98 @@
           </div>
         `;
       }).join('');
+      
+      // ✅ FREE KULLANICI İÇİN PREMIUM KART
+      if (!isPremium && lockedCount > 0) {
+        html += `
+          <div style="
+            grid-column: 1/-1;
+            background: linear-gradient(135deg, rgba(167, 139, 250, 0.1), rgba(244, 114, 182, 0.1));
+            border: 2px dashed rgba(167, 139, 250, 0.4);
+            border-radius: 24px;
+            padding: 48px 32px;
+            text-align: center;
+            margin-top: 24px;
+          ">
+            <div style="font-size: 4rem; margin-bottom: 16px;">🔒</div>
+            <h2 style="
+              font-size: 1.5rem;
+              margin-bottom: 12px;
+              background: linear-gradient(135deg, #4da3ff, #a78bfa);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              font-weight: 700;
+            ">
+              ${lockedCount} Kanal Daha Seni Bekliyor!
+            </h2>
+            <div style="
+              display: inline-block;
+              background: linear-gradient(135deg, #f472b6, #a78bfa);
+              color: white;
+              padding: 6px 16px;
+              border-radius: 20px;
+              font-size: 0.75rem;
+              font-weight: 700;
+              margin-bottom: 20px;
+            ">💎 PREMIUM ÖZELLİK</div>
+            <p style="
+              color: rgba(255,255,255,0.7);
+              max-width: 500px;
+              margin: 0 auto 28px;
+              line-height: 1.7;
+              font-size: 0.9375rem;
+            ">
+              Premium ile <strong style="color: #a78bfa;">tüm trend kanalları</strong> gör,
+              <strong style="color: #4da3ff;">detaylı analizler</strong> yap ve
+              <strong style="color: #f472b6;">rakiplerini geç!</strong>
+            </p>
+            <div style="
+              display: flex;
+              justify-content: center;
+              gap: 24px;
+              flex-wrap: wrap;
+              margin-bottom: 32px;
+              max-width: 600px;
+              margin-left: auto;
+              margin-right: auto;
+            ">
+              <div style="display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.9);">
+                <span style="color: #10b981; font-size: 1.25rem;">✓</span>
+                <span>Tüm trend kanallar</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.9);">
+                <span style="color: #10b981; font-size: 1.25rem;">✓</span>
+                <span>Detaylı istatistikler</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.9);">
+                <span style="color: #10b981; font-size: 1.25rem;">✓</span>
+                <span>Kanal analizi</span>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.9);">
+                <span style="color: #10b981; font-size: 1.25rem;">✓</span>
+                <span>Risk Detector</span>
+              </div>
+            </div>
+            <a href="/fiyatlandirma" style="
+              display: inline-block;
+              background: linear-gradient(135deg, #4da3ff, #a78bfa);
+              color: white;
+              padding: 16px 40px;
+              border-radius: 12px;
+              text-decoration: none;
+              font-weight: 700;
+              font-size: 1rem;
+              box-shadow: 0 4px 20px rgba(77, 163, 255, 0.4);
+              transition: all 0.3s;
+            " onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 30px rgba(77, 163, 255, 0.6)'" 
+               onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(77, 163, 255, 0.4)'">
+              💎 Premium'a Geç - $89 Lifetime
+            </a>
+          </div>
+        `;
+      }
+      
+      grid.innerHTML = html;
     }
     
     // ============================================
@@ -450,7 +477,6 @@
     // EVENT LISTENERS
     // ============================================
     
-    // Region selector
     document.querySelectorAll('.region-pill').forEach(pill => {
       pill.addEventListener('click', () => {
         document.querySelectorAll('.region-pill').forEach(p => p.classList.remove('active'));
@@ -460,7 +486,6 @@
       });
     });
     
-    // Category selector
     document.querySelectorAll('.cat-pill').forEach(pill => {
       pill.addEventListener('click', () => {
         document.querySelectorAll('.cat-pill').forEach(p => p.classList.remove('active'));
@@ -470,17 +495,14 @@
       });
     });
     
-    // Refresh button
     document.getElementById('refreshBtn').addEventListener('click', loadTrending);
     
-    // Logout
     document.getElementById('logoutBtn').addEventListener('click', async () => {
       if (confirm('Çıkış yapmak istediğinizden emin misiniz?')) {
         await Auth.logout();
       }
     });
     
-    // Mobile menu
     document.getElementById('mobileMenuBtn').addEventListener('click', () => {
       document.getElementById('sidebar').classList.toggle('open');
       document.getElementById('sidebarOverlay').classList.toggle('active');
@@ -492,5 +514,6 @@
     });
     
   </script>
+  
 </body>
 </html>
