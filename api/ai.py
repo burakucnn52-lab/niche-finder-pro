@@ -31,6 +31,140 @@ def is_admin_user(user_email, db_user=None):
 # ============================================
 # KULLANICI LİMİT KONTROLÜ
 # ============================================
+# ============================================
+# NİŞ KEŞFİ SAYFA AÇILIM LİMİTİ
+# ============================================
+def check_niche_page_limit(user_id, user_email):
+    """Niş Keşfi sayfa açılışı limit kontrolü (Free: 3/gün)"""
+    try:
+        supabase_url = os.environ.get('SUPABASE_URL', '')
+        supabase_key = os.environ.get('SUPABASE_SERVICE_ROLE_KEY', '')
+        
+        # Admin sınırsız
+        if is_admin_user(user_email):
+            return {'allowed': True, 'remaining': 999, 'is_admin': True}
+        
+        if not supabase_url or not supabase_key:
+            return {'allowed': True, 'remaining': 3}
+        
+        # Kullanıcı bilgisi
+        url = f"{supabase_url}/rest/v1/users?id=eq.{user_id}&select=is_premium,is_admin,role,email"
+        req = urllib.request.Request(url)
+        req.add_header('apikey', supabase_key)
+        req.add_header('Authorization', f'Bearer {supabase_key}')
+        
+        with urllib.request.urlopen(req, timeout=5) as response:
+            users = json.loads(response.read().decode())
+            
+            if not users:
+                return {'allowed': True, 'remaining': 3}
+            
+            user = users[0]
+            
+            # Database admin kontrolü
+            if is_admin_user(user_email, user):
+                return {'allowed': True, 'remaining': 999, 'is_admin': True}
+            
+            # Premium sınırsız
+            if user.get('is_premium'):
+                return {'allowed': True, 'remaining': 999, 'is_premium': True}
+            
+            # Free kullanıcı - 3/gün limit
+            from datetime import date
+            today = date.today().isoformat()
+            
+            view_url = f"{supabase_url}/rest/v1/niche_page_views?user_id=eq.{user_id}&view_date=eq.{today}"
+            view_req = urllib.request.Request(view_url)
+            view_req.add_header('apikey', supabase_key)
+            view_req.add_header('Authorization', f'Bearer {supabase_key}')
+            
+            with urllib.request.urlopen(view_req, timeout=5) as view_response:
+                view_data = json.loads(view_response.read().decode())
+                
+                current_count = 0
+                if view_data:
+                    current_count = view_data[0].get('view_count', 0)
+                
+                daily_limit = 3
+                remaining = daily_limit - current_count
+                
+                return {
+                    'allowed': remaining > 0,
+                    'remaining': max(0, remaining),
+                    'limit': daily_limit,
+                    'used': current_count,
+                    'is_premium': False
+                }
+    
+    except Exception as e:
+        print(f"❌ Niche limit check error: {e}")
+        if is_admin_user(user_email):
+            return {'allowed': True, 'remaining': 999, 'is_admin': True}
+        return {'allowed': True, 'remaining': 3}
+
+
+def increment_niche_view(user_id, is_admin=False, is_premium=False):
+    """Niş Keşfi sayfa açılış sayacını artır"""
+    # Admin ve Premium sınırsız - sayaç tutma
+    if is_admin or is_premium:
+        return
+    
+    try:
+        supabase_url = os.environ.get('SUPABASE_URL', '')
+        supabase_key = os.environ.get('SUPABASE_SERVICE_ROLE_KEY', '')
+        
+        if not supabase_url or not supabase_key:
+            return
+        
+        from datetime import date, datetime
+        today = date.today().isoformat()
+        
+        # Mevcut kayıt var mı kontrol et
+        check_url = f"{supabase_url}/rest/v1/niche_page_views?user_id=eq.{user_id}&view_date=eq.{today}"
+        check_req = urllib.request.Request(check_url)
+        check_req.add_header('apikey', supabase_key)
+        check_req.add_header('Authorization', f'Bearer {supabase_key}')
+        
+        with urllib.request.urlopen(check_req, timeout=5) as response:
+            existing = json.loads(response.read().decode())
+            
+            if existing:
+                # Güncelle: view_count +1
+                new_count = existing[0].get('view_count', 0) + 1
+                update_url = f"{supabase_url}/rest/v1/niche_page_views?user_id=eq.{user_id}&view_date=eq.{today}"
+                payload = json.dumps({
+                    'view_count': new_count,
+                    'last_view_at': datetime.utcnow().isoformat() + 'Z'
+                }).encode()
+                
+                update_req = urllib.request.Request(update_url, data=payload, method='PATCH')
+                update_req.add_header('apikey', supabase_key)
+                update_req.add_header('Authorization', f'Bearer {supabase_key}')
+                update_req.add_header('Content-Type', 'application/json')
+                update_req.add_header('Prefer', 'return=minimal')
+                
+                urllib.request.urlopen(update_req, timeout=5)
+            else:
+                # Yeni kayıt
+                insert_url = f"{supabase_url}/rest/v1/niche_page_views"
+                payload = json.dumps({
+                    'user_id': user_id,
+                    'view_date': today,
+                    'view_count': 1,
+                    'last_view_at': datetime.utcnow().isoformat() + 'Z'
+                }).encode()
+                
+                insert_req = urllib.request.Request(insert_url, data=payload, method='POST')
+                insert_req.add_header('apikey', supabase_key)
+                insert_req.add_header('Authorization', f'Bearer {supabase_key}')
+                insert_req.add_header('Content-Type', 'application/json')
+                insert_req.add_header('Prefer', 'return=minimal')
+                
+                urllib.request.urlopen(insert_req, timeout=5)
+    
+    except Exception as e:
+        print(f"❌ Niche view increment error: {e}")
+
 def check_user_limit(user_id, user_email):
     try:
         supabase_url = os.environ.get('SUPABASE_URL', '')
@@ -174,6 +308,20 @@ class handler(BaseHTTPRequestHandler):
             action = data.get('action', 'chat')
             user_id = data.get('user_id', '')
             user_email = data.get('user_email', '')
+                        # NİŞ KEŞFİ SAYFA AÇILIM LİMİTİ KONTROL
+            if action == 'niche_limit_check':
+                limit_result = check_niche_page_limit(user_id, user_email)
+                self.wfile.write(json.dumps(limit_result).encode())
+                return
+            
+            # NİŞ KEŞFİ SAYFA AÇILIM ARTIR
+            if action == 'niche_view_increment':
+                limit_check = check_niche_page_limit(user_id, user_email)
+                is_admin_user_val = limit_check.get('is_admin', False)
+                is_premium_user_val = limit_check.get('is_premium', False)
+                increment_niche_view(user_id, is_admin=is_admin_user_val, is_premium=is_premium_user_val)
+                self.wfile.write(json.dumps({'success': True}).encode())
+                return
             
                        # GET API KEYS - Frontend için TÜM keyleri sağla
             if action == 'get_key':
