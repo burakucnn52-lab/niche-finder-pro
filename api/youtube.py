@@ -377,7 +377,107 @@ class handler(BaseHTTPRequestHandler):
                     'data': result
                 }).encode())
                 return
-            
+                       # ============================================
+            # ENDPOINT: NICHE_DISCOVERY (YouTube'dan Niş Keşfi)
+            # ============================================
+            elif endpoint == 'niche_discovery':
+                region = params.get('region', 'TR')
+                
+                cache_key = get_cache_key('niche_discovery', {'region': region})
+                cached = get_from_cache(cache_key)
+                
+                if cached:
+                    self.wfile.write(json.dumps({
+                        'source': 'cache',
+                        'niches': cached
+                    }).encode())
+                    return
+                
+                # YouTube Trending'den 50 video çek
+                yt_params = {
+                    'part': 'snippet,statistics,contentDetails',
+                    'chart': 'mostPopular',
+                    'regionCode': region,
+                    'maxResults': 50
+                }
+                
+                result = youtube_api_call('videos', yt_params)
+                
+                if 'error' in result:
+                    self.wfile.write(json.dumps({
+                        'error': result.get('error', 'Trending alınamadı')
+                    }).encode())
+                    return
+                
+                items = result.get('items', [])
+                
+                # FİLTRELE (spam/telif çıkar)
+                filtered = [v for v in items if is_useful_for_niche(v)]
+                print(f"🔍 {len(items)} video → {len(filtered)} faydalı")
+                
+                # KATEGORİLERE GÖRE GRUPLA = NİŞ
+                niches_dict = {}
+                
+                for video in filtered:
+                    snippet = video.get('snippet', {})
+                    stats = video.get('statistics', {})
+                    category_id = snippet.get('categoryId', '')
+                    
+                    if category_id not in NICHE_CATEGORY_MAP:
+                        continue
+                    
+                    cat_info = NICHE_CATEGORY_MAP[category_id]
+                    niche_id = f"trending-{category_id}"
+                    
+                    if niche_id not in niches_dict:
+                        niches_dict[niche_id] = {
+                            'id': niche_id,
+                            'icon': cat_info['icon'],
+                            'name': cat_info['name'],
+                            'category': cat_info['category'],
+                            'description': f"{cat_info['name']} alanında bugün trend olan içerikler",
+                            'isTrending': True,
+                            'trending_videos': [],
+                            'subCategories': [],
+                            'keywords': [cat_info['name'].lower().split()[0]],
+                            'rpm': {'min': 5, 'max': 12},
+                            'competition': 70,
+                            'growth': 90,
+                            'sustainability': 75,
+                            'facelessSupport': True,
+                            'shortsSupport': True,
+                        }
+                    
+                    # En fazla 5 trending video ekle
+                    if len(niches_dict[niche_id]['trending_videos']) < 5:
+                        niches_dict[niche_id]['trending_videos'].append({
+                            'title': snippet.get('title', ''),
+                            'channel': snippet.get('channelTitle', ''),
+                            'thumbnail': snippet.get('thumbnails', {}).get('medium', {}).get('url', ''),
+                            'videoId': video.get('id', ''),
+                            'views': stats.get('viewCount', '0')
+                        })
+                    
+                    # Etiketlerden alt kategori (en fazla 5)
+                    tags = snippet.get('tags', [])[:5]
+                    for tag in tags:
+                        if tag and len(niches_dict[niche_id]['subCategories']) < 5:
+                            if tag not in niches_dict[niche_id]['subCategories']:
+                                niches_dict[niche_id]['subCategories'].append(tag)
+                
+                trending_niches = list(niches_dict.values())
+                print(f"✨ {len(trending_niches)} trending niş oluşturuldu")
+                
+                # Cache'e kaydet
+                save_to_cache(cache_key, 'niche_discovery', trending_niches)
+                
+                self.wfile.write(json.dumps({
+                    'source': 'api',
+                    'niches': trending_niches,
+                    'region': region
+                }).encode())
+                return
+             
             # ============================================
             # ENDPOINT: STATUS (API Sağlık Kontrolü)
             # ============================================
