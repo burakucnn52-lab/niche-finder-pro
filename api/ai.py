@@ -51,7 +51,7 @@ def check_user_limit(user_id, user_email):
             users = json.loads(response.read().decode())
             
             if not users:
-                return {'allowed': True, 'remaining': 5}
+                return {'allowed': True, 'remaining': 3}
             
             user = users[0]
             
