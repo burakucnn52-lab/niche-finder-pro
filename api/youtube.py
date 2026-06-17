@@ -9,6 +9,85 @@ from datetime import datetime, timedelta
 # Engellenen kelimeler (filtreleme için)
 BLOCKED_KEYWORDS = ['vevo', 'official', 'records', 'music', 'entertainment', 'tv', 'media', 'topic']
 
+# ============================================
+# NİŞ KEŞFİ İÇİN AKILLI FİLTRELEME
+# ============================================
+
+# Niş için UYGUN OLMAYAN kelimeler (telif/spam)
+NICHE_BAD_KEYWORDS = [
+    'klip', 'official video', 'lyrics', 'şarkı sözleri',
+    'fragman', 'trailer', 'sahne', 'final sahne',
+    'bölüm fragman', 'tek parça', 'full hd izle',
+    'maç özeti', 'gol', 'müthiş gol', 'penaltı',
+    'reklam', 'tanıtım', 'reklam filmi',
+    'konser', 'live performance',
+    'remix', 'cover şarkı', 'akustik versiyon'
+]
+
+# Bu kelimeler varsa İÇERİK ÜRETİMİ - tutulur
+NICHE_GOOD_KEYWORDS = [
+    'nasıl', 'how to', 'rehber', 'guide', 'eğitim',
+    'öğren', 'learn', 'tutorial', 'kurs',
+    'analiz', 'analysis', 'inceleme', 'review',
+    'tepki', 'reaction', 'vlog', 'günlük',
+    'açıklama', 'açıklıyorum', 'anlatım',
+    'tarih', 'belgesel', 'documentary',
+    'tavsiye', 'öneri', 'tips', 'ipucu',
+    'deneyim', 'tecrübe', 'test'
+]
+
+# YouTube kategorilerini niş bilgisine eşle
+NICHE_CATEGORY_MAP = {
+    '1': {'icon': '🎬', 'name': 'Film & İçerik İncelemesi', 'category': 'Sanat'},
+    '2': {'icon': '🚗', 'name': 'Otomobil İçeriği', 'category': 'Hobi'},
+    '10': {'icon': '🎵', 'name': 'Müzik Üretimi & Dersi', 'category': 'Sanat'},
+    '15': {'icon': '🐶', 'name': 'Evcil Hayvan Bakımı', 'category': 'Yaşam'},
+    '17': {'icon': '⚽', 'name': 'Spor Analizi', 'category': 'Spor'},
+    '19': {'icon': '✈️', 'name': 'Seyahat & Vlog', 'category': 'Seyahat'},
+    '20': {'icon': '🎮', 'name': 'Oyun İncelemesi', 'category': 'Eğlence'},
+    '22': {'icon': '📹', 'name': 'Vlog & Yaşam Tarzı', 'category': 'Yaşam'},
+    '23': {'icon': '😂', 'name': 'Komedi & Eğlence', 'category': 'Eğlence'},
+    '24': {'icon': '🎭', 'name': 'Eğlence İçerikleri', 'category': 'Eğlence'},
+    '25': {'icon': '📰', 'name': 'Haber & Güncel Olaylar', 'category': 'Eğitim'},
+    '26': {'icon': '💄', 'name': 'Güzellik & Yaşam Stili', 'category': 'Yaşam'},
+    '27': {'icon': '📚', 'name': 'Eğitim İçerikleri', 'category': 'Eğitim'},
+    '28': {'icon': '🔬', 'name': 'Bilim & Teknoloji', 'category': 'Teknoloji'},
+    '29': {'icon': '🌍', 'name': 'STK & Sosyal Konular', 'category': 'Eğitim'}
+}
+
+
+def is_useful_for_niche(video):
+    """Video YouTuber/içerik üreticisi için faydalı mı?"""
+    try:
+        snippet = video.get('snippet', {})
+        title = snippet.get('title', '').lower()
+        channel = snippet.get('channelTitle', '').lower()
+        
+        # 1. Mevcut BLOCKED_KEYWORDS kontrol (kanal adı)
+        for blocked in BLOCKED_KEYWORDS:
+            if blocked in channel:
+                # Ama içerik üretimi varsa OK
+                if any(good in title for good in NICHE_GOOD_KEYWORDS):
+                    return True
+                return False
+        
+        # 2. Kötü kelime kontrolü (başlık)
+        has_bad = any(bad in title for bad in NICHE_BAD_KEYWORDS)
+        has_good = any(good in title for good in NICHE_GOOD_KEYWORDS)
+        
+        # Hem kötü hem iyi = OK (örn: "Film İncelemesi")
+        if has_bad and has_good:
+            return True
+        
+        # Sadece kötü = ÇIKAR
+        if has_bad:
+            return False
+        
+        return True
+    
+    except Exception as e:
+        print(f"Filter error: {e}")
+        return True
 # Cache süresi (saat)
 CACHE_HOURS = 6
 
@@ -302,6 +381,107 @@ class handler(BaseHTTPRequestHandler):
             # ============================================
             # ENDPOINT: STATUS (API Sağlık Kontrolü)
             # ============================================
+                       # ============================================
+            # ENDPOINT: NICHE_DISCOVERY (YouTube'dan Niş Keşfi)
+            # ============================================
+            elif endpoint == 'niche_discovery':
+                region = params.get('region', 'TR')
+                
+                cache_key = get_cache_key('niche_discovery', {'region': region})
+                cached = get_from_cache(cache_key)
+                
+                if cached:
+                    self.wfile.write(json.dumps({
+                        'source': 'cache',
+                        'niches': cached
+                    }).encode())
+                    return
+                
+                # YouTube Trending'den 50 video çek
+                yt_params = {
+                    'part': 'snippet,statistics,contentDetails',
+                    'chart': 'mostPopular',
+                    'regionCode': region,
+                    'maxResults': 50
+                }
+                
+                result = youtube_api_call('videos', yt_params)
+                
+                if 'error' in result:
+                    self.wfile.write(json.dumps({
+                        'error': result.get('error', 'Trending alınamadı')
+                    }).encode())
+                    return
+                
+                items = result.get('items', [])
+                
+                # FİLTRELE (spam/telif çıkar)
+                filtered = [v for v in items if is_useful_for_niche(v)]
+                print(f"🔍 {len(items)} video → {len(filtered)} faydalı")
+                
+                # KATEGORİLERE GÖRE GRUPLA = NİŞ
+                niches_dict = {}
+                
+                for video in filtered:
+                    snippet = video.get('snippet', {})
+                    stats = video.get('statistics', {})
+                    category_id = snippet.get('categoryId', '')
+                    
+                    if category_id not in NICHE_CATEGORY_MAP:
+                        continue
+                    
+                    cat_info = NICHE_CATEGORY_MAP[category_id]
+                    niche_id = f"trending-{category_id}"
+                    
+                    if niche_id not in niches_dict:
+                        niches_dict[niche_id] = {
+                            'id': niche_id,
+                            'icon': cat_info['icon'],
+                            'name': cat_info['name'],
+                            'category': cat_info['category'],
+                            'description': f"{cat_info['name']} alanında bugün trend olan içerikler",
+                            'isTrending': True,
+                            'trending_videos': [],
+                            'subCategories': [],
+                            'keywords': [cat_info['name'].lower().split()[0]],
+                            'rpm': {'min': 5, 'max': 12},
+                            'competition': 70,
+                            'growth': 90,
+                            'sustainability': 75,
+                            'facelessSupport': True,
+                            'shortsSupport': True,
+                        }
+                    
+                    # En fazla 5 trending video ekle
+                    if len(niches_dict[niche_id]['trending_videos']) < 5:
+                        niches_dict[niche_id]['trending_videos'].append({
+                            'title': snippet.get('title', ''),
+                            'channel': snippet.get('channelTitle', ''),
+                            'thumbnail': snippet.get('thumbnails', {}).get('medium', {}).get('url', ''),
+                            'videoId': video.get('id', ''),
+                            'views': stats.get('viewCount', '0')
+                        })
+                    
+                    # Etiketlerden alt kategori (en fazla 5)
+                    tags = snippet.get('tags', [])[:5]
+                    for tag in tags:
+                        if tag and len(niches_dict[niche_id]['subCategories']) < 5:
+                            if tag not in niches_dict[niche_id]['subCategories']:
+                                niches_dict[niche_id]['subCategories'].append(tag)
+                
+                trending_niches = list(niches_dict.values())
+                print(f"✨ {len(trending_niches)} trending niş oluşturuldu")
+                
+                # Cache'e kaydet
+                save_to_cache(cache_key, 'niche_discovery', trending_niches)
+                
+                self.wfile.write(json.dumps({
+                    'source': 'api',
+                    'niches': trending_niches,
+                    'region': region
+                }).encode())
+                return
+            
             elif endpoint == 'status':
                 self.wfile.write(json.dumps({
                     'status': 'ok',
