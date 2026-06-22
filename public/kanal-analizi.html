@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kanal Analizi - NICHIFY PRO</title>
+  <title>Channel Analysis - NICHIFY PRO</title>
   
   <link rel="stylesheet" href="/css/core.css">
   <link rel="stylesheet" href="/css/animations.css">
@@ -36,39 +36,39 @@
       
       <nav class="sidebar-nav">
         <div class="sidebar-section">
-          <div class="sidebar-section-title">Ana Menü</div>
+          <div class="sidebar-section-title">Main Menu</div>
           <a href="/dashboard" class="sidebar-item">
             <span class="sidebar-item-icon">🏠</span>
-            <span>Anasayfa</span>
+            <span>Home</span>
           </a>
           <a href="/nis-kesfi" class="sidebar-item">
             <span class="sidebar-item-icon">🎯</span>
-            <span>Niş Keşfi</span>
+            <span>Niche Discovery</span>
           </a>
           <a href="/yukselen-kanallar" class="sidebar-item">
             <span class="sidebar-item-icon">🔥</span>
-            <span>Yükselen Kanallar</span>
+            <span>Trending Channels</span>
           </a>
           <a href="/kanal-analizi" class="sidebar-item active">
             <span class="sidebar-item-icon">📊</span>
-            <span>Kanal Analizi</span>
+            <span>Channel Analysis</span>
           </a>
         </div>
         
         <div class="sidebar-section">
-          <div class="sidebar-section-title">Araçlar</div>
+          <div class="sidebar-section-title">Tools</div>
           <a href="/risk-detector" class="sidebar-item">
             <span class="sidebar-item-icon">🛡️</span>
             <span>Risk Detector</span>
           </a>
           <a href="/ai-asistan" class="sidebar-item">
             <span class="sidebar-item-icon">🤖</span>
-            <span>AI Asistan</span>
+            <span>AI Assistant</span>
             <span class="badge badge-pro sidebar-item-badge">PRO</span>
           </a>
           <a href="/yol-haritasi" class="sidebar-item">
             <span class="sidebar-item-icon">🗺️</span>
-            <span>Yol Haritası</span>
+            <span>Roadmap</span>
           </a>
         </div>
         
@@ -76,7 +76,7 @@
           <div class="sidebar-section-title">👑 Admin</div>
           <a href="/admin" class="sidebar-item">
             <span class="sidebar-item-icon">⚙️</span>
-            <span>Yönetim Paneli</span>
+            <span>Admin Panel</span>
           </a>
         </div>
       </nav>
@@ -85,19 +85,19 @@
         <div class="sidebar-lifetime-old">$149</div>
         <div class="sidebar-lifetime-price">$89</div>
         <div class="sidebar-lifetime-label">🔥 Lifetime Deal</div>
-        <a href="/fiyatlandirma" class="btn btn-primary btn-sm btn-block" style="margin-top: 8px;">
-          Şimdi Al
+        <a href="/pricing" class="btn btn-primary btn-sm btn-block" style="margin-top: 8px;">
+          Get It Now
         </a>
-        <div class="sidebar-lifetime-stock">⚡ <span id="lifetimeStock">88</span>/100 kaldı</div>
+        <div class="sidebar-lifetime-stock">⚡ <span id="lifetimeStock">88</span>/100 left</div>
       </div>
       
       <div class="sidebar-user">
         <div class="avatar" id="userAvatar">U</div>
         <div class="sidebar-user-info">
-          <div class="sidebar-user-name" id="userName">Yükleniyor...</div>
+          <div class="sidebar-user-name" id="userName">Loading...</div>
           <div class="sidebar-user-email" id="userEmail">-</div>
         </div>
-        <div class="sidebar-user-menu" id="logoutBtn" title="Çıkış Yap">⏻</div>
+        <div class="sidebar-user-menu" id="logoutBtn" title="Log Out">⏻</div>
       </div>
     </aside>
     
@@ -107,28 +107,28 @@
       <div class="page-header">
         <h1>
           <span>📊</span>
-          <span>Kanal Analizi</span>
+          <span>Channel Analysis</span>
         </h1>
-        <p>YouTube kanalının detaylı analizini görüntüle. <strong>Skor, istatistik, son videolar ve daha fazlası</strong>.</p>
+        <p>View detailed analytics of any YouTube channel. <strong>Score, stats, recent videos, and more</strong>.</p>
       </div>
       
       <!-- Search Section -->
       <div class="filters">
-        <label class="form-label">🔍 KANAL ARA</label>
+        <label class="form-label">🔍 SEARCH CHANNEL</label>
         <div class="channel-search">
           <input 
             type="text" 
             id="channelSearchInput" 
-            placeholder="Kanal adı veya YouTube URL (örn: PewDiePie, MrBeast)"
+            placeholder="Channel name or YouTube URL (e.g., PewDiePie, MrBeast)"
             autocomplete="off"
           >
         </div>
         <div style="display: flex; gap: 8px; margin-top: 12px;">
           <button class="btn btn-primary" id="searchBtn">
-            🔍 Kanalı Analiz Et
+            🔍 Analyze Channel
           </button>
           <button class="btn btn-secondary" id="clearBtn">
-            🗑️ Temizle
+            🗑️ Clear
           </button>
         </div>
       </div>
@@ -137,7 +137,7 @@
       <div id="searchResults" style="display: none;">
         <div class="results-info">
           <div class="results-count">
-            <strong id="searchCount">0</strong> kanal bulundu
+            <strong id="searchCount">0</strong> channels found
             <span class="data-source" id="searchSource">📡</span>
           </div>
         </div>
@@ -146,21 +146,21 @@
       
       <!-- Channel Detail -->
       <div id="channelDetail" style="display: none;">
-        <!-- JS ile doldurulacak -->
+        <!-- Filled by JS -->
       </div>
       
       <!-- Initial State -->
       <div id="initialState">
         <div class="empty-state" style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); padding: var(--space-2xl);">
           <div class="empty-state-icon">📺</div>
-          <div class="empty-state-title">Analiz etmek için bir kanal ara</div>
+          <div class="empty-state-title">Search for a channel to analyze</div>
           <div class="empty-state-message">
-            Yukarıdaki arama kutusuna kanal adı yazarak başlayabilirsin.<br>
-            Örnek: PewDiePie, MrBeast, Veritasium
+            Type a channel name in the search box above to get started.<br>
+            Example: PewDiePie, MrBeast, Veritasium
           </div>
           
           <div style="margin-top: var(--space-xl);">
-            <h3 style="font-size: 0.875rem; margin-bottom: var(--space-md); color: var(--text-muted);">POPÜLER ARAMALAR</h3>
+            <h3 style="font-size: 0.875rem; margin-bottom: var(--space-md); color: var(--text-muted);">POPULAR SEARCHES</h3>
             <div style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap;">
               <button class="chip" onclick="quickSearch('MrBeast')">MrBeast</button>
               <button class="chip" onclick="quickSearch('PewDiePie')">PewDiePie</button>
@@ -190,7 +190,7 @@
       const isAuth = await Auth.requireAuth('/login');
       if (!isAuth) return;
           
-      // ✅ PREMIUM KONTROLÜ - Kanal Analizi sadece Premium
+      // ✅ PREMIUM CHECK - Channel Analysis is Premium only
       const currentUser = await Auth.getCurrentUser();
       if (!currentUser || (!currentUser.is_premium && !currentUser.is_admin && currentUser.role !== 'super_admin')) {
         document.body.innerHTML = `
@@ -216,7 +216,7 @@
             ">
               <div style="font-size: 4rem; margin-bottom: 16px;">📊</div>
               <h1 style="font-size: 1.75rem; margin-bottom: 12px; background: linear-gradient(135deg, #4da3ff, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                Kanal Analizi
+                Channel Analysis
               </h1>
               <div style="
                 display: inline-block;
@@ -227,31 +227,31 @@
                 font-size: 0.75rem;
                 font-weight: 700;
                 margin-bottom: 24px;
-              ">💎 PREMIUM ÖZELLİK</div>
+              ">💎 PREMIUM FEATURE</div>
               <p style="color: rgba(255,255,255,0.7); margin-bottom: 32px; line-height: 1.6;">
-                Bu özellik <strong>Premium kullanıcılara</strong> özeldir!<br>
-                Kanal Analizi ile rakip kanalları derinlemesine analiz edin ve büyüme stratejileri öğrenin.
+                This feature is exclusive to <strong>Premium users</strong>!<br>
+                With Channel Analysis, deeply analyze competitor channels and learn growth strategies.
               </p>
               <div style="text-align: left; margin-bottom: 32px;">
                 <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
                   <span style="color: #10b981;">✓</span>
-                  <span style="color: rgba(255,255,255,0.9);">Sınırsız kanal analizi</span>
+                  <span style="color: rgba(255,255,255,0.9);">Unlimited channel analysis</span>
                 </div>
                 <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
                   <span style="color: #10b981;">✓</span>
-                  <span style="color: rgba(255,255,255,0.9);">Detaylı istatistikler</span>
+                  <span style="color: rgba(255,255,255,0.9);">Detailed statistics</span>
                 </div>
                 <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
                   <span style="color: #10b981;">✓</span>
-                  <span style="color: rgba(255,255,255,0.9);">Video performans analizi</span>
+                  <span style="color: rgba(255,255,255,0.9);">Video performance analysis</span>
                 </div>
                 <div style="display: flex; align-items: center; gap: 12px;">
                   <span style="color: #10b981;">✓</span>
-                  <span style="color: rgba(255,255,255,0.9);">Büyüme stratejileri</span>
+                  <span style="color: rgba(255,255,255,0.9);">Growth strategies</span>
                 </div>
               </div>
               <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
-                <a href="/fiyatlandirma" style="
+                <a href="/pricing" style="
                   display: inline-block;
                   background: linear-gradient(135deg, #4da3ff, #a78bfa);
                   color: white;
@@ -262,7 +262,7 @@
                   box-shadow: 0 4px 20px rgba(77, 163, 255, 0.3);
                   transition: transform 0.2s;
                 " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
-                  💎 Premium'a Geç
+                  💎 Upgrade to Premium
                 </a>
                 <a href="/dashboard" style="
                   display: inline-block;
@@ -274,7 +274,7 @@
                   font-weight: 600;
                   border: 1px solid rgba(255, 255, 255, 0.2);
                 ">
-                  ← Geri Dön
+                  ← Go Back
                 </a>
               </div>
             </div>
@@ -327,7 +327,7 @@
     // ============================================
     async function searchChannels(query) {
       if (!query || query.length < 2) {
-        Utils.toast.warning('En az 2 karakter girin');
+        Utils.toast.warning('Enter at least 2 characters');
         return;
       }
       
@@ -370,15 +370,15 @@
             source.innerHTML = '⚡ Cache';
           } else {
             source.className = 'data-source live';
-            source.innerHTML = '🔴 Canlı';
+            source.innerHTML = '🔴 Live';
           }
           
           if (channels.length === 0) {
             grid.innerHTML = `
               <div class="empty-state" style="grid-column: 1/-1;">
                 <div class="empty-state-icon">🔍</div>
-                <div class="empty-state-title">Kanal bulunamadı</div>
-                <div class="empty-state-message">Farklı bir arama terimi deneyin</div>
+                <div class="empty-state-title">No channels found</div>
+                <div class="empty-state-message">Try a different search term</div>
               </div>
             `;
             return;
@@ -397,11 +397,11 @@
                   ${thumb ? `<img src="${thumb}" alt="${snippet.title}" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover;">` : '📺'}
                 </div>
                 <div class="channel-body">
-                  <div class="channel-title">${snippet.title || 'Bilinmeyen'}</div>
-                  <div class="channel-name">${Utils.truncate(snippet.description || 'Açıklama yok', 80)}</div>
+                  <div class="channel-title">${snippet.title || 'Unknown'}</div>
+                  <div class="channel-name">${Utils.truncate(snippet.description || 'No description', 80)}</div>
                   <div class="channel-stats">
                     <button class="btn btn-primary btn-sm" style="width: 100%;">
-                      📊 Analiz Et →
+                      📊 Analyze →
                     </button>
                   </div>
                 </div>
@@ -412,13 +412,13 @@
           grid.innerHTML = `
             <div class="empty-state" style="grid-column: 1/-1;">
               <div class="empty-state-icon">⚠️</div>
-              <div class="empty-state-title">Arama yapılamadı</div>
-              <div class="empty-state-message">${result.error || 'Bilinmeyen hata'}</div>
+              <div class="empty-state-title">Search failed</div>
+              <div class="empty-state-message">${result.error || 'Unknown error'}</div>
             </div>
           `;
         }
       } catch (error) {
-        Utils.toast.error('Hata: ' + error.message);
+        Utils.toast.error('Error: ' + error.message);
       }
     }
     
@@ -435,7 +435,7 @@
       detailContainer.innerHTML = `
         <div class="empty-state" style="background: var(--bg-card); border-radius: var(--radius-lg); padding: var(--space-2xl);">
           <div class="spinner spinner-lg"></div>
-          <div class="empty-state-title" style="margin-top: var(--space-md);">Kanal yükleniyor...</div>
+          <div class="empty-state-title" style="margin-top: var(--space-md);">Loading channel...</div>
         </div>
       `;
       
@@ -452,8 +452,8 @@
           detailContainer.innerHTML = `
             <div class="empty-state" style="background: var(--bg-card); border-radius: var(--radius-lg); padding: var(--space-2xl);">
               <div class="empty-state-icon">❌</div>
-              <div class="empty-state-title">Kanal bulunamadı</div>
-              <div class="empty-state-message">Bu kanal mevcut değil veya silinmiş olabilir</div>
+              <div class="empty-state-title">Channel not found</div>
+              <div class="empty-state-message">This channel may not exist or may have been deleted</div>
             </div>
           `;
           return;
@@ -464,7 +464,7 @@
         
         renderChannelDetail(channel, videos);
       } catch (error) {
-        Utils.toast.error('Hata: ' + error.message);
+        Utils.toast.error('Error: ' + error.message);
       }
     }
     
@@ -500,48 +500,48 @@
           </div>
           
           <div class="channel-detail-info">
-            <h1>${snippet.title || 'Bilinmeyen Kanal'}</h1>
+            <h1>${snippet.title || 'Unknown Channel'}</h1>
             <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px;">
               ${snippet.country ? `<span class="badge badge-primary">📍 ${snippet.country}</span>` : ''}
               <span class="badge badge-purple">📅 ${Utils.formatDate(snippet.publishedAt)}</span>
               <span class="badge ${score >= 70 ? 'badge-success' : 'badge-warning'}">
-                ⭐ Skor: ${score}/100
+                ⭐ Score: ${score}/100
               </span>
             </div>
-            <p class="channel-description">${Utils.truncate(snippet.description || 'Açıklama yok', 250)}</p>
+            <p class="channel-description">${Utils.truncate(snippet.description || 'No description', 250)}</p>
             
             <div class="channel-detail-stats">
               <div class="detail-stat-item">
                 <div class="detail-stat-num">${Utils.formatNumber(subscribers)}</div>
-                <div class="detail-stat-name">Abone</div>
+                <div class="detail-stat-name">Subscribers</div>
               </div>
               <div class="detail-stat-item">
                 <div class="detail-stat-num">${Utils.formatNumber(totalViews)}</div>
-                <div class="detail-stat-name">Toplam İzlenme</div>
+                <div class="detail-stat-name">Total Views</div>
               </div>
               <div class="detail-stat-item">
                 <div class="detail-stat-num">${Utils.formatNumber(videoCount)}</div>
-                <div class="detail-stat-name">Video Sayısı</div>
+                <div class="detail-stat-name">Video Count</div>
               </div>
               <div class="detail-stat-item">
                 <div class="detail-stat-num">${Utils.formatNumber(avgViews)}</div>
-                <div class="detail-stat-name">Ort. İzlenme</div>
+                <div class="detail-stat-name">Avg. Views</div>
               </div>
               <div class="detail-stat-item">
                 <div class="detail-stat-num">${engagementRate}%</div>
-                <div class="detail-stat-name">Etkileşim</div>
+                <div class="detail-stat-name">Engagement</div>
               </div>
             </div>
             
             <div style="margin-top: 16px; display: flex; gap: 8px; flex-wrap: wrap;">
               <a href="https://www.youtube.com/channel/${channel.id}" target="_blank" class="btn btn-primary btn-sm">
-                ▶️ YouTube'da Aç
+                ▶️ Open on YouTube
               </a>
               <button class="btn btn-secondary btn-sm" onclick="copyChannelLink('${channel.id}')">
-                🔗 Link Kopyala
+                🔗 Copy Link
               </button>
               <button class="btn btn-secondary btn-sm" onclick="window.location.href='/risk-detector?id=${channel.id}'">
-                🛡️ Risk Analizi
+                🛡️ Risk Analysis
               </button>
             </div>
           </div>
@@ -552,7 +552,7 @@
           <div class="stat-card">
             <div class="stat-card-icon">⭐</div>
             <div class="stat-card-value" style="color: ${Utils.getScoreColor(score)};">${score}</div>
-            <div class="stat-card-label">Kanal Skoru</div>
+            <div class="stat-card-label">Channel Score</div>
             <div class="stat-card-trend ${score >= 70 ? 'up' : 'down'}">
               ${Utils.getScoreLabel(score)}
             </div>
@@ -561,7 +561,7 @@
           <div class="stat-card">
             <div class="stat-card-icon" style="background: rgba(69,224,138,0.15);">🛡️</div>
             <div class="stat-card-value" style="color: ${risk.level.color};">${risk.score}</div>
-            <div class="stat-card-label">Güvenlik Puanı</div>
+            <div class="stat-card-label">Safety Score</div>
             <div class="stat-card-trend ${risk.score >= 70 ? 'up' : 'down'}">
               ${risk.level.icon} ${risk.level.label}
             </div>
@@ -570,7 +570,7 @@
           <div class="stat-card">
             <div class="stat-card-icon" style="background: rgba(255,209,102,0.15);">💰</div>
             <div class="stat-card-value">$${Utils.formatNumber(avgViews * 0.005)}</div>
-            <div class="stat-card-label">Tahmini Aylık Gelir</div>
+            <div class="stat-card-label">Est. Monthly Revenue</div>
             <div class="stat-card-trend up">
               ~$5 RPM
             </div>
@@ -579,9 +579,9 @@
           <div class="stat-card">
             <div class="stat-card-icon" style="background: rgba(167,139,250,0.15);">🚀</div>
             <div class="stat-card-value">${Math.round(engagementRate * 10) / 10}%</div>
-            <div class="stat-card-label">Etkileşim Oranı</div>
+            <div class="stat-card-label">Engagement Rate</div>
             <div class="stat-card-trend ${engagementRate > 10 ? 'up' : 'down'}">
-              ${engagementRate > 10 ? 'Yüksek' : 'Normal'}
+              ${engagementRate > 10 ? 'High' : 'Normal'}
             </div>
           </div>
         </div>
@@ -591,7 +591,7 @@
           <div class="filters fade-in-up" style="margin-top: var(--space-xl);">
             <h2 style="font-size: 1.25rem; margin-bottom: var(--space-md); display: flex; align-items: center; gap: 8px;">
               <span>🎬</span>
-              <span>Son Videolar</span>
+              <span>Recent Videos</span>
               <span class="badge badge-primary">${videos.length}</span>
             </h2>
             <div class="channels-grid">
@@ -606,7 +606,7 @@
                       ${vThumb ? `<img src="${vThumb}" alt="${vSnippet.title}" loading="lazy">` : ''}
                     </div>
                     <div class="channel-body">
-                      <div class="channel-title">${Utils.truncate(vSnippet.title || 'Başlıksız', 60)}</div>
+                      <div class="channel-title">${Utils.truncate(vSnippet.title || 'Untitled', 60)}</div>
                       <div class="channel-stats">
                         <div class="channel-stat">
                           <span>⏱️</span>
@@ -624,7 +624,7 @@
         <!-- Recommendations -->
         <div class="filters fade-in-up" style="margin-top: var(--space-xl);">
           <h2 style="font-size: 1.25rem; margin-bottom: var(--space-md);">
-            🎯 Tavsiyeler
+            🎯 Recommendations
           </h2>
           ${risk.recommendations.map(rec => `
             <div style="padding: var(--space-md); background: var(--bg-tertiary); border-radius: var(--radius-md); margin-bottom: var(--space-sm); border-left: 3px solid var(--accent-blue);">
@@ -671,7 +671,7 @@
     });
     
     document.getElementById('logoutBtn').addEventListener('click', async () => {
-      if (confirm('Çıkış yapmak istediğinizden emin misiniz?')) {
+      if (confirm('Are you sure you want to log out?')) {
         await Auth.logout();
       }
     });
