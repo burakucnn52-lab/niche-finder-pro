@@ -14,13 +14,13 @@ const Auth = {
   },
   
   // ============================================
-  // REGISTER (Kayıt Ol)
+  // REGISTER
   // ============================================
   async register(email, password, name) {
     try {
       const supabase = await this.init();
       
-      // 1. Supabase Auth'a kaydet
+      // 1. Save to Supabase Auth
       const { data: authData, error: authError } = await supabase.auth.signUp({
         email,
         password,
@@ -33,7 +33,7 @@ const Auth = {
       
       if (authError) throw authError;
       
-      // 2. users tablosuna ekle
+      // 2. Insert into users table
       if (authData.user) {
         const { error: dbError } = await supabase
           .from('users')
@@ -46,7 +46,7 @@ const Auth = {
             is_premium: false
           }]);
         
-        // Eğer user zaten varsa hata atmaz
+        // No error if user already exists
         if (dbError && dbError.code !== '23505') {
           console.warn('User insert warning:', dbError);
         }
@@ -55,7 +55,7 @@ const Auth = {
       return {
         success: true,
         user: authData.user,
-        message: 'Kayıt başarılı! E-posta adresinizi doğrulayın.'
+        message: 'Registration successful! Please verify your email address.'
       };
       
     } catch (error) {
@@ -68,7 +68,7 @@ const Auth = {
   },
   
   // ============================================
-  // LOGIN (Giriş Yap)
+  // LOGIN
   // ============================================
   async login(email, password) {
     try {
@@ -85,7 +85,7 @@ const Auth = {
         success: true,
         user: data.user,
         session: data.session,
-        message: 'Giriş başarılı!'
+        message: 'Login successful!'
       };
       
     } catch (error) {
@@ -125,7 +125,7 @@ const Auth = {
   },
   
   // ============================================
-  // LOGOUT (Çıkış Yap)
+  // LOGOUT
   // ============================================
   async logout() {
     try {
@@ -144,7 +144,7 @@ const Auth = {
   },
   
   // ============================================
-  // RESET PASSWORD (Şifre Sıfırla)
+  // RESET PASSWORD
   // ============================================
   async resetPassword(email) {
     try {
@@ -158,7 +158,7 @@ const Auth = {
       
       return {
         success: true,
-        message: 'Şifre sıfırlama linki e-posta adresinize gönderildi.'
+        message: 'A password reset link has been sent to your email address.'
       };
       
     } catch (error) {
@@ -181,7 +181,7 @@ const Auth = {
       
       if (error || !user) return null;
       
-      // Users tablosundan detay bilgileri çek
+      // Fetch detailed info from users table
       const { data: userData } = await supabase
         .from('users')
         .select('*')
@@ -238,7 +238,7 @@ const Auth = {
   },
   
   // ============================================
-  // PROTECT PAGE (Sayfa koruması)
+  // PROTECT PAGE
   // ============================================
   async requireAuth(redirectTo = '/login') {
     const isLoggedIn = await this.isLoggedIn();
@@ -263,19 +263,19 @@ const Auth = {
   },
   
   // ============================================
-  // ERROR MESSAGES (Türkçe)
+  // ERROR MESSAGES (English)
   // ============================================
   getErrorMessage(error) {
     const message = error.message || error.toString();
     
     const messages = {
-      'Invalid login credentials': 'E-posta veya şifre hatalı',
-      'Email not confirmed': 'Lütfen e-posta adresinizi doğrulayın',
-      'User already registered': 'Bu e-posta adresi zaten kayıtlı',
-      'Password should be at least 6 characters': 'Şifre en az 6 karakter olmalıdır',
-      'Unable to validate email address: invalid format': 'Geçersiz e-posta formatı',
-      'Email rate limit exceeded': 'Çok fazla deneme. Lütfen biraz bekleyin.',
-      'For security purposes, you can only request this once every 60 seconds': 'Güvenlik için 60 saniyede bir deneyebilirsiniz'
+      'Invalid login credentials': 'Invalid email or password',
+      'Email not confirmed': 'Please verify your email address',
+      'User already registered': 'This email address is already registered',
+      'Password should be at least 6 characters': 'Password must be at least 6 characters',
+      'Unable to validate email address: invalid format': 'Invalid email format',
+      'Email rate limit exceeded': 'Too many attempts. Please wait a moment.',
+      'For security purposes, you can only request this once every 60 seconds': 'For security reasons, you can only try this once every 60 seconds'
     };
     
     return messages[message] || message;
