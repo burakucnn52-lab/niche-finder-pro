@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profilim - NICHIFY PRO</title>
+  <title>My Profile - NICHIFY PRO</title>
   
   <link rel="stylesheet" href="/css/core.css">
   <link rel="stylesheet" href="/css/animations.css">
@@ -194,39 +194,39 @@
       
       <nav class="sidebar-nav">
         <div class="sidebar-section">
-          <div class="sidebar-section-title">Ana Menü</div>
+          <div class="sidebar-section-title">Main Menu</div>
           <a href="/dashboard" class="sidebar-item">
             <span class="sidebar-item-icon">🏠</span>
-            <span>Anasayfa</span>
+            <span>Home</span>
           </a>
           <a href="/nis-kesfi" class="sidebar-item">
             <span class="sidebar-item-icon">🎯</span>
-            <span>Niş Keşfi</span>
+            <span>Niche Discovery</span>
           </a>
           <a href="/yukselen-kanallar" class="sidebar-item">
             <span class="sidebar-item-icon">🔥</span>
-            <span>Yükselen Kanallar</span>
+            <span>Trending Channels</span>
           </a>
           <a href="/kanal-analizi" class="sidebar-item">
             <span class="sidebar-item-icon">📊</span>
-            <span>Kanal Analizi</span>
+            <span>Channel Analysis</span>
           </a>
         </div>
         
         <div class="sidebar-section">
-          <div class="sidebar-section-title">Araçlar</div>
+          <div class="sidebar-section-title">Tools</div>
           <a href="/risk-detector" class="sidebar-item">
             <span class="sidebar-item-icon">🛡️</span>
             <span>Risk Detector</span>
           </a>
           <a href="/ai-asistan" class="sidebar-item">
             <span class="sidebar-item-icon">🤖</span>
-            <span>AI Asistan</span>
-            <span class="badge badge-warning sidebar-item-badge">YAKINDA</span>
+            <span>AI Assistant</span>
+            <span class="badge badge-warning sidebar-item-badge">SOON</span>
           </a>
           <a href="/yol-haritasi" class="sidebar-item">
             <span class="sidebar-item-icon">🗺️</span>
-            <span>Yol Haritası</span>
+            <span>Roadmap</span>
           </a>
         </div>
         
@@ -234,7 +234,7 @@
           <div class="sidebar-section-title">👑 Admin</div>
           <a href="/admin" class="sidebar-item">
             <span class="sidebar-item-icon">⚙️</span>
-            <span>Yönetim Paneli</span>
+            <span>Admin Panel</span>
           </a>
         </div>
       </nav>
@@ -243,19 +243,19 @@
         <div class="sidebar-lifetime-old">$149</div>
         <div class="sidebar-lifetime-price">$89</div>
         <div class="sidebar-lifetime-label">🔥 Lifetime Deal</div>
-        <a href="/fiyatlandirma" class="btn btn-primary btn-sm btn-block" style="margin-top: 8px;">
-          Şimdi Al
+        <a href="/pricing" class="btn btn-primary btn-sm btn-block" style="margin-top: 8px;">
+          Get It Now
         </a>
-        <div class="sidebar-lifetime-stock">⚡ <span id="lifetimeStock">88</span>/100 kaldı</div>
+        <div class="sidebar-lifetime-stock">⚡ <span id="lifetimeStock">88</span>/100 left</div>
       </div>
       
       <div class="sidebar-user">
         <div class="avatar" id="userAvatarSmall">U</div>
         <div class="sidebar-user-info">
-          <div class="sidebar-user-name" id="userNameSmall">Yükleniyor...</div>
+          <div class="sidebar-user-name" id="userNameSmall">Loading...</div>
           <div class="sidebar-user-email" id="userEmailSmall">-</div>
         </div>
-        <div class="sidebar-user-menu" id="logoutBtn" title="Çıkış Yap">⏻</div>
+        <div class="sidebar-user-menu" id="logoutBtn" title="Log Out">⏻</div>
       </div>
     </aside>
     
@@ -265,9 +265,9 @@
       <div class="page-header">
         <h1>
           <span>👤</span>
-          <span>Profilim</span>
+          <span>My Profile</span>
         </h1>
-        <p>Hesap bilgilerini görüntüle ve yönet</p>
+        <p>View and manage your account information</p>
       </div>
       
       <div class="profile-container">
@@ -277,140 +277,140 @@
           <div class="profile-avatar-large" id="profileAvatar">U</div>
           <div class="profile-info">
             <h1>
-              <span id="profileName">Yükleniyor...</span>
+              <span id="profileName">Loading...</span>
               <span id="adminBadge" style="display: none;" class="badge badge-pro">👑 ADMIN</span>
             </h1>
             <div class="email" id="profileEmail">-</div>
             <div class="profile-badges" id="profileBadges">
-              <!-- JS ile doldurulacak -->
+              <!-- Filled by JS -->
             </div>
           </div>
         </div>
         
         <!-- Premium Banner -->
         <div class="premium-banner" id="premiumBanner">
-          <!-- JS ile doldurulacak -->
+          <!-- Filled by JS -->
         </div>
         
-        <!-- Hesap Bilgileri -->
+        <!-- Account Information -->
         <div class="profile-section fade-in-up">
           <h2>
             <span>📋</span>
-            <span>Hesap Bilgileri</span>
+            <span>Account Information</span>
           </h2>
           <div class="info-grid">
             <div class="info-item">
-              <div class="info-label">Ad Soyad</div>
+              <div class="info-label">Full Name</div>
               <div class="info-value" id="infoName">-</div>
             </div>
             <div class="info-item">
-              <div class="info-label">E-posta</div>
+              <div class="info-label">Email</div>
               <div class="info-value" id="infoEmail">-</div>
             </div>
             <div class="info-item">
-              <div class="info-label">Üyelik Türü</div>
+              <div class="info-label">Membership Type</div>
               <div class="info-value" id="infoMembership">-</div>
             </div>
             <div class="info-item">
-              <div class="info-label">Rol</div>
+              <div class="info-label">Role</div>
               <div class="info-value" id="infoRole">-</div>
             </div>
             <div class="info-item">
-              <div class="info-label">Kayıt Tarihi</div>
+              <div class="info-label">Registration Date</div>
               <div class="info-value" id="infoCreated">-</div>
             </div>
             <div class="info-item">
-              <div class="info-label">Son Giriş</div>
+              <div class="info-label">Last Login</div>
               <div class="info-value" id="infoLastLogin">-</div>
             </div>
           </div>
         </div>
         
-        <!-- İstatistikler -->
+        <!-- Statistics -->
         <div class="profile-section fade-in-up">
           <h2>
             <span>📊</span>
-            <span>Kullanım İstatistikleri</span>
+            <span>Usage Statistics</span>
           </h2>
           <div class="stats-cards">
             <div class="stat-card">
               <div class="stat-card-icon">🔍</div>
               <div class="stat-card-value" id="statSearches">0</div>
-              <div class="stat-card-label">Toplam Arama</div>
+              <div class="stat-card-label">Total Searches</div>
             </div>
             <div class="stat-card">
               <div class="stat-card-icon" style="background: rgba(69,224,138,0.15);">⭐</div>
               <div class="stat-card-value" id="statFavorites">0</div>
-              <div class="stat-card-label">Favori Niş</div>
+              <div class="stat-card-label">Favorite Niches</div>
             </div>
             <div class="stat-card">
               <div class="stat-card-icon" style="background: rgba(167,139,250,0.15);">🤖</div>
               <div class="stat-card-value" id="statAI">0</div>
-              <div class="stat-card-label">AI Sohbet</div>
+              <div class="stat-card-label">AI Chats</div>
             </div>
             <div class="stat-card">
               <div class="stat-card-icon" style="background: rgba(255,209,102,0.15);">📅</div>
               <div class="stat-card-value" id="statDays">0</div>
-              <div class="stat-card-label">Üyelik Günü</div>
+              <div class="stat-card-label">Days as Member</div>
             </div>
           </div>
         </div>
         
-        <!-- Şifre Değiştirme -->
+        <!-- Change Password -->
         <div class="profile-section fade-in-up">
           <h2>
             <span>🔒</span>
-            <span>Şifre Değiştir</span>
+            <span>Change Password</span>
           </h2>
           
           <form id="passwordForm">
             <div class="form-group">
-              <label class="form-label">Yeni Şifre</label>
+              <label class="form-label">New Password</label>
               <input 
                 type="password" 
                 id="newPassword" 
                 class="form-input" 
-                placeholder="En az 6 karakter"
+                placeholder="At least 6 characters"
                 minlength="6"
                 required
               >
-              <span class="form-help">En az 6 karakter uzunluğunda olmalı</span>
+              <span class="form-help">Must be at least 6 characters long</span>
             </div>
             
             <div class="form-group">
-              <label class="form-label">Yeni Şifre (Tekrar)</label>
+              <label class="form-label">New Password (Confirm)</label>
               <input 
                 type="password" 
                 id="confirmPassword" 
                 class="form-input" 
-                placeholder="Yeni şifrenizi tekrar girin"
+                placeholder="Re-enter your new password"
                 minlength="6"
                 required
               >
             </div>
             
             <button type="submit" class="btn btn-primary" id="changePasswordBtn">
-              🔒 Şifreyi Güncelle
+              🔒 Update Password
             </button>
           </form>
         </div>
         
-        <!-- Tehlikeli Bölge -->
+        <!-- Danger Zone -->
         <div class="profile-section danger-zone fade-in-up">
           <h2>
             <span>⚠️</span>
-            <span>Tehlikeli Bölge</span>
+            <span>Danger Zone</span>
           </h2>
           <p style="color: var(--text-muted); margin-bottom: var(--space-md);">
-            Aşağıdaki işlemler geri alınamaz. Dikkatli ol!
+            The actions below cannot be undone. Proceed with caution!
           </p>
           
           <div style="display: flex; gap: 8px; flex-wrap: wrap;">
             <button class="btn btn-secondary" onclick="window.location.href='/'">
-              ↩️ Çıkış Yap
+              ↩️ Log Out
             </button>
             <button class="btn btn-danger" id="deleteAccountBtn">
-              🗑️ Hesabımı Sil
+              🗑️ Delete My Account
             </button>
           </div>
         </div>
@@ -462,7 +462,7 @@
         const type = currentUser.premium_type === 'lifetime' ? 'LIFETIME PRO' : 'PRO';
         badgesHTML += `<span class="badge badge-pro">💎 ${type}</span>`;
       } else {
-        badgesHTML += `<span class="badge">🆓 Ücretsiz Plan</span>`;
+        badgesHTML += `<span class="badge">🆓 Free Plan</span>`;
       }
       
       if (currentUser.role === 'super_admin') {
@@ -474,17 +474,17 @@
       // Premium Banner
       renderPremiumBanner();
       
-      // Hesap Bilgileri
+      // Account Information
       document.getElementById('infoName').textContent = displayName;
       document.getElementById('infoEmail').textContent = currentUser.email;
       document.getElementById('infoMembership').textContent = currentUser.is_premium 
         ? (currentUser.premium_type === 'lifetime' ? '💎 Lifetime Pro' : '⭐ Pro') 
-        : '🆓 Ücretsiz';
+        : '🆓 Free';
       document.getElementById('infoRole').textContent = currentUser.role === 'super_admin' 
         ? '👑 Super Admin' 
         : currentUser.role === 'admin' 
         ? '🛡️ Admin' 
-        : '👤 Kullanıcı';
+        : '👤 User';
       
       if (currentUser.created_at) {
         document.getElementById('infoCreated').textContent = Utils.formatDate(currentUser.created_at);
@@ -503,7 +503,7 @@
       const aiChats = Utils.storage.get('ai_chat_history', []);
       document.getElementById('statAI').textContent = Math.floor(aiChats.length / 2);
       
-      // Üyelik günü
+      // Days as member
       if (currentUser.created_at) {
         const created = new Date(currentUser.created_at);
         const diffDays = Math.floor((new Date() - created) / (1000 * 60 * 60 * 24));
@@ -520,19 +520,19 @@
         banner.classList.add('active');
         banner.innerHTML = `
           <div class="premium-icon">💎</div>
-          <h2>Sen bir <span class="gradient-text">${currentUser.premium_type === 'lifetime' ? 'LIFETIME PRO' : 'PRO'}</span> üyesin!</h2>
-          <p>Tüm özelliklere ${currentUser.premium_type === 'lifetime' ? 'ömür boyu' : ''} sınırsız erişimin var. Bizimle olduğun için teşekkürler! 🎉</p>
+          <h2>You are a <span class="gradient-text">${currentUser.premium_type === 'lifetime' ? 'LIFETIME PRO' : 'PRO'}</span> member!</h2>
+          <p>You have ${currentUser.premium_type === 'lifetime' ? 'lifetime' : ''} unlimited access to all features. Thanks for being with us! 🎉</p>
           <a href="/dashboard" class="btn btn-success">
-            🚀 Özellikleri Kullan
+            🚀 Use Features
           </a>
         `;
       } else {
         banner.innerHTML = `
           <div class="premium-icon">🚀</div>
-          <h2>Lifetime <span class="gradient-text-warm">PRO</span> ile Daha Fazlasını Yapın</h2>
-          <p>İlk 100 kişiye özel <strong>$89 tek seferlik</strong> ödeme ile ömür boyu erişim kazan.</p>
-          <a href="/fiyatlandirma" class="btn btn-primary btn-lg pulse-glow">
-            💎 Lifetime Al - $89
+          <h2>Do More with Lifetime <span class="gradient-text-warm">PRO</span></h2>
+          <p>Get lifetime access with a <strong>one-time payment of $89</strong>, exclusive to the first 100 users.</p>
+          <a href="/pricing" class="btn btn-primary btn-lg pulse-glow">
+            💎 Get Lifetime - $89
           </a>
         `;
       }
@@ -552,7 +552,7 @@
       }
     }
     
-    // Şifre değiştirme
+    // Change password
     document.getElementById('passwordForm').addEventListener('submit', async (e) => {
       e.preventDefault();
       
@@ -561,17 +561,17 @@
       const btn = document.getElementById('changePasswordBtn');
       
       if (newPassword !== confirmPassword) {
-        Utils.toast.error('Şifreler eşleşmiyor!');
+        Utils.toast.error('Passwords do not match!');
         return;
       }
       
       if (newPassword.length < 6) {
-        Utils.toast.error('Şifre en az 6 karakter olmalı!');
+        Utils.toast.error('Password must be at least 6 characters!');
         return;
       }
       
       btn.disabled = true;
-      btn.innerHTML = '<span class="spinner spinner-sm"></span> Güncelleniyor...';
+      btn.innerHTML = '<span class="spinner spinner-sm"></span> Updating...';
       
       try {
         const supabase = await Auth.init();
@@ -580,35 +580,35 @@
         });
         
         if (error) {
-          Utils.toast.error('Hata: ' + error.message);
+          Utils.toast.error('Error: ' + error.message);
         } else {
-          Utils.toast.success('✅ Şifren başarıyla güncellendi!');
+          Utils.toast.success('✅ Your password has been updated successfully!');
           document.getElementById('passwordForm').reset();
         }
       } catch (error) {
-        Utils.toast.error('Hata: ' + error.message);
+        Utils.toast.error('Error: ' + error.message);
       }
       
       btn.disabled = false;
-      btn.innerHTML = '🔒 Şifreyi Güncelle';
+      btn.innerHTML = '🔒 Update Password';
     });
     
-    // Hesap silme
+    // Delete account
     document.getElementById('deleteAccountBtn').addEventListener('click', async () => {
-      const confirm1 = confirm('⚠️ DİKKAT!\n\nHesabını silmek istediğinden emin misin? Bu işlem GERİ ALINAMAZ!');
+      const confirm1 = confirm('⚠️ WARNING!\n\nAre you sure you want to delete your account? This action CANNOT BE UNDONE!');
       if (!confirm1) return;
       
-      const confirm2 = prompt('Onaylamak için "HESABIMI SİL" yaz:');
-      if (confirm2 !== 'HESABIMI SİL') {
-        Utils.toast.warning('İptal edildi');
+      const confirm2 = prompt('To confirm, type "DELETE MY ACCOUNT":');
+      if (confirm2 !== 'DELETE MY ACCOUNT') {
+        Utils.toast.warning('Cancelled');
         return;
       }
       
-      Utils.toast.info('Bu özellik yakında aktif olacak. Şimdilik admin ile iletişime geçin: bucun648@gmail.com');
+      Utils.toast.info('This feature will be active soon. For now, please contact the admin: bucun648@gmail.com');
     });
     
     document.getElementById('logoutBtn').addEventListener('click', async () => {
-      if (confirm('Çıkış yapmak istediğinizden emin misiniz?')) {
+      if (confirm('Are you sure you want to log out?')) {
         await Auth.logout();
       }
     });
