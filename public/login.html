@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Giriş Yap - NICHIFY PRO</title>
+  <meta name="description" content="Log in to NICHIFY PRO - AI-powered YouTube niche finder. Access your dashboard and continue discovering profitable niches.">
+  
+  <title>Log In - NICHIFY PRO</title>
   
   <link rel="stylesheet" href="/css/core.css">
   <link rel="stylesheet" href="/css/animations.css">
@@ -22,7 +24,7 @@
   <!-- Back to home -->
   <a href="/" class="auth-back">
     <span>←</span>
-    <span>Ana Sayfa</span>
+    <span>Back to Home</span>
   </a>
   
   <!-- Auth Page -->
@@ -38,11 +40,11 @@
         </a>
         
         <div class="auth-header">
-          <h1>Tekrar Hoş Geldin! 👋</h1>
-          <p>Hesabına giriş yap ve nişleri keşfetmeye devam et</p>
+          <h1>Welcome Back! 👋</h1>
+          <p>Log in to your account and continue discovering profitable niches</p>
         </div>
         
-        <!-- Alert (gizli, hata olunca açılır) -->
+        <!-- Alert (hidden, shows on error) -->
         <div id="alert" class="alert alert-danger auth-alert hidden">
           <span class="alert-icon">⚠️</span>
           <div class="alert-content">
@@ -54,19 +56,19 @@
         <form id="loginForm" class="auth-form">
           
           <div class="form-group">
-            <label class="form-label">E-posta</label>
+            <label class="form-label">Email</label>
             <input 
               type="email" 
               id="email" 
               class="form-input" 
-              placeholder="ornek@email.com"
+              placeholder="you@example.com"
               required
               autocomplete="email"
             >
           </div>
           
           <div class="form-group">
-            <label class="form-label">Şifre</label>
+            <label class="form-label">Password</label>
             <input 
               type="password" 
               id="password" 
@@ -81,19 +83,19 @@
           <div class="auth-options">
             <label class="checkbox">
               <input type="checkbox" id="remember">
-              <span style="font-size: 0.8125rem; color: var(--text-muted);">Beni hatırla</span>
+              <span style="font-size: 0.8125rem; color: var(--text-muted);">Remember me</span>
             </label>
-            <a href="/forgot-password">Şifremi unuttum</a>
+            <a href="/forgot-password">Forgot password?</a>
           </div>
           
           <button type="submit" class="btn btn-primary btn-lg btn-block auth-submit" id="submitBtn">
-            <span class="btn-text">Giriş Yap</span>
+            <span class="btn-text">Log In</span>
             <span class="spinner spinner-sm hidden" id="spinner"></span>
           </button>
           
         </form>
         
-        <div class="auth-divider">veya</div>
+        <div class="auth-divider">or</div>
         
         <div class="auth-social">
           <button type="button" class="btn-google" id="googleBtn">
@@ -103,13 +105,13 @@
               <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
               <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
             </svg>
-            Google ile Giriş Yap
+            Continue with Google
           </button>
         </div>
         
         <div class="auth-footer">
-          Hesabın yok mu? 
-          <a href="/register">Hemen Kayıt Ol</a>
+          Don't have an account? 
+          <a href="/register">Sign Up Now</a>
         </div>
         
       </div>
@@ -120,9 +122,9 @@
   <script src="/js/config.js"></script>
   <script src="/js/auth.js"></script>
   <script>
-    // Sayfa yüklendiğinde kontrol et
+    // Check on page load
     (async () => {
-      // Eğer zaten giriş yapmışsa dashboard'a yönlendir
+      // If already logged in, redirect to dashboard
       const isLoggedIn = await Auth.isLoggedIn();
       if (isLoggedIn) {
         window.location.href = '/dashboard';
@@ -143,7 +145,7 @@
       
       // Loading state
       submitBtn.disabled = true;
-      btnText.textContent = 'Giriş yapılıyor...';
+      btnText.textContent = 'Logging in...';
       spinner.classList.remove('hidden');
       alert.classList.add('hidden');
       
@@ -151,16 +153,16 @@
       const result = await Auth.login(email, password);
       
       if (result.success) {
-        btnText.textContent = '✓ Başarılı! Yönlendiriliyor...';
+        btnText.textContent = '✓ Success! Redirecting...';
         setTimeout(() => {
           window.location.href = '/dashboard';
         }, 500);
       } else {
-        // Hata göster
+        // Show error
         alertMessage.textContent = result.message;
         alert.classList.remove('hidden');
         submitBtn.disabled = false;
-        btnText.textContent = 'Giriş Yap';
+        btnText.textContent = 'Log In';
         spinner.classList.add('hidden');
       }
     });
