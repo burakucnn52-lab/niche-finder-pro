@@ -958,7 +958,7 @@
     // ============================================
     async function loadTrendingNiches() {
       try {
-        const response = await fetch('/api/youtube?endpoint=niche_discovery&region=TR');
+        const response = await fetch('/api/youtube?endpoint=niche_discovery&region=US');
         const result = await response.json();
         
         if (!result.niches || result.niches.length === 0) {
