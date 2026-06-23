@@ -29,7 +29,7 @@
     { "source": "/ai-asistan", "destination": "/ai-asistan.html" },
     { "source": "/yol-haritasi", "destination": "/yol-haritasi.html" },
     { "source": "/profil", "destination": "/profil.html" },
-    { "source": "/fiyatlandirma", "destination": "/fiyatlandirma.html" },
+    { "source": "/pricing", "destination": "/fiyatlandirma.html" }
     { "source": "/sss", "destination": "/sss.html" },
     { "source": "/gizlilik", "destination": "/gizlilik.html" },
     { "source": "/sartlar", "destination": "/sartlar.html" }
