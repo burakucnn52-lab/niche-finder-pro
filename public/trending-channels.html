@@ -113,12 +113,12 @@
       
       <!-- Region Selector -->
       <div class="region-selector">
-        <div class="region-pill active" data-region="TR">🇹🇷 Turkey</div>
         <div class="region-pill" data-region="US">🇺🇸 USA</div>
-        <div class="region-pill" data-region="GB">🇬🇧 United Kingdom</div>
+        <div class="region-pill active" data-region="GB">🇬🇧 UK</div>
         <div class="region-pill" data-region="DE">🇩🇪 Germany</div>
         <div class="region-pill" data-region="FR">🇫🇷 France</div>
         <div class="region-pill" data-region="JP">🇯🇵 Japan</div>
+        <div class="region-pill" data-region="TR">🇹🇷 Turkey</div>
       </div>
       
       <!-- Category Selector -->
@@ -163,7 +163,7 @@
     // STATE
     // ============================================
     const state = {
-      region: 'US',
+      region: 'GB',
       category: '0',
       loading: false
     };
@@ -269,7 +269,7 @@
     }
     
     // ============================================
-    // RENDER VIDEOS (With Premium Check)
+    // RENDER VIDEOS (with Premium Check)
     // ============================================
     async function renderVideos(videos) {
       const grid = document.getElementById('channelsGrid');
@@ -377,7 +377,7 @@
               -webkit-text-fill-color: transparent;
               font-weight: 700;
             ">
-              ${lockedCount} More Channels Await You!
+              ${lockedCount} More Channels Waiting For You!
             </h2>
             <div style="
               display: inline-block;
@@ -397,7 +397,7 @@
               font-size: 0.9375rem;
             ">
               With Premium, see <strong style="color: #a78bfa;">all trending channels</strong>,
-              perform <strong style="color: #4da3ff;">detailed analyses</strong>, and
+              do <strong style="color: #4da3ff;">detailed analyses</strong>, and
               <strong style="color: #f472b6;">beat your competitors!</strong>
             </p>
             <div style="
