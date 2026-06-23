@@ -4,17 +4,39 @@ import os
 import urllib.request
 import urllib.parse
 import re
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from xml.etree import ElementTree as ET
 
-# RSS Kaynakları
+# ============================================
+# RSS SOURCES (Expanded - YouTube focused)
+# ============================================
 RSS_SOURCES = [
+    # YouTube Official & Creator focused
     {
         'name': 'YouTube Creator Blog',
         'url': 'https://blog.youtube/inner-tube/rss/',
         'category': 'youtube_official',
         'icon': '🎬'
     },
+    {
+        'name': 'Tubefilter',
+        'url': 'https://www.tubefilter.com/feed/',
+        'category': 'youtube_news',
+        'icon': '📺'
+    },
+    {
+        'name': 'VidIQ Blog',
+        'url': 'https://vidiq.com/blog/feed/',
+        'category': 'creator_tips',
+        'icon': '📈'
+    },
+    {
+        'name': 'Backlinko',
+        'url': 'https://backlinko.com/feed',
+        'category': 'seo_marketing',
+        'icon': '🔍'
+    },
+    # General Tech
     {
         'name': 'TechCrunch',
         'url': 'https://techcrunch.com/feed/',
@@ -27,22 +49,37 @@ RSS_SOURCES = [
         'category': 'tech',
         'icon': '⚡'
     },
+    # Google News (multi-language fallback)
     {
         'name': 'Google News - YouTube',
-        'url': 'https://news.google.com/rss/search?q=youtube+creator&hl=tr&gl=TR&ceid=TR:tr',
+        'url': 'https://news.google.com/rss/search?q=youtube+creator&hl=en&gl=US&ceid=US:en',
         'category': 'google_news',
         'icon': '📰'
+    },
+    {
+        'name': 'Google News - Content Creator',
+        'url': 'https://news.google.com/rss/search?q=content+creator+youtube&hl=en&gl=US&ceid=US:en',
+        'category': 'google_news',
+        'icon': '🎥'
     }
 ]
 
-CACHE_HOURS = 6
+# ============================================
+# CACHE SETTINGS (OPTIMIZED)
+# ============================================
+CACHE_HOURS = 2              # Cache duration (was 6, now 2 for fresher news)
+FRESH_NEWS_HOURS = 6         # Only show news added within last 6 hours
+CLEANUP_HOURS = 12           # Delete news older than 12 hours (was 24)
+MAX_NEWS_PER_SOURCE = 10     # Max news per RSS source
+MAX_NEWS_TOTAL = 25          # Max total news to return
+
 
 def parse_rss(xml_text, source_name, source_icon, source_category):
-    """RSS XML'i parse et ve haberleri çıkar"""
+    """Parse RSS XML and extract news items"""
     news_items = []
     
     try:
-        # Namespace'leri kaldır
+        # Remove namespaces
         xml_text = re.sub(r'\sxmlns="[^"]+"', '', xml_text, count=1)
         root = ET.fromstring(xml_text)
         
@@ -53,11 +90,11 @@ def parse_rss(xml_text, source_name, source_icon, source_category):
         if not items:
             items = root.findall('.//entry')
         
-        for item in items[:10]:  # Her kaynaktan max 10 haber
+        for item in items[:MAX_NEWS_PER_SOURCE]:
             try:
-                # Başlık
+                # Title
                 title_elem = item.find('title')
-                title = title_elem.text if title_elem is not None else 'Başlıksız'
+                title = title_elem.text if title_elem is not None else 'Untitled'
                 
                 # Link
                 link_elem = item.find('link')
@@ -66,15 +103,15 @@ def parse_rss(xml_text, source_name, source_icon, source_category):
                 else:
                     link = ''
                 
-                # Açıklama
+                # Description
                 desc_elem = item.find('description') or item.find('summary')
                 description = ''
                 if desc_elem is not None and desc_elem.text:
-                    # HTML taglarını temizle
+                    # Strip HTML tags
                     description = re.sub(r'<[^>]+>', '', desc_elem.text)
                     description = description.strip()[:200]
                 
-                # Tarih
+                # Date
                 date_elem = item.find('pubDate') or item.find('published')
                 published_at = None
                 if date_elem is not None and date_elem.text:
@@ -101,7 +138,7 @@ def parse_rss(xml_text, source_name, source_icon, source_category):
 
 
 def fetch_rss_feed(url, timeout=10):
-    """RSS feed'i çek"""
+    """Fetch RSS feed"""
     try:
         headers = {
             'User-Agent': 'Mozilla/5.0 (compatible; NichifyBot/1.0; +https://niche-finder-pro.vercel.app)'
@@ -115,8 +152,31 @@ def fetch_rss_feed(url, timeout=10):
         return None
 
 
+def cleanup_old_news():
+    """Delete news older than CLEANUP_HOURS"""
+    try:
+        supabase_url = os.environ.get('SUPABASE_URL', '')
+        supabase_key = os.environ.get('SUPABASE_SERVICE_ROLE_KEY', '')
+        
+        if not supabase_url or not supabase_key:
+            return
+        
+        cutoff_time = (datetime.utcnow() - timedelta(hours=CLEANUP_HOURS)).isoformat() + 'Z'
+        delete_url = f"{supabase_url}/rest/v1/news_cache?created_at=lt.{cutoff_time}"
+        
+        delete_req = urllib.request.Request(delete_url, method='DELETE')
+        delete_req.add_header('apikey', supabase_key)
+        delete_req.add_header('Authorization', f'Bearer {supabase_key}')
+        delete_req.add_header('Prefer', 'return=minimal')
+        
+        urllib.request.urlopen(delete_req, timeout=5)
+        print(f"🧹 Cleaned up news older than {CLEANUP_HOURS}h")
+    except Exception as e:
+        print(f"Cleanup error: {e}")
+
+
 def get_cached_news():
-    """Supabase'den cache'lenmiş haberleri çek"""
+    """Get fresh cached news from Supabase (only added within FRESH_NEWS_HOURS)"""
     try:
         supabase_url = os.environ.get('SUPABASE_URL', '')
         supabase_key = os.environ.get('SUPABASE_SERVICE_ROLE_KEY', '')
@@ -124,8 +184,10 @@ def get_cached_news():
         if not supabase_url or not supabase_key:
             return None
         
-        # Son 6 saatte eklenmiş haberleri al
-        url = f"{supabase_url}/rest/v1/news_cache?order=published_at.desc&limit=20"
+        # ✅ FIX: Only get news added within the last FRESH_NEWS_HOURS
+        cutoff_time = (datetime.utcnow() - timedelta(hours=FRESH_NEWS_HOURS)).isoformat() + 'Z'
+        url = f"{supabase_url}/rest/v1/news_cache?created_at=gte.{cutoff_time}&order=created_at.desc&limit={MAX_NEWS_TOTAL}"
+        
         req = urllib.request.Request(url)
         req.add_header('apikey', supabase_key)
         req.add_header('Authorization', f'Bearer {supabase_key}')
@@ -134,7 +196,7 @@ def get_cached_news():
             data = json.loads(response.read().decode())
             
             if data and len(data) > 0:
-                # En son güncellenmeyi kontrol et
+                # Check the newest item - is it fresh enough?
                 latest = data[0]
                 created_at_str = latest.get('created_at', '')
                 
@@ -142,9 +204,12 @@ def get_cached_news():
                     created_at = datetime.fromisoformat(created_at_str.replace('Z', '+00:00'))
                     age = datetime.now(created_at.tzinfo) - created_at
                     
-                    # 6 saatten yeni ise cache'i kullan
+                    # If newest item is within CACHE_HOURS, use cache
                     if age < timedelta(hours=CACHE_HOURS):
+                        print(f"✅ Using cache (age: {age})")
                         return data
+                    else:
+                        print(f"⏰ Cache too old (age: {age}), fetching fresh")
         
         return None
     except Exception as e:
@@ -153,7 +218,7 @@ def get_cached_news():
 
 
 def save_news_to_cache(news_items):
-    """Haberleri Supabase'e kaydet"""
+    """Save news to Supabase with deduplication"""
     try:
         supabase_url = os.environ.get('SUPABASE_URL', '')
         supabase_key = os.environ.get('SUPABASE_SERVICE_ROLE_KEY', '')
@@ -161,22 +226,36 @@ def save_news_to_cache(news_items):
         if not supabase_url or not supabase_key:
             return False
         
-        # Eski haberleri temizle (24 saatten eski)
-        delete_url = f"{supabase_url}/rest/v1/news_cache?created_at=lt.{(datetime.utcnow() - timedelta(hours=24)).isoformat()}Z"
-        delete_req = urllib.request.Request(delete_url, method='DELETE')
-        delete_req.add_header('apikey', supabase_key)
-        delete_req.add_header('Authorization', f'Bearer {supabase_key}')
+        # ✅ Cleanup old news first
+        cleanup_old_news()
         
+        # ✅ Get existing links to prevent duplicates
+        existing_links = set()
         try:
-            urllib.request.urlopen(delete_req, timeout=5)
-        except:
-            pass
+            check_url = f"{supabase_url}/rest/v1/news_cache?select=link&limit=200"
+            check_req = urllib.request.Request(check_url)
+            check_req.add_header('apikey', supabase_key)
+            check_req.add_header('Authorization', f'Bearer {supabase_key}')
+            
+            with urllib.request.urlopen(check_req, timeout=5) as response:
+                existing_data = json.loads(response.read().decode())
+                existing_links = {item.get('link') for item in existing_data if item.get('link')}
+                print(f"📋 Found {len(existing_links)} existing links in cache")
+        except Exception as e:
+            print(f"Existing links check error: {e}")
         
-        # Yeni haberleri ekle (her biri için ON CONFLICT IGNORE)
+        # Add new news items
         url = f"{supabase_url}/rest/v1/news_cache"
+        added_count = 0
+        skipped_count = 0
         
         for item in news_items:
             try:
+                # ✅ Skip if link already exists
+                if item['link'] in existing_links:
+                    skipped_count += 1
+                    continue
+                
                 payload_data = {
                     'title': item['title'],
                     'link': item['link'],
@@ -194,10 +273,13 @@ def save_news_to_cache(news_items):
                 req.add_header('Prefer', 'resolution=ignore-duplicates')
                 
                 urllib.request.urlopen(req, timeout=5)
+                added_count += 1
+                existing_links.add(item['link'])  # Track in current session
             except Exception as e:
-                # Duplicate veya diğer hatalar
+                # Duplicate or other errors
                 continue
         
+        print(f"✅ Added {added_count} new, skipped {skipped_count} duplicates")
         return True
     except Exception as e:
         print(f"Cache write error: {e}")
@@ -213,7 +295,7 @@ class handler(BaseHTTPRequestHandler):
         self.end_headers()
         
         try:
-            # URL parametreleri
+            # URL parameters
             url_parts = self.path.split('?')
             params = {}
             if len(url_parts) > 1:
@@ -224,7 +306,7 @@ class handler(BaseHTTPRequestHandler):
             
             force_refresh = params.get('refresh', 'false').lower() == 'true'
             
-            # Önce cache'i kontrol et
+            # ✅ Check cache first (unless force refresh)
             if not force_refresh:
                 cached = get_cached_news()
                 if cached:
@@ -236,7 +318,8 @@ class handler(BaseHTTPRequestHandler):
                     }).encode())
                     return
             
-            # Cache yoksa veya force refresh ise RSS'leri çek
+            # ✅ No cache or force refresh -> fetch RSS feeds
+            print(f"🔄 Fetching {len(RSS_SOURCES)} RSS sources...")
             all_news = []
             
             for source in RSS_SOURCES:
@@ -250,23 +333,26 @@ class handler(BaseHTTPRequestHandler):
                             source['category']
                         )
                         all_news.extend(items)
+                        print(f"  ✓ {source['name']}: {len(items)} items")
+                    else:
+                        print(f"  ✗ {source['name']}: no data")
                 except Exception as e:
-                    print(f"Source error {source['name']}: {e}")
+                    print(f"  ✗ {source['name']}: {e}")
                     continue
             
-            # Cache'e kaydet
+            # ✅ Save new news to cache (with deduplication)
             if all_news:
                 save_news_to_cache(all_news)
             
-            # Tarihe göre sırala (yeni → eski)
+            # Sort by date (newest -> oldest)
             all_news.sort(key=lambda x: x.get('published_at', ''), reverse=True)
             
-            # İlk 20'sini döndür
+            # Return top items
             self.wfile.write(json.dumps({
                 'success': True,
                 'source': 'live',
-                'count': len(all_news[:20]),
-                'news': all_news[:20]
+                'count': len(all_news[:MAX_NEWS_TOTAL]),
+                'news': all_news[:MAX_NEWS_TOTAL]
             }).encode())
         
         except Exception as e:
