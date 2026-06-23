@@ -5,13 +5,13 @@ import urllib.request
 import random
 
 # ============================================
-# ADMIN AYARLARI
+# ADMIN SETTINGS
 # ============================================
 ADMIN_EMAILS = ['bucun648@gmail.com']
 
 
 # ============================================
-# ADMIN KONTROLÜ
+# ADMIN CHECK
 # ============================================
 def is_admin_user(user_email, db_user=None):
     if user_email:
@@ -29,25 +29,25 @@ def is_admin_user(user_email, db_user=None):
 
 
 # ============================================
-# KULLANICI LİMİT KONTROLÜ
+# USER LIMIT CHECK
 # ============================================
 # ============================================
-# NİŞ KEŞFİ SAYFA AÇILIM LİMİTİ
+# NICHE DISCOVERY PAGE OPEN LIMIT
 # ============================================
 def check_niche_page_limit(user_id, user_email):
-    """Niş Keşfi sayfa açılışı limit kontrolü (Free: 3/gün)"""
+    """Niche Discovery page open limit check (Free: 3/day)"""
     try:
         supabase_url = os.environ.get('SUPABASE_URL', '')
         supabase_key = os.environ.get('SUPABASE_SERVICE_ROLE_KEY', '')
         
-        # Admin sınırsız
+        # Admin unlimited
         if is_admin_user(user_email):
             return {'allowed': True, 'remaining': 999, 'is_admin': True}
         
         if not supabase_url or not supabase_key:
             return {'allowed': True, 'remaining': 3}
         
-        # Kullanıcı bilgisi
+        # User info
         url = f"{supabase_url}/rest/v1/users?id=eq.{user_id}&select=is_premium,is_admin,role,email"
         req = urllib.request.Request(url)
         req.add_header('apikey', supabase_key)
@@ -61,15 +61,15 @@ def check_niche_page_limit(user_id, user_email):
             
             user = users[0]
             
-            # Database admin kontrolü
+            # Database admin check
             if is_admin_user(user_email, user):
                 return {'allowed': True, 'remaining': 999, 'is_admin': True}
             
-            # Premium sınırsız
+            # Premium unlimited
             if user.get('is_premium'):
                 return {'allowed': True, 'remaining': 999, 'is_premium': True}
             
-            # Free kullanıcı - 3/gün limit
+            # Free user - 3/day limit
             from datetime import date
             today = date.today().isoformat()
             
@@ -104,8 +104,8 @@ def check_niche_page_limit(user_id, user_email):
 
 
 def increment_niche_view(user_id, is_admin=False, is_premium=False):
-    """Niş Keşfi sayfa açılış sayacını artır"""
-    # Admin ve Premium sınırsız - sayaç tutma
+    """Increment Niche Discovery page view counter"""
+    # Admin and Premium unlimited - don't track counter
     if is_admin or is_premium:
         return
     
@@ -119,7 +119,7 @@ def increment_niche_view(user_id, is_admin=False, is_premium=False):
         from datetime import date, datetime
         today = date.today().isoformat()
         
-        # Mevcut kayıt var mı kontrol et
+        # Check if record exists
         check_url = f"{supabase_url}/rest/v1/niche_page_views?user_id=eq.{user_id}&view_date=eq.{today}"
         check_req = urllib.request.Request(check_url)
         check_req.add_header('apikey', supabase_key)
@@ -129,7 +129,7 @@ def increment_niche_view(user_id, is_admin=False, is_premium=False):
             existing = json.loads(response.read().decode())
             
             if existing:
-                # Güncelle: view_count +1
+                # Update: view_count +1
                 new_count = existing[0].get('view_count', 0) + 1
                 update_url = f"{supabase_url}/rest/v1/niche_page_views?user_id=eq.{user_id}&view_date=eq.{today}"
                 payload = json.dumps({
@@ -145,7 +145,7 @@ def increment_niche_view(user_id, is_admin=False, is_premium=False):
                 
                 urllib.request.urlopen(update_req, timeout=5)
             else:
-                # Yeni kayıt
+                # New record
                 insert_url = f"{supabase_url}/rest/v1/niche_page_views"
                 payload = json.dumps({
                     'user_id': user_id,
@@ -228,7 +228,7 @@ def check_user_limit(user_id, user_email):
 
 
 # ============================================
-# KULLANIM SAYACI
+# USAGE COUNTER
 # ============================================
 def increment_usage(user_id, is_admin=False):
     if is_admin:
@@ -308,13 +308,13 @@ class handler(BaseHTTPRequestHandler):
             action = data.get('action', 'chat')
             user_id = data.get('user_id', '')
             user_email = data.get('user_email', '')
-                        # NİŞ KEŞFİ SAYFA AÇILIM LİMİTİ KONTROL
+                        # NICHE DISCOVERY PAGE OPEN LIMIT CHECK
             if action == 'niche_limit_check':
                 limit_result = check_niche_page_limit(user_id, user_email)
                 self.wfile.write(json.dumps(limit_result).encode())
                 return
             
-            # NİŞ KEŞFİ SAYFA AÇILIM ARTIR
+            # NICHE DISCOVERY PAGE OPEN INCREMENT
             if action == 'niche_view_increment':
                 limit_check = check_niche_page_limit(user_id, user_email)
                 is_admin_user_val = limit_check.get('is_admin', False)
@@ -323,9 +323,9 @@ class handler(BaseHTTPRequestHandler):
                 self.wfile.write(json.dumps({'success': True}).encode())
                 return
             
-                       # GET API KEYS - Frontend için TÜM keyleri sağla
+                       # GET API KEYS - Provide ALL keys for frontend
             if action == 'get_key':
-                # Tüm Gemini keyleri topla
+                # Collect all Gemini keys
                 all_keys = []
                 
                 k1 = os.environ.get('GEMINI_API_KEY', '')
@@ -338,10 +338,10 @@ class handler(BaseHTTPRequestHandler):
                         all_keys.append(k)
                 
                 if not all_keys:
-                    self.wfile.write(json.dumps({'error': 'API key bulunamadı'}).encode())
+                    self.wfile.write(json.dumps({'error': 'API key not found'}).encode())
                     return
                 
-                # Limit kontrolü
+                # Limit check
                 is_admin = False
                 if user_id:
                     limit_check = check_user_limit(user_id, user_email)
@@ -349,21 +349,21 @@ class handler(BaseHTTPRequestHandler):
                     
                     if not limit_check.get('allowed'):
                         self.wfile.write(json.dumps({
-                            'error': f'Günlük limitine ulaştın ({limit_check.get("used", 0)}/{limit_check.get("limit", 5)}).',
+                            'error': f'You have reached your daily limit ({limit_check.get("used", 0)}/{limit_check.get("limit", 5)}).',
                             'limit_reached': True
                         }).encode())
                         return
                 
-                # ✅ TÜM KEYLERİ DÖN (random değil)
+                # ✅ RETURN ALL KEYS (not random)
                 self.wfile.write(json.dumps({
                     'success': True,
-                    'api_keys': all_keys,  # Liste olarak gönder
+                    'api_keys': all_keys,  # Send as list
                     'is_admin': is_admin,
                     'total_keys': len(all_keys)
                 }).encode())
                 return
                 
-                # Random key seç (load balancing)
+                # Select random key (load balancing)
                 selected_key = random.choice(all_keys)
                 
                 self.wfile.write(json.dumps({
@@ -402,7 +402,7 @@ class handler(BaseHTTPRequestHandler):
                 return
             
             else:
-                self.wfile.write(json.dumps({'error': f'Bilinmeyen action: {action}'}).encode())
+                self.wfile.write(json.dumps({'error': f'Unknown action: {action}'}).encode())
         
         except Exception as e:
             print(f"❌ Handler error: {e}")
