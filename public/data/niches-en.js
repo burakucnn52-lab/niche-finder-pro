@@ -1,18 +1,18 @@
 // ============================================
-// NICHIFY PRO - TÜRKÇE NİŞ VERİTABANI
-// 100+ Niş, kategori, alt niş, RPM bilgileri
+// NICHIFY PRO - ENGLISH NICHE DATABASE
+// 100+ Niches, categories, sub-niches, RPM info
 // ============================================
 
 const NICHES_DATA = [
   
   // ============================================
-  // TEKNOLOJİ (8)
+  // TECHNOLOGY (8)
   // ============================================
   {
     id: 'ai-tools',
     icon: '🤖',
-    name: 'AI Araçları ve Otomasyon',
-    category: 'Teknoloji',
+    name: 'AI Tools & Automation',
+    category: 'Technology',
     subCategories: ['ChatGPT', 'Midjourney', 'Claude', 'AI Workflow'],
     keywords: ['AI tools', 'artificial intelligence', 'ChatGPT', 'AI automation'],
     rpm: { min: 8, max: 15 },
@@ -21,13 +21,13 @@ const NICHES_DATA = [
     sustainability: 90,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'AI araçlarını tanıtma, kullanım rehberleri ve otomasyon ipuçları'
+    description: 'Introducing AI tools, usage guides, and automation tips'
   },
   {
     id: 'nocode',
     icon: '⚙️',
-    name: 'No-Code Otomasyon',
-    category: 'Teknoloji',
+    name: 'No-Code Automation',
+    category: 'Technology',
     subCategories: ['Zapier', 'Make', 'Notion', 'Airtable'],
     keywords: ['no-code', 'automation', 'zapier', 'make.com'],
     rpm: { min: 10, max: 18 },
@@ -36,13 +36,13 @@ const NICHES_DATA = [
     sustainability: 85,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Kod yazmadan otomasyon kurma, iş akışları'
+    description: 'Setting up automation without code, workflows'
   },
   {
     id: 'prompt-engineering',
     icon: '💡',
-    name: 'Prompt Mühendisliği',
-    category: 'Teknoloji',
+    name: 'Prompt Engineering',
+    category: 'Technology',
     subCategories: ['ChatGPT Prompts', 'Midjourney Prompts', 'AI Writing'],
     keywords: ['prompt engineering', 'AI prompts', 'ChatGPT tips'],
     rpm: { min: 7, max: 13 },
@@ -51,14 +51,14 @@ const NICHES_DATA = [
     sustainability: 80,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'AI modellerinden en iyi sonucu almak için prompt yazma'
+    description: 'Writing prompts to get the best results from AI models'
   },
   {
     id: 'tech-reviews',
     icon: '📱',
-    name: 'Teknoloji İncelemeleri',
-    category: 'Teknoloji',
-    subCategories: ['Telefon', 'Laptop', 'Gadget', 'Akıllı Saat'],
+    name: 'Tech Reviews',
+    category: 'Technology',
+    subCategories: ['Phone', 'Laptop', 'Gadget', 'Smartwatch'],
     keywords: ['tech review', 'gadget', 'iphone review', 'smartphone'],
     rpm: { min: 6, max: 12 },
     competition: 85,
@@ -66,13 +66,13 @@ const NICHES_DATA = [
     sustainability: 90,
     facelessSupport: false,
     shortsSupport: true,
-    description: 'Akıllı telefon, laptop ve gadget incelemeleri'
+    description: 'Smartphone, laptop, and gadget reviews'
   },
   {
     id: 'coding',
     icon: '💻',
-    name: 'Programlama Eğitimi',
-    category: 'Teknoloji',
+    name: 'Programming Tutorials',
+    category: 'Technology',
     subCategories: ['Python', 'JavaScript', 'Web Dev', 'Mobile Dev'],
     keywords: ['coding tutorial', 'programming', 'python', 'javascript'],
     rpm: { min: 8, max: 14 },
@@ -81,13 +81,13 @@ const NICHES_DATA = [
     sustainability: 95,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Programlama dilleri, framework eğitimleri'
+    description: 'Programming language and framework tutorials'
   },
   {
     id: 'cybersecurity',
     icon: '🔒',
-    name: 'Siber Güvenlik',
-    category: 'Teknoloji',
+    name: 'Cybersecurity',
+    category: 'Technology',
     subCategories: ['Ethical Hacking', 'Privacy', 'VPN', 'Crypto Security'],
     keywords: ['cybersecurity', 'hacking', 'privacy', 'security'],
     rpm: { min: 9, max: 16 },
@@ -96,13 +96,13 @@ const NICHES_DATA = [
     sustainability: 90,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Güvenlik ipuçları, etik hackleme, gizlilik'
+    description: 'Security tips, ethical hacking, privacy'
   },
   {
     id: 'crypto-blockchain',
     icon: '₿',
-    name: 'Kripto & Blockchain',
-    category: 'Teknoloji',
+    name: 'Crypto & Blockchain',
+    category: 'Technology',
     subCategories: ['Bitcoin', 'Ethereum', 'NFT', 'DeFi'],
     keywords: ['crypto', 'bitcoin', 'blockchain', 'NFT'],
     rpm: { min: 12, max: 25 },
@@ -111,13 +111,13 @@ const NICHES_DATA = [
     sustainability: 70,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Kripto para analizi, blockchain teknolojileri'
+    description: 'Cryptocurrency analysis, blockchain technologies'
   },
   {
     id: 'productivity',
     icon: '📋',
-    name: 'Verimlilik Sistemleri',
-    category: 'Yaşam',
+    name: 'Productivity Systems',
+    category: 'Lifestyle',
     subCategories: ['Notion', 'Time Management', 'GTD', 'Habits'],
     keywords: ['productivity', 'notion', 'time management', 'habits'],
     rpm: { min: 7, max: 12 },
@@ -126,18 +126,18 @@ const NICHES_DATA = [
     sustainability: 85,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Verimlilik, zaman yönetimi, alışkanlıklar'
+    description: 'Productivity, time management, habits'
   },
   
   // ============================================
-  // FİNANS & PARA (10)
+  // FINANCE & MONEY (10)
   // ============================================
   {
     id: 'personal-finance',
     icon: '💰',
-    name: 'Kişisel Finans',
-    category: 'Finans',
-    subCategories: ['Bütçe', 'Tasarruf', 'Borç', 'Emeklilik'],
+    name: 'Personal Finance',
+    category: 'Finance',
+    subCategories: ['Budget', 'Saving', 'Debt', 'Retirement'],
     keywords: ['personal finance', 'budget', 'saving money'],
     rpm: { min: 15, max: 30 },
     competition: 70,
@@ -145,14 +145,14 @@ const NICHES_DATA = [
     sustainability: 95,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Para yönetimi, bütçeleme, tasarruf'
+    description: 'Money management, budgeting, saving'
   },
   {
     id: 'investing',
     icon: '📈',
-    name: 'Yatırım & Borsa',
-    category: 'Finans',
-    subCategories: ['Hisse', 'ETF', 'Temettü', 'Fon'],
+    name: 'Investing & Stocks',
+    category: 'Finance',
+    subCategories: ['Stocks', 'ETF', 'Dividends', 'Funds'],
     keywords: ['investing', 'stock market', 'ETF', 'dividend'],
     rpm: { min: 18, max: 35 },
     competition: 80,
@@ -160,13 +160,13 @@ const NICHES_DATA = [
     sustainability: 95,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Borsa, hisse analizi, yatırım stratejileri'
+    description: 'Stock market, stock analysis, investment strategies'
   },
   {
     id: 'passive-income',
     icon: '💸',
-    name: 'Pasif Gelir',
-    category: 'Finans',
+    name: 'Passive Income',
+    category: 'Finance',
     subCategories: ['Affiliate', 'Dropshipping', 'Print on Demand', 'Stocks'],
     keywords: ['passive income', 'side hustle', 'make money online'],
     rpm: { min: 12, max: 22 },
@@ -175,14 +175,14 @@ const NICHES_DATA = [
     sustainability: 80,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Pasif gelir yöntemleri, online para kazanma'
+    description: 'Passive income methods, making money online'
   },
   {
     id: 'real-estate',
     icon: '🏠',
-    name: 'Gayrimenkul Yatırımı',
-    category: 'Finans',
-    subCategories: ['Kiralama', 'Flip', 'REIT', 'Airbnb'],
+    name: 'Real Estate Investing',
+    category: 'Finance',
+    subCategories: ['Rental', 'Flip', 'REIT', 'Airbnb'],
     keywords: ['real estate', 'property investment', 'airbnb'],
     rpm: { min: 20, max: 40 },
     competition: 65,
@@ -190,13 +190,13 @@ const NICHES_DATA = [
     sustainability: 90,
     facelessSupport: true,
     shortsSupport: false,
-    description: 'Emlak yatırımı, kiralama, flip'
+    description: 'Real estate investment, rentals, flips'
   },
   {
     id: 'entrepreneurship',
     icon: '🚀',
-    name: 'Girişimcilik',
-    category: 'İş',
+    name: 'Entrepreneurship',
+    category: 'Business',
     subCategories: ['Startup', 'SaaS', 'Business Ideas', 'Funding'],
     keywords: ['entrepreneurship', 'startup', 'business ideas'],
     rpm: { min: 14, max: 28 },
@@ -205,13 +205,13 @@ const NICHES_DATA = [
     sustainability: 90,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Girişimcilik, startup, iş fikirleri'
+    description: 'Entrepreneurship, startups, business ideas'
   },
   {
     id: 'ecommerce',
     icon: '🛒',
-    name: 'E-Ticaret',
-    category: 'İş',
+    name: 'E-Commerce',
+    category: 'Business',
     subCategories: ['Shopify', 'Amazon FBA', 'Etsy', 'eBay'],
     keywords: ['ecommerce', 'shopify', 'amazon FBA', 'dropshipping'],
     rpm: { min: 12, max: 25 },
@@ -220,13 +220,13 @@ const NICHES_DATA = [
     sustainability: 80,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Online satış, e-ticaret stratejileri'
+    description: 'Online sales, e-commerce strategies'
   },
   {
     id: 'freelance',
     icon: '💼',
-    name: 'Freelance Yaşam',
-    category: 'İş',
+    name: 'Freelance Life',
+    category: 'Business',
     subCategories: ['Upwork', 'Fiverr', 'Remote Work', 'Client Management'],
     keywords: ['freelance', 'upwork', 'remote work', 'fiverr'],
     rpm: { min: 8, max: 16 },
@@ -235,13 +235,13 @@ const NICHES_DATA = [
     sustainability: 85,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Freelance çalışma, uzaktan iş'
+    description: 'Freelancing, remote work'
   },
   {
     id: 'newsletter',
     icon: '📰',
-    name: 'Newsletter Yazımı',
-    category: 'İş',
+    name: 'Newsletter Writing',
+    category: 'Business',
     subCategories: ['Substack', 'ConvertKit', 'Beehiiv', 'Email Marketing'],
     keywords: ['newsletter', 'substack', 'email marketing'],
     rpm: { min: 10, max: 18 },
@@ -250,14 +250,14 @@ const NICHES_DATA = [
     sustainability: 85,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Newsletter başlatma ve büyütme'
+    description: 'Starting and growing a newsletter'
   },
   {
     id: 'crypto-trading',
     icon: '📊',
-    name: 'Kripto Trading',
-    category: 'Finans',
-    subCategories: ['Spot', 'Futures', 'DeFi', 'Analiz'],
+    name: 'Crypto Trading',
+    category: 'Finance',
+    subCategories: ['Spot', 'Futures', 'DeFi', 'Analysis'],
     keywords: ['crypto trading', 'bitcoin trading', 'futures'],
     rpm: { min: 15, max: 30 },
     competition: 75,
@@ -265,14 +265,14 @@ const NICHES_DATA = [
     sustainability: 65,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Kripto alım satım, teknik analiz'
+    description: 'Crypto trading, technical analysis'
   },
   {
     id: 'frugal-living',
     icon: '🌱',
-    name: 'Tasarruflu Yaşam',
-    category: 'Finans',
-    subCategories: ['Minimalizm', 'DIY', 'Coupons', 'Saving'],
+    name: 'Frugal Living',
+    category: 'Finance',
+    subCategories: ['Minimalism', 'DIY', 'Coupons', 'Saving'],
     keywords: ['frugal living', 'minimalism', 'saving money'],
     rpm: { min: 8, max: 14 },
     competition: 50,
@@ -280,18 +280,18 @@ const NICHES_DATA = [
     sustainability: 90,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Tasarruf, minimalizm, akıllı harcama'
+    description: 'Saving, minimalism, smart spending'
   },
   
   // ============================================
-  // EĞİTİM & ÖĞRENME (8)
+  // EDUCATION & LEARNING (8)
   // ============================================
   {
     id: 'language-learning',
     icon: '🗣️',
-    name: 'Dil Öğrenme',
-    category: 'Eğitim',
-    subCategories: ['İngilizce', 'İspanyolca', 'Almanca', 'Çince'],
+    name: 'Language Learning',
+    category: 'Education',
+    subCategories: ['English', 'Spanish', 'German', 'Chinese'],
     keywords: ['language learning', 'english', 'spanish'],
     rpm: { min: 6, max: 12 },
     competition: 85,
@@ -299,13 +299,13 @@ const NICHES_DATA = [
     sustainability: 90,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Dil öğrenme ipuçları, gramer, kelime'
+    description: 'Language learning tips, grammar, vocabulary'
   },
   {
     id: 'study-tips',
     icon: '📚',
-    name: 'Verimli Çalışma',
-    category: 'Eğitim',
+    name: 'Effective Studying',
+    category: 'Education',
     subCategories: ['Pomodoro', 'Note Taking', 'Memory', 'Exam Prep'],
     keywords: ['study tips', 'study with me', 'productivity'],
     rpm: { min: 5, max: 10 },
@@ -314,14 +314,14 @@ const NICHES_DATA = [
     sustainability: 85,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Çalışma teknikleri, sınav hazırlık'
+    description: 'Study techniques, exam preparation'
   },
   {
     id: 'history',
     icon: '📜',
-    name: 'Tarih Hikayeleri',
-    category: 'Eğitim',
-    subCategories: ['Antik Tarih', 'Savaşlar', 'Mitoloji', 'Biyografi'],
+    name: 'History Stories',
+    category: 'Education',
+    subCategories: ['Ancient History', 'Wars', 'Mythology', 'Biography'],
     keywords: ['history', 'ancient history', 'documentary'],
     rpm: { min: 5, max: 9 },
     competition: 55,
@@ -329,14 +329,14 @@ const NICHES_DATA = [
     sustainability: 95,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Tarih, savaşlar, mitoloji'
+    description: 'History, wars, mythology'
   },
   {
     id: 'science',
     icon: '🔬',
-    name: 'Bilim Açıklamaları',
-    category: 'Eğitim',
-    subCategories: ['Fizik', 'Kimya', 'Biyoloji', 'Astronomi'],
+    name: 'Science Explained',
+    category: 'Education',
+    subCategories: ['Physics', 'Chemistry', 'Biology', 'Astronomy'],
     keywords: ['science', 'physics', 'biology', 'space'],
     rpm: { min: 6, max: 11 },
     competition: 65,
@@ -344,14 +344,14 @@ const NICHES_DATA = [
     sustainability: 95,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Bilim konuları, deneyler, açıklamalar'
+    description: 'Science topics, experiments, explanations'
   },
   {
     id: 'space-astronomy',
     icon: '🚀',
-    name: 'Uzay ve Astronomi',
-    category: 'Eğitim',
-    subCategories: ['Gezegenler', 'Kara Delikler', 'NASA', 'SpaceX'],
+    name: 'Space & Astronomy',
+    category: 'Education',
+    subCategories: ['Planets', 'Black Holes', 'NASA', 'SpaceX'],
     keywords: ['space', 'astronomy', 'planets', 'NASA'],
     rpm: { min: 7, max: 13 },
     competition: 60,
@@ -359,14 +359,14 @@ const NICHES_DATA = [
     sustainability: 90,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Uzay, gezegenler, evren'
+    description: 'Space, planets, the universe'
   },
   {
     id: 'engineering',
     icon: '⚙️',
-    name: 'Mühendislik Hikayeleri',
-    category: 'Belgesel',
-    subCategories: ['Köprüler', 'Makineler', 'İnşaat', 'Mega Yapılar'],
+    name: 'Engineering Stories',
+    category: 'Documentary',
+    subCategories: ['Bridges', 'Machines', 'Construction', 'Mega Structures'],
     keywords: ['engineering', 'mega projects', 'construction'],
     rpm: { min: 8, max: 14 },
     competition: 45,
@@ -374,14 +374,14 @@ const NICHES_DATA = [
     sustainability: 90,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Mühendislik, mega projeler, yapılar'
+    description: 'Engineering, mega projects, structures'
   },
   {
     id: 'geography',
     icon: '🌍',
-    name: 'Coğrafya',
-    category: 'Eğitim',
-    subCategories: ['Ülkeler', 'Haritalar', 'Kültürler', 'İklim'],
+    name: 'Geography',
+    category: 'Education',
+    subCategories: ['Countries', 'Maps', 'Cultures', 'Climate'],
     keywords: ['geography', 'countries', 'maps', 'travel'],
     rpm: { min: 5, max: 9 },
     competition: 50,
@@ -389,14 +389,14 @@ const NICHES_DATA = [
     sustainability: 90,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Ülkeler, haritalar, coğrafya'
+    description: 'Countries, maps, geography'
   },
   {
     id: 'book-summaries',
     icon: '📖',
-    name: 'Kitap Özetleri',
-    category: 'Eğitim',
-    subCategories: ['Self-Help', 'İş', 'Roman', 'Biyografi'],
+    name: 'Book Summaries',
+    category: 'Education',
+    subCategories: ['Self-Help', 'Business', 'Novel', 'Biography'],
     keywords: ['book summary', 'book review', 'self help'],
     rpm: { min: 6, max: 11 },
     competition: 60,
@@ -404,18 +404,18 @@ const NICHES_DATA = [
     sustainability: 85,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Kitap özetleri ve incelemeleri'
+    description: 'Book summaries and reviews'
   },
   
   // ============================================
-  // YAŞAM & SAĞLIK (10)
+  // LIFESTYLE & HEALTH (10)
   // ============================================
   {
     id: 'fitness',
     icon: '💪',
-    name: 'Ev Fitness',
-    category: 'Sağlık',
-    subCategories: ['HIIT', 'Yoga', 'Kalistenik', 'Pilates'],
+    name: 'Home Fitness',
+    category: 'Health',
+    subCategories: ['HIIT', 'Yoga', 'Calisthenics', 'Pilates'],
     keywords: ['home workout', 'fitness', 'HIIT', 'yoga'],
     rpm: { min: 6, max: 12 },
     competition: 80,
@@ -423,14 +423,14 @@ const NICHES_DATA = [
     sustainability: 90,
     facelessSupport: false,
     shortsSupport: true,
-    description: 'Evde fitness, antrenman programları'
+    description: 'Home fitness, workout programs'
   },
   {
     id: 'meal-prep',
     icon: '🍱',
-    name: 'Yemek Hazırlığı',
-    category: 'Yemek',
-    subCategories: ['Haftalık Plan', 'Sağlıklı', 'Bütçe Dostu', 'Vegan'],
+    name: 'Meal Prep',
+    category: 'Food',
+    subCategories: ['Weekly Plan', 'Healthy', 'Budget-Friendly', 'Vegan'],
     keywords: ['meal prep', 'healthy eating', 'weekly menu'],
     rpm: { min: 5, max: 10 },
     competition: 60,
@@ -438,14 +438,14 @@ const NICHES_DATA = [
     sustainability: 90,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Haftalık yemek planı, sağlıklı tarifler'
+    description: 'Weekly meal plans, healthy recipes'
   },
   {
     id: 'psychology',
     icon: '🧠',
-    name: 'Psikoloji ve Davranış',
-    category: 'Eğitim',
-    subCategories: ['Self-Improvement', 'İlişkiler', 'Mental Sağlık', 'Mindfulness'],
+    name: 'Psychology & Behavior',
+    category: 'Education',
+    subCategories: ['Self-Improvement', 'Relationships', 'Mental Health', 'Mindfulness'],
     keywords: ['psychology', 'self improvement', 'mental health'],
     rpm: { min: 8, max: 15 },
     competition: 70,
@@ -453,14 +453,14 @@ const NICHES_DATA = [
     sustainability: 95,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Psikoloji, kişisel gelişim'
+    description: 'Psychology, personal development'
   },
   {
     id: 'yoga-meditation',
     icon: '🧘',
-    name: 'Yoga ve Meditasyon',
-    category: 'Sağlık',
-    subCategories: ['Yoga', 'Meditasyon', 'Nefes', 'Mindfulness'],
+    name: 'Yoga & Meditation',
+    category: 'Health',
+    subCategories: ['Yoga', 'Meditation', 'Breathing', 'Mindfulness'],
     keywords: ['yoga', 'meditation', 'mindfulness'],
     rpm: { min: 5, max: 10 },
     competition: 75,
@@ -468,14 +468,14 @@ const NICHES_DATA = [
     sustainability: 90,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Yoga, meditasyon, mindfulness'
+    description: 'Yoga, meditation, mindfulness'
   },
   {
     id: 'beauty-skincare',
     icon: '💄',
-    name: 'Doğal Güzellik',
-    category: 'Yaşam',
-    subCategories: ['Cilt Bakımı', 'Makyaj', 'Saç', 'Doğal'],
+    name: 'Natural Beauty',
+    category: 'Lifestyle',
+    subCategories: ['Skincare', 'Makeup', 'Hair', 'Natural'],
     keywords: ['skincare', 'beauty', 'makeup', 'natural'],
     rpm: { min: 6, max: 12 },
     competition: 90,
@@ -483,14 +483,14 @@ const NICHES_DATA = [
     sustainability: 85,
     facelessSupport: false,
     shortsSupport: true,
-    description: 'Cilt bakımı, makyaj, güzellik'
+    description: 'Skincare, makeup, beauty'
   },
   {
     id: 'mental-health',
     icon: '💭',
-    name: 'Mental Sağlık',
-    category: 'Sağlık',
-    subCategories: ['Anksiyete', 'Depresyon', 'Therapy', 'Self-Care'],
+    name: 'Mental Health',
+    category: 'Health',
+    subCategories: ['Anxiety', 'Depression', 'Therapy', 'Self-Care'],
     keywords: ['mental health', 'anxiety', 'depression'],
     rpm: { min: 7, max: 13 },
     competition: 70,
@@ -498,13 +498,13 @@ const NICHES_DATA = [
     sustainability: 95,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Mental sağlık, anksiyete, terapi'
+    description: 'Mental health, anxiety, therapy'
   },
   {
     id: 'minimalism',
     icon: '🏡',
-    name: 'Minimalizm',
-    category: 'Yaşam',
+    name: 'Minimalism',
+    category: 'Lifestyle',
     subCategories: ['Decluttering', 'Lifestyle', 'Tiny House', 'Capsule Wardrobe'],
     keywords: ['minimalism', 'declutter', 'simple living'],
     rpm: { min: 6, max: 12 },
@@ -513,14 +513,14 @@ const NICHES_DATA = [
     sustainability: 85,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Minimalist yaşam, sade yaşam'
+    description: 'Minimalist living, simple living'
   },
   {
     id: 'parenting',
     icon: '👨‍👩‍👧',
-    name: 'Ebeveynlik İpuçları',
-    category: 'Yaşam',
-    subCategories: ['Bebek', 'Çocuk', 'Eğitim', 'Aile'],
+    name: 'Parenting Tips',
+    category: 'Lifestyle',
+    subCategories: ['Baby', 'Kids', 'Education', 'Family'],
     keywords: ['parenting', 'baby', 'kids', 'family'],
     rpm: { min: 7, max: 13 },
     competition: 75,
@@ -528,14 +528,14 @@ const NICHES_DATA = [
     sustainability: 90,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Ebeveynlik, çocuk eğitimi'
+    description: 'Parenting, child education'
   },
   {
     id: 'sleep-health',
     icon: '😴',
-    name: 'Uyku ve Sağlık',
-    category: 'Sağlık',
-    subCategories: ['Uyku Hijyeni', 'İnsomnia', 'Sleep Tracking', 'Naps'],
+    name: 'Sleep & Health',
+    category: 'Health',
+    subCategories: ['Sleep Hygiene', 'Insomnia', 'Sleep Tracking', 'Naps'],
     keywords: ['sleep', 'insomnia', 'sleep health'],
     rpm: { min: 6, max: 12 },
     competition: 45,
@@ -543,14 +543,14 @@ const NICHES_DATA = [
     sustainability: 90,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Uyku düzeni, sağlıklı uyku'
+    description: 'Sleep schedule, healthy sleep'
   },
   {
     id: 'nutrition',
     icon: '🥗',
-    name: 'Beslenme ve Diyet',
-    category: 'Sağlık',
-    subCategories: ['Keto', 'Vegan', 'İntermittent Fasting', 'Macros'],
+    name: 'Nutrition & Diet',
+    category: 'Health',
+    subCategories: ['Keto', 'Vegan', 'Intermittent Fasting', 'Macros'],
     keywords: ['nutrition', 'diet', 'keto', 'vegan'],
     rpm: { min: 7, max: 14 },
     competition: 85,
@@ -558,17 +558,17 @@ const NICHES_DATA = [
     sustainability: 90,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Beslenme, diyet, sağlıklı yeme'
+    description: 'Nutrition, diet, healthy eating'
   },
   
   // ============================================
-  // SANAT & YARATICILIK (8)
+  // ART & CREATIVITY (8)
   // ============================================
   {
     id: 'digital-art',
     icon: '🎨',
-    name: 'Dijital Sanat',
-    category: 'Sanat',
+    name: 'Digital Art',
+    category: 'Art',
     subCategories: ['Procreate', 'Photoshop', 'Illustrator', 'AI Art'],
     keywords: ['digital art', 'procreate', 'photoshop', 'AI art'],
     rpm: { min: 5, max: 10 },
@@ -577,13 +577,13 @@ const NICHES_DATA = [
     sustainability: 85,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Dijital sanat, çizim, illüstrasyon'
+    description: 'Digital art, drawing, illustration'
   },
   {
     id: 'video-editing',
     icon: '🎬',
-    name: 'Video Düzenleme',
-    category: 'Sanat',
+    name: 'Video Editing',
+    category: 'Art',
     subCategories: ['CapCut', 'Premiere', 'DaVinci', 'Final Cut'],
     keywords: ['video editing', 'capcut', 'premiere'],
     rpm: { min: 7, max: 13 },
@@ -592,13 +592,13 @@ const NICHES_DATA = [
     sustainability: 85,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Video editing eğitimleri'
+    description: 'Video editing tutorials'
   },
   {
     id: 'photography',
     icon: '📷',
-    name: 'Mobil Fotoğrafçılık',
-    category: 'Sanat',
+    name: 'Mobile Photography',
+    category: 'Art',
     subCategories: ['iPhone', 'Android', 'Edit Apps', 'Composition'],
     keywords: ['photography', 'mobile photography', 'iphone'],
     rpm: { min: 5, max: 10 },
@@ -607,13 +607,13 @@ const NICHES_DATA = [
     sustainability: 85,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Telefonla fotoğraf çekme'
+    description: 'Taking photos with your phone'
   },
   {
     id: 'music-production',
     icon: '🎵',
-    name: 'Müzik Prodüksiyonu',
-    category: 'Sanat',
+    name: 'Music Production',
+    category: 'Art',
     subCategories: ['FL Studio', 'Ableton', 'Beat Making', 'Mixing'],
     keywords: ['music production', 'beat making', 'FL studio'],
     rpm: { min: 5, max: 9 },
@@ -622,14 +622,14 @@ const NICHES_DATA = [
     sustainability: 80,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Müzik prodüksiyonu, beat yapımı'
+    description: 'Music production, beat making'
   },
   {
     id: 'writing',
     icon: '✍️',
-    name: 'Yaratıcı Yazarlık',
-    category: 'Sanat',
-    subCategories: ['Hikaye', 'Roman', 'Senaryo', 'Şiir'],
+    name: 'Creative Writing',
+    category: 'Art',
+    subCategories: ['Story', 'Novel', 'Screenplay', 'Poetry'],
     keywords: ['creative writing', 'novel writing', 'storytelling'],
     rpm: { min: 6, max: 11 },
     competition: 50,
@@ -637,14 +637,14 @@ const NICHES_DATA = [
     sustainability: 90,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Yazarlık, hikaye, roman'
+    description: 'Writing, stories, novels'
   },
   {
     id: 'diy-crafts',
     icon: '🔨',
-    name: 'Ev Tamiri DIY',
-    category: 'Pratik',
-    subCategories: ['Tamir', 'Marangozluk', 'Dekorasyon', 'Tools'],
+    name: 'Home Repair DIY',
+    category: 'Practical',
+    subCategories: ['Repair', 'Woodworking', 'Decoration', 'Tools'],
     keywords: ['DIY', 'home repair', 'crafts'],
     rpm: { min: 5, max: 10 },
     competition: 60,
@@ -652,14 +652,14 @@ const NICHES_DATA = [
     sustainability: 85,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Ev tamiri, DIY projeler'
+    description: 'Home repair, DIY projects'
   },
   {
     id: 'painting',
     icon: '🖼️',
-    name: 'Geleneksel Resim',
-    category: 'Sanat',
-    subCategories: ['Yağlı Boya', 'Akrilik', 'Suluboya', 'Eskiz'],
+    name: 'Traditional Painting',
+    category: 'Art',
+    subCategories: ['Oil', 'Acrylic', 'Watercolor', 'Sketch'],
     keywords: ['painting', 'watercolor', 'oil painting'],
     rpm: { min: 4, max: 8 },
     competition: 55,
@@ -667,13 +667,13 @@ const NICHES_DATA = [
     sustainability: 90,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Resim, boyama teknikleri'
+    description: 'Painting, painting techniques'
   },
   {
     id: 'thumbnail-design',
     icon: '🖼️',
-    name: 'Thumbnail Tasarımı',
-    category: 'Sanat',
+    name: 'Thumbnail Design',
+    category: 'Art',
     subCategories: ['Photoshop', 'Canva', 'YouTube', 'Templates'],
     keywords: ['thumbnail design', 'youtube thumbnail'],
     rpm: { min: 6, max: 12 },
@@ -682,18 +682,18 @@ const NICHES_DATA = [
     sustainability: 80,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'YouTube thumbnail tasarımı'
+    description: 'YouTube thumbnail design'
   },
   
   // ============================================
-  // EĞLENCE & POPÜLER KÜLTÜR (10)
+  // ENTERTAINMENT & POP CULTURE (10)
   // ============================================
   {
     id: 'fact-bites',
     icon: '💡',
-    name: 'İlginç Bilgiler',
-    category: 'Eğitim',
-    subCategories: ['Tarih', 'Bilim', 'Doğa', 'İnsan'],
+    name: 'Interesting Facts',
+    category: 'Education',
+    subCategories: ['History', 'Science', 'Nature', 'Human'],
     keywords: ['interesting facts', 'did you know', 'facts'],
     rpm: { min: 4, max: 8 },
     competition: 60,
@@ -701,14 +701,14 @@ const NICHES_DATA = [
     sustainability: 85,
     facelessSupport: true,
     shortsSupport: true,
-    description: '60 saniye bilgi, ilginç gerçekler'
+    description: '60-second facts, interesting tidbits'
   },
   {
     id: 'mystery-stories',
     icon: '🔍',
-    name: 'Gizem Hikayeleri',
-    category: 'Eğlence',
-    subCategories: ['Çözülmemiş', 'True Crime', 'Paranormal', 'Komplo'],
+    name: 'Mystery Stories',
+    category: 'Entertainment',
+    subCategories: ['Unsolved', 'True Crime', 'Paranormal', 'Conspiracy'],
     keywords: ['mystery', 'unsolved', 'true crime'],
     rpm: { min: 7, max: 13 },
     competition: 65,
@@ -716,13 +716,13 @@ const NICHES_DATA = [
     sustainability: 85,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Gizem, çözülmemiş vakalar'
+    description: 'Mysteries, unsolved cases'
   },
   {
     id: 'comedy-shorts',
     icon: '😂',
-    name: 'Komedi Shorts',
-    category: 'Eğlence',
+    name: 'Comedy Shorts',
+    category: 'Entertainment',
     subCategories: ['Skit', 'Reaction', 'Parody', 'Memes'],
     keywords: ['comedy', 'funny', 'shorts'],
     rpm: { min: 3, max: 7 },
@@ -731,14 +731,14 @@ const NICHES_DATA = [
     sustainability: 75,
     facelessSupport: false,
     shortsSupport: true,
-    description: 'Kısa komedi videoları'
+    description: 'Short comedy videos'
   },
   {
     id: 'gaming',
     icon: '🎮',
-    name: 'Oyun İncelemeleri',
-    category: 'Eğlence',
-    subCategories: ['Yeni Oyunlar', 'Rehber', 'Speedrun', 'Lore'],
+    name: 'Game Reviews',
+    category: 'Entertainment',
+    subCategories: ['New Games', 'Walkthrough', 'Speedrun', 'Lore'],
     keywords: ['gaming', 'game review', 'walkthrough'],
     rpm: { min: 4, max: 9 },
     competition: 90,
@@ -746,13 +746,13 @@ const NICHES_DATA = [
     sustainability: 80,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Oyun incelemeleri, rehberler'
+    description: 'Game reviews, walkthroughs'
   },
   {
     id: 'mobile-gaming',
     icon: '📱',
-    name: 'Mobil Oyunlar',
-    category: 'Eğlence',
+    name: 'Mobile Games',
+    category: 'Entertainment',
     subCategories: ['Casual', 'Strategy', 'RPG', 'Reviews'],
     keywords: ['mobile gaming', 'mobile games'],
     rpm: { min: 4, max: 8 },
@@ -761,13 +761,13 @@ const NICHES_DATA = [
     sustainability: 75,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Mobil oyunlar, incelemeler'
+    description: 'Mobile games, reviews'
   },
   {
     id: 'anime-manga',
     icon: '🎌',
-    name: 'Anime ve Manga',
-    category: 'Eğlence',
+    name: 'Anime & Manga',
+    category: 'Entertainment',
     subCategories: ['Review', 'Top 10', 'Theory', 'News'],
     keywords: ['anime', 'manga', 'anime review'],
     rpm: { min: 4, max: 8 },
@@ -776,14 +776,14 @@ const NICHES_DATA = [
     sustainability: 85,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Anime, manga incelemeleri'
+    description: 'Anime, manga reviews'
   },
   {
     id: 'movie-reviews',
     icon: '🎬',
-    name: 'Film İncelemeleri',
-    category: 'Eğlence',
-    subCategories: ['Yeni Filmler', 'Klasikler', 'Analiz', 'Top 10'],
+    name: 'Movie Reviews',
+    category: 'Entertainment',
+    subCategories: ['New Movies', 'Classics', 'Analysis', 'Top 10'],
     keywords: ['movie review', 'film analysis'],
     rpm: { min: 5, max: 10 },
     competition: 80,
@@ -791,14 +791,14 @@ const NICHES_DATA = [
     sustainability: 85,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Film inceleme ve analizleri'
+    description: 'Movie reviews and analyses'
   },
   {
     id: 'celebrity-news',
     icon: '⭐',
-    name: 'Ünlüler ve Magazin',
-    category: 'Eğlence',
-    subCategories: ['Haber', 'Skandal', 'Drama', 'Lifestyle'],
+    name: 'Celebrities & Gossip',
+    category: 'Entertainment',
+    subCategories: ['News', 'Scandal', 'Drama', 'Lifestyle'],
     keywords: ['celebrity', 'gossip', 'entertainment news'],
     rpm: { min: 3, max: 7 },
     competition: 90,
@@ -806,14 +806,14 @@ const NICHES_DATA = [
     sustainability: 70,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Ünlüler, magazin haberleri'
+    description: 'Celebrities, gossip news'
   },
   {
     id: 'sports-analysis',
     icon: '⚽',
-    name: 'Spor Analizi',
-    category: 'Spor',
-    subCategories: ['Futbol', 'Basketbol', 'NBA', 'Premier League'],
+    name: 'Sports Analysis',
+    category: 'Sports',
+    subCategories: ['Soccer', 'Basketball', 'NBA', 'Premier League'],
     keywords: ['sports', 'football', 'basketball', 'NBA'],
     rpm: { min: 5, max: 11 },
     competition: 85,
@@ -821,14 +821,14 @@ const NICHES_DATA = [
     sustainability: 85,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Spor analizi, futbol, basketbol'
+    description: 'Sports analysis, soccer, basketball'
   },
   {
     id: 'true-crime',
     icon: '🚔',
-    name: 'Gerçek Suç Hikayeleri',
-    category: 'Eğlence',
-    subCategories: ['Çözülmüş', 'Çözülmemiş', 'Seri Katiller', 'Cold Case'],
+    name: 'True Crime Stories',
+    category: 'Entertainment',
+    subCategories: ['Solved', 'Unsolved', 'Serial Killers', 'Cold Case'],
     keywords: ['true crime', 'crime stories', 'cold case'],
     rpm: { min: 8, max: 16 },
     competition: 75,
@@ -836,17 +836,17 @@ const NICHES_DATA = [
     sustainability: 80,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Gerçek suç hikayeleri'
+    description: 'True crime stories'
   },
   
   // ============================================
-  // YAŞAM TARZI & HOBİ (8)
+  // LIFESTYLE & HOBBIES (8)
   // ============================================
   {
     id: 'travel',
     icon: '✈️',
-    name: 'Az Bilinen Seyahat',
-    category: 'Seyahat',
+    name: 'Hidden Travel Spots',
+    category: 'Travel',
     subCategories: ['Hidden Gems', 'Budget Travel', 'Solo', 'Adventure'],
     keywords: ['hidden travel', 'travel tips', 'budget travel'],
     rpm: { min: 8, max: 16 },
@@ -855,14 +855,14 @@ const NICHES_DATA = [
     sustainability: 85,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Az bilinen seyahat yerleri'
+    description: 'Lesser-known travel destinations'
   },
   {
     id: 'pets',
     icon: '🐶',
-    name: 'Evcil Hayvan Bakımı',
-    category: 'Yaşam',
-    subCategories: ['Köpek', 'Kedi', 'Eğitim', 'Sağlık'],
+    name: 'Pet Care',
+    category: 'Lifestyle',
+    subCategories: ['Dog', 'Cat', 'Training', 'Health'],
     keywords: ['pets', 'dog', 'cat', 'pet care'],
     rpm: { min: 5, max: 10 },
     competition: 75,
@@ -870,14 +870,14 @@ const NICHES_DATA = [
     sustainability: 90,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Evcil hayvan bakımı'
+    description: 'Pet care'
   },
   {
     id: 'plants',
     icon: '🌱',
-    name: 'Bitki Bakımı',
-    category: 'Yaşam',
-    subCategories: ['İç Mekan', 'Bahçe', 'Sukulent', 'Sebze'],
+    name: 'Plant Care',
+    category: 'Lifestyle',
+    subCategories: ['Indoor', 'Garden', 'Succulent', 'Vegetable'],
     keywords: ['houseplants', 'gardening', 'plant care'],
     rpm: { min: 4, max: 9 },
     competition: 65,
@@ -885,14 +885,14 @@ const NICHES_DATA = [
     sustainability: 90,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Bitki bakımı, ev bahçeciliği'
+    description: 'Plant care, home gardening'
   },
   {
     id: 'car-content',
     icon: '🚗',
-    name: 'Otomobil İçeriği',
-    category: 'Hobi',
-    subCategories: ['Review', 'Tuning', 'Karşılaştırma', 'News'],
+    name: 'Automotive Content',
+    category: 'Hobby',
+    subCategories: ['Review', 'Tuning', 'Comparison', 'News'],
     keywords: ['cars', 'car review', 'automotive'],
     rpm: { min: 8, max: 16 },
     competition: 80,
@@ -900,13 +900,13 @@ const NICHES_DATA = [
     sustainability: 85,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Araba incelemeleri'
+    description: 'Car reviews'
   },
   {
     id: 'motorcycle',
     icon: '🏍️',
-    name: 'Motosiklet',
-    category: 'Hobi',
+    name: 'Motorcycle',
+    category: 'Hobby',
     subCategories: ['Review', 'Tour', 'Tips', 'Gear'],
     keywords: ['motorcycle', 'bike review'],
     rpm: { min: 7, max: 14 },
@@ -915,14 +915,14 @@ const NICHES_DATA = [
     sustainability: 80,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Motosiklet, ekipman'
+    description: 'Motorcycles, gear'
   },
   {
     id: 'running',
     icon: '🏃',
-    name: 'Koşu ve Maraton',
-    category: 'Spor',
-    subCategories: ['Antrenman', 'Beslenme', 'Yarış', 'Spor Ayakkabı'],
+    name: 'Running & Marathon',
+    category: 'Sports',
+    subCategories: ['Training', 'Nutrition', 'Race', 'Running Shoes'],
     keywords: ['running', 'marathon', 'training'],
     rpm: { min: 6, max: 12 },
     competition: 55,
@@ -930,14 +930,14 @@ const NICHES_DATA = [
     sustainability: 90,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Koşu, maraton antrenmanları'
+    description: 'Running, marathon training'
   },
   {
     id: 'fishing',
     icon: '🎣',
-    name: 'Balık Tutma',
-    category: 'Hobi',
-    subCategories: ['Tatlı Su', 'Deniz', 'Ekipman', 'Lokasyon'],
+    name: 'Fishing',
+    category: 'Hobby',
+    subCategories: ['Freshwater', 'Saltwater', 'Gear', 'Location'],
     keywords: ['fishing', 'angling'],
     rpm: { min: 5, max: 10 },
     competition: 50,
@@ -945,14 +945,14 @@ const NICHES_DATA = [
     sustainability: 85,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Balık tutma, ekipman'
+    description: 'Fishing, gear'
   },
   {
     id: 'collecting',
     icon: '🃏',
-    name: 'Koleksiyonculuk',
-    category: 'Hobi',
-    subCategories: ['Kart', 'Para', 'Pul', 'Vintage'],
+    name: 'Collecting',
+    category: 'Hobby',
+    subCategories: ['Cards', 'Coins', 'Stamps', 'Vintage'],
     keywords: ['collecting', 'cards', 'vintage'],
     rpm: { min: 6, max: 12 },
     competition: 45,
@@ -960,18 +960,18 @@ const NICHES_DATA = [
     sustainability: 85,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Koleksiyonculuk, kart koleksiyonu'
+    description: 'Collecting, card collecting'
   },
   
   // ============================================
-  // PROFESYONEL & KARİYER (5)
+  // PROFESSIONAL & CAREER (5)
   // ============================================
   {
     id: 'career-advice',
     icon: '💼',
-    name: 'Kariyer Tavsiyesi',
-    category: 'İş',
-    subCategories: ['CV', 'Mülakat', 'LinkedIn', 'Networking'],
+    name: 'Career Advice',
+    category: 'Business',
+    subCategories: ['Resume', 'Interview', 'LinkedIn', 'Networking'],
     keywords: ['career advice', 'job tips', 'resume', 'interview'],
     rpm: { min: 9, max: 17 },
     competition: 70,
@@ -979,13 +979,13 @@ const NICHES_DATA = [
     sustainability: 90,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'CV, mülakat, kariyer'
+    description: 'Resume, interview, career'
   },
   {
     id: 'marketing',
     icon: '📣',
-    name: 'Dijital Pazarlama',
-    category: 'İş',
+    name: 'Digital Marketing',
+    category: 'Business',
     subCategories: ['SEO', 'Social Media', 'Ads', 'Content'],
     keywords: ['digital marketing', 'SEO', 'social media marketing'],
     rpm: { min: 12, max: 22 },
@@ -994,13 +994,13 @@ const NICHES_DATA = [
     sustainability: 90,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Dijital pazarlama, SEO, sosyal medya'
+    description: 'Digital marketing, SEO, social media'
   },
   {
     id: 'sales',
     icon: '🤝',
-    name: 'Satış Teknikleri',
-    category: 'İş',
+    name: 'Sales Techniques',
+    category: 'Business',
     subCategories: ['B2B', 'Closing', 'Negotiation', 'Cold Calling'],
     keywords: ['sales', 'selling', 'B2B sales'],
     rpm: { min: 10, max: 20 },
@@ -1009,13 +1009,13 @@ const NICHES_DATA = [
     sustainability: 90,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Satış teknikleri, müzakere'
+    description: 'Sales techniques, negotiation'
   },
   {
     id: 'leadership',
     icon: '👔',
-    name: 'Liderlik',
-    category: 'İş',
+    name: 'Leadership',
+    category: 'Business',
     subCategories: ['Management', 'Team Building', 'Communication'],
     keywords: ['leadership', 'management', 'team building'],
     rpm: { min: 11, max: 20 },
@@ -1024,13 +1024,13 @@ const NICHES_DATA = [
     sustainability: 95,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Liderlik, yönetim'
+    description: 'Leadership, management'
   },
   {
     id: 'productivity-apps',
     icon: '📱',
-    name: 'Verimlilik Uygulamaları',
-    category: 'Teknoloji',
+    name: 'Productivity Apps',
+    category: 'Technology',
     subCategories: ['Notion', 'Obsidian', 'Todoist', 'Trello'],
     keywords: ['productivity apps', 'notion', 'obsidian'],
     rpm: { min: 7, max: 13 },
@@ -1039,42 +1039,42 @@ const NICHES_DATA = [
     sustainability: 85,
     facelessSupport: true,
     shortsSupport: true,
-    description: 'Verimlilik uygulamaları'
+    description: 'Productivity apps'
   }
 ];
 
-// Kategori listesi
+// Category list
 const NICHE_CATEGORIES = [
-  { id: 'all', name: 'Tümü', icon: '🌐' },
-  { id: 'Teknoloji', name: 'Teknoloji', icon: '💻' },
-  { id: 'Finans', name: 'Finans', icon: '💰' },
-  { id: 'İş', name: 'İş & Kariyer', icon: '💼' },
-  { id: 'Eğitim', name: 'Eğitim', icon: '📚' },
-  { id: 'Sağlık', name: 'Sağlık', icon: '🏥' },
-  { id: 'Yaşam', name: 'Yaşam Tarzı', icon: '🏡' },
-  { id: 'Sanat', name: 'Sanat', icon: '🎨' },
-  { id: 'Eğlence', name: 'Eğlence', icon: '🎭' },
-  { id: 'Spor', name: 'Spor', icon: '⚽' },
-  { id: 'Seyahat', name: 'Seyahat', icon: '✈️' },
-  { id: 'Hobi', name: 'Hobi', icon: '🎯' },
-  { id: 'Belgesel', name: 'Belgesel', icon: '🎬' },
-  { id: 'Yemek', name: 'Yemek', icon: '🍳' },
-  { id: 'Pratik', name: 'Pratik', icon: '🔧' }
+  { id: 'all', name: 'All', icon: '🌐' },
+  { id: 'Technology', name: 'Technology', icon: '💻' },
+  { id: 'Finance', name: 'Finance', icon: '💰' },
+  { id: 'Business', name: 'Business & Career', icon: '💼' },
+  { id: 'Education', name: 'Education', icon: '📚' },
+  { id: 'Health', name: 'Health', icon: '🏥' },
+  { id: 'Lifestyle', name: 'Lifestyle', icon: '🏡' },
+  { id: 'Art', name: 'Art', icon: '🎨' },
+  { id: 'Entertainment', name: 'Entertainment', icon: '🎭' },
+  { id: 'Sports', name: 'Sports', icon: '⚽' },
+  { id: 'Travel', name: 'Travel', icon: '✈️' },
+  { id: 'Hobby', name: 'Hobby', icon: '🎯' },
+  { id: 'Documentary', name: 'Documentary', icon: '🎬' },
+  { id: 'Food', name: 'Food', icon: '🍳' },
+  { id: 'Practical', name: 'Practical', icon: '🔧' }
 ];
 
-// Niş skorunu hesapla (10 kriter)
+// Calculate niche score (10 criteria)
 function calculateNicheScore(niche) {
   const weights = {
-    competition: 0.15,      // Düşük rekabet = yüksek puan (tersine)
-    growth: 0.20,           // Büyüme
-    sustainability: 0.15,   // Sürdürülebilirlik
-    rpm: 0.15,              // Para kazanma potansiyeli
-    facelessSupport: 0.10,  // Faceless destek
-    shortsSupport: 0.10,    // Shorts uyumu
-    newCreatorFriendly: 0.05, // Yeni kanal dostu
-    longVideoSupport: 0.05,  // Uzun video desteği
-    underrated: 0.03,        // Az değerli
-    multiLanguage: 0.02      // Çok dilli fırsat
+    competition: 0.15,      // Low competition = high score (inverse)
+    growth: 0.20,           // Growth
+    sustainability: 0.15,   // Sustainability
+    rpm: 0.15,              // Monetization potential
+    facelessSupport: 0.10,  // Faceless support
+    shortsSupport: 0.10,    // Shorts compatibility
+    newCreatorFriendly: 0.05, // New creator friendly
+    longVideoSupport: 0.05,  // Long video support
+    underrated: 0.03,        // Underrated
+    multiLanguage: 0.02      // Multi-language opportunity
   };
   
   const competitionScore = 100 - niche.competition;
@@ -1096,14 +1096,14 @@ function calculateNicheScore(niche) {
   return Math.round(score);
 }
 
-// Hidden Opportunity tespiti
+// Hidden Opportunity detection
 function isHiddenOpportunity(niche) {
   return niche.competition < 60 && 
          niche.growth > 75 && 
          (niche.rpm.min + niche.rpm.max) / 2 > 8;
 }
 
-// Tahmini kazanç hesaplama
+// Estimated earnings calculation
 function calculateEarnings(niche, monthlyViews = 100000) {
   const rpmAverage = (niche.rpm.min + niche.rpm.max) / 2;
   const monthlyEarnings = (monthlyViews / 1000) * rpmAverage;
