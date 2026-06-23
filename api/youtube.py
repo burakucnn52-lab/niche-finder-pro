@@ -6,80 +6,80 @@ import urllib.parse
 import hashlib
 from datetime import datetime, timedelta
 
-# Engellenen kelimeler (filtreleme için)
+# Blocked keywords (for filtering)
 BLOCKED_KEYWORDS = ['vevo', 'official', 'records', 'music', 'entertainment', 'tv', 'media', 'topic']
 
 # ============================================
-# NİŞ KEŞFİ İÇİN AKILLI FİLTRELEME
+# SMART FILTERING FOR NICHE DISCOVERY
 # ============================================
 
-# Niş için UYGUN OLMAYAN kelimeler (telif/spam)
+# Words UNSUITABLE for niches (copyright/spam)
 NICHE_BAD_KEYWORDS = [
-    'klip', 'official video', 'lyrics', 'şarkı sözleri',
-    'fragman', 'trailer', 'sahne', 'final sahne',
-    'bölüm fragman', 'tek parça', 'full hd izle',
-    'maç özeti', 'gol', 'müthiş gol', 'penaltı',
-    'reklam', 'tanıtım', 'reklam filmi',
-    'konser', 'live performance',
-    'remix', 'cover şarkı', 'akustik versiyon'
+    'klip', 'official video', 'lyrics', 'song lyrics', 'şarkı sözleri',
+    'fragman', 'trailer', 'sahne', 'final sahne', 'final scene',
+    'bölüm fragman', 'tek parça', 'full episode', 'full hd izle', 'full hd watch',
+    'maç özeti', 'match highlights', 'gol', 'goal', 'müthiş gol', 'penaltı', 'penalty',
+    'reklam', 'tanıtım', 'reklam filmi', 'commercial', 'advertisement',
+    'konser', 'concert', 'live performance',
+    'remix', 'cover şarkı', 'cover song', 'akustik versiyon', 'acoustic version'
 ]
 
-# Bu kelimeler varsa İÇERİK ÜRETİMİ - tutulur
+# If these words exist = CONTENT CREATION - keep it
 NICHE_GOOD_KEYWORDS = [
-    'nasıl', 'how to', 'rehber', 'guide', 'eğitim',
-    'öğren', 'learn', 'tutorial', 'kurs',
+    'nasıl', 'how to', 'rehber', 'guide', 'eğitim', 'education',
+    'öğren', 'learn', 'tutorial', 'kurs', 'course',
     'analiz', 'analysis', 'inceleme', 'review',
-    'tepki', 'reaction', 'vlog', 'günlük',
-    'açıklama', 'açıklıyorum', 'anlatım',
-    'tarih', 'belgesel', 'documentary',
+    'tepki', 'reaction', 'vlog', 'günlük', 'daily',
+    'açıklama', 'açıklıyorum', 'anlatım', 'explained', 'explanation',
+    'tarih', 'history', 'belgesel', 'documentary',
     'tavsiye', 'öneri', 'tips', 'ipucu',
-    'deneyim', 'tecrübe', 'test'
+    'deneyim', 'tecrübe', 'experience', 'test'
 ]
 
-# YouTube kategorilerini niş bilgisine eşle
+# Map YouTube categories to niche info
 NICHE_CATEGORY_MAP = {
-    '1': {'icon': '🎬', 'name': 'Film & İçerik İncelemesi', 'category': 'Sanat'},
-    '2': {'icon': '🚗', 'name': 'Otomobil İçeriği', 'category': 'Hobi'},
-    '10': {'icon': '🎵', 'name': 'Müzik Üretimi & Dersi', 'category': 'Sanat'},
-    '15': {'icon': '🐶', 'name': 'Evcil Hayvan Bakımı', 'category': 'Yaşam'},
-    '17': {'icon': '⚽', 'name': 'Spor Analizi', 'category': 'Spor'},
-    '19': {'icon': '✈️', 'name': 'Seyahat & Vlog', 'category': 'Seyahat'},
-    '20': {'icon': '🎮', 'name': 'Oyun İncelemesi', 'category': 'Eğlence'},
-    '22': {'icon': '📹', 'name': 'Vlog & Yaşam Tarzı', 'category': 'Yaşam'},
-    '23': {'icon': '😂', 'name': 'Komedi & Eğlence', 'category': 'Eğlence'},
-    '24': {'icon': '🎭', 'name': 'Eğlence İçerikleri', 'category': 'Eğlence'},
-    '25': {'icon': '📰', 'name': 'Haber & Güncel Olaylar', 'category': 'Eğitim'},
-    '26': {'icon': '💄', 'name': 'Güzellik & Yaşam Stili', 'category': 'Yaşam'},
-    '27': {'icon': '📚', 'name': 'Eğitim İçerikleri', 'category': 'Eğitim'},
-    '28': {'icon': '🔬', 'name': 'Bilim & Teknoloji', 'category': 'Teknoloji'},
-    '29': {'icon': '🌍', 'name': 'STK & Sosyal Konular', 'category': 'Eğitim'}
+    '1': {'icon': '🎬', 'name': 'Film & Content Review', 'category': 'Art'},
+    '2': {'icon': '🚗', 'name': 'Automotive Content', 'category': 'Hobby'},
+    '10': {'icon': '🎵', 'name': 'Music Production & Tutorials', 'category': 'Art'},
+    '15': {'icon': '🐶', 'name': 'Pet Care', 'category': 'Lifestyle'},
+    '17': {'icon': '⚽', 'name': 'Sports Analysis', 'category': 'Sports'},
+    '19': {'icon': '✈️', 'name': 'Travel & Vlog', 'category': 'Travel'},
+    '20': {'icon': '🎮', 'name': 'Game Reviews', 'category': 'Entertainment'},
+    '22': {'icon': '📹', 'name': 'Vlog & Lifestyle', 'category': 'Lifestyle'},
+    '23': {'icon': '😂', 'name': 'Comedy & Entertainment', 'category': 'Entertainment'},
+    '24': {'icon': '🎭', 'name': 'Entertainment Content', 'category': 'Entertainment'},
+    '25': {'icon': '📰', 'name': 'News & Current Affairs', 'category': 'Education'},
+    '26': {'icon': '💄', 'name': 'Beauty & Lifestyle', 'category': 'Lifestyle'},
+    '27': {'icon': '📚', 'name': 'Educational Content', 'category': 'Education'},
+    '28': {'icon': '🔬', 'name': 'Science & Technology', 'category': 'Technology'},
+    '29': {'icon': '🌍', 'name': 'NGO & Social Issues', 'category': 'Education'}
 }
 
 
 def is_useful_for_niche(video):
-    """Video YouTuber/içerik üreticisi için faydalı mı?"""
+    """Is the video useful for YouTubers/content creators?"""
     try:
         snippet = video.get('snippet', {})
         title = snippet.get('title', '').lower()
         channel = snippet.get('channelTitle', '').lower()
         
-        # 1. Mevcut BLOCKED_KEYWORDS kontrol (kanal adı)
+        # 1. Check existing BLOCKED_KEYWORDS (channel name)
         for blocked in BLOCKED_KEYWORDS:
             if blocked in channel:
-                # Ama içerik üretimi varsa OK
+                # But if content creation exists = OK
                 if any(good in title for good in NICHE_GOOD_KEYWORDS):
                     return True
                 return False
         
-        # 2. Kötü kelime kontrolü (başlık)
+        # 2. Bad keyword check (title)
         has_bad = any(bad in title for bad in NICHE_BAD_KEYWORDS)
         has_good = any(good in title for good in NICHE_GOOD_KEYWORDS)
         
-        # Hem kötü hem iyi = OK (örn: "Film İncelemesi")
+        # Both bad and good = OK (e.g., "Movie Review")
         if has_bad and has_good:
             return True
         
-        # Sadece kötü = ÇIKAR
+        # Only bad = REMOVE
         if has_bad:
             return False
         
@@ -88,16 +88,17 @@ def is_useful_for_niche(video):
     except Exception as e:
         print(f"Filter error: {e}")
         return True
-# Cache süresi (saat)
+
+# Cache duration (hours)
 CACHE_HOURS = 6
 
 def get_cache_key(endpoint, params):
-    """Cache için unique key oluştur"""
+    """Create unique key for cache"""
     key_string = f"{endpoint}_{json.dumps(params, sort_keys=True)}"
     return hashlib.md5(key_string.encode()).hexdigest()
 
 def get_from_cache(cache_key):
-    """Supabase'den cache kontrol et"""
+    """Check cache from Supabase"""
     try:
         supabase_url = os.environ.get('SUPABASE_URL', '')
         supabase_key = os.environ.get('SUPABASE_SERVICE_ROLE_KEY', '')
@@ -117,17 +118,17 @@ def get_from_cache(cache_key):
                 cached = data[0]
                 created_at = datetime.fromisoformat(cached['created_at'].replace('Z', '+00:00'))
                 
-                # Cache hala geçerli mi?
+                # Is cache still valid?
                 if datetime.now(created_at.tzinfo) - created_at < timedelta(hours=CACHE_HOURS):
                     return cached['data']
         
         return None
     except Exception as e:
-        print(f"Cache okuma hatası: {e}")
+        print(f"Cache read error: {e}")
         return None
 
 def save_to_cache(cache_key, endpoint, data):
-    """Supabase'e cache kaydet"""
+    """Save cache to Supabase"""
     try:
         supabase_url = os.environ.get('SUPABASE_URL', '')
         supabase_key = os.environ.get('SUPABASE_SERVICE_ROLE_KEY', '')
@@ -135,7 +136,7 @@ def save_to_cache(cache_key, endpoint, data):
         if not supabase_url or not supabase_key:
             return
         
-        # Önce eskiyi sil
+        # Delete old one first
         delete_url = f"{supabase_url}/rest/v1/search_cache?cache_key=eq.{cache_key}"
         delete_req = urllib.request.Request(delete_url, method='DELETE')
         delete_req.add_header('apikey', supabase_key)
@@ -146,7 +147,7 @@ def save_to_cache(cache_key, endpoint, data):
         except:
             pass
         
-        # Yeni cache ekle
+        # Add new cache
         url = f"{supabase_url}/rest/v1/search_cache"
         payload = json.dumps({
             'cache_key': cache_key,
@@ -162,14 +163,14 @@ def save_to_cache(cache_key, endpoint, data):
         
         urllib.request.urlopen(req, timeout=5)
     except Exception as e:
-        print(f"Cache yazma hatası: {e}")
+        print(f"Cache write error: {e}")
 
 def youtube_api_call(endpoint, params):
-    """YouTube API çağrısı yap"""
+    """Make YouTube API call"""
     api_key = os.environ.get('YOUTUBE_API_KEY', '')
     
     if not api_key:
-        return {'error': 'YouTube API key bulunamadı'}
+        return {'error': 'YouTube API key not found'}
     
     params['key'] = api_key
     url = f"https://www.googleapis.com/youtube/v3/{endpoint}?{urllib.parse.urlencode(params)}"
@@ -182,7 +183,7 @@ def youtube_api_call(endpoint, params):
         return {'error': str(e)}
 
 def filter_channels(channels):
-    """Blocked keywords içeren kanalları filtrele"""
+    """Filter out channels containing blocked keywords"""
     filtered = []
     for channel in channels:
         title = channel.get('snippet', {}).get('title', '').lower()
@@ -201,7 +202,7 @@ class handler(BaseHTTPRequestHandler):
         self.end_headers()
         
         try:
-            # URL parametrelerini al
+            # Get URL parameters
             url_parts = self.path.split('?')
             params = {}
             if len(url_parts) > 1:
@@ -213,7 +214,7 @@ class handler(BaseHTTPRequestHandler):
             endpoint = params.get('endpoint', 'search')
             
             # ============================================
-            # ENDPOINT: TRENDING (Yükselen Kanallar)
+            # ENDPOINT: TRENDING (Trending Channels)
             # ============================================
             if endpoint == 'trending':
                 region = params.get('region', 'TR')
@@ -251,7 +252,7 @@ class handler(BaseHTTPRequestHandler):
                 return
             
             # ============================================
-            # ENDPOINT: SEARCH (Niş/Kanal Arama)
+            # ENDPOINT: SEARCH (Niche/Channel Search)
             # ============================================
             elif endpoint == 'search':
                 query = params.get('q', '')
@@ -260,7 +261,7 @@ class handler(BaseHTTPRequestHandler):
                 language = params.get('lang', 'tr')
                 
                 if not query:
-                    self.wfile.write(json.dumps({'error': 'Arama terimi gerekli'}).encode())
+                    self.wfile.write(json.dumps({'error': 'Search term required'}).encode())
                     return
                 
                 cache_key = get_cache_key('search', {
@@ -290,7 +291,7 @@ class handler(BaseHTTPRequestHandler):
                 
                 result = youtube_api_call('search', yt_params)
                 
-                # Kanalları filtrele
+                # Filter channels
                 if 'items' in result:
                     result['items'] = filter_channels(result['items'])
                 
@@ -304,13 +305,13 @@ class handler(BaseHTTPRequestHandler):
                 return
             
             # ============================================
-            # ENDPOINT: CHANNEL (Kanal Detayı)
+            # ENDPOINT: CHANNEL (Channel Detail)
             # ============================================
             elif endpoint == 'channel':
                 channel_id = params.get('id', '')
                 
                 if not channel_id:
-                    self.wfile.write(json.dumps({'error': 'Kanal ID gerekli'}).encode())
+                    self.wfile.write(json.dumps({'error': 'Channel ID required'}).encode())
                     return
                 
                 cache_key = get_cache_key('channel', {'id': channel_id})
@@ -340,13 +341,13 @@ class handler(BaseHTTPRequestHandler):
                 return
             
             # ============================================
-            # ENDPOINT: VIDEOS (Kanal Videoları)
+            # ENDPOINT: VIDEOS (Channel Videos)
             # ============================================
             elif endpoint == 'videos':
                 channel_id = params.get('channelId', '')
                 
                 if not channel_id:
-                    self.wfile.write(json.dumps({'error': 'Kanal ID gerekli'}).encode())
+                    self.wfile.write(json.dumps({'error': 'Channel ID required'}).encode())
                     return
                 
                 cache_key = get_cache_key('videos', {'channelId': channel_id})
@@ -378,7 +379,7 @@ class handler(BaseHTTPRequestHandler):
                 }).encode())
                 return
                        # ============================================
-            # ENDPOINT: NICHE_DISCOVERY (YouTube'dan Niş Keşfi)
+            # ENDPOINT: NICHE_DISCOVERY (Niche Discovery from YouTube)
             # ============================================
             elif endpoint == 'niche_discovery':
                 region = params.get('region', 'TR')
@@ -393,7 +394,7 @@ class handler(BaseHTTPRequestHandler):
                     }).encode())
                     return
                 
-                # YouTube Trending'den 50 video çek
+                # Fetch 50 videos from YouTube Trending
                 yt_params = {
                     'part': 'snippet,statistics,contentDetails',
                     'chart': 'mostPopular',
@@ -405,17 +406,17 @@ class handler(BaseHTTPRequestHandler):
                 
                 if 'error' in result:
                     self.wfile.write(json.dumps({
-                        'error': result.get('error', 'Trending alınamadı')
+                        'error': result.get('error', 'Could not fetch trending')
                     }).encode())
                     return
                 
                 items = result.get('items', [])
                 
-                # FİLTRELE (spam/telif çıkar)
+                # FILTER (remove spam/copyright)
                 filtered = [v for v in items if is_useful_for_niche(v)]
-                print(f"🔍 {len(items)} video → {len(filtered)} faydalı")
+                print(f"🔍 {len(items)} videos → {len(filtered)} useful")
                 
-                # KATEGORİLERE GÖRE GRUPLA = NİŞ
+                # GROUP BY CATEGORIES = NICHE
                 niches_dict = {}
                 
                 for video in filtered:
@@ -435,7 +436,7 @@ class handler(BaseHTTPRequestHandler):
                             'icon': cat_info['icon'],
                             'name': cat_info['name'],
                             'category': cat_info['category'],
-                            'description': f"{cat_info['name']} alanında bugün trend olan içerikler",
+                            'description': f"Content trending today in {cat_info['name']}",
                             'isTrending': True,
                             'trending_videos': [],
                             'subCategories': [],
@@ -448,7 +449,7 @@ class handler(BaseHTTPRequestHandler):
                             'shortsSupport': True,
                         }
                     
-                    # En fazla 5 trending video ekle
+                    # Add up to 5 trending videos
                     if len(niches_dict[niche_id]['trending_videos']) < 5:
                         niches_dict[niche_id]['trending_videos'].append({
                             'title': snippet.get('title', ''),
@@ -458,7 +459,7 @@ class handler(BaseHTTPRequestHandler):
                             'views': stats.get('viewCount', '0')
                         })
                     
-                    # Etiketlerden alt kategori (en fazla 5)
+                    # Sub-categories from tags (up to 5)
                     tags = snippet.get('tags', [])[:5]
                     for tag in tags:
                         if tag and len(niches_dict[niche_id]['subCategories']) < 5:
@@ -466,9 +467,9 @@ class handler(BaseHTTPRequestHandler):
                                 niches_dict[niche_id]['subCategories'].append(tag)
                 
                 trending_niches = list(niches_dict.values())
-                print(f"✨ {len(trending_niches)} trending niş oluşturuldu")
+                print(f"✨ {len(trending_niches)} trending niches created")
                 
-                # Cache'e kaydet
+                # Save to cache
                 save_to_cache(cache_key, 'niche_discovery', trending_niches)
                 
                 self.wfile.write(json.dumps({
@@ -479,109 +480,8 @@ class handler(BaseHTTPRequestHandler):
                 return
              
             # ============================================
-            # ENDPOINT: STATUS (API Sağlık Kontrolü)
+            # ENDPOINT: STATUS (API Health Check)
             # ============================================
-                       # ============================================
-            # ENDPOINT: NICHE_DISCOVERY (YouTube'dan Niş Keşfi)
-            # ============================================
-            elif endpoint == 'niche_discovery':
-                region = params.get('region', 'TR')
-                
-                cache_key = get_cache_key('niche_discovery', {'region': region})
-                cached = get_from_cache(cache_key)
-                
-                if cached:
-                    self.wfile.write(json.dumps({
-                        'source': 'cache',
-                        'niches': cached
-                    }).encode())
-                    return
-                
-                # YouTube Trending'den 50 video çek
-                yt_params = {
-                    'part': 'snippet,statistics,contentDetails',
-                    'chart': 'mostPopular',
-                    'regionCode': region,
-                    'maxResults': 50
-                }
-                
-                result = youtube_api_call('videos', yt_params)
-                
-                if 'error' in result:
-                    self.wfile.write(json.dumps({
-                        'error': result.get('error', 'Trending alınamadı')
-                    }).encode())
-                    return
-                
-                items = result.get('items', [])
-                
-                # FİLTRELE (spam/telif çıkar)
-                filtered = [v for v in items if is_useful_for_niche(v)]
-                print(f"🔍 {len(items)} video → {len(filtered)} faydalı")
-                
-                # KATEGORİLERE GÖRE GRUPLA = NİŞ
-                niches_dict = {}
-                
-                for video in filtered:
-                    snippet = video.get('snippet', {})
-                    stats = video.get('statistics', {})
-                    category_id = snippet.get('categoryId', '')
-                    
-                    if category_id not in NICHE_CATEGORY_MAP:
-                        continue
-                    
-                    cat_info = NICHE_CATEGORY_MAP[category_id]
-                    niche_id = f"trending-{category_id}"
-                    
-                    if niche_id not in niches_dict:
-                        niches_dict[niche_id] = {
-                            'id': niche_id,
-                            'icon': cat_info['icon'],
-                            'name': cat_info['name'],
-                            'category': cat_info['category'],
-                            'description': f"{cat_info['name']} alanında bugün trend olan içerikler",
-                            'isTrending': True,
-                            'trending_videos': [],
-                            'subCategories': [],
-                            'keywords': [cat_info['name'].lower().split()[0]],
-                            'rpm': {'min': 5, 'max': 12},
-                            'competition': 70,
-                            'growth': 90,
-                            'sustainability': 75,
-                            'facelessSupport': True,
-                            'shortsSupport': True,
-                        }
-                    
-                    # En fazla 5 trending video ekle
-                    if len(niches_dict[niche_id]['trending_videos']) < 5:
-                        niches_dict[niche_id]['trending_videos'].append({
-                            'title': snippet.get('title', ''),
-                            'channel': snippet.get('channelTitle', ''),
-                            'thumbnail': snippet.get('thumbnails', {}).get('medium', {}).get('url', ''),
-                            'videoId': video.get('id', ''),
-                            'views': stats.get('viewCount', '0')
-                        })
-                    
-                    # Etiketlerden alt kategori (en fazla 5)
-                    tags = snippet.get('tags', [])[:5]
-                    for tag in tags:
-                        if tag and len(niches_dict[niche_id]['subCategories']) < 5:
-                            if tag not in niches_dict[niche_id]['subCategories']:
-                                niches_dict[niche_id]['subCategories'].append(tag)
-                
-                trending_niches = list(niches_dict.values())
-                print(f"✨ {len(trending_niches)} trending niş oluşturuldu")
-                
-                # Cache'e kaydet
-                save_to_cache(cache_key, 'niche_discovery', trending_niches)
-                
-                self.wfile.write(json.dumps({
-                    'source': 'api',
-                    'niches': trending_niches,
-                    'region': region
-                }).encode())
-                return
-            
             elif endpoint == 'status':
                 self.wfile.write(json.dumps({
                     'status': 'ok',
@@ -592,14 +492,14 @@ class handler(BaseHTTPRequestHandler):
                 return
             
             else:
-                self.wfile.write(json.dumps({'error': f'Bilinmeyen endpoint: {endpoint}'}).encode())
+                self.wfile.write(json.dumps({'error': f'Unknown endpoint: {endpoint}'}).encode())
                 return
         
         except Exception as e:
             self.wfile.write(json.dumps({'error': str(e)}).encode())
     
     def do_OPTIONS(self):
-        """CORS preflight için"""
+        """For CORS preflight"""
         self.send_response(200)
         self.send_header('Access-Control-Allow-Origin', '*')
         self.send_header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS')
