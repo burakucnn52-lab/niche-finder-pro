@@ -474,6 +474,67 @@
       </div>
     </div>
   </footer>
-  
+    <!-- LIFETIME COUNTER - Supabase Realtime -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/js/config.js"></script>
+  <script>
+    (async function loadLifetimeCounter() {
+      try {
+        // Supabase client (config.js'den SUPABASE_URL ve SUPABASE_ANON_KEY kullanılıyor)
+        const supabase = window.supabase.createClient(
+          window.SUPABASE_URL || SUPABASE_URL,
+          window.SUPABASE_ANON_KEY || SUPABASE_ANON_KEY
+        );
+
+        // Lifetime istatistiklerini çek
+        const [{ data: sold }, { data: remaining }, { data: available }] = await Promise.all([
+          supabase.rpc('get_lifetime_count'),
+          supabase.rpc('get_lifetime_remaining'),
+          supabase.rpc('is_lifetime_available')
+        ]);
+
+        const soldCount = sold ?? 0;
+        const remainingCount = remaining ?? 100;
+        const isAvailable = available ?? true;
+        const percentSold = (soldCount / 100) * 100;
+
+        // 1) Hero badge güncelle
+        const heroBadge = document.querySelector('.hero-badge span:last-child');
+        if (heroBadge) {
+          heroBadge.innerHTML = isAvailable 
+            ? `🔥 Lifetime Deal - <strong>${remainingCount}/100</strong> Spots Left!`
+            : `⚠️ Lifetime Sold Out - Monthly Plans Available Soon`;
+        }
+
+        // 2) Stock bar güncelle
+        const stockFill = document.querySelector('.stock-fill-mini');
+        if (stockFill) {
+          stockFill.style.width = `${Math.max(percentSold, 1)}%`;
+        }
+
+        // 3) Stock text güncelle
+        const stockText = document.querySelector('.lifetime-stock span');
+        if (stockText) {
+          stockText.innerHTML = isAvailable
+            ? `<strong>${remainingCount}</strong> spots remaining out of 100!`
+            : `<strong>0</strong> spots remaining — Sold out!`;
+        }
+
+        // 4) Lifetime tükendiyse butonları devre dışı bırak
+        if (!isAvailable) {
+          document.querySelectorAll('a[href="/register?plan=lifetime"]').forEach(btn => {
+            btn.style.opacity = '0.5';
+            btn.style.pointerEvents = 'none';
+            btn.innerHTML = '❌ Sold Out';
+          });
+        }
+
+        console.log(`✅ Lifetime Counter: ${soldCount}/100 sold, ${remainingCount} remaining`);
+
+      } catch (err) {
+        console.error('Lifetime counter error:', err);
+      }
+    })();
+  </script>
 </body>
 </html>
