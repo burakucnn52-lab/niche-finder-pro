@@ -474,45 +474,37 @@
       </div>
     </div>
   </footer>
-    <!-- LIFETIME COUNTER - Supabase Realtime -->
+     <!-- LIFETIME COUNTER + CHECKOUT - Supabase -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="/js/config.js"></script>
   <script>
-    (async function loadLifetimeCounter() {
-      try {
-        // Supabase client (config.js'den SUPABASE_URL ve SUPABASE_ANON_KEY kullanılıyor)
-        const supabase = window.supabase.createClient(
-          window.SUPABASE_URL || SUPABASE_URL,
-          window.SUPABASE_ANON_KEY || SUPABASE_ANON_KEY
-        );
+    const LEMONSQUEEZY_CHECKOUT_URL = 'https://nichify.lemonsqueezy.com/checkout/buy/327c8366-362b-45e1-8d34-0c6b6ea43411';
 
-        // Lifetime istatistiklerini çek
-        const [{ data: sold }, { data: remaining }, { data: available }] = await Promise.all([
+    (async function initLifetimePage() {
+      try {
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        const [soldRes, remainingRes, availableRes] = await Promise.all([
           supabase.rpc('get_lifetime_count'),
           supabase.rpc('get_lifetime_remaining'),
           supabase.rpc('is_lifetime_available')
         ]);
 
-        const soldCount = sold ?? 0;
-        const remainingCount = remaining ?? 100;
-        const isAvailable = available ?? true;
-        const percentSold = (soldCount / 100) * 100;
+        const soldCount = soldRes.data ?? 0;
+        const remainingCount = remainingRes.data ?? 100;
+        const isAvailable = availableRes.data ?? true;
+        const percentSold = Math.max((soldCount / 100) * 100, 1);
 
-        // 1) Hero badge güncelle
         const heroBadge = document.querySelector('.hero-badge span:last-child');
         if (heroBadge) {
           heroBadge.innerHTML = isAvailable 
             ? `🔥 Lifetime Deal - <strong>${remainingCount}/100</strong> Spots Left!`
-            : `⚠️ Lifetime Sold Out - Monthly Plans Available Soon`;
+            : `⚠️ Lifetime Sold Out - Monthly Plans Coming Soon`;
         }
 
-        // 2) Stock bar güncelle
         const stockFill = document.querySelector('.stock-fill-mini');
-        if (stockFill) {
-          stockFill.style.width = `${Math.max(percentSold, 1)}%`;
-        }
+        if (stockFill) stockFill.style.width = `${percentSold}%`;
 
-        // 3) Stock text güncelle
         const stockText = document.querySelector('.lifetime-stock span');
         if (stockText) {
           stockText.innerHTML = isAvailable
@@ -520,19 +512,33 @@
             : `<strong>0</strong> spots remaining — Sold out!`;
         }
 
-        // 4) Lifetime tükendiyse butonları devre dışı bırak
+        const lifetimeButtons = document.querySelectorAll('a[href*="plan=lifetime"]');
+        
         if (!isAvailable) {
-          document.querySelectorAll('a[href="/register?plan=lifetime"]').forEach(btn => {
+          lifetimeButtons.forEach(btn => {
             btn.style.opacity = '0.5';
             btn.style.pointerEvents = 'none';
             btn.innerHTML = '❌ Sold Out';
           });
+        } else {
+          lifetimeButtons.forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+              e.preventDefault();
+              const { data: { user } } = await supabase.auth.getUser();
+              
+              if (user) {
+                const checkoutUrl = `${LEMONSQUEEZY_CHECKOUT_URL}?checkout[email]=${encodeURIComponent(user.email)}`;
+                window.location.href = checkoutUrl;
+              } else {
+                window.location.href = '/register?plan=lifetime&redirect=checkout';
+              }
+            });
+          });
         }
 
-        console.log(`✅ Lifetime Counter: ${soldCount}/100 sold, ${remainingCount} remaining`);
-
+        console.log(`✅ Lifetime: ${soldCount}/100 sold | ${remainingCount} remaining`);
       } catch (err) {
-        console.error('Lifetime counter error:', err);
+        console.error('Lifetime page error:', err);
       }
     })();
   </script>
