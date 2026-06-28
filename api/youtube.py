@@ -217,7 +217,7 @@ class handler(BaseHTTPRequestHandler):
             # ENDPOINT: TRENDING (Trending Channels)
             # ============================================
             if endpoint == 'trending':
-                region = params.get('region', 'TR')
+                region = params.get('region', 'US')
                 category = params.get('category', '')
                 
                 cache_key = get_cache_key('trending', {'region': region, 'category': category})
@@ -257,8 +257,8 @@ class handler(BaseHTTPRequestHandler):
             elif endpoint == 'search':
                 query = params.get('q', '')
                 search_type = params.get('type', 'channel')
-                region = params.get('region', 'TR')
-                language = params.get('lang', 'tr')
+                region = params.get('region', 'US')
+                language = params.get('lang', 'en')
                 
                 if not query:
                     self.wfile.write(json.dumps({'error': 'Search term required'}).encode())
@@ -382,7 +382,7 @@ class handler(BaseHTTPRequestHandler):
             # ENDPOINT: NICHE_DISCOVERY (Niche Discovery from YouTube)
             # ============================================
             elif endpoint == 'niche_discovery':
-                region = params.get('region', 'TR')
+                region = params.get('region', 'US')
                 
                 cache_key = get_cache_key('niche_discovery', {'region': region})
                 cached = get_from_cache(cache_key)
