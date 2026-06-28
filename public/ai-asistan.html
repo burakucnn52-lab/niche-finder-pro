@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Asistan - NICHIFY PRO</title>
+  <title>AI Assistant - NICHIFY PRO</title>
   
   <link rel="stylesheet" href="/css/core.css">
   <link rel="stylesheet" href="/css/animations.css">
@@ -87,27 +87,27 @@
       
       <nav class="sidebar-nav">
         <div class="sidebar-section">
-          <div class="sidebar-section-title">Ana Menü</div>
-          <a href="/dashboard" class="sidebar-item"><span class="sidebar-item-icon">🏠</span><span>Anasayfa</span></a>
-          <a href="/nis-kesfi" class="sidebar-item"><span class="sidebar-item-icon">🎯</span><span>Niş Keşfi</span></a>
-          <a href="/yukselen-kanallar" class="sidebar-item"><span class="sidebar-item-icon">🔥</span><span>Yükselen Kanallar</span></a>
-          <a href="/kanal-analizi" class="sidebar-item"><span class="sidebar-item-icon">📊</span><span>Kanal Analizi</span></a>
+          <div class="sidebar-section-title">Main Menu</div>
+          <a href="/dashboard" class="sidebar-item"><span class="sidebar-item-icon">🏠</span><span>Home</span></a>
+          <a href="/niche-discovery" class="sidebar-item"><span class="sidebar-item-icon">🎯</span><span>Niche Discovery</span></a>
+          <a href="/rising-channels" class="sidebar-item"><span class="sidebar-item-icon">🔥</span><span>Rising Channels</span></a>
+          <a href="/channel-analysis" class="sidebar-item"><span class="sidebar-item-icon">📊</span><span>Channel Analysis</span></a>
         </div>
         
         <div class="sidebar-section">
-          <div class="sidebar-section-title">Araçlar</div>
+          <div class="sidebar-section-title">Tools</div>
           <a href="/risk-detector" class="sidebar-item"><span class="sidebar-item-icon">🛡️</span><span>Risk Detector</span></a>
-          <a href="/ai-asistan" class="sidebar-item active">
+          <a href="/ai-assistant" class="sidebar-item active">
             <span class="sidebar-item-icon">🤖</span>
-            <span>AI Asistan</span>
-            <span class="badge badge-pro sidebar-item-badge">AKTİF</span>
+            <span>AI Assistant</span>
+            <span class="badge badge-pro sidebar-item-badge">ACTIVE</span>
           </a>
-          <a href="/yol-haritasi" class="sidebar-item"><span class="sidebar-item-icon">🗺️</span><span>Yol Haritası</span></a>
+          <a href="/roadmap" class="sidebar-item"><span class="sidebar-item-icon">🗺️</span><span>Roadmap</span></a>
         </div>
         
         <div class="sidebar-section" id="adminSection" style="display: none;">
           <div class="sidebar-section-title">👑 Admin</div>
-          <a href="/admin" class="sidebar-item"><span class="sidebar-item-icon">⚙️</span><span>Yönetim Paneli</span></a>
+          <a href="/admin" class="sidebar-item"><span class="sidebar-item-icon">⚙️</span><span>Admin Panel</span></a>
         </div>
       </nav>
       
@@ -115,17 +115,17 @@
         <div class="sidebar-lifetime-old">$149</div>
         <div class="sidebar-lifetime-price">$89</div>
         <div class="sidebar-lifetime-label">🔥 Lifetime Deal</div>
-        <a href="/fiyatlandirma" class="btn btn-primary btn-sm btn-block" style="margin-top: 8px;">Şimdi Al</a>
-        <div class="sidebar-lifetime-stock">⚡ <span id="lifetimeStock">88</span>/100 kaldı</div>
+        <a href="/pricing" class="btn btn-primary btn-sm btn-block" style="margin-top: 8px;">Get Now</a>
+        <div class="sidebar-lifetime-stock">⚡ <span id="lifetimeStock">88</span>/100 left</div>
       </div>
       
       <div class="sidebar-user">
         <div class="avatar" id="userAvatar">U</div>
         <div class="sidebar-user-info">
-          <div class="sidebar-user-name" id="userName">Yükleniyor...</div>
+          <div class="sidebar-user-name" id="userName">Loading...</div>
           <div class="sidebar-user-email" id="userEmail">-</div>
         </div>
-        <div class="sidebar-user-menu" id="logoutBtn" title="Çıkış Yap">⏻</div>
+        <div class="sidebar-user-menu" id="logoutBtn" title="Logout">⏻</div>
       </div>
     </aside>
     
@@ -134,10 +134,10 @@
       <div class="page-header">
         <h1>
           <span>🤖</span>
-          <span>AI Asistan</span>
-          <span class="badge badge-success">CANLI</span>
+          <span>AI Assistant</span>
+          <span class="badge badge-success">LIVE</span>
         </h1>
-        <p>YouTube nişleri, içerik fikirleri ve büyüme stratejileri için <strong>Google Gemini AI</strong> ile sohbet et.</p>
+        <p>Chat with <strong>Google Gemini AI</strong> for YouTube niches, content ideas and growth strategies.</p>
       </div>
       
       <div class="ai-container">
@@ -145,49 +145,49 @@
         <div class="ai-status">
           <div class="ai-status-info">
             <span class="live-indicator"></span>
-            <span>AI Asistan Aktif</span>
+            <span>AI Assistant Active</span>
             <span class="ai-model-badge"><span>✨</span><span>Gemini 2.5 Flash</span></span>
             <span class="ai-limit-badge" id="limitBadge">
               <span>📊</span>
-              <span id="limitText">Yükleniyor...</span>
+              <span id="limitText">Loading...</span>
             </span>
           </div>
-          <div class="ai-clear-btn" id="clearChatBtn">🗑️ Temizle</div>
+          <div class="ai-clear-btn" id="clearChatBtn">🗑️ Clear</div>
         </div>
         
         <div class="ai-quick-actions">
-          <div class="ai-quick-action" data-action="niche_ideas"><span>🎯</span><span>Niş Öner</span></div>
-          <div class="ai-quick-action" data-action="video_titles"><span>📝</span><span>Video Başlığı</span></div>
-          <div class="ai-quick-action" data-action="thumbnail_ideas"><span>🖼️</span><span>Thumbnail Fikri</span></div>
-          <div class="ai-quick-action" data-action="hook_writer"><span>🎣</span><span>Hook Yaz</span></div>
-          <div class="ai-quick-action" data-action="content_plan"><span>📅</span><span>30 Günlük Plan</span></div>
-          <div class="ai-quick-action" data-action="seo_tips"><span>🔍</span><span>SEO Tavsiyesi</span></div>
-          <div class="ai-quick-action" data-action="growth_strategy"><span>📈</span><span>Büyüme Stratejisi</span></div>
+          <div class="ai-quick-action" data-action="niche_ideas"><span>🎯</span><span>Suggest Niche</span></div>
+          <div class="ai-quick-action" data-action="video_titles"><span>📝</span><span>Video Title</span></div>
+          <div class="ai-quick-action" data-action="thumbnail_ideas"><span>🖼️</span><span>Thumbnail Idea</span></div>
+          <div class="ai-quick-action" data-action="hook_writer"><span>🎣</span><span>Write Hook</span></div>
+          <div class="ai-quick-action" data-action="content_plan"><span>📅</span><span>30-Day Plan</span></div>
+          <div class="ai-quick-action" data-action="seo_tips"><span>🔍</span><span>SEO Tips</span></div>
+          <div class="ai-quick-action" data-action="growth_strategy"><span>📈</span><span>Growth Strategy</span></div>
         </div>
         
         <div class="ai-messages" id="aiMessages">
           
           <div class="ai-welcome" id="aiWelcome">
             <div class="ai-welcome-icon">🤖</div>
-            <h2>Merhaba! Ben NICHIFY AI</h2>
-            <p>YouTube'da büyümen için her konuda yardımcı olabilirim.<br>Niş öner, başlık yaz, içerik planı oluştur - her şey için sor!</p>
+            <h2>Hello! I'm NICHIFY AI</h2>
+            <p>I can help you with everything you need to grow on YouTube.<br>Suggest niches, write titles, create content plans - ask me anything!</p>
             
             <div class="ai-suggestions">
-              <div class="ai-suggestion-card" onclick="sendSuggestion('Bana 5 tane düşük rekabetli ama yüksek kazançlı YouTube nişi öner')">
+              <div class="ai-suggestion-card" onclick="sendSuggestion('Suggest 5 low-competition but high-earning YouTube niches')">
                 <div class="ai-suggestion-icon">🎯</div>
-                <div class="ai-suggestion-text"><strong>Düşük rekabetli niş öner</strong><br>5 tane yüksek kazançlı niş</div>
+                <div class="ai-suggestion-text"><strong>Suggest low-competition niches</strong><br>5 high-earning niches</div>
               </div>
-              <div class="ai-suggestion-card" onclick="sendSuggestion('AI araçları nişinde viral olabilecek 10 video başlığı yaz')">
+              <div class="ai-suggestion-card" onclick="sendSuggestion('Write 10 video titles that could go viral in the AI tools niche')">
                 <div class="ai-suggestion-icon">📝</div>
-                <div class="ai-suggestion-text"><strong>Video başlığı üret</strong><br>Viral potansiyelli başlıklar</div>
+                <div class="ai-suggestion-text"><strong>Generate video titles</strong><br>Titles with viral potential</div>
               </div>
-              <div class="ai-suggestion-card" onclick="sendSuggestion('Faceless YouTube kanalı için 30 günlük içerik planı oluştur')">
+              <div class="ai-suggestion-card" onclick="sendSuggestion('Create a 30-day content plan for a faceless YouTube channel')">
                 <div class="ai-suggestion-icon">📅</div>
-                <div class="ai-suggestion-text"><strong>30 günlük plan</strong><br>Faceless kanal için</div>
+                <div class="ai-suggestion-text"><strong>30-day plan</strong><br>For a faceless channel</div>
               </div>
-              <div class="ai-suggestion-card" onclick="sendSuggestion('YouTube Shorts ile 0 aboneden 10K aboneye nasıl çıkarım?')">
+              <div class="ai-suggestion-card" onclick="sendSuggestion('How can I grow from 0 to 10K subscribers with YouTube Shorts?')">
                 <div class="ai-suggestion-icon">🚀</div>
-                <div class="ai-suggestion-text"><strong>Büyüme stratejisi</strong><br>0'dan 10K aboneye</div>
+                <div class="ai-suggestion-text"><strong>Growth strategy</strong><br>From 0 to 10K subscribers</div>
               </div>
             </div>
           </div>
@@ -196,13 +196,13 @@
         
         <div class="ai-input-area">
           <div class="ai-input-wrapper">
-            <textarea class="ai-input" id="aiInput" placeholder="Mesajını yaz... (Örn: AI nişinde 10 video başlığı öner)" rows="1"></textarea>
-            <button class="ai-send-btn" id="sendBtn" title="Gönder">➤</button>
+            <textarea class="ai-input" id="aiInput" placeholder="Type your message... (e.g. Suggest 10 video titles in the AI niche)" rows="1"></textarea>
+            <button class="ai-send-btn" id="sendBtn" title="Send">➤</button>
           </div>
           <div class="ai-input-info">
             <div class="ai-input-hint">
-              <span><kbd>Enter</kbd> Gönder</span>
-              <span><kbd>Shift</kbd>+<kbd>Enter</kbd> Yeni satır</span>
+              <span><kbd>Enter</kbd> Send</span>
+              <span><kbd>Shift</kbd>+<kbd>Enter</kbd> New line</span>
             </div>
             <span id="charCount">0 / 2000</span>
           </div>
@@ -222,45 +222,45 @@
     // ============================================
     // SYSTEM PROMPT
     // ============================================
-    const SYSTEM_PROMPT = `Sen NICHIFY PRO'nun yapay zeka asistanısın. YouTube niş bulma, kanal analizi, içerik üretimi ve YouTube büyütme konularında uzmansın.
+    const SYSTEM_PROMPT = `You are the AI assistant of NICHIFY PRO. You are an expert in finding YouTube niches, channel analysis, content creation and YouTube growth.
 
-GÖREVLERİN:
-- YouTube niş önerileri vermek
-- Video başlığı ve thumbnail fikirleri üretmek  
-- İçerik stratejisi geliştirmek
-- Kanal büyütme tavsiyeleri vermek
-- Trend analizi yapmak
-- Telif/risk konularında uyarmak
-- Hook ve giriş cümleleri yazmak
+YOUR TASKS:
+- Provide YouTube niche suggestions
+- Generate video title and thumbnail ideas
+- Develop content strategies
+- Give channel growth advice
+- Analyze trends
+- Warn about copyright/risk issues
+- Write hooks and opening lines
 
-KURALLAR:
-- Her zaman Türkçe yanıt ver
-- Pratik, uygulanabilir tavsiyeler ver
-- Madde madde ve net açıkla
-- Kısa ve öz ol (gerektiğinde detaylı)
-- Emoji kullan ama abartma
-- Türk YouTuber'ların ihtiyaçlarını anla
-- Güncel YouTube algoritmasını bil
-- Yanlış bilgi verme, bilmediğin şeyi söyle
+RULES:
+- Always respond in English
+- Give practical, actionable advice
+- Explain in bullet points and clearly
+- Be concise (detailed when necessary)
+- Use emojis but don't overdo it
+- Understand the needs of YouTubers
+- Know the current YouTube algorithm
+- Don't give wrong information, say when you don't know
 
-YASAK:
-- Telif ihlali öner
-- Yanıltıcı/yasadışı taktikler önerme
-- AI olduğunu sürekli vurgulama
-- Çok uzun ve gereksiz cevaplar verme`;
+PROHIBITED:
+- Suggesting copyright infringement
+- Suggesting misleading/illegal tactics
+- Constantly emphasizing that you are an AI
+- Giving very long and unnecessary answers`;
     
     // ============================================
     // QUICK PROMPTS
     // ============================================
     const QUICK_PROMPTS = {
-      'niche_ideas': (ctx) => `YouTube'da kazançlı niş önerileri ver. Eğer kullanıcı belirli bir alan belirttiyse o alanda spesifik olsun. Context: ${ctx}`,
-      'video_titles': (ctx) => `Bu konu için 10 adet viral olabilecek YouTube video başlığı öner: ${ctx}`,
-      'thumbnail_ideas': (ctx) => `Bu video konusu için yaratıcı thumbnail fikirleri öner (renk, kompozisyon, metin): ${ctx}`,
-      'hook_writer': (ctx) => `Bu video için izleyiciyi hemen yakalayacak 5 farklı hook (giriş cümlesi) yaz: ${ctx}`,
-      'content_plan': (ctx) => `Bu niş için 30 günlük detaylı içerik takvimi oluştur (video başlıkları, formatlar, hashtagler): ${ctx}`,
-      'channel_audit': (ctx) => `Bu kanalı analiz et ve büyütme önerileri ver: ${ctx}`,
-      'seo_tips': (ctx) => `Bu video için SEO optimizasyonu öner (başlık, açıklama, tag, hashtag): ${ctx}`,
-      'growth_strategy': (ctx) => `Bu kanal için detaylı büyüme stratejisi oluştur: ${ctx}`
+      'niche_ideas': (ctx) => `Give profitable niche suggestions for YouTube. If the user has specified a specific area, be specific in that area. Context: ${ctx}`,
+      'video_titles': (ctx) => `Suggest 10 YouTube video titles that could go viral for this topic: ${ctx}`,
+      'thumbnail_ideas': (ctx) => `Suggest creative thumbnail ideas for this video topic (color, composition, text): ${ctx}`,
+      'hook_writer': (ctx) => `Write 5 different hooks (opening lines) that will immediately grab the viewer for this video: ${ctx}`,
+      'content_plan': (ctx) => `Create a detailed 30-day content calendar for this niche (video titles, formats, hashtags): ${ctx}`,
+      'channel_audit': (ctx) => `Analyze this channel and give growth suggestions: ${ctx}`,
+      'seo_tips': (ctx) => `Suggest SEO optimization for this video (title, description, tags, hashtags): ${ctx}`,
+      'growth_strategy': (ctx) => `Create a detailed growth strategy for this channel: ${ctx}`
     };
     
     let chatHistory = [];
@@ -284,11 +284,11 @@ YASAK:
         
         if (currentUser.is_admin || currentUser.role === 'super_admin') {
           document.getElementById('adminSection').style.display = 'block';
-          document.getElementById('limitText').textContent = 'Sınırsız (Admin)';
+          document.getElementById('limitText').textContent = 'Unlimited (Admin)';
         } else if (currentUser.is_premium) {
-          document.getElementById('limitText').textContent = 'Premium: 50/gün';
+          document.getElementById('limitText').textContent = 'Premium: 50/day';
         } else {
-          document.getElementById('limitText').textContent = 'Free: 3/gün';
+          document.getElementById('limitText').textContent = 'Free: 3/day';
         }
         
         if (currentUser.is_premium) {
@@ -320,9 +320,9 @@ YASAK:
     }
     
     // ============================================
-    // API KEY AL (Backend'den)
+    // GET API KEY (From Backend)
     // ============================================
-        async function getApiKeys() {
+    async function getApiKeys() {
       try {
         const response = await fetch('/api/ai', {
           method: 'POST',
@@ -344,17 +344,17 @@ YASAK:
           return { apiKeys: result.api_keys, isAdmin: result.is_admin };
         }
         
-        return { error: result.error || 'API key alınamadı' };
+        return { error: result.error || 'Could not retrieve API key' };
       } catch (error) {
-        return { error: 'Bağlantı hatası: ' + error.message };
+        return { error: 'Connection error: ' + error.message };
       }
     }
-    
+
     // ============================================
-    // GEMINI'YE DİREKT İSTEK
+    // DIRECT REQUEST TO GEMINI
     // ============================================
     async function callGeminiDirect(messages, apiKey, maxTokens = 1500) {
-     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
       
       const geminiContents = messages.map(msg => ({
         role: msg.role === 'user' ? 'user' : 'model',
@@ -390,20 +390,20 @@ YASAK:
         const result = await response.json();
         
         if (response.status === 429) {
-          return { error: '⚠️ Bu API key günlük limiti dolmuş. Lütfen birkaç saat sonra deneyin.' };
+          return { error: '⚠️ This API key has reached its daily limit. Please try again in a few hours.' };
         }
         
         if (!response.ok) {
-          return { error: result.error?.message || 'Gemini API hatası' };
+          return { error: result.error?.message || 'Gemini API error' };
         }
         
         if (result.candidates && result.candidates[0]?.content?.parts?.[0]?.text) {
           return { success: true, response: result.candidates[0].content.parts[0].text };
         }
         
-        return { error: 'AI yanıt veremedi' };
+        return { error: 'AI could not respond' };
       } catch (error) {
-        return { error: 'Bağlantı hatası: ' + error.message };
+        return { error: 'Connection error: ' + error.message };
       }
     }
     
@@ -446,8 +446,8 @@ YASAK:
       
       const typingId = showTyping();
       
-            try {
-        // 1. API keyleri al
+      try {
+        // 1. Get API keys
         const keyResult = await getApiKeys();
         
         if (keyResult.error) {
@@ -457,7 +457,7 @@ YASAK:
           return;
         }
         
-        // 2. Mesajları hazırla
+        // 2. Prepare messages
         let messages;
         let finalText;
         
@@ -469,29 +469,29 @@ YASAK:
           messages = chatHistory;
         }
         
-        // 3. ✅ TÜM KEYLERİ SIRAYLA DENE
+        // 3. ✅ TRY ALL KEYS IN ORDER
         let result = null;
         let lastError = null;
         
         for (let i = 0; i < keyResult.apiKeys.length; i++) {
           const currentKey = keyResult.apiKeys[i];
-          console.log(`🔑 Key #${i + 1} deneniyor...`);
+          console.log(`🔑 Trying Key #${i + 1}...`);
           
           result = await callGeminiDirect(messages, currentKey, isQuickAction ? 2000 : 1500);
           
           if (result.success) {
-            console.log(`✅ Key #${i + 1} başarılı!`);
+            console.log(`✅ Key #${i + 1} successful!`);
             break;
           }
           
-          console.log(`⚠️ Key #${i + 1} hatası: ${result.error}`);
+          console.log(`⚠️ Key #${i + 1} error: ${result.error}`);
           lastError = result.error;
         }
         
         removeTyping(typingId);
         
         if (!result || !result.success) {
-          showError(lastError || '⚠️ Tüm API keyler dolu. Yarın tekrar deneyin.');
+          showError(lastError || '⚠️ All API keys are exhausted. Please try again tomorrow.');
           isLoading = false;
           return;
         }
@@ -504,14 +504,14 @@ YASAK:
             Utils.storage.set('ai_chat_history', chatHistory);
           }
           
-          // Sayacı artır
+          // Increment counter
           incrementUsage();
         } else {
-          showError(result.error || 'Bir hata oluştu');
+          showError(result.error || 'An error occurred');
         }
       } catch (error) {
         removeTyping(typingId);
-        showError('Hata: ' + error.message);
+        showError('Error: ' + error.message);
       }
       
       isLoading = false;
@@ -523,7 +523,7 @@ YASAK:
       const messageEl = document.createElement('div');
       messageEl.className = `ai-message ai-message-${role}`;
       
-      const userName = currentUser?.name || currentUser?.email?.split('@')[0] || 'S';
+      const userName = currentUser?.name || currentUser?.email?.split('@')[0] || 'U';
       const userInitial = userName.charAt(0).toUpperCase();
       
       const formatted = formatMessage(content);
@@ -532,7 +532,7 @@ YASAK:
         <div class="ai-message-avatar">${role === 'user' ? userInitial : '🤖'}</div>
         <div>
           <div class="ai-message-bubble">${formatted}</div>
-          <span class="ai-message-time">${new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })}</span>
+          <span class="ai-message-time">${new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</span>
         </div>
       `;
       
@@ -631,7 +631,7 @@ YASAK:
         const action = btn.dataset.action;
         const text = document.getElementById('aiInput').value.trim();
         if (!text) {
-          Utils.toast.warning('Önce konuyu yaz, sonra hızlı aksiyon seç');
+          Utils.toast.warning('Write the topic first, then select a quick action');
           document.getElementById('aiInput').focus();
           return;
         }
@@ -640,7 +640,7 @@ YASAK:
     });
     
     document.getElementById('clearChatBtn').addEventListener('click', () => {
-      if (confirm('Sohbet geçmişini temizlemek istediğinden emin misin?')) {
+      if (confirm('Are you sure you want to clear the chat history?')) {
         chatHistory = [];
         Utils.storage.remove('ai_chat_history');
         document.getElementById('aiMessages').innerHTML = '';
@@ -649,7 +649,7 @@ YASAK:
     });
     
     document.getElementById('logoutBtn').addEventListener('click', async () => {
-      if (confirm('Çıkış yapmak istediğinizden emin misiniz?')) {
+      if (confirm('Are you sure you want to logout?')) {
         await Auth.logout();
       }
     });
