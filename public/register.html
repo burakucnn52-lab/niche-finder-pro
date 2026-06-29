@@ -217,6 +217,17 @@
       const result = await Auth.register(email, password, name);
       
       if (result.success) {
+        // 📧 Send welcome email + admin notification (background, non-blocking)
+        fetch('/api/send-welcome-email', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            method: 'Email'
+          })
+        }).catch(err => console.warn('Email notification failed:', err));
+        
         successAlert.classList.remove('hidden');
         document.getElementById('registerForm').reset();
         btnText.textContent = '✓ Registration Successful!';
