@@ -1,1 +1,2 @@
 requests==2.31.0
+resend==2.4.0
