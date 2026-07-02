@@ -34,16 +34,16 @@ const Auth = {
       if (authError) throw authError;
       
       // 2. Insert into users table
+      // 🔒 SECURITY: is_admin, role, is_pro are NOT sent from client.
+      // Database trigger (prevent_admin_insert_trigger) enforces safe defaults.
+      // Admin status is managed via admin panel only.
       if (authData.user) {
         const { error: dbError } = await supabase
           .from('users')
           .insert([{
             id: authData.user.id,
             email: email,
-            name: name,
-            role: email === CONFIG.ADMIN_EMAIL ? 'super_admin' : 'user',
-            is_admin: email === CONFIG.ADMIN_EMAIL,
-            is_premium: false
+            name: name
           }]);
         
         // No error if user already exists
@@ -223,6 +223,8 @@ const Auth = {
   
   // ============================================
   // CHECK IF ADMIN
+  // 🔒 SECURITY: Reads from database, not from client config.
+  // Even if user modifies browser code, this check happens server-side via RLS.
   // ============================================
   async isAdmin() {
     const user = await this.getCurrentUser();
@@ -231,10 +233,11 @@ const Auth = {
   
   // ============================================
   // CHECK IF PREMIUM
+  // 🔒 SECURITY: Reads from database. Client cannot self-upgrade (trigger prevents it).
   // ============================================
   async isPremium() {
     const user = await this.getCurrentUser();
-    return user?.is_premium === true;
+    return user?.is_premium === true || user?.is_pro === true || user?.lifetime === true;
   },
   
   // ============================================
