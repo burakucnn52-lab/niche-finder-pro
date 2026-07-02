@@ -218,7 +218,7 @@
       
       if (result.success) {
         // 📧 Send welcome email + admin notification (background, non-blocking)
-        fetch('/api/send-welcome-email', {
+        fetch('/api/send_welcome_email', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
