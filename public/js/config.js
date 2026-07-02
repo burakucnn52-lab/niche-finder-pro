@@ -5,8 +5,8 @@
 
 const CONFIG = {
   // Supabase
-  SUPABASE_URL: ''https://nqveoklqbfiztheyqltg.supabase.co','
-  SUPABASE_ANON_KEY: ''eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5xdmVva2xxYmZpenRoZXlxbHRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4MzI4MTYsImV4cCI6MjA5NTQwODgxNn0.Ddgl9DGz8GdRSKinIVNhmwLyysXAXTuP7_MIbmUvp8s','
+  SUPABASE_URL: 'https://nqveoklqbfiztheyqltg.supabase.co',
+  SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5xdmVva2xxYmZpenRoZXlxbHRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk4MzI4MTYsImV4cCI6MjA5NTQwODgxNn0.Ddgl9DGz8GdRSKinIVNhmwLyysXAXTuP7_MIbmUvp8s',
   
   // App Info
   APP_NAME: 'NICHIFY PRO',
