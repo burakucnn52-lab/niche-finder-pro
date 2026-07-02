@@ -39,8 +39,16 @@ def update_user_premium(user_email, premium_type='lifetime', order_id=None):
         # Kullanıcıyı email ile bul ve güncelle
         url = f"{supabase_url}/rest/v1/users?email=eq.{user_email}"
         
+        # 🔒 SECURITY: Uses SERVICE_ROLE_KEY which bypasses RLS.
+        # This is the ONLY way to make a user premium (client cannot self-upgrade).
+        
+        # ✅ FIX: Update ALL premium-related fields
+        is_lifetime = (premium_type == 'lifetime')
+        
         update_data = {
             'is_premium': True,
+            'is_pro': True,                                      # ✅ Added
+            'lifetime': is_lifetime,                             # ✅ Added
             'premium_type': premium_type,
             'premium_since': datetime.utcnow().isoformat() + 'Z',
             'lemonsqueezy_customer_id': str(order_id) if order_id else None
@@ -55,6 +63,7 @@ def update_user_premium(user_email, premium_type='lifetime', order_id=None):
         req.add_header('Prefer', 'return=minimal')
         
         with urllib.request.urlopen(req, timeout=10) as response:
+            print(f"✅ User upgraded to premium: {user_email} ({premium_type})")
             return {'success': True, 'status': response.status}
     
     except Exception as e:
@@ -110,8 +119,11 @@ def remove_user_premium(user_email):
         
         url = f"{supabase_url}/rest/v1/users?email=eq.{user_email}"
         
+        # ✅ FIX: Reset ALL premium-related fields
         update_data = {
             'is_premium': False,
+            'is_pro': False,          # ✅ Added
+            'lifetime': False,        # ✅ Added
             'premium_type': None,
             'premium_since': None
         }
@@ -125,6 +137,7 @@ def remove_user_premium(user_email):
         req.add_header('Prefer', 'return=minimal')
         
         with urllib.request.urlopen(req, timeout=10) as response:
+            print(f"✅ Premium removed: {user_email}")
             return {'success': True}
     
     except Exception as e:
