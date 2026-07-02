@@ -2,6 +2,11 @@
   "buildCommand": "",
   "outputDirectory": "public",
   "framework": null,
+  "functions": {
+    "api/**/*.py": {
+      "runtime": "@vercel/python@4.3.0"
+    }
+  },
   "rewrites": [
     { "source": "/login", "destination": "/login.html" },
     { "source": "/register", "destination": "/register.html" },
