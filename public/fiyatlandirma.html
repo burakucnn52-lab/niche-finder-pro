@@ -15,70 +15,11 @@
   <link rel="stylesheet" href="/css/pricing.css">
   
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💎</text></svg>">
-  
-  <style>
-    /* Country Selector */
-    .country-selector {
-      position: fixed;
-      top: 90px;
-      right: 20px;
-      z-index: 100;
-      background: rgba(15, 15, 25, 0.95);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 8px 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.85rem;
-      color: #a0a0a0;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    
-    .country-selector:hover {
-      border-color: rgba(167, 139, 250, 0.5);
-    }
-    
-    .country-selector select {
-      background: transparent;
-      border: none;
-      color: white;
-      font-size: 0.9rem;
-      cursor: pointer;
-      outline: none;
-    }
-    
-    .country-selector select option {
-      background: #1a1a2e;
-      color: white;
-    }
-    
-    @media (max-width: 768px) {
-      .country-selector {
-        top: 75px;
-        right: 10px;
-        padding: 6px 10px;
-        font-size: 0.75rem;
-      }
-    }
-  </style>
 </head>
 <body>
   
   <div class="aurora-bg">
     <div class="aurora-3"></div>
-  </div>
-  
-  <!-- COUNTRY SELECTOR -->
-  <div class="country-selector">
-    <span>💱</span>
-    <select id="countrySelector" onchange="changeCountry(this.value)">
-      <option value="auto">🌍 Auto Detect</option>
-      <option value="TR">🇹🇷 Türkiye (TL)</option>
-      <option value="US">🌎 Global (USD)</option>
-    </select>
   </div>
   
   <!-- NAVBAR -->
@@ -119,12 +60,12 @@
         </div>
         
         <h1 class="hero-title fade-in-up stagger-1">
-          <span data-i18n="title-1">Discover Profitable Niches</span><br>
-          <span class="gradient-text-aurora" data-i18n="title-2">Find</span>
-          <span class="gradient-text" data-i18n="title-3">& Grow</span>
+          Discover Profitable Niches<br>
+          <span class="gradient-text-aurora">Find</span>
+          <span class="gradient-text">& Grow</span>
         </h1>
         
-        <p class="hero-subtitle fade-in-up stagger-2" data-i18n="subtitle">
+        <p class="hero-subtitle fade-in-up stagger-2">
           All plans come with a 14-day money-back guarantee.<br>
           Choose the plan that fits your needs, change anytime.
         </p>
@@ -134,9 +75,9 @@
       <div class="lifetime-banner fade-in-up stagger-3">
         <div class="lifetime-banner-content">
           <div class="lifetime-banner-left">
-            <div class="lifetime-badge-fire" data-i18n="founding-offer">🔥 FOUNDING MEMBER OFFER</div>
-            <h2 data-i18n="pay-once">Pay Once, Use Forever</h2>
-            <p data-i18n="pay-once-desc">Exclusive for the first 100 members. All features + all future updates included — forever.</p>
+            <div class="lifetime-badge-fire">🔥 FOUNDING MEMBER OFFER</div>
+            <h2>Pay Once, Use Forever</h2>
+            <p>Exclusive for the first 100 members. All features + all future updates included — forever.</p>
             
             <div class="lifetime-stock">
               <div class="stock-bar-mini">
@@ -147,28 +88,28 @@
             
             <!-- Value Comparison -->
             <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 12px;">
-              <p style="font-size: 0.9rem; color: #a0a0a0; margin: 0;" id="valueComparison">
+              <p style="font-size: 0.9rem; color: #a0a0a0; margin: 0;">
                 💡 <strong style="color: white;">Do the math:</strong><br>
-                Monthly Creator plan: <span class="dyn-price" data-price="creator-yearly-calc">$17.99 × 12 = <strong style="color: #ff5c7a;">$215/year</strong></span><br>
-                Lifetime: <span class="dyn-price" data-price="lifetime-savings"><strong style="color: #45e08a;">$89 once</strong> = Save $126 in year 1 alone!</span>
+                Monthly Creator plan: <span data-price="creator"></span> × 12 = <strong style="color: #ff5c7a;"><span data-price="creator_yearly"></span>/year</strong><br>
+                Lifetime: <strong style="color: #45e08a;"><span data-price="lifetime"></span> once</strong> = Save <span data-price="save_1y"></span> in year 1 alone!
               </p>
             </div>
           </div>
           
           <div class="lifetime-banner-right">
             <div class="lifetime-price-box">
-              <span class="lifetime-old-price" id="lifetimeOldPrice">$199</span>
+              <span class="lifetime-old-price" data-price="lifetime_old"></span>
               <div class="lifetime-current-price">
-                <span class="lifetime-amount" id="lifetimeAmount">$89</span>
+                <span class="lifetime-amount" data-price="lifetime"></span>
               </div>
-              <span class="lifetime-period" data-i18n="one-time">one-time payment</span>
+              <span class="lifetime-period">one-time payment</span>
             </div>
             
-            <a href="/register?plan=lifetime" class="btn btn-primary btn-xl btn-block pulse-glow" data-i18n="claim-lifetime">
+            <a href="/register?plan=lifetime" class="btn btn-primary btn-xl btn-block pulse-glow">
               💎 Claim Lifetime Access
             </a>
             
-            <p class="lifetime-guarantee" data-i18n="guarantee">
+            <p class="lifetime-guarantee">
               ⚡ Instant activation · 🔒 Secure payment · 💯 14-day refund
             </p>
           </div>
@@ -176,12 +117,12 @@
       </div>
       
       <div class="section-header text-center" style="margin-top: var(--space-2xl);">
-        <div class="badge badge-warning">⏳ <span data-i18n="coming-soon">COMING SOON</span></div>
-        <h2><span data-i18n="monthly">Monthly</span> <span class="gradient-text" data-i18n="plans">Plans</span></h2>
-        <p data-i18n="monthly-desc">Available after the Lifetime offer ends. Get Lifetime now to lock in the best deal forever.</p>
+        <div class="badge badge-warning">⏳ COMING SOON</div>
+        <h2>Monthly <span class="gradient-text">Plans</span></h2>
+        <p>Available after the Lifetime offer ends. Get Lifetime now to lock in the best deal forever.</p>
       </div>
       
-      <!-- 3 PLAN CARDS - DYNAMIC PRICES -->
+      <!-- 3 PLAN CARDS -->
       <div class="plans-grid">
         
         <!-- STARTER -->
@@ -191,63 +132,61 @@
           <div class="plan-header">
             <div class="plan-icon">🌱</div>
             <h3 class="plan-name">STARTER</h3>
-            <p class="plan-desc" data-i18n="for-beginners">For beginners</p>
+            <p class="plan-desc">For beginners</p>
           </div>
           
           <div class="plan-price">
-            <span class="plan-currency" id="starterCurrency">$</span>
-            <span class="plan-amount" id="starterAmount">9.99</span>
-            <span class="plan-period" data-i18n="per-month">/month</span>
+            <span class="plan-amount" data-price="starter"></span>
+            <span class="plan-period">/month</span>
           </div>
           
           <ul class="plan-features">
-            <li>✅ <strong>30</strong> <span data-i18n="niche-searches-day">niche searches/day</span></li>
-            <li>✅ <span data-i18n="basic-niche-data">Basic niche data</span></li>
-            <li>✅ <span data-i18n="micro-niche-gen">Micro-niche generator</span></li>
-            <li>✅ <strong>3</strong> <span data-i18n="country-trends">country trend data</span></li>
-            <li>✅ <strong>20</strong> <span data-i18n="favorites">favorites</span></li>
-            <li>✅ <span data-i18n="estimated-earnings">Estimated earnings</span></li>
-            <li>✅ <span data-i18n="email-support">Email support</span></li>
-            <li class="disabled">❌ <span data-i18n="ai-assistant">AI Assistant</span></li>
-            <li class="disabled">❌ <span data-i18n="hidden-opps">Hidden Opportunities</span></li>
-            <li class="disabled">❌ <span data-i18n="risk-detector">Risk Detector</span></li>
+            <li>✅ <strong>30</strong> niche searches/day</li>
+            <li>✅ Basic niche data</li>
+            <li>✅ Micro-niche generator</li>
+            <li>✅ <strong>3</strong> country trend data</li>
+            <li>✅ <strong>20</strong> favorites</li>
+            <li>✅ Estimated earnings</li>
+            <li>✅ Email support</li>
+            <li class="disabled">❌ AI Assistant</li>
+            <li class="disabled">❌ Hidden Opportunities</li>
+            <li class="disabled">❌ Risk Detector</li>
           </ul>
           
-          <span class="btn btn-glass btn-block" style="opacity: 0.6; cursor: not-allowed;" data-i18n="coming-soon-btn">
+          <span class="btn btn-glass btn-block" style="opacity: 0.6; cursor: not-allowed;">
             Coming Soon
           </span>
         </div>
         
         <!-- CREATOR -->
         <div class="plan-card plan-popular pop-in" style="opacity: 0.85;">
-          <div class="plan-ribbon">⭐ <span data-i18n="most-popular">MOST POPULAR</span></div>
+          <div class="plan-ribbon">⭐ MOST POPULAR</div>
           
           <div class="plan-header">
             <div class="plan-icon">🎬</div>
             <h3 class="plan-name">CREATOR</h3>
-            <p class="plan-desc" data-i18n="for-active">For active YouTubers</p>
+            <p class="plan-desc">For active YouTubers</p>
           </div>
           
           <div class="plan-price">
-            <span class="plan-currency" id="creatorCurrency">$</span>
-            <span class="plan-amount" id="creatorAmount">17.99</span>
-            <span class="plan-period" data-i18n="per-month">/month</span>
+            <span class="plan-amount" data-price="creator"></span>
+            <span class="plan-period">/month</span>
           </div>
           
           <ul class="plan-features">
-            <li>✅ <strong>100</strong> <span data-i18n="niche-searches-day">niche searches/day</span></li>
-            <li>✅ <span data-i18n="basic-niche-data">Basic niche data</span></li>
-            <li>✅ <span data-i18n="micro-niche-gen">Micro-niche generator</span></li>
-            <li>✅ <span data-i18n="hidden-opps">Hidden Opportunities</span></li>
-            <li>✅ <span data-i18n="risk-detector">Risk Detector</span></li>
-            <li>✅ <strong>5</strong> <span data-i18n="country-trends">country trend data</span></li>
-            <li>✅ <strong>50</strong> <span data-i18n="favorites">favorites</span></li>
-            <li>✅ <span data-i18n="pdf-export">PDF Export</span></li>
-            <li>✅ <span data-i18n="email-support">Email support</span></li>
-            <li class="disabled">❌ <span data-i18n="ai-assistant">AI Assistant</span></li>
+            <li>✅ <strong>100</strong> niche searches/day</li>
+            <li>✅ Basic niche data</li>
+            <li>✅ Micro-niche generator</li>
+            <li>✅ Hidden Opportunities</li>
+            <li>✅ Risk Detector</li>
+            <li>✅ <strong>5</strong> country trend data</li>
+            <li>✅ <strong>50</strong> favorites</li>
+            <li>✅ PDF Export</li>
+            <li>✅ Email support</li>
+            <li class="disabled">❌ AI Assistant</li>
           </ul>
           
-          <span class="btn btn-primary btn-block" style="opacity: 0.6; cursor: not-allowed;" data-i18n="coming-soon-btn">
+          <span class="btn btn-primary btn-block" style="opacity: 0.6; cursor: not-allowed;">
             Coming Soon
           </span>
         </div>
@@ -259,29 +198,28 @@
           <div class="plan-header">
             <div class="plan-icon">👑</div>
             <h3 class="plan-name">ALL-IN-ONE</h3>
-            <p class="plan-desc" data-i18n="for-professionals">For professionals</p>
+            <p class="plan-desc">For professionals</p>
           </div>
           
           <div class="plan-price">
-            <span class="plan-currency" id="allInOneCurrency">$</span>
-            <span class="plan-amount" id="allInOneAmount">33.99</span>
-            <span class="plan-period" data-i18n="per-month">/month</span>
+            <span class="plan-amount" data-price="allInOne"></span>
+            <span class="plan-period">/month</span>
           </div>
           
           <ul class="plan-features">
-            <li>✅ <strong data-i18n="unlimited">Unlimited</strong> <span data-i18n="searches">searches</span></li>
-            <li>✅ <span data-i18n="everything-included">Everything included</span></li>
-            <li>✅ <span data-i18n="hidden-opps">Hidden Opportunities</span></li>
-            <li>✅ <span data-i18n="risk-detector">Risk Detector</span></li>
-            <li>✅ <span data-i18n="channel-analysis">Channel Analysis</span></li>
-            <li>✅ <span data-i18n="ai-assistant">AI Assistant</span> (<span data-i18n="unlimited">Unlimited</span>)</li>
-            <li>✅ 11 <span data-i18n="country-trends">country trend data</span></li>
-            <li>✅ <strong data-i18n="unlimited">Unlimited</strong> <span data-i18n="favorites">favorites</span></li>
+            <li>✅ <strong>Unlimited</strong> searches</li>
+            <li>✅ Everything included</li>
+            <li>✅ Hidden Opportunities</li>
+            <li>✅ Risk Detector</li>
+            <li>✅ Channel Analysis</li>
+            <li>✅ AI Assistant (Unlimited)</li>
+            <li>✅ 11 country trend data</li>
+            <li>✅ <strong>Unlimited</strong> favorites</li>
             <li>✅ API Access</li>
             <li>✅ VIP Support</li>
           </ul>
           
-          <span class="btn btn-glass btn-block" style="opacity: 0.6; cursor: not-allowed;" data-i18n="coming-soon-btn">
+          <span class="btn btn-glass btn-block" style="opacity: 0.6; cursor: not-allowed;">
             Coming Soon
           </span>
         </div>
@@ -291,24 +229,24 @@
       <!-- Urgency Reminder -->
       <div style="margin-top: 40px; padding: 25px; background: linear-gradient(135deg, rgba(255,92,122,0.1), rgba(255,209,102,0.1)); border: 1px solid rgba(255,92,122,0.3); border-radius: 16px; text-align: center;">
         <div style="font-size: 2rem; margin-bottom: 10px;">⏰</div>
-        <h3 style="font-size: 1.3rem; margin-bottom: 8px; color: white;" data-i18n="dont-miss">Don't Miss the Lifetime Deal</h3>
-        <p style="color: #a0a0a0; margin-bottom: 15px;" id="urgencyText">
-          Once 100 spots are filled, this $89 lifetime offer disappears <strong>forever</strong>.<br>
+        <h3 style="font-size: 1.3rem; margin-bottom: 8px; color: white;">Don't Miss the Lifetime Deal</h3>
+        <p style="color: #a0a0a0; margin-bottom: 15px;">
+          Once 100 spots are filled, this <span data-price="lifetime"></span> lifetime offer disappears <strong>forever</strong>.<br>
           Monthly plans will be the only option.
         </p>
-        <a href="/register?plan=lifetime" class="btn btn-primary btn-lg pulse-glow" id="urgencyBtn">
-          💎 Get Lifetime for $89
+        <a href="/register?plan=lifetime" class="btn btn-primary btn-lg pulse-glow">
+          💎 Get Lifetime for <span data-price="lifetime"></span>
         </a>
       </div>
       
       <!-- FREE PLAN BANNER -->
       <div style="margin-top: 40px; padding: 30px; background: linear-gradient(135deg, rgba(34, 197, 94, 0.08), rgba(77, 163, 255, 0.08)); border: 1px solid rgba(34, 197, 94, 0.2); border-radius: 16px; text-align: center;">
         <div style="font-size: 3rem; margin-bottom: 15px;">🆓</div>
-        <h3 style="font-size: 1.5rem; margin-bottom: 8px; color: white;" data-i18n="try-free">Try Free, Upgrade Anytime</h3>
-        <p style="color: #a0a0a0; margin-bottom: 20px;" data-i18n="try-free-desc">
+        <h3 style="font-size: 1.5rem; margin-bottom: 8px; color: white;">Try Free, Upgrade Anytime</h3>
+        <p style="color: #a0a0a0; margin-bottom: 20px;">
           No credit card required · 3 niche searches/day · Basic features · Free forever
         </p>
-        <a href="/register" class="btn btn-primary btn-lg" data-i18n="create-free">
+        <a href="/register" class="btn btn-primary btn-lg">
           Create Free Account →
         </a>
       </div>
@@ -316,45 +254,47 @@
       <!-- COMPARISON TABLE -->
       <div style="margin-top: 80px;">
         <div class="section-header text-center">
-          <div class="badge badge-primary">📊 <span data-i18n="comparison">COMPARISON</span></div>
-          <h2><span data-i18n="lifetime">Lifetime</span> vs <span class="gradient-text" data-i18n="monthly">Monthly</span></h2>
-          <p data-i18n="see-savings">See how much you save with the Lifetime deal</p>
+          <div class="badge badge-primary">📊 COMPARISON</div>
+          <h2>Lifetime vs <span class="gradient-text">Monthly</span></h2>
+          <p>See how much you save with the Lifetime deal</p>
         </div>
         
         <div style="max-width: 700px; margin: 40px auto; padding: 30px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px;">
           <table style="width: 100%; border-collapse: collapse; color: white;">
             <thead>
               <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
-                <th style="text-align: left; padding: 15px; color: #a0a0a0; font-weight: 500;" data-i18n="time-period">Time Period</th>
-                <th style="text-align: right; padding: 15px; color: #ff5c7a; font-weight: 600;"><span data-i18n="monthly">Monthly</span> (Creator)</th>
-                <th style="text-align: right; padding: 15px; color: #45e08a; font-weight: 600;" data-i18n="lifetime">Lifetime</th>
-                <th style="text-align: right; padding: 15px; color: #ffd166; font-weight: 600;" data-i18n="you-save">You Save</th>
+                <th style="text-align: left; padding: 15px; color: #a0a0a0; font-weight: 500;">Time Period</th>
+                <th style="text-align: right; padding: 15px; color: #ff5c7a; font-weight: 600;">Monthly (Creator)</th>
+                <th style="text-align: right; padding: 15px; color: #45e08a; font-weight: 600;">Lifetime</th>
+                <th style="text-align: right; padding: 15px; color: #ffd166; font-weight: 600;">You Save</th>
               </tr>
             </thead>
-            <tbody id="comparisonTable">
+            <tbody>
               <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                <td style="padding: 15px;">1 <span data-i18n="year">Year</span></td>
-                <td style="text-align: right; padding: 15px;" class="comp-monthly-1y">$215</td>
-                <td style="text-align: right; padding: 15px;" class="comp-lifetime">$89</td>
-                <td style="text-align: right; padding: 15px; color: #45e08a; font-weight: 600;" class="comp-save-1y">$126</td>
+                <td style="padding: 15px;">1 Year</td>
+                <td style="text-align: right; padding: 15px;" data-price="creator_yearly"></td>
+                <td style="text-align: right; padding: 15px;" data-price="lifetime"></td>
+                <td style="text-align: right; padding: 15px; color: #45e08a; font-weight: 600;" data-price="save_1y"></td>
               </tr>
               <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                <td style="padding: 15px;">3 <span data-i18n="years">Years</span></td>
-                <td style="text-align: right; padding: 15px;" class="comp-monthly-3y">$647</td>
-                <td style="text-align: right; padding: 15px;" class="comp-lifetime">$89</td>
-                <td style="text-align: right; padding: 15px; color: #45e08a; font-weight: 600;" class="comp-save-3y">$558</td>
+                <td style="padding: 15px;">3 Years</td>
+                <td style="text-align: right; padding: 15px;" data-price="creator_3y"></td>
+                <td style="text-align: right; padding: 15px;" data-price="lifetime"></td>
+                <td style="text-align: right; padding: 15px; color: #45e08a; font-weight: 600;" data-price="save_3y"></td>
               </tr>
               <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
-                <td style="padding: 15px;">5 <span data-i18n="years">Years</span></td>
-                <td style="text-align: right; padding: 15px;" class="comp-monthly-5y">$1,079</td>
-                <td style="text-align: right; padding: 15px;" class="comp-lifetime">$89</td>
-                <td style="text-align: right; padding: 15px; color: #45e08a; font-weight: 600;" class="comp-save-5y">$990</td>
+                <td style="padding: 15px;">5 Years</td>
+                <td style="text-align: right; padding: 15px;" data-price="creator_5y"></td>
+                <td style="text-align: right; padding: 15px;" data-price="lifetime"></td>
+                <td style="text-align: right; padding: 15px; color: #45e08a; font-weight: 600;" data-price="save_5y"></td>
               </tr>
               <tr>
-                <td style="padding: 15px; font-weight: 600;">10 <span data-i18n="years">Years</span></td>
-                <td style="text-align: right; padding: 15px; font-weight: 600;" class="comp-monthly-10y">$2,159</td>
-                <td style="text-align: right; padding: 15px; font-weight: 600;" class="comp-lifetime">$89</td>
-                <td style="text-align: right; padding: 15px; color: #45e08a; font-weight: 700; font-size: 1.1rem;" class="comp-save-10y">$2,070 🤯</td>
+                <td style="padding: 15px; font-weight: 600;">10 Years</td>
+                <td style="text-align: right; padding: 15px; font-weight: 600;" data-price="creator_10y"></td>
+                <td style="text-align: right; padding: 15px; font-weight: 600;" data-price="lifetime"></td>
+                <td style="text-align: right; padding: 15px; color: #45e08a; font-weight: 700; font-size: 1.1rem;">
+                  <span data-price="save_10y"></span> 🤯
+                </td>
               </tr>
             </tbody>
           </table>
@@ -364,68 +304,68 @@
       <!-- FAQ MINI -->
       <div style="margin-top: 80px;">
         <div class="section-header text-center">
-          <div class="badge badge-primary">❓ <span data-i18n="common-questions">COMMON QUESTIONS</span></div>
-          <h2><span data-i18n="pricing">Pricing</span> <span class="gradient-text">FAQ</span></h2>
+          <div class="badge badge-primary">❓ COMMON QUESTIONS</div>
+          <h2>Pricing <span class="gradient-text">FAQ</span></h2>
         </div>
         
         <div class="faq-list" style="max-width: 700px; margin: 40px auto;">
           
           <details class="faq-item reveal">
             <summary>
-              <span data-i18n="faq-q1">💎 Why is Lifetime so cheap?</span>
+              <span>💎 Why is Lifetime so cheap?</span>
               <span class="faq-icon">+</span>
             </summary>
-            <div class="faq-answer" data-i18n="faq-a1">
+            <div class="faq-answer">
               We're offering this special deal to our <strong>first 100 founding members</strong>. In exchange, you help us with feedback, testimonials, and word-of-mouth. After 100 spots, the price changes to monthly subscriptions only.
             </div>
           </details>
           
           <details class="faq-item reveal">
             <summary>
-              <span data-i18n="faq-q2">🔒 Will Lifetime really be lifetime?</span>
+              <span>🔒 Will Lifetime really be lifetime?</span>
               <span class="faq-icon">+</span>
             </summary>
-            <div class="faq-answer" data-i18n="faq-a2">
+            <div class="faq-answer">
               Yes! Pay once and use NICHIFY forever. You'll get all current features and all future updates — no extra cost, no expiration date.
             </div>
           </details>
           
           <details class="faq-item reveal">
             <summary>
-              <span data-i18n="faq-q3">💳 What payment methods do you accept?</span>
+              <span>💳 What payment methods do you accept?</span>
               <span class="faq-icon">+</span>
             </summary>
-            <div class="faq-answer" data-i18n="faq-a3">
+            <div class="faq-answer">
               We accept all major credit/debit cards (Visa, Mastercard, Amex), PayPal, and Apple Pay through LemonSqueezy — our secure global payment processor.
             </div>
           </details>
           
           <details class="faq-item reveal">
             <summary>
-              <span data-i18n="faq-q4">🔄 Can I get a refund?</span>
+              <span>🔄 Can I get a refund?</span>
               <span class="faq-icon">+</span>
             </summary>
-            <div class="faq-answer" data-i18n="faq-a4">
+            <div class="faq-answer">
               Absolutely. We offer a <strong>14-day money-back guarantee</strong>. If you're not happy, just email us and we'll refund 100% — no questions asked.
             </div>
           </details>
           
           <details class="faq-item reveal">
             <summary>
-              <span data-i18n="faq-q5">⏰ When do monthly plans start?</span>
+              <span>⏰ When do monthly plans start?</span>
               <span class="faq-icon">+</span>
             </summary>
-            <div class="faq-answer" data-i18n="faq-a5">
+            <div class="faq-answer">
               Monthly plans launch after all 100 Lifetime spots are claimed. We want to focus on serving our founding members first before scaling.
             </div>
           </details>
           
           <details class="faq-item reveal">
             <summary>
-              <span data-i18n="faq-q6">🆓 Is there a free trial?</span>
+              <span>🆓 Is there a free trial?</span>
               <span class="faq-icon">+</span>
             </summary>
-            <div class="faq-answer" data-i18n="faq-a6">
+            <div class="faq-answer">
               Yes! Create a free account and get <strong>3 niche searches per day forever</strong> — no credit card required. Upgrade anytime when you need more.
             </div>
           </details>
@@ -436,19 +376,19 @@
       <!-- FINAL CTA -->
       <div style="margin-top: 80px; padding: 50px 30px; background: linear-gradient(135deg, rgba(77,163,255,0.1), rgba(167,139,250,0.1)); border: 1px solid rgba(167,139,250,0.3); border-radius: 24px; text-align: center;">
         <div style="font-size: 3rem; margin-bottom: 15px;">🚀</div>
-        <h2 style="font-size: 2rem; margin-bottom: 10px;"><span data-i18n="ready-find">Ready to Find Your</span> <span class="gradient-text-aurora" data-i18n="profitable-niche">Profitable Niche</span>?</h2>
-        <p style="color: #a0a0a0; margin-bottom: 25px; font-size: 1.1rem;" id="finalCtaText">
-          Join the first 100 founding members. Lock in lifetime access for just $89.
+        <h2 style="font-size: 2rem; margin-bottom: 10px;">Ready to Find Your <span class="gradient-text-aurora">Profitable Niche</span>?</h2>
+        <p style="color: #a0a0a0; margin-bottom: 25px; font-size: 1.1rem;">
+          Join the first 100 founding members. Lock in lifetime access for just <strong><span data-price="lifetime"></span></strong>.
         </p>
         <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-          <a href="/register?plan=lifetime" class="btn btn-primary btn-xl pulse-glow" id="finalCtaBtn">
-            💎 Claim Lifetime - $89
+          <a href="/register?plan=lifetime" class="btn btn-primary btn-xl pulse-glow">
+            💎 Claim Lifetime - <span data-price="lifetime"></span>
           </a>
-          <a href="/register" class="btn btn-glass btn-xl" data-i18n="start-free">
+          <a href="/register" class="btn btn-glass btn-xl">
             🆓 Start Free
           </a>
         </div>
-        <p style="color: #666; margin-top: 20px; font-size: 0.9rem;" data-i18n="guarantee">
+        <p style="color: #666; margin-top: 20px; font-size: 0.9rem;">
           ⚡ Instant activation · 🔒 Secure payment · 💯 14-day money-back guarantee
         </p>
       </div>
@@ -500,263 +440,8 @@
     </div>
   </footer>
   
-  <!-- ============================================ -->
-  <!-- GEOLOCATION + PRICING SYSTEM -->
-  <!-- ============================================ -->
-  <script>
-    // Fiyat konfigürasyonu
-    const PRICING_CONFIG = {
-      TR: {
-        currency: 'TL',
-        symbol: '₺',
-        format: (n) => `${n.toLocaleString('tr-TR')} ₺`,
-        lifetime: 2499,
-        lifetime_old: 3499,
-        starter: 499,
-        creator: 799,
-        allInOne: 1099,
-        // Karşılaştırma tablosu için
-        creator_yearly: 9588,       // 799 * 12
-        creator_3y: 28764,
-        creator_5y: 47940,
-        creator_10y: 95880,
-        save_1y: 7089,              // 9588 - 2499
-        save_3y: 26265,
-        save_5y: 45441,
-        save_10y: 93381,
-        // Metinler
-        texts: {
-          'title-1': 'Karlı Nişleri Keşfet',
-          'title-2': 'Bul',
-          'title-3': '& Büyü',
-          'subtitle': 'Tüm planlar 14 gün para iade garantisiyle gelir.<br>İhtiyacınıza uygun planı seçin, dilediğiniz zaman değiştirin.',
-          'founding-offer': '🔥 KURUCU ÜYE FIRSATI',
-          'pay-once': 'Bir Kez Öde, Ömür Boyu Kullan',
-          'pay-once-desc': 'İlk 100 üye için özel. Tüm özellikler + gelecek güncellemeler dahil — sonsuza kadar.',
-          'one-time': 'tek seferlik ödeme',
-          'claim-lifetime': '💎 Ömür Boyu Erişim Al',
-          'guarantee': '⚡ Anında aktivasyon · 🔒 Güvenli ödeme · 💯 14 gün iade',
-          'coming-soon': 'YAKINDA',
-          'monthly': 'Aylık',
-          'plans': 'Planlar',
-          'monthly-desc': 'Lifetime teklifi bittikten sonra kullanılabilir. En iyi fırsat için şimdi Lifetime alın.',
-          'for-beginners': 'Yeni başlayanlar için',
-          'for-active': 'Aktif YouTuber\'lar için',
-          'for-professionals': 'Profesyoneller için',
-          'per-month': '/ay',
-          'niche-searches-day': 'niş araması/gün',
-          'basic-niche-data': 'Temel niş verisi',
-          'micro-niche-gen': 'Mikro-niş üretici',
-          'country-trends': 'ülke trend verisi',
-          'favorites': 'favori',
-          'estimated-earnings': 'Tahmini kazanç',
-          'email-support': 'E-posta desteği',
-          'ai-assistant': 'AI Asistan',
-          'hidden-opps': 'Gizli Fırsatlar',
-          'risk-detector': 'Risk Dedektörü',
-          'pdf-export': 'PDF Dışa Aktarma',
-          'channel-analysis': 'Kanal Analizi',
-          'unlimited': 'Sınırsız',
-          'searches': 'arama',
-          'everything-included': 'Her şey dahil',
-          'most-popular': 'EN POPÜLER',
-          'coming-soon-btn': 'Yakında',
-          'dont-miss': 'Lifetime Fırsatını Kaçırma',
-          'try-free': 'Ücretsiz Dene, Dilediğinde Yükselt',
-          'try-free-desc': 'Kredi kartı gerekmez · Günde 3 arama · Temel özellikler · Sonsuza kadar ücretsiz',
-          'create-free': 'Ücretsiz Hesap Oluştur →',
-          'comparison': 'KARŞILAŞTIRMA',
-          'lifetime': 'Ömür Boyu',
-          'see-savings': 'Lifetime ile ne kadar tasarruf ettiğinizi görün',
-          'time-period': 'Zaman Dilimi',
-          'you-save': 'Tasarruf',
-          'year': 'Yıl',
-          'years': 'Yıl',
-          'common-questions': 'SIK SORULAN SORULAR',
-          'pricing': 'Fiyatlandırma',
-          'ready-find': 'Karlı Nişini Bulmaya',
-          'profitable-niche': 'Hazır Mısın',
-          'start-free': '🆓 Ücretsiz Başla',
-          'faq-q1': '💎 Lifetime neden bu kadar ucuz?',
-          'faq-a1': 'Bu özel fırsatı ilk <strong>100 kurucu üyemize</strong> sunuyoruz. Karşılığında bize geri bildirim, referans ve ağızdan ağıza tavsiye ile yardım ediyorsunuz. 100 kontenjan dolduktan sonra fiyat sadece aylık aboneliğe dönüşecek.',
-          'faq-q2': '🔒 Lifetime gerçekten ömür boyu mu?',
-          'faq-a2': 'Evet! Bir kez öde ve NICHIFY\'ı sonsuza kadar kullan. Tüm mevcut özellikler ve gelecek güncellemeler dahil — ek ücret yok, son kullanma tarihi yok.',
-          'faq-q3': '💳 Hangi ödeme yöntemlerini kabul ediyorsunuz?',
-          'faq-a3': 'LemonSqueezy güvenli global ödeme sistemi üzerinden tüm büyük kredi/banka kartlarını (Visa, Mastercard, Amex), PayPal ve Apple Pay\'i kabul ediyoruz.',
-          'faq-q4': '🔄 İade alabilir miyim?',
-          'faq-a4': 'Kesinlikle. <strong>14 gün para iade garantisi</strong> sunuyoruz. Memnun kalmazsanız bize e-posta atın, %100 iade edelim — soru sormadan.',
-          'faq-q5': '⏰ Aylık planlar ne zaman başlayacak?',
-          'faq-a5': 'Tüm 100 Lifetime kontenjanı dolduktan sonra aylık planlar yayına giriyor. Önce kurucu üyelerimize odaklanmak istiyoruz.',
-          'faq-q6': '🆓 Ücretsiz deneme var mı?',
-          'faq-a6': 'Evet! Ücretsiz hesap oluşturup <strong>günde 3 niş araması</strong> yapabilirsin — sonsuza kadar, kredi kartı gerekmez. Daha fazlası için istediğin zaman yükselt.'
-        }
-      },
-      DEFAULT: {
-        currency: 'USD',
-        symbol: '$',
-        format: (n) => `$${n}`,
-        lifetime: 89,
-        lifetime_old: 199,
-        starter: 9.99,
-        creator: 17.99,
-        allInOne: 33.99,
-        creator_yearly: 215,
-        creator_3y: 647,
-        creator_5y: 1079,
-        creator_10y: 2159,
-        save_1y: 126,
-        save_3y: 558,
-        save_5y: 990,
-        save_10y: 2070,
-        texts: null // İngilizce varsayılan, HTML'de zaten yazılı
-      }
-    };
-    
-    // Ülke tespit et
-    async function detectCountry() {
-      // 1. Manuel seçilmişse onu kullan
-      const manual = localStorage.getItem('user_country_manual');
-      if (manual && manual !== 'auto') return manual;
-      
-      // 2. Cache kontrol
-      const cached = localStorage.getItem('user_country');
-      const cachedTime = localStorage.getItem('user_country_time');
-      if (cached && cachedTime) {
-        const age = Date.now() - parseInt(cachedTime);
-        if (age < 24 * 60 * 60 * 1000) return cached; // 24 saat cache
-      }
-      
-      // 3. API ile tespit et
-      try {
-        const response = await fetch('https://ipapi.co/json/');
-        const data = await response.json();
-        const country = data.country_code || 'US';
-        localStorage.setItem('user_country', country);
-        localStorage.setItem('user_country_time', Date.now().toString());
-        return country;
-      } catch (error) {
-        console.warn('Country detection failed:', error);
-        return 'US';
-      }
-    }
-    
-    // Ülke değiştir
-    function changeCountry(value) {
-      localStorage.setItem('user_country_manual', value);
-      if (value !== 'auto') {
-        localStorage.setItem('user_country', value);
-        localStorage.setItem('user_country_time', Date.now().toString());
-      } else {
-        localStorage.removeItem('user_country');
-        localStorage.removeItem('user_country_time');
-      }
-      window.location.reload();
-    }
-    
-    // Fiyatları uygula
-    function applyPricing(config) {
-      // Lifetime
-      document.getElementById('lifetimeAmount').textContent = 
-        config.currency === 'TL' ? config.lifetime.toLocaleString('tr-TR') : config.lifetime;
-      document.getElementById('lifetimeOldPrice').textContent = 
-        config.format(config.lifetime_old);
-      
-      // Currency symbols
-      document.getElementById('starterCurrency').textContent = 
-        config.currency === 'TL' ? '' : '$';
-      document.getElementById('creatorCurrency').textContent = 
-        config.currency === 'TL' ? '' : '$';
-      document.getElementById('allInOneCurrency').textContent = 
-        config.currency === 'TL' ? '' : '$';
-      
-      // Amounts
-      document.getElementById('starterAmount').textContent = 
-        config.currency === 'TL' ? config.starter + ' ₺' : config.starter;
-      document.getElementById('creatorAmount').textContent = 
-        config.currency === 'TL' ? config.creator + ' ₺' : config.creator;
-      document.getElementById('allInOneAmount').textContent = 
-        config.currency === 'TL' ? config.allInOne + ' ₺' : config.allInOne;
-      
-      // Value comparison
-      const yearlyCalc = config.currency === 'TL' 
-        ? `${config.creator} ₺ × 12 = <strong style="color: #ff5c7a;">${config.creator_yearly.toLocaleString('tr-TR')} ₺/yıl</strong>`
-        : `$${config.creator} × 12 = <strong style="color: #ff5c7a;">$${config.creator_yearly}/year</strong>`;
-      
-      const savings = config.currency === 'TL'
-        ? `<strong style="color: #45e08a;">${config.lifetime.toLocaleString('tr-TR')} ₺ tek seferlik</strong> = İlk yıl ${config.save_1y.toLocaleString('tr-TR')} ₺ tasarruf!`
-        : `<strong style="color: #45e08a;">$${config.lifetime} once</strong> = Save $${config.save_1y} in year 1 alone!`;
-      
-      const doMathLabel = config.currency === 'TL' ? 'Hesabı yap:' : 'Do the math:';
-      const monthlyLabel = config.currency === 'TL' ? 'Aylık Creator planı:' : 'Monthly Creator plan:';
-      const lifetimeLabel = config.currency === 'TL' ? 'Ömür Boyu:' : 'Lifetime:';
-      
-      document.getElementById('valueComparison').innerHTML = `
-        💡 <strong style="color: white;">${doMathLabel}</strong><br>
-        ${monthlyLabel} ${yearlyCalc}<br>
-        ${lifetimeLabel} ${savings}
-      `;
-      
-      // Comparison table
-      document.querySelector('.comp-monthly-1y').textContent = config.format(config.creator_yearly);
-      document.querySelector('.comp-monthly-3y').textContent = config.format(config.creator_3y);
-      document.querySelector('.comp-monthly-5y').textContent = config.format(config.creator_5y);
-      document.querySelector('.comp-monthly-10y').textContent = config.format(config.creator_10y);
-      
-      document.querySelectorAll('.comp-lifetime').forEach(el => {
-        el.textContent = config.format(config.lifetime);
-      });
-      
-      document.querySelector('.comp-save-1y').textContent = config.format(config.save_1y);
-      document.querySelector('.comp-save-3y').textContent = config.format(config.save_3y);
-      document.querySelector('.comp-save-5y').textContent = config.format(config.save_5y);
-      document.querySelector('.comp-save-10y').innerHTML = config.format(config.save_10y) + ' 🤯';
-      
-      // Urgency text
-      const priceStr = config.format(config.lifetime);
-      if (config.currency === 'TL') {
-        document.getElementById('urgencyText').innerHTML = `100 kontenjan dolduğunda, bu ${priceStr} lifetime fırsatı <strong>sonsuza kadar</strong> kaybolacak.<br>Sadece aylık planlar kalacak.`;
-        document.getElementById('urgencyBtn').innerHTML = `💎 ${priceStr}'ye Lifetime Al`;
-        document.getElementById('finalCtaText').innerHTML = `İlk 100 kurucu üyeye katıl. Sadece ${priceStr}'ye ömür boyu erişimi kilitle.`;
-        document.getElementById('finalCtaBtn').innerHTML = `💎 Lifetime Al - ${priceStr}`;
-      } else {
-        document.getElementById('urgencyText').innerHTML = `Once 100 spots are filled, this ${priceStr} lifetime offer disappears <strong>forever</strong>.<br>Monthly plans will be the only option.`;
-        document.getElementById('urgencyBtn').innerHTML = `💎 Get Lifetime for ${priceStr}`;
-        document.getElementById('finalCtaText').innerHTML = `Join the first 100 founding members. Lock in lifetime access for just ${priceStr}.`;
-        document.getElementById('finalCtaBtn').innerHTML = `💎 Claim Lifetime - ${priceStr}`;
-      }
-      
-      // Türkçe metinleri uygula
-      if (config.texts) {
-        document.documentElement.lang = 'tr';
-        document.title = 'Fiyatlandırma - NICHIFY PRO | Lifetime Fırsatı';
-        Object.keys(config.texts).forEach(key => {
-          document.querySelectorAll(`[data-i18n="${key}"]`).forEach(el => {
-            el.innerHTML = config.texts[key];
-          });
-        });
-      }
-    }
-    
-    // Selector'u ayarla
-    function setCountrySelector(country) {
-      const manual = localStorage.getItem('user_country_manual');
-      const selector = document.getElementById('countrySelector');
-      if (manual) {
-        selector.value = manual;
-      } else {
-        selector.value = 'auto';
-      }
-    }
-    
-    // Init
-    (async function initPricing() {
-      const country = await detectCountry();
-      const config = PRICING_CONFIG[country] || PRICING_CONFIG.DEFAULT;
-      applyPricing(config);
-      setCountrySelector(country);
-      console.log(`💰 Pricing loaded for: ${country} (${config.currency})`);
-    })();
-  </script>
+  <!-- PRICING SYSTEM (Auto-loads prices based on IP) -->
+  <script src="/js/pricing.js"></script>
   
   <!-- LIFETIME COUNTER + CHECKOUT -->
   <script src="/js/config.js"></script>
@@ -781,14 +466,9 @@
         // Hero badge
         const heroBadge = document.getElementById('heroBadgeText');
         if (heroBadge) {
-          const isTR = document.documentElement.lang === 'tr';
           heroBadge.innerHTML = isAvailable 
-            ? (isTR 
-                ? `🔥 Lifetime Fırsatı - <strong>${remainingCount}/100</strong> Kontenjan Kaldı!`
-                : `🔥 Lifetime Deal - <strong>${remainingCount}/100</strong> Spots Left!`)
-            : (isTR 
-                ? `⚠️ Lifetime Tükendi - Aylık Planlar Yakında`
-                : `⚠️ Lifetime Sold Out - Monthly Plans Coming Soon`);
+            ? `🔥 Lifetime Deal - <strong>${remainingCount}/100</strong> Spots Left!`
+            : `⚠️ Lifetime Sold Out - Monthly Plans Coming Soon`;
         }
 
         // Progress bar
@@ -798,14 +478,9 @@
         // Stock text
         const stockText = document.getElementById('stockText');
         if (stockText) {
-          const isTR = document.documentElement.lang === 'tr';
           stockText.innerHTML = isAvailable
-            ? (isTR 
-                ? `<strong>${remainingCount}</strong> kontenjan kaldı!`
-                : `<strong>${remainingCount}</strong> spots remaining out of 100!`)
-            : (isTR 
-                ? `<strong>0</strong> kontenjan kaldı — Tükendi!`
-                : `<strong>0</strong> spots remaining — Sold out!`);
+            ? `<strong>${remainingCount}</strong> spots remaining out of 100!`
+            : `<strong>0</strong> spots remaining — Sold out!`;
         }
 
         // Checkout buttons
@@ -815,7 +490,7 @@
           lifetimeButtons.forEach(btn => {
             btn.style.opacity = '0.5';
             btn.style.pointerEvents = 'none';
-            btn.innerHTML = document.documentElement.lang === 'tr' ? '❌ Tükendi' : '❌ Sold Out';
+            btn.innerHTML = '❌ Sold Out';
           });
         } else {
           lifetimeButtons.forEach(btn => {
