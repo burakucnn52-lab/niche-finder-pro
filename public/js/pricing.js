@@ -7,6 +7,11 @@
  * Diğer ülkeler: USD fiyat gösterir
  * Dil HER ZAMAN İngilizce kalır.
  * ============================================
+ * 
+ * SON GÜNCELLEME: Fiyatlar dengelendi (Kasım 2025)
+ * - Lifetime: 3.299 ₺ / $89 (VPN arbitraj riski azaldı)
+ * - Aylık planlar döviz kuruna uygun ($1 = ~46₺)
+ * ============================================
  */
 
 // 💰 FİYAT TABLOSU
@@ -14,37 +19,55 @@
 const PRICES = {
   TR: {
     currency: '₺',
-    lifetime: 2499,
-    lifetime_old: 3499,
-    starter: 499,
-    creator: 799,
-    allInOne: 1099,
-    // Karşılaştırma tablosu için
-    creator_yearly: 9588,
-    creator_3y: 28764,
-    creator_5y: 47940,
-    creator_10y: 95880,
-    save_1y: 7089,
-    save_3y: 26265,
-    save_5y: 45441,
-    save_10y: 93381,
+    
+    // Lifetime (Ana Ürün)
+    lifetime: 3299,          // ⬆️ 2499 → 3299 (VPN riski azaldı)
+    lifetime_old: 4999,      // ⬆️ 3499 → 4999 (indirim daha çekici)
+    
+    // Aylık Planlar
+    starter: 449,            // ⬇️ 499 → 449 ($9.99 karşılığı)
+    creator: 849,            // ⬆️ 799 → 849 ($17.99 karşılığı)
+    allInOne: 1599,          // ⬆️ 1099 → 1599 ($33.99 karşılığı)
+    
+    // Karşılaştırma tablosu için (Creator × 12, 36, 60, 120)
+    creator_yearly: 10188,   // 849 × 12
+    creator_3y: 30564,       // 849 × 36
+    creator_5y: 50940,       // 849 × 60
+    creator_10y: 101880,     // 849 × 120
+    
+    // Tasarruf hesabı (Aylık toplam - Lifetime)
+    save_1y: 6889,           // 10188 - 3299
+    save_3y: 27265,          // 30564 - 3299
+    save_5y: 47641,          // 50940 - 3299
+    save_10y: 98581,         // 101880 - 3299
+    
     format: (n) => `${n.toLocaleString('tr-TR')} ₺`
   },
+  
   US: {
     currency: '$',
+    
+    // Lifetime (Ana Ürün)
     lifetime: 89,
     lifetime_old: 199,
+    
+    // Aylık Planlar
     starter: 9.99,
     creator: 17.99,
     allInOne: 33.99,
-    creator_yearly: 215,
-    creator_3y: 647,
-    creator_5y: 1079,
-    creator_10y: 2159,
-    save_1y: 126,
-    save_3y: 558,
-    save_5y: 990,
-    save_10y: 2070,
+    
+    // Karşılaştırma tablosu için
+    creator_yearly: 215,     // 17.99 × 12
+    creator_3y: 647,         // 17.99 × 36
+    creator_5y: 1079,        // 17.99 × 60
+    creator_10y: 2159,       // 17.99 × 120
+    
+    // Tasarruf hesabı
+    save_1y: 126,            // 215 - 89
+    save_3y: 558,            // 647 - 89
+    save_5y: 990,            // 1079 - 89
+    save_10y: 2070,          // 2159 - 89
+    
     format: (n) => `$${n}`
   }
 };
@@ -95,8 +118,8 @@ function getPricing(country) {
  * HTML'deki data-price attribute'ları kullanır
  * 
  * Örnek HTML:
- * <span data-price="lifetime"></span>       → 2499 ₺  veya  $89
- * <span data-price="lifetime_old"></span>   → 3499 ₺  veya  $199
+ * <span data-price="lifetime"></span>       → 3.299 ₺  veya  $89
+ * <span data-price="lifetime_old"></span>   → 4.999 ₺  veya  $199
  */
 function applyPrices(config) {
   // Tüm data-price elementlerini bul
