@@ -27,6 +27,7 @@
     { "source": "/privacy", "destination": "/gizlilik.html" },
     { "source": "/terms", "destination": "/sartlar.html" },
     { "source": "/kvkk", "destination": "/kvkk.html" },
+    { "source": "/favorites", "destination": "/favorilerim.html" },
     
     { "source": "/nis-kesfi", "destination": "/nis-kesfi.html" },
     { "source": "/yukselen-kanallar", "destination": "/yukselen-kanallar.html" },
@@ -37,6 +38,7 @@
     { "source": "/fiyatlandirma", "destination": "/fiyatlandirma.html" },
     { "source": "/sss", "destination": "/sss.html" },
     { "source": "/gizlilik", "destination": "/gizlilik.html" },
-    { "source": "/sartlar", "destination": "/sartlar.html" }
+    { "source": "/sartlar", "destination": "/sartlar.html" },
+    { "source": "/favorilerim", "destination": "/favorilerim.html" }
   ]
 }
