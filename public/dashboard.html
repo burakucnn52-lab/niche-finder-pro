@@ -24,96 +24,8 @@
   
   <div class="dash-layout">
     
-    <aside class="sidebar" id="sidebar">
-      
-      <div class="sidebar-logo">
-        <span class="sidebar-logo-icon">🎯</span>
-        <div>
-          <div class="sidebar-logo-text">NICHIFY</div>
-          <div class="sidebar-version">PRO v2.0</div>
-        </div>
-      </div>
-      
-      <nav class="sidebar-nav">
-        
-        <div class="sidebar-section">
-          <div class="sidebar-section-title">Main Menu</div>
-          
-          <a href="/dashboard" class="sidebar-item active">
-            <span class="sidebar-item-icon">🏠</span>
-            <span>Home</span>
-          </a>
-          
-          <a href="/nis-kesfi" class="sidebar-item">
-            <span class="sidebar-item-icon">🎯</span>
-            <span>Niche Discovery</span>
-          </a>
-          
-          <a href="/yukselen-kanallar" class="sidebar-item">
-            <span class="sidebar-item-icon">🔥</span>
-            <span>Trending Channels</span>
-          </a>
-          
-          <a href="/kanal-analizi" class="sidebar-item">
-            <span class="sidebar-item-icon">📊</span>
-            <span>Channel Analysis</span>
-          </a>
-        </div>
-        
-        <div class="sidebar-section">
-          <div class="sidebar-section-title">Tools</div>
-          
-          <a href="/risk-detector" class="sidebar-item">
-            <span class="sidebar-item-icon">🛡️</span>
-            <span>Risk Detector</span>
-          </a>
-          
-          <a href="/ai-asistan" class="sidebar-item">
-            <span class="sidebar-item-icon">🤖</span>
-            <span>AI Assistant</span>
-            <span class="badge badge-pro sidebar-item-badge">PRO</span>
-          </a>
-          
-          <a href="/yol-haritasi" class="sidebar-item">
-            <span class="sidebar-item-icon">🗺️</span>
-            <span>Roadmap</span>
-          </a>
-        </div>
-        
-        <div class="sidebar-section" id="adminSection" style="display: none;">
-          <div class="sidebar-section-title">👑 Admin</div>
-          
-          <a href="/admin" class="sidebar-item">
-            <span class="sidebar-item-icon">⚙️</span>
-            <span>Admin Panel</span>
-          </a>
-        </div>
-        
-      </nav>
-      
-      <!-- Lifetime Card - DYNAMIC PRICING -->
-      <div class="sidebar-lifetime" id="lifetimeCard">
-        <div class="sidebar-lifetime-old" data-price="lifetime_old"></div>
-        <div class="sidebar-lifetime-price" data-price="lifetime"></div>
-        <div class="sidebar-lifetime-label">🔥 Lifetime Deal</div>
-        <a href="/pricing" class="btn btn-primary btn-sm btn-block" style="margin-top: 8px;">
-          Get It Now
-        </a>
-        <div class="sidebar-lifetime-stock">⚡ <span id="lifetimeStock">99</span>/100 left</div>
-      </div>
-      
-      <div class="sidebar-user">
-        <div class="avatar" id="userAvatar">U</div>
-        <div class="sidebar-user-info">
-          <div class="sidebar-user-name" id="userName">Loading...</div>
-          <div class="sidebar-user-email" id="userEmail">-</div>
-        </div>
-        <div class="sidebar-user-menu" id="logoutBtn" title="Log Out">
-          ⏻
-        </div>
-      </div>
-      
-    </aside>
+    <!-- ⭐ SIDEBAR CONTAINER (Sidebar.js otomatik doldurur) -->
+    <div id="sidebar-container"></div>
     
     <main class="main page-enter">
       
@@ -318,6 +230,7 @@
     
   </div>
   
+  <!-- ⭐ SCRIPTS -->
   <script src="/js/config.js"></script>
   <script src="/js/auth.js"></script>
   <script src="/js/utils.js"></script>
@@ -325,6 +238,9 @@
   
   <!-- PRICING SYSTEM (Auto-loads prices based on IP) -->
   <script src="/js/pricing.js"></script>
+  
+  <!-- ⭐ SIDEBAR COMPONENT (YENİ) -->
+  <script src="/js/sidebar.js"></script>
   
   <!-- DASHBOARD LOGIC -->
   <script>
@@ -334,19 +250,14 @@
       const isAuth = await Auth.requireAuth('/login');
       if (!isAuth) return;
       
+      // ⭐ Sidebar'ı yükle (aktif sayfa: home)
+      await renderSidebar('home');
+      
       const user = await Auth.getCurrentUser();
       if (user) {
         const displayName = user.name || user.email.split('@')[0];
         const firstName = displayName.split(' ')[0];
         document.getElementById('welcomeName').textContent = firstName;
-        document.getElementById('userName').textContent = displayName;
-        document.getElementById('userEmail').textContent = user.email;
-        
-        document.getElementById('userAvatar').textContent = displayName.charAt(0).toUpperCase();
-        
-        if (user.is_admin || user.role === 'super_admin') {
-          document.getElementById('adminSection').style.display = 'block';
-        }
         
         const badgeContainer = document.getElementById('userBadge');
         
@@ -355,7 +266,6 @@
             ? '💎 LIFETIME PRO'
             : '💎 PRO';
           badgeContainer.innerHTML = `<span class="badge badge-pro">${badgeText}</span>`;
-          document.getElementById('lifetimeCard').style.display = 'none';
         } else {
           badgeContainer.innerHTML = `<span class="badge">🆓 Free Plan</span>`;
         }
@@ -365,27 +275,10 @@
         }
       }
       
-      await loadLifetimeStock();
       await loadTrendingChannels();
       await loadLiveNews();
       
     })();
-    
-    async function loadLifetimeStock() {
-      try {
-        const supabase = await Auth.init();
-        const { count } = await supabase
-          .from('users')
-          .select('*', { count: 'exact', head: true })
-          .eq('premium_type', 'lifetime');
-        
-        const sold = count || 0;
-        const remaining = CONFIG.LIFETIME_MAX_SLOTS - sold;
-        document.getElementById('lifetimeStock').textContent = remaining;
-      } catch (error) {
-        console.error('Stock load error:', error);
-      }
-    }
     
     async function loadTrendingChannels() {
       try {
@@ -488,24 +381,19 @@
       }
     });
     
-    document.getElementById('logoutBtn').addEventListener('click', async () => {
-      if (confirm('Are you sure you want to log out?')) {
-        await Auth.logout();
-      }
+    // Mobile menu (sidebar açma/kapama)
+    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebarOverlay');
+      if (sidebar) sidebar.classList.toggle('open');
+      if (overlay) overlay.classList.toggle('active');
     });
     
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const sidebar = document.getElementById('sidebar');
-    const overlay = document.getElementById('sidebarOverlay');
-    
-    mobileMenuBtn.addEventListener('click', () => {
-      sidebar.classList.toggle('open');
-      overlay.classList.toggle('active');
-    });
-    
-    overlay.addEventListener('click', () => {
-      sidebar.classList.remove('open');
-      overlay.classList.remove('active');
+    document.getElementById('sidebarOverlay').addEventListener('click', () => {
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('sidebarOverlay');
+      if (sidebar) sidebar.classList.remove('open');
+      if (overlay) overlay.classList.remove('active');
     });
     
   </script>
