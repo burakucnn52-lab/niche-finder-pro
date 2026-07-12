@@ -882,16 +882,80 @@
       Utils.toast.info('AI Assistant will be active soon! 🤖');
     };
     
-    window.addToFavorites = function(nicheId) {
-      const favorites = Utils.storage.get('favorites', []);
-      if (favorites.includes(nicheId)) {
-        Utils.toast.warning('This niche is already in your favorites!');
-        return;
+    window.addToFavorites = async function(nicheId) {
+  try {
+    // Buton loading
+    const btn = event?.target;
+    if (btn) {
+      btn.disabled = true;
+      btn.innerHTML = '⏳ Adding...';
+    }
+    
+    // Limit kontrolü
+    const limitCheck = await Favorites.checkLimit();
+    
+    if (!limitCheck.allowed) {
+      if (limitCheck.upgrade) {
+        Utils.toast.warning(`Free limit reached (20 favorites). Upgrade to Premium for unlimited!`);
+        setTimeout(() => window.location.href = '/pricing', 2000);
+      } else if (limitCheck.reason === 'Not logged in') {
+        Utils.toast.warning('Please log in first');
+        setTimeout(() => window.location.href = '/login', 1500);
       }
-      favorites.push(nicheId);
-      Utils.storage.set('favorites', favorites);
-      Utils.toast.success('Added to favorites! ⭐');
-    };
+      
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '⭐ Add to Favorites';
+      }
+      return;
+    }
+    
+    // Favorilere ekle
+    const result = await Favorites.add(nicheId);
+    
+    if (result.success) {
+      Utils.toast.success(result.message);
+      
+      // Butonu güncelle
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '⭐ Added ✓';
+        btn.style.background = 'linear-gradient(135deg, #ff9f43, #ff5c7a)';
+      }
+      
+      // Kaç favorisi kaldı göster (Free için)
+      if (!limitCheck.unlimited && limitCheck.remaining !== undefined) {
+        setTimeout(() => {
+          Utils.toast.info(`You have ${limitCheck.remaining - 1} favorites left`);
+        }, 1500);
+      }
+      
+    } else if (result.alreadyExists) {
+      Utils.toast.warning('This niche is already in your favorites!');
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '⭐ Already Favorited';
+      }
+    } else if (result.requireLogin) {
+      Utils.toast.warning('Please log in first');
+      setTimeout(() => window.location.href = '/login', 1500);
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '⭐ Add to Favorites';
+      }
+    } else {
+      Utils.toast.error(result.message || 'Failed to add favorite');
+      if (btn) {
+        btn.disabled = false;
+        btn.innerHTML = '⭐ Add to Favorites';
+      }
+    }
+    
+  } catch (error) {
+    console.error('Add favorite error:', error);
+    Utils.toast.error('An error occurred');
+  }
+};
     
     window.resetFilters = function() {
       state.search = '';
