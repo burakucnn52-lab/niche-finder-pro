@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Favorites - NICHIFY PRO</title>
+  
+  <link rel="stylesheet" href="/css/core.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/dashboard.css">
+  <link rel="stylesheet" href="/css/niches.css">
+  
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⭐</text></svg>">
+</head>
+<body>
+  
+  <div class="aurora-bg">
+    <div class="aurora-3"></div>
+  </div>
+  
+  <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  
+  <div class="dash-layout">
+    
+    <aside class="sidebar" id="sidebar">
+      
+      <div class="sidebar-logo">
+        <span class="sidebar-logo-icon">🎯</span>
+        <div>
+          <div class="sidebar-logo-text">NICHIFY</div>
+          <div class="sidebar-version">PRO v2.0</div>
+        </div>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Main Menu</div>
+          <a href="/dashboard" class="sidebar-item">
+            <span class="sidebar-item-icon">🏠</span>
+            <span>Home</span>
+          </a>
+          <a href="/nis-kesfi" class="sidebar-item">
+            <span class="sidebar-item-icon">🎯</span>
+            <span>Niche Discovery</span>
+          </a>
+          <a href="/favorilerim" class="sidebar-item active">
+            <span class="sidebar-item-icon">⭐</span>
+            <span>My Favorites</span>
+          </a>
+          <a href="/yukselen-kanallar" class="sidebar-item">
+            <span class="sidebar-item-icon">🔥</span>
+            <span>Trending Channels</span>
+          </a>
+          <a href="/kanal-analizi" class="sidebar-item">
+            <span class="sidebar-item-icon">📊</span>
+            <span>Channel Analysis</span>
+          </a>
+        </div>
+        
+        <div class="sidebar-section">
+          <div class="sidebar-section-title">Tools</div>
+          <a href="/risk-detector" class="sidebar-item">
+            <span class="sidebar-item-icon">🛡️</span>
+            <span>Risk Detector</span>
+          </a>
+          <a href="/ai-asistan" class="sidebar-item">
+            <span class="sidebar-item-icon">🤖</span>
+            <span>AI Assistant</span>
+            <span class="badge badge-pro sidebar-item-badge">PRO</span>
+          </a>
+          <a href="/yol-haritasi" class="sidebar-item">
+            <span class="sidebar-item-icon">🗺️</span>
+            <span>Roadmap</span>
+          </a>
+        </div>
+        
+        <div class="sidebar-section" id="adminSection" style="display: none;">
+          <div class="sidebar-section-title">👑 Admin</div>
+          <a href="/admin" class="sidebar-item">
+            <span class="sidebar-item-icon">⚙️</span>
+            <span>Admin Panel</span>
+          </a>
+        </div>
+      </nav>
+      
+      <div class="sidebar-lifetime" id="lifetimeCard">
+        <div class="sidebar-lifetime-old" data-price="lifetime_old"></div>
+        <div class="sidebar-lifetime-price" data-price="lifetime"></div>
+        <div class="sidebar-lifetime-label">🔥 Lifetime Deal</div>
+        <a href="/fiyatlandirma" class="btn btn-primary btn-sm btn-block" style="margin-top: 8px;">
+          Get It Now
+        </a>
+        <div class="sidebar-lifetime-stock">⚡ <span id="lifetimeStock">88</span>/100 left</div>
+      </div>
+      
+      <div class="sidebar-user">
+        <div class="avatar" id="userAvatar">U</div>
+        <div class="sidebar-user-info">
+          <div class="sidebar-user-name" id="userName">Loading...</div>
+          <div class="sidebar-user-email" id="userEmail">-</div>
+        </div>
+        <div class="sidebar-user-menu" id="logoutBtn" title="Log Out">⏻</div>
+      </div>
+      
+    </aside>
+    
+    <main class="main page-enter">
+      
+      <div class="page-header">
+        <h1>
+          <span>⭐</span>
+          <span>My Favorites</span>
+        </h1>
+        <p>Your saved niches. Click on any to see details or remove from favorites.</p>
+      </div>
+      
+      <!-- Stats Bar -->
+      <div style="
+        display: flex;
+        gap: 16px;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+      ">
+        <div style="
+          flex: 1;
+          min-width: 200px;
+          padding: 20px;
+          background: linear-gradient(135deg, rgba(255, 209, 102, 0.1), rgba(255, 159, 67, 0.1));
+          border: 1px solid rgba(255, 209, 102, 0.3);
+          border-radius: 16px;
+          text-align: center;
+        ">
+          <div style="font-size: 2rem; margin-bottom: 4px;">⭐</div>
+          <div style="
+            font-size: 1.75rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ffd166, #ff9f43);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+          " id="favoriteCount">0</div>
+          <div style="color: rgba(255,255,255,0.7); font-size: 0.875rem;">Total Favorites</div>
+        </div>
+        
+        <div style="
+          flex: 1;
+          min-width: 200px;
+          padding: 20px;
+          background: linear-gradient(135deg, rgba(77, 163, 255, 0.1), rgba(167, 139, 250, 0.1));
+          border: 1px solid rgba(77, 163, 255, 0.3);
+          border-radius: 16px;
+          text-align: center;
+        ">
+          <div style="font-size: 2rem; margin-bottom: 4px;">📊</div>
+          <div style="
+            font-size: 1.75rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #4da3ff, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+          " id="limitInfo">--/20</div>
+          <div style="color: rgba(255,255,255,0.7); font-size: 0.875rem;">Free Plan Limit</div>
+        </div>
+        
+        <a href="/nis-kesfi" style="
+          flex: 1;
+          min-width: 200px;
+          padding: 20px;
+          background: linear-gradient(135deg, rgba(69, 224, 138, 0.1), rgba(34, 197, 94, 0.1));
+          border: 1px solid rgba(69, 224, 138, 0.3);
+          border-radius: 16px;
+          text-align: center;
+          text-decoration: none;
+          transition: transform 0.2s;
+        " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+          <div style="font-size: 2rem; margin-bottom: 4px;">➕</div>
+          <div style="color: white; font-weight: 700;">Discover More</div>
+          <div style="color: rgba(255,255,255,0.7); font-size: 0.875rem;">Browse 100+ niches</div>
+        </a>
+      </div>
+      
+      <!-- Loading State -->
+      <div id="loadingState" style="text-align: center; padding: 60px 20px;">
+        <div style="font-size: 3rem; margin-bottom: 16px;">⏳</div>
+        <p style="color: rgba(255,255,255,0.7);">Loading your favorites...</p>
+      </div>
+      
+      <!-- Empty State -->
+      <div id="emptyState" style="display: none; text-align: center; padding: 80px 20px;">
+        <div style="font-size: 5rem; margin-bottom: 24px;">🌟</div>
+        <h2 style="
+          font-size: 1.75rem;
+          margin-bottom: 12px;
+          background: linear-gradient(135deg, #4da3ff, #a78bfa);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        ">No Favorites Yet</h2>
+        <p style="color: rgba(255,255,255,0.7); margin-bottom: 32px; max-width: 400px; margin-left: auto; margin-right: auto;">
+          Start exploring niches and add your favorites here for quick access later!
+        </p>
+        <a href="/nis-kesfi" style="
+          display: inline-block;
+          background: linear-gradient(135deg, #4da3ff, #a78bfa);
+          color: white;
+          padding: 14px 32px;
+          border-radius: 12px;
+          text-decoration: none;
+          font-weight: 700;
+          box-shadow: 0 4px 20px rgba(77, 163, 255, 0.3);
+        ">
+          🎯 Explore Niches
+        </a>
+      </div>
+      
+      <!-- Favorites Grid -->
+      <div class="niches-grid" id="favoritesGrid" style="display: none;"></div>
+      
+    </main>
+    
+  </div>
+  
+  <script src="/js/config.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/utils.js"></script>
+  <script src="/data/niches.js"></script>
+  <script src="/js/favorites.js"></script>
+  <script src="/js/pricing.js"></script>
+  <script src="/js/animations.js"></script>
+  
+  <script>
+    // ============================================
+    // INIT
+    // ============================================
+    (async () => {
+      
+      // Auth check
+      const isAuth = await Auth.requireAuth('/login');
+      if (!isAuth) return;
+      
+      // Load user
+      const user = await Auth.getCurrentUser();
+      if (user) {
+        const displayName = user.name || user.email.split('@')[0];
+        document.getElementById('userName').textContent = displayName;
+        document.getElementById('userEmail').textContent = user.email;
+        document.getElementById('userAvatar').textContent = displayName.charAt(0).toUpperCase();
+        
+        if (user.is_admin || user.role === 'super_admin') {
+          document.getElementById('adminSection').style.display = 'block';
+        }
+        
+        if (user.is_premium || user.lifetime) {
+          document.getElementById('lifetimeCard').style.display = 'none';
+        }
+      }
+      
+      // Load lifetime stock
+      loadLifetimeStock();
+      
+      // Load favorites
+      await loadFavorites();
+      
+    })();
+    
+    // ============================================
+    // LOAD FAVORITES
+    // ============================================
+    async function loadFavorites() {
+      try {
+        const loadingState = document.getElementById('loadingState');
+        const emptyState = document.getElementById('emptyState');
+        const grid = document.getElementById('favoritesGrid');
+        
+        // Get favorite niches
+        const favorites = await Favorites.getFavoriteNiches();
+        const limitCheck = await Favorites.checkLimit();
+        
+        // Update stats
+        document.getElementById('favoriteCount').textContent = favorites.length;
+        
+        if (limitCheck.unlimited) {
+          document.getElementById('limitInfo').textContent = '∞';
+        } else {
+          document.getElementById('limitInfo').textContent = `${favorites.length}/20`;
+        }
+        
+        // Hide loading
+        loadingState.style.display = 'none';
+        
+        // Empty state
+        if (favorites.length === 0) {
+          emptyState.style.display = 'block';
+          return;
+        }
+        
+        // Show grid
+        grid.style.display = 'grid';
+        
+        // Render favorites
+        renderFavorites(favorites);
+        
+      } catch (error) {
+        console.error('Load favorites error:', error);
+        Utils.toast.error('Failed to load favorites');
+      }
+    }
+    
+    // ============================================
+    // RENDER FAVORITES
+    // ============================================
+    function renderFavorites(favorites) {
+      const grid = document.getElementById('favoritesGrid');
+      
+      grid.innerHTML = favorites.map((niche, index) => {
+        // Calculate score
+        const score = calculateNicheScore(niche);
+        const isHidden = isHiddenOpportunity(niche);
+        const earnings = calculateEarnings(niche);
+        
+        const scoreClass = 
+          score >= 85 ? 'excellent' :
+          score >= 70 ? 'good' :
+          score >= 55 ? 'medium' : 'low';
+        
+        const dateAdded = niche.favorited_at 
+          ? new Date(niche.favorited_at).toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' })
+          : 'Recently';
+        
+        return `
+          <div class="niche-card ${isHidden ? 'hidden-opportunity' : ''} fade-in-up" 
+               style="animation-delay: ${Math.min(index * 0.05, 0.5)}s"
+               data-niche-id="${niche.id}">
+            
+            <div class="niche-card-header">
+              <div class="niche-card-icon">${niche.icon}</div>
+              <div class="niche-card-title-area">
+                <div class="niche-card-title">${niche.name}</div>
+                <div class="niche-card-category">${niche.category}</div>
+              </div>
+              <div class="niche-score ${scoreClass}">${score}</div>
+            </div>
+            
+            <div class="niche-card-desc">${niche.description}</div>
+            
+            <div style="
+              display: flex;
+              align-items: center;
+              gap: 6px;
+              margin: 12px 0;
+              padding: 8px 12px;
+              background: rgba(255, 209, 102, 0.1);
+              border-radius: 8px;
+              font-size: 0.75rem;
+              color: #ffd166;
+            ">
+              <span>⭐</span>
+              <span>Added ${dateAdded}</span>
+            </div>
+            
+            <div class="niche-card-badges">
+              ${isHidden ? '<span class="badge badge-warning">💎 Hidden</span>' : ''}
+              ${niche.facelessSupport ? '<span class="badge badge-purple">🎭 Faceless</span>' : ''}
+              ${niche.shortsSupport ? '<span class="badge badge-primary">📱 Shorts</span>' : ''}
+            </div>
+            
+            <div class="niche-earnings">
+              <div>
+                <div class="niche-earnings-label">Estimated Earnings</div>
+                <div class="niche-earnings-value">$${earnings.monthly.toLocaleString('en-US')}/mo</div>
+              </div>
+              <div class="niche-earnings-rpm">
+                <strong>RPM</strong><br>
+                $${niche.rpm.min}-${niche.rpm.max}
+              </div>
+            </div>
+            
+            <div class="niche-card-actions">
+              <button class="btn btn-primary btn-sm" onclick="searchOnYoutube('${niche.id}')">
+                ▶️ YouTube
+              </button>
+              <button class="btn btn-danger btn-sm" onclick="removeFavorite('${niche.id}')" style="background: linear-gradient(135deg, #ef4444, #dc2626);">
+                🗑️ Remove
+              </button>
+            </div>
+            
+          </div>
+        `;
+      }).join('');
+    }
+    
+    // ============================================
+    // REMOVE FAVORITE
+    // ============================================
+    window.removeFavorite = async function(nicheId) {
+      if (!confirm('Are you sure you want to remove this from favorites?')) return;
+      
+      try {
+        const result = await Favorites.remove(nicheId);
+        
+        if (result.success) {
+          Utils.toast.success('Removed from favorites');
+          // Reload favorites
+          await loadFavorites();
+        } else {
+          Utils.toast.error(result.message || 'Failed to remove');
+        }
+        
+      } catch (error) {
+        console.error('Remove error:', error);
+        Utils.toast.error('An error occurred');
+      }
+    };
+    
+    // ============================================
+    // SEARCH ON YOUTUBE
+    // ============================================
+    window.searchOnYoutube = function(nicheId) {
+      const niche = window.NICHES_DATA.find(n => n.id === nicheId);
+      if (niche) {
+        const query = encodeURIComponent(niche.keywords[0] || niche.name);
+        window.open(`https://www.youtube.com/results?search_query=${query}`, '_blank');
+      }
+    };
+    
+    // ============================================
+    // LIFETIME STOCK
+    // ============================================
+    async function loadLifetimeStock() {
+      try {
+        const supabase = await Auth.init();
+        const { count } = await supabase
+          .from('users')
+          .select('*', { count: 'exact', head: true })
+          .eq('premium_type', 'lifetime');
+        
+        const remaining = 100 - (count || 0);
+        document.getElementById('lifetimeStock').textContent = remaining;
+      } catch (error) {
+        console.error('Stock load error:', error);
+      }
+    }
+    
+    // ============================================
+    // EVENT LISTENERS
+    // ============================================
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      if (confirm('Are you sure you want to log out?')) {
+        await Auth.logout();
+      }
+    });
+    
+    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.toggle('open');
+      document.getElementById('sidebarOverlay').classList.toggle('active');
+    });
+    
+    document.getElementById('sidebarOverlay').addEventListener('click', () => {
+      document.getElementById('sidebar').classList.remove('open');
+      document.getElementById('sidebarOverlay').classList.remove('active');
+    });
+  </script>
+</body>
+</html>
