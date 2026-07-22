@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="NICHIFY PRO Pricing - Get lifetime access for $119. First 20 members only. AI-powered YouTube niche finder.">
+  <meta name="description" content="NICHIFY PRO Pricing - Get lifetime access. First 20 members only. AI-powered YouTube niche finder.">
   <meta name="keywords" content="nichify pricing, youtube niche finder price, lifetime deal, youtube tool subscription">
   
-  <title>Pricing - NICHIFY PRO | Lifetime Deal $119</title>
+  <title>Pricing - NICHIFY PRO | Lifetime Deal</title>
   
   <link rel="stylesheet" href="/css/core.css">
   <link rel="stylesheet" href="/css/animations.css">
@@ -88,7 +88,7 @@
             
             <!-- Value Comparison -->
             <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 12px;">
-              <p style="font-size: 0.9rem; color: #a0a0a0; margin: 0;">
+              <p style="font-size: 0.9rem; color: #a0a0a0; margin: 0;" id="valueComparison">
                 💡 <strong style="color: white;">Do the math:</strong><br>
                 Monthly Creator plan: $17.99 × 12 = <strong style="color: #ff5c7a;">$215/year</strong><br>
                 Lifetime: <strong style="color: #45e08a;">$119 once</strong> = Save $96 in year 1 alone!
@@ -98,9 +98,9 @@
           
           <div class="lifetime-banner-right">
             <div class="lifetime-price-box">
-              <span class="lifetime-old-price">$199</span>
+              <span class="lifetime-old-price" id="lifetimeOldPrice">$199</span>
               <div class="lifetime-current-price">
-                <span class="lifetime-amount">$119</span>
+                <span class="lifetime-amount" id="lifetimeAmount">$119</span>
               </div>
               <span class="lifetime-period">one-time payment</span>
             </div>
@@ -122,7 +122,7 @@
         <p>Available after the Lifetime offer ends. Get Lifetime now to lock in the best deal forever.</p>
       </div>
       
-      <!-- 4 PLAN CARDS - USD PRICES -->
+      <!-- 4 PLAN CARDS -->
       <div class="plans-grid">
         
         <!-- STARTER -->
@@ -267,11 +267,11 @@
       <div style="margin-top: 40px; padding: 25px; background: linear-gradient(135deg, rgba(255,92,122,0.1), rgba(255,209,102,0.1)); border: 1px solid rgba(255,92,122,0.3); border-radius: 16px; text-align: center;">
         <div style="font-size: 2rem; margin-bottom: 10px;">⏰</div>
         <h3 style="font-size: 1.3rem; margin-bottom: 8px; color: white;">Don't Miss the Lifetime Deal</h3>
-        <p style="color: #a0a0a0; margin-bottom: 15px;">
+        <p style="color: #a0a0a0; margin-bottom: 15px;" id="urgencyText">
           Once 20 spots are filled, this $119 lifetime offer disappears <strong>forever</strong>.<br>
           Monthly plans will be the only option.
         </p>
-        <a href="/register?plan=lifetime" class="btn btn-primary btn-lg pulse-glow">
+        <a href="/register?plan=lifetime" class="btn btn-primary btn-lg pulse-glow" id="urgencyBtn">
           💎 Get Lifetime for $119
         </a>
       </div>
@@ -310,25 +310,25 @@
               <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
                 <td style="padding: 15px;">1 Year</td>
                 <td style="text-align: right; padding: 15px;">$215</td>
-                <td style="text-align: right; padding: 15px;">$119</td>
+                <td style="text-align: right; padding: 15px;" class="comp-lifetime">$119</td>
                 <td style="text-align: right; padding: 15px; color: #45e08a; font-weight: 600;">$96</td>
               </tr>
               <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
                 <td style="padding: 15px;">3 Years</td>
                 <td style="text-align: right; padding: 15px;">$647</td>
-                <td style="text-align: right; padding: 15px;">$119</td>
+                <td style="text-align: right; padding: 15px;" class="comp-lifetime">$119</td>
                 <td style="text-align: right; padding: 15px; color: #45e08a; font-weight: 600;">$528</td>
               </tr>
               <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);">
                 <td style="padding: 15px;">5 Years</td>
                 <td style="text-align: right; padding: 15px;">$1,079</td>
-                <td style="text-align: right; padding: 15px;">$119</td>
+                <td style="text-align: right; padding: 15px;" class="comp-lifetime">$119</td>
                 <td style="text-align: right; padding: 15px; color: #45e08a; font-weight: 600;">$960</td>
               </tr>
               <tr>
                 <td style="padding: 15px; font-weight: 600;">10 Years</td>
                 <td style="text-align: right; padding: 15px; font-weight: 600;">$2,159</td>
-                <td style="text-align: right; padding: 15px; font-weight: 600;">$119</td>
+                <td style="text-align: right; padding: 15px; font-weight: 600;" class="comp-lifetime">$119</td>
                 <td style="text-align: right; padding: 15px; color: #45e08a; font-weight: 700; font-size: 1.1rem;">$2,040 🤯</td>
               </tr>
             </tbody>
@@ -361,7 +361,7 @@
               <span class="faq-icon">+</span>
             </summary>
             <div class="faq-answer">
-              Yes! Pay $119 once and use NICHIFY forever. You'll get all current features and all future updates — no extra cost, no expiration date.
+              Yes! Pay once and use NICHIFY forever. You'll get all current features and all future updates — no extra cost, no expiration date.
             </div>
           </details>
           
@@ -412,11 +412,11 @@
       <div style="margin-top: 80px; padding: 50px 30px; background: linear-gradient(135deg, rgba(77,163,255,0.1), rgba(167,139,250,0.1)); border: 1px solid rgba(167,139,250,0.3); border-radius: 24px; text-align: center;">
         <div style="font-size: 3rem; margin-bottom: 15px;">🚀</div>
         <h2 style="font-size: 2rem; margin-bottom: 10px;">Ready to Find Your <span class="gradient-text-aurora">Profitable Niche</span>?</h2>
-        <p style="color: #a0a0a0; margin-bottom: 25px; font-size: 1.1rem;">
+        <p style="color: #a0a0a0; margin-bottom: 25px; font-size: 1.1rem;" id="finalCtaText">
           Join the first 20 founding members. Lock in lifetime access for just $119.
         </p>
         <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-          <a href="/register?plan=lifetime" class="btn btn-primary btn-xl pulse-glow">
+          <a href="/register?plan=lifetime" class="btn btn-primary btn-xl pulse-glow" id="finalCtaBtn">
             💎 Claim Lifetime - $119
           </a>
           <a href="/register" class="btn btn-glass btn-xl">
@@ -474,17 +474,83 @@
       </div>
     </div>
   </footer>
-     <!-- LIFETIME COUNTER + CHECKOUT -->
+  
+  <!-- ============================================ -->
+  <!-- AUTO IP-BASED PRICING -->
+  <!-- ============================================ -->
+  <script>
+    (async function detectAndApplyPricing() {
+      let country = 'US';
+      
+      const cached = localStorage.getItem('user_country');
+      const cachedTime = localStorage.getItem('user_country_time');
+      if (cached && cachedTime) {
+        const age = Date.now() - parseInt(cachedTime);
+        if (age < 24 * 60 * 60 * 1000) {
+          country = cached;
+        } else {
+          country = await fetchCountry();
+        }
+      } else {
+        country = await fetchCountry();
+      }
+      
+      async function fetchCountry() {
+        try {
+          const response = await fetch('https://ipapi.co/json/');
+          const data = await response.json();
+          const detectedCountry = data.country_code || 'US';
+          localStorage.setItem('user_country', detectedCountry);
+          localStorage.setItem('user_country_time', Date.now().toString());
+          return detectedCountry;
+        } catch (error) {
+          return 'US';
+        }
+      }
+      
+      if (country === 'TR') {
+        // Türk kullanıcı - TL göster
+        document.getElementById('lifetimeOldPrice').textContent = '7.299 ₺';
+        document.getElementById('lifetimeAmount').textContent = '4.299 ₺';
+        
+        // Value comparison
+        document.getElementById('valueComparison').innerHTML = `
+          💡 <strong style="color: white;">Do the math:</strong><br>
+          Monthly Creator plan: 799 ₺ × 12 = <strong style="color: #ff5c7a;">9.588 ₺/year</strong><br>
+          Lifetime: <strong style="color: #45e08a;">4.299 ₺ once</strong> = Save 5.289 ₺ in year 1 alone!
+        `;
+        
+        // Urgency
+        document.getElementById('urgencyText').innerHTML = `
+          Once 20 spots are filled, this 4.299 ₺ lifetime offer disappears <strong>forever</strong>.<br>
+          Monthly plans will be the only option.
+        `;
+        document.getElementById('urgencyBtn').innerHTML = '💎 Get Lifetime for 4.299 ₺';
+        
+        // Final CTA
+        document.getElementById('finalCtaText').innerHTML = 
+          'Join the first 20 founding members. Lock in lifetime access for just 4.299 ₺.';
+        document.getElementById('finalCtaBtn').innerHTML = '💎 Claim Lifetime - 4.299 ₺';
+        
+        // Comparison table
+        document.querySelectorAll('.comp-lifetime').forEach(el => {
+          el.textContent = '4.299 ₺';
+        });
+      }
+      
+      console.log(`💰 Pricing: ${country === 'TR' ? 'Turkey (TL)' : 'Global (USD)'}`);
+    })();
+  </script>
+  
+  <!-- LIFETIME COUNTER + CHECKOUT -->
   <script src="/js/config.js"></script>
   <script>
     const LEMONSQUEEZY_CHECKOUT_URL = 'https://nichify.lemonsqueezy.com/checkout/buy/327c8366-362b-45e1-8d34-0c6b6ea43411';
 
     (async function initLifetimePage() {
       try {
-        // config.js'deki initSupabase fonksiyonunu kullan
         const supabase = await window.initSupabase();
 
-        // Lifetime istatistiklerini çek
         const [soldRes, remainingRes, availableRes] = await Promise.all([
           supabase.rpc('get_lifetime_count'),
           supabase.rpc('get_lifetime_remaining'),
@@ -496,7 +562,6 @@
         const isAvailable = availableRes.data ?? true;
         const percentSold = Math.max((soldCount / 20) * 100, 1);
 
-        // 1) Hero badge
         const heroBadge = document.querySelector('.hero-badge span:last-child');
         if (heroBadge) {
           heroBadge.innerHTML = isAvailable 
@@ -504,11 +569,9 @@
             : `⚠️ Lifetime Sold Out - Monthly Plans Coming Soon`;
         }
 
-        // 2) Progress bar
         const stockFill = document.querySelector('.stock-fill-mini');
         if (stockFill) stockFill.style.width = `${percentSold}%`;
 
-        // 3) Stock text
         const stockText = document.querySelector('.lifetime-stock span');
         if (stockText) {
           stockText.innerHTML = isAvailable
@@ -516,7 +579,6 @@
             : `<strong>0</strong> spots remaining — Sold out!`;
         }
 
-        // 4) Checkout butonları
         const lifetimeButtons = document.querySelectorAll('a[href*="plan=lifetime"]');
         
         if (!isAvailable) {
@@ -532,11 +594,9 @@
               const { data: { user } } = await supabase.auth.getUser();
               
               if (user) {
-                // Giriş yapmış → direkt ödemeye
                 const checkoutUrl = `${LEMONSQUEEZY_CHECKOUT_URL}?checkout[email]=${encodeURIComponent(user.email)}`;
                 window.location.href = checkoutUrl;
               } else {
-                // Giriş yapmamış → register sayfasına
                 window.location.href = '/register?plan=lifetime&redirect=checkout';
               }
             });
