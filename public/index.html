@@ -18,70 +18,11 @@
   <link rel="stylesheet" href="/css/landing.css">
   
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
-  
-  <style>
-    /* Country Selector */
-    .country-selector {
-      position: fixed;
-      top: 90px;
-      right: 20px;
-      z-index: 100;
-      background: rgba(15, 15, 25, 0.95);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 8px 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.85rem;
-      color: #a0a0a0;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    
-    .country-selector:hover {
-      border-color: rgba(167, 139, 250, 0.5);
-    }
-    
-    .country-selector select {
-      background: transparent;
-      border: none;
-      color: white;
-      font-size: 0.9rem;
-      cursor: pointer;
-      outline: none;
-    }
-    
-    .country-selector select option {
-      background: #1a1a2e;
-      color: white;
-    }
-    
-    @media (max-width: 768px) {
-      .country-selector {
-        top: 75px;
-        right: 10px;
-        padding: 6px 10px;
-        font-size: 0.75rem;
-      }
-    }
-  </style>
 </head>
 <body>
   
   <div class="aurora-bg">
     <div class="aurora-3"></div>
-  </div>
-  
-  <!-- COUNTRY SELECTOR -->
-  <div class="country-selector">
-    <span>💱</span>
-    <select id="countrySelector" onchange="changeCountry(this.value)">
-      <option value="auto">🌍 Auto Detect</option>
-      <option value="TR">🇹🇷 Türkiye (TL)</option>
-      <option value="US">🌎 Global (USD)</option>
-    </select>
   </div>
   
   <!-- NAVBAR -->
@@ -119,7 +60,7 @@
         
         <div class="hero-badge fade-in-down">
           <span class="live-indicator"></span>
-          <span id="heroBadgeText">🔥 Lifetime Deal - First 100 Members - <strong>1/100</strong> Claimed</span>
+          <span id="heroBadgeText">🔥 Lifetime Deal - First 20 Members - <strong>1/20</strong> Claimed</span>
         </div>
         
         <h1 class="hero-title fade-in-up stagger-1">
@@ -336,7 +277,7 @@
       <div class="section-header text-center">
         <div class="badge badge-warning">💎 <span data-i18n="pricing-badge">LIFETIME DEAL</span></div>
         <h2><span data-i18n="pricing-pay">Pay</span> <span class="gradient-text-warm" data-i18n="pricing-once">Once</span>, <span data-i18n="pricing-use">Use</span> <span class="gradient-text" data-i18n="pricing-forever">Forever</span></h2>
-        <p data-i18n="pricing-desc">Exclusive offer for the first 100 members. Monthly plans coming after.</p>
+        <p data-i18n="pricing-desc">Exclusive offer for the first 20 members. Monthly plans coming after.</p>
       </div>
       
       <div class="pricing-wrapper">
@@ -354,16 +295,16 @@
             <span class="pricing-old" id="mainLifetimeOld">$199</span>
             <div class="pricing-current">
               <span class="pricing-currency" id="mainLifetimeCurrency">$</span>
-              <span class="pricing-amount" id="mainLifetimeAmount">89</span>
+              <span class="pricing-amount" id="mainLifetimeAmount">119</span>
             </div>
             <span class="pricing-period" data-i18n="pricing-one-time">one-time payment</span>
           </div>
           
           <div class="pricing-stock">
             <div class="stock-bar">
-              <div class="stock-fill" style="width: 1%;"></div>
+              <div class="stock-fill" style="width: 5%;"></div>
             </div>
-            <p id="mainStockText"><strong>99</strong> spots remaining out of 100!</p>
+            <p id="mainStockText"><strong>19</strong> spots remaining out of 20!</p>
           </div>
           
           <ul class="pricing-features">
@@ -453,7 +394,7 @@
             <span class="faq-icon">+</span>
           </summary>
           <div class="faq-answer" id="faqA2">
-            Pay <strong>$89 once</strong> and get <strong>lifetime access</strong> to all features. No monthly fees, no hidden costs. This offer is exclusively for the first 100 members.
+            Pay <strong>$119 once</strong> and get <strong>lifetime access</strong> to all features. No monthly fees, no hidden costs. This offer is exclusively for the first 20 members.
           </div>
         </details>
         
@@ -527,11 +468,11 @@
       <div class="cta-box gradient-border">
         <div class="gradient-border-content">
           <h2><span data-i18n="cta-start">Start Your</span> <span class="gradient-text-aurora" data-i18n="cta-success">YouTube Success</span> <span data-i18n="cta-today">Today</span></h2>
-          <p id="finalCtaText">Become one of the first 100 Lifetime members. Get unlimited access forever for just $89.</p>
+          <p id="finalCtaText">Become one of the first 20 Lifetime members. Get unlimited access forever for just $119.</p>
           
           <div class="cta-buttons">
             <a href="/register" class="btn btn-primary btn-xl pulse-glow" id="finalCtaBtn">
-              🚀 Get Lifetime Access - $89
+              🚀 Get Lifetime Access - $119
             </a>
             <a href="/login" class="btn btn-glass btn-xl" data-i18n="cta-already">
               Already a Member
@@ -592,7 +533,7 @@
   <script src="/js/animations.js"></script>
   
   <!-- ============================================ -->
-  <!-- GEOLOCATION + PRICING SYSTEM -->
+  <!-- GEOLOCATION + PRICING SYSTEM (AUTO IP DETECT) -->
   <!-- ============================================ -->
   <script>
     const PRICING_CONFIG = {
@@ -600,11 +541,11 @@
         currency: 'TL',
         symbol: '₺',
         format: (n) => `${n.toLocaleString('tr-TR')} ₺`,
-        lifetime: 2499,
-        lifetime_old: 3499,
-        starter: 499,
-        creator: 799,
-        allInOne: 1099,
+        lifetime: 4299,
+        lifetime_old: 4999,
+        starter: 449,
+        creator: 849,
+        allInOne: 1399,
         texts: {
           // Navbar
           'nav-features': 'Özellikler',
@@ -671,7 +612,7 @@
           'pricing-once': 'Öde',
           'pricing-use': 'Ömür Boyu',
           'pricing-forever': 'Kullan',
-          'pricing-desc': 'İlk 100 üyeye özel fırsat. Aylık planlar sonra geliyor.',
+          'pricing-desc': 'İlk 20 üyeye özel fırsat. Aylık planlar sonra geliyor.',
           'pricing-founding': 'KURUCU ÜYE',
           'pricing-lifetime-desc': 'Tek seferlik ödeme, ömür boyu sınırsız erişim',
           'pricing-one-time': 'tek seferlik ödeme',
@@ -734,7 +675,7 @@
         currency: 'USD',
         symbol: '$',
         format: (n) => `$${n}`,
-        lifetime: 89,
+        lifetime: 119,
         lifetime_old: 199,
         starter: 9.99,
         creator: 17.99,
@@ -743,11 +684,8 @@
       }
     };
     
-    // Detect country
+    // Otomatik IP tespiti (manuel seçim YOK)
     async function detectCountry() {
-      const manual = localStorage.getItem('user_country_manual');
-      if (manual && manual !== 'auto') return manual;
-      
       const cached = localStorage.getItem('user_country');
       const cachedTime = localStorage.getItem('user_country_time');
       if (cached && cachedTime) {
@@ -766,18 +704,6 @@
         console.warn('Country detection failed:', error);
         return 'US';
       }
-    }
-    
-    function changeCountry(value) {
-      localStorage.setItem('user_country_manual', value);
-      if (value !== 'auto') {
-        localStorage.setItem('user_country', value);
-        localStorage.setItem('user_country_time', Date.now().toString());
-      } else {
-        localStorage.removeItem('user_country');
-        localStorage.removeItem('user_country_time');
-      }
-      window.location.reload();
     }
     
     function applyPricing(config) {
@@ -815,28 +741,28 @@
       const lifetimeStr = config.format(config.lifetime);
       if (config.currency === 'TL') {
         document.getElementById('finalCtaText').innerHTML = 
-          `İlk 100 Lifetime üyeden biri ol. Sadece ${lifetimeStr}'ye ömür boyu sınırsız erişim.`;
+          `İlk 20 Lifetime üyeden biri ol. Sadece ${lifetimeStr}'ye ömür boyu sınırsız erişim.`;
         document.getElementById('finalCtaBtn').innerHTML = 
           `🚀 Ömür Boyu Erişim - ${lifetimeStr}`;
         
         // Hero badge
         document.getElementById('heroBadgeText').innerHTML = 
-          `🔥 Lifetime Fırsatı - İlk 100 Üye - <strong>1/100</strong> Alındı`;
+          `🔥 Lifetime Fırsatı - İlk 20 Üye - <strong>1/20</strong> Alındı`;
         
         // FAQ A2 (dynamic)
         document.getElementById('faqA2').innerHTML = 
-          `<strong>${lifetimeStr} bir kez öde</strong> ve <strong>ömür boyu erişim</strong> kazan. Aylık ücret yok, gizli maliyet yok. Bu fırsat sadece ilk 100 üyeye özel.`;
+          `<strong>${lifetimeStr} bir kez öde</strong> ve <strong>ömür boyu erişim</strong> kazan. Aylık ücret yok, gizli maliyet yok. Bu fırsat sadece ilk 20 üyeye özel.`;
       } else {
         document.getElementById('finalCtaText').innerHTML = 
-          `Become one of the first 100 Lifetime members. Get unlimited access forever for just ${lifetimeStr}.`;
+          `Become one of the first 20 Lifetime members. Get unlimited access forever for just ${lifetimeStr}.`;
         document.getElementById('finalCtaBtn').innerHTML = 
           `🚀 Get Lifetime Access - ${lifetimeStr}`;
         
         document.getElementById('heroBadgeText').innerHTML = 
-          `🔥 Lifetime Deal - First 100 Members - <strong>1/100</strong> Claimed`;
+          `🔥 Lifetime Deal - First 20 Members - <strong>1/20</strong> Claimed`;
         
         document.getElementById('faqA2').innerHTML = 
-          `Pay <strong>${lifetimeStr} once</strong> and get <strong>lifetime access</strong> to all features. No monthly fees, no hidden costs. This offer is exclusively for the first 100 members.`;
+          `Pay <strong>${lifetimeStr} once</strong> and get <strong>lifetime access</strong> to all features. No monthly fees, no hidden costs. This offer is exclusively for the first 20 members.`;
       }
       
       // Türkçe metinleri uygula
@@ -851,22 +777,11 @@
       }
     }
     
-    function setCountrySelector() {
-      const manual = localStorage.getItem('user_country_manual');
-      const selector = document.getElementById('countrySelector');
-      if (manual) {
-        selector.value = manual;
-      } else {
-        selector.value = 'auto';
-      }
-    }
-    
     // Init
     (async function initPricing() {
       const country = await detectCountry();
       const config = PRICING_CONFIG[country] || PRICING_CONFIG.DEFAULT;
       applyPricing(config);
-      setCountrySelector();
       console.log(`💰 Homepage pricing loaded for: ${country} (${config.currency})`);
     })();
   </script>
