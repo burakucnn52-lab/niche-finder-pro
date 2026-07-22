@@ -12,7 +12,7 @@ const CONFIG = {
   APP_NAME: 'NICHIFY PRO',
   APP_VERSION: '2.0.0',
   
-  // Lifetime Deal - FOUNDING 20
+  // Lifetime Deal
   LIFETIME_PRICE: 119,
   LIFETIME_OLD_PRICE: 199,
   LIFETIME_MAX_SLOTS: 20,
