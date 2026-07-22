@@ -225,6 +225,80 @@
 }
 
 /* ============================================
+   BILLING TOGGLE (Monthly / Yearly) - YENİ
+   ============================================ */
+.billing-toggle-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: var(--space-xl) 0 var(--space-lg);
+}
+
+.billing-toggle {
+  display: inline-flex;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+  padding: 5px;
+  gap: 4px;
+  backdrop-filter: blur(10px);
+}
+
+.billing-btn {
+  padding: 10px 22px;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-full);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.billing-btn:hover {
+  color: var(--text-primary);
+}
+
+.billing-btn.active {
+  background: linear-gradient(135deg, #4da3ff, #a78bfa);
+  color: white;
+  box-shadow: 0 4px 15px rgba(77, 163, 255, 0.3);
+}
+
+.billing-save-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  background: rgba(69, 224, 138, 0.2);
+  color: #45e08a;
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.billing-btn.active .billing-save-badge {
+  background: rgba(255, 255, 255, 0.25);
+  color: white;
+}
+
+/* Yıllık bilgi satırı (kartlarda "billed yearly") */
+.plan-yearly-info {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.plan-yearly-info span {
+  color: #45e08a;
+  font-weight: 700;
+}
+
+/* ============================================
    PLANS GRID (4 KART)
    ============================================ */
 .plans-grid {
