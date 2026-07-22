@@ -443,7 +443,7 @@
     
     async function loadTrendingChannels() {
       try {
-        const response = await fetch('/api/youtube?endpoint=trending&region=TR');
+        const response = await fetch('/api/youtube?endpoint=trending&region=US');
         const result = await response.json();
         
         if (result.data && result.data.items) {
