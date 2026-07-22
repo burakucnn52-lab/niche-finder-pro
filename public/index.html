@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="NICHIFY PRO - AI-powered YouTube niche finder and channel analyzer. Live data, professional tools. Lifetime deal $119!">
+  <meta name="description" content="NICHIFY PRO - AI-powered YouTube niche finder and channel analyzer. Live data, professional tools. Lifetime deal available!">
   <meta name="keywords" content="youtube niche finder, youtube research tool, channel analysis, ai assistant, youtube tools, niche discovery">
   
   <meta property="og:title" content="NICHIFY PRO - YouTube Niche Finder & Analyzer">
-  <meta property="og:description" content="100+ niche analysis, live YouTube data, AI assistant. Lifetime deal for $119!">
+  <meta property="og:description" content="100+ niche analysis, live YouTube data, AI assistant. Lifetime deal available!">
   <meta property="og:type" content="website">
   
   <title>NICHIFY PRO - YouTube Niche Finder | AI-Powered Analysis</title>
@@ -292,10 +292,10 @@
           </div>
           
           <div class="pricing-price">
-            <span class="pricing-old">$199</span>
+            <span class="pricing-old" id="mainLifetimeOld">$199</span>
             <div class="pricing-current">
-              <span class="pricing-currency">$</span>
-              <span class="pricing-amount">119</span>
+              <span class="pricing-currency" id="mainLifetimeCurrency">$</span>
+              <span class="pricing-amount" id="mainLifetimeAmount">119</span>
             </div>
             <span class="pricing-period">one-time payment</span>
           </div>
@@ -400,7 +400,7 @@
             <span>💎 What does Lifetime Deal mean?</span>
             <span class="faq-icon">+</span>
           </summary>
-          <div class="faq-answer">
+          <div class="faq-answer" id="faqA2">
             Pay <strong>$119 once</strong> and get <strong>lifetime access</strong> to all features. No monthly fees, no hidden costs. This offer is exclusively for the first 20 members.
           </div>
         </details>
@@ -475,10 +475,10 @@
       <div class="cta-box gradient-border">
         <div class="gradient-border-content">
           <h2>Start Your <span class="gradient-text-aurora">YouTube Success</span> Today</h2>
-          <p>Become one of the first 20 Lifetime members. Get unlimited access forever for just $119.</p>
+          <p id="finalCtaText">Become one of the first 20 Lifetime members. Get unlimited access forever for just $119.</p>
           
           <div class="cta-buttons">
-            <a href="/register" class="btn btn-primary btn-xl pulse-glow">
+            <a href="/register" class="btn btn-primary btn-xl pulse-glow" id="finalCtaBtn">
               🚀 Get Lifetime Access - $119
             </a>
             <a href="/login" class="btn btn-glass btn-xl">
@@ -538,5 +538,58 @@
   </footer>
   
   <script src="/js/animations.js"></script>
+  
+  <!-- ============================================ -->
+  <!-- AUTO IP-BASED PRICING -->
+  <!-- ============================================ -->
+  <script>
+    (async function detectAndApplyPricing() {
+      let country = 'US';
+      
+      const cached = localStorage.getItem('user_country');
+      const cachedTime = localStorage.getItem('user_country_time');
+      if (cached && cachedTime) {
+        const age = Date.now() - parseInt(cachedTime);
+        if (age < 24 * 60 * 60 * 1000) {
+          country = cached;
+        } else {
+          country = await fetchCountry();
+        }
+      } else {
+        country = await fetchCountry();
+      }
+      
+      async function fetchCountry() {
+        try {
+          const response = await fetch('https://ipapi.co/json/');
+          const data = await response.json();
+          const detectedCountry = data.country_code || 'US';
+          localStorage.setItem('user_country', detectedCountry);
+          localStorage.setItem('user_country_time', Date.now().toString());
+          return detectedCountry;
+        } catch (error) {
+          return 'US';
+        }
+      }
+      
+      if (country === 'TR') {
+        // Türk kullanıcı - TL göster
+        document.getElementById('mainLifetimeOld').textContent = '7.299 ₺';
+        document.getElementById('mainLifetimeCurrency').textContent = '';
+        document.getElementById('mainLifetimeAmount').innerHTML = '4.299 ₺';
+        
+        // Final CTA
+        document.getElementById('finalCtaText').innerHTML = 
+          'Become one of the first 20 Lifetime members. Get unlimited access forever for just 4.299 ₺.';
+        document.getElementById('finalCtaBtn').innerHTML = '🚀 Get Lifetime Access - 4.299 ₺';
+        
+        // FAQ A2
+        document.getElementById('faqA2').innerHTML = 
+          'Pay <strong>4.299 ₺ once</strong> and get <strong>lifetime access</strong> to all features. No monthly fees, no hidden costs. This offer is exclusively for the first 20 members.';
+      }
+      
+      console.log(`💰 Pricing: ${country === 'TR' ? 'Turkey (TL)' : 'Global (USD)'}`);
+    })();
+  </script>
 </body>
 </html>
