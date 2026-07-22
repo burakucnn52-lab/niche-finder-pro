@@ -11,54 +11,11 @@
   <link rel="stylesheet" href="/css/dashboard.css">
   
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
-  
-  <style>
-    .country-selector-dash {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 100;
-      background: rgba(15, 15, 25, 0.95);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 8px 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.85rem;
-      color: #a0a0a0;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    .country-selector-dash:hover { border-color: rgba(167, 139, 250, 0.5); }
-    .country-selector-dash select {
-      background: transparent;
-      border: none;
-      color: white;
-      font-size: 0.9rem;
-      cursor: pointer;
-      outline: none;
-    }
-    .country-selector-dash select option { background: #1a1a2e; color: white; }
-    @media (max-width: 768px) {
-      .country-selector-dash { top: 15px; right: 60px; padding: 6px 10px; font-size: 0.75rem; }
-    }
-  </style>
 </head>
 <body>
   
   <div class="aurora-bg">
     <div class="aurora-3"></div>
-  </div>
-  
-  <div class="country-selector-dash">
-    <span>💱</span>
-    <select id="countrySelector" onchange="changeCountry(this.value)">
-      <option value="auto">🌍 Auto</option>
-      <option value="TR">🇹🇷 TR</option>
-      <option value="US">🌎 EN</option>
-    </select>
   </div>
   
   <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
@@ -80,69 +37,69 @@
       <nav class="sidebar-nav">
         
         <div class="sidebar-section">
-          <div class="sidebar-section-title" data-i18n="main-menu">Main Menu</div>
+          <div class="sidebar-section-title">Main Menu</div>
           
           <a href="/dashboard" class="sidebar-item active">
             <span class="sidebar-item-icon">🏠</span>
-            <span data-i18n="home">Home</span>
+            <span>Home</span>
           </a>
           
           <a href="/nis-kesfi" class="sidebar-item">
             <span class="sidebar-item-icon">🎯</span>
-            <span data-i18n="niche-discovery">Niche Discovery</span>
+            <span>Niche Discovery</span>
           </a>
           
           <a href="/yukselen-kanallar" class="sidebar-item">
             <span class="sidebar-item-icon">🔥</span>
-            <span data-i18n="trending-channels">Trending Channels</span>
+            <span>Trending Channels</span>
           </a>
           
           <a href="/kanal-analizi" class="sidebar-item">
             <span class="sidebar-item-icon">📊</span>
-            <span data-i18n="channel-analysis">Channel Analysis</span>
+            <span>Channel Analysis</span>
           </a>
         </div>
         
         <div class="sidebar-section">
-          <div class="sidebar-section-title" data-i18n="tools">Tools</div>
+          <div class="sidebar-section-title">Tools</div>
           
           <a href="/risk-detector" class="sidebar-item">
             <span class="sidebar-item-icon">🛡️</span>
-            <span data-i18n="risk-detector">Risk Detector</span>
+            <span>Risk Detector</span>
           </a>
           
           <a href="/ai-asistan" class="sidebar-item">
             <span class="sidebar-item-icon">🤖</span>
-            <span data-i18n="ai-assistant">AI Assistant</span>
+            <span>AI Assistant</span>
             <span class="badge badge-pro sidebar-item-badge">PRO</span>
           </a>
           
           <a href="/yol-haritasi" class="sidebar-item">
             <span class="sidebar-item-icon">🗺️</span>
-            <span data-i18n="roadmap">Roadmap</span>
+            <span>Roadmap</span>
           </a>
         </div>
         
         <div class="sidebar-section" id="adminSection" style="display: none;">
-          <div class="sidebar-section-title">👑 <span data-i18n="admin">Admin</span></div>
+          <div class="sidebar-section-title">👑 Admin</div>
           
           <a href="/admin" class="sidebar-item">
             <span class="sidebar-item-icon">⚙️</span>
-            <span data-i18n="admin-panel">Admin Panel</span>
+            <span>Admin Panel</span>
           </a>
         </div>
         
       </nav>
       
-      <!-- Founding 20 Card -->
+      <!-- Lifetime Card -->
       <div class="sidebar-lifetime" id="lifetimeCard">
-        <div class="sidebar-lifetime-old" id="sidebarLifetimeOld">$199</div>
-        <div class="sidebar-lifetime-price" id="sidebarLifetimePrice">$119</div>
-        <div class="sidebar-lifetime-label" data-i18n="lifetime-deal">🔥 Founding 20 Deal</div>
-        <a href="/pricing" class="btn btn-primary btn-sm btn-block" style="margin-top: 8px;" data-i18n="get-it-now">
+        <div class="sidebar-lifetime-old">$199</div>
+        <div class="sidebar-lifetime-price">$119</div>
+        <div class="sidebar-lifetime-label">🔥 Lifetime Deal</div>
+        <a href="/pricing" class="btn btn-primary btn-sm btn-block" style="margin-top: 8px;">
           Get It Now
         </a>
-        <div class="sidebar-lifetime-stock">⚡ <span id="lifetimeStock">17</span>/20 <span data-i18n="left">left</span></div>
+        <div class="sidebar-lifetime-stock">⚡ <span id="lifetimeStock">19</span>/20 left</div>
       </div>
       
       <div class="sidebar-user">
@@ -162,19 +119,19 @@
       
       <div class="welcome-banner">
         <div class="welcome-content">
-          <h1><span data-i18n="welcome">👋 Welcome,</span> <span class="gradient-text" id="welcomeName">User</span>!</h1>
-          <p data-i18n="welcome-back">Welcome back to NICHIFY PRO. Which niche shall we discover today?</p>
+          <h1>👋 Welcome, <span class="gradient-text" id="welcomeName">User</span>!</h1>
+          <p>Welcome back to NICHIFY PRO. Which niche shall we discover today?</p>
           <div id="userBadge"></div>
         </div>
         <div class="welcome-info">
-          <div class="welcome-info-label" data-i18n="last-login">Last Login</div>
-          <div class="welcome-info-value" id="lastLogin" data-i18n="just-now">Just now</div>
+          <div class="welcome-info-label">Last Login</div>
+          <div class="welcome-info-value" id="lastLogin">Just now</div>
         </div>
       </div>
       
       <div class="live-status">
         <span class="live-indicator"></span>
-        <span><span data-i18n="live-data">Live data</span> · <span id="lastUpdate" data-i18n="updated-now">Updated just now</span></span>
+        <span>Live data · <span id="lastUpdate">Updated just now</span></span>
       </div>
       
       <div class="dash-search">
@@ -183,10 +140,9 @@
             type="text" 
             placeholder="Search niches: AI, finance, motivation, gaming..." 
             id="searchInput"
-            data-i18n-placeholder="search-placeholder"
           >
           <button class="btn btn-primary btn-lg" id="searchBtn">
-            🔍 <span data-i18n="search">Search</span>
+            🔍 Search
           </button>
         </div>
       </div>
@@ -196,25 +152,25 @@
         <div class="stat-card">
           <div class="stat-card-icon">📊</div>
           <div class="stat-card-value counter-glow" data-target="18700000" data-format="number">0</div>
-          <div class="stat-card-label" data-i18n="total-analyses">Total Analyses</div>
+          <div class="stat-card-label">Total Analyses</div>
         </div>
         
         <div class="stat-card">
           <div class="stat-card-icon" style="background: rgba(244,114,182,0.15);">💎</div>
           <div class="stat-card-value counter-glow" data-target="42">0</div>
-          <div class="stat-card-label" data-i18n="hidden-opps">Hidden Opportunities</div>
+          <div class="stat-card-label">Hidden Opportunities</div>
         </div>
         
         <div class="stat-card">
           <div class="stat-card-icon" style="background: rgba(69,224,138,0.15);">🎯</div>
           <div class="stat-card-value counter-glow" data-target="100">0</div>
-          <div class="stat-card-label" data-i18n="total-niches">Total Niches</div>
+          <div class="stat-card-label">Total Niches</div>
         </div>
         
         <div class="stat-card">
           <div class="stat-card-icon" style="background: rgba(255,209,102,0.15);">🌍</div>
           <div class="stat-card-value counter-glow" data-target="7">0</div>
-          <div class="stat-card-label" data-i18n="lang-support">Language Support</div>
+          <div class="stat-card-label">Language Support</div>
         </div>
         
       </div>
@@ -225,11 +181,11 @@
           <div class="widget-header">
             <div class="widget-title">
               <span class="widget-title-icon">🔥</span>
-              <span data-i18n="trending-channels">Trending Channels</span>
+              <span>Trending Channels</span>
             </div>
-            <a href="/yukselen-kanallar" class="widget-action" data-i18n="view-all">View All →</a>
+            <a href="/yukselen-kanallar" class="widget-action">View All →</a>
           </div>
-          <div class="widget-subtitle" data-i18n="live-youtube-daily">Live YouTube data · Updated daily</div>
+          <div class="widget-subtitle">Live YouTube data · Updated daily</div>
           
           <div id="trendingChannels">
             <div class="row-item">
@@ -260,18 +216,18 @@
           <div class="widget-header">
             <div class="widget-title">
               <span class="widget-title-icon">🎯</span>
-              <span data-i18n="top-niches">Top Niches</span>
+              <span>Top Niches</span>
             </div>
-            <a href="/nis-kesfi" class="widget-action" data-i18n="view-all">View All →</a>
+            <a href="/nis-kesfi" class="widget-action">View All →</a>
           </div>
-          <div class="widget-subtitle" data-i18n="high-score-low-comp">High score · Low competition</div>
+          <div class="widget-subtitle">High score · Low competition</div>
           
           <div id="topNiches">
             <div class="row-item">
               <div class="row-item-thumb">🤖</div>
               <div class="row-item-info">
                 <div class="row-item-title">No-Code Automation</div>
-                <div class="row-item-meta"><span data-i18n="opportunity">Opportunity</span>: 88 · Technology</div>
+                <div class="row-item-meta">Opportunity: 88 · Technology</div>
               </div>
               <div class="row-item-score">88</div>
             </div>
@@ -279,7 +235,7 @@
               <div class="row-item-thumb" style="background: var(--gradient-warm);">💡</div>
               <div class="row-item-info">
                 <div class="row-item-title">Prompt Engineering</div>
-                <div class="row-item-meta"><span data-i18n="opportunity">Opportunity</span>: 87 · Technology</div>
+                <div class="row-item-meta">Opportunity: 87 · Technology</div>
               </div>
               <div class="row-item-score">87</div>
             </div>
@@ -287,7 +243,7 @@
               <div class="row-item-thumb" style="background: var(--gradient-secondary);">⚙️</div>
               <div class="row-item-info">
                 <div class="row-item-title">Engineering Stories</div>
-                <div class="row-item-meta"><span data-i18n="opportunity">Opportunity</span>: 86 · Documentary</div>
+                <div class="row-item-meta">Opportunity: 86 · Documentary</div>
               </div>
               <div class="row-item-score">86</div>
             </div>
@@ -295,7 +251,7 @@
               <div class="row-item-thumb" style="background: var(--gradient-success);">📰</div>
               <div class="row-item-info">
                 <div class="row-item-title">Newsletter Writing</div>
-                <div class="row-item-meta"><span data-i18n="opportunity">Opportunity</span>: 86 · Business</div>
+                <div class="row-item-meta">Opportunity: 86 · Business</div>
               </div>
               <div class="row-item-score">86</div>
             </div>
@@ -306,11 +262,11 @@
           <div class="widget-header">
             <div class="widget-title">
               <span class="widget-title-icon">📰</span>
-              <span data-i18n="youtube-news">YouTube News</span>
+              <span>YouTube News</span>
             </div>
             <span class="live-indicator">LIVE</span>
           </div>
-          <div class="widget-subtitle" data-i18n="latest-news">Latest news from the YouTube world</div>
+          <div class="widget-subtitle">Latest news from the YouTube world</div>
           
           <div id="youtubeNews">
             <div class="news-item">
@@ -320,7 +276,7 @@
               </div>
               <div class="news-item-meta">
                 <span class="badge badge-primary badge-sm">NICHIFY</span>
-                <span data-i18n="new">New</span>
+                <span>New</span>
               </div>
             </div>
             <div class="news-item">
@@ -330,7 +286,7 @@
               </div>
               <div class="news-item-meta">
                 <span class="badge badge-primary badge-sm">NICHIFY</span>
-                <span data-i18n="this-week">This week</span>
+                <span>This week</span>
               </div>
             </div>
             <div class="news-item">
@@ -340,7 +296,7 @@
               </div>
               <div class="news-item-meta">
                 <span class="badge badge-primary badge-sm">NICHIFY</span>
-                <span data-i18n="new">New</span>
+                <span>New</span>
               </div>
             </div>
             <div class="news-item">
@@ -350,7 +306,7 @@
               </div>
               <div class="news-item-meta">
                 <span class="badge badge-primary badge-sm">NICHIFY</span>
-                <span data-i18n="new">New</span>
+                <span>New</span>
               </div>
             </div>
           </div>
@@ -366,138 +322,6 @@
   <script src="/js/auth.js"></script>
   <script src="/js/utils.js"></script>
   <script src="/js/animations.js"></script>
-  
-  <script>
-    const DASH_PRICING = {
-      TR: {
-        currency: 'TL',
-        symbol: '₺',
-        lifetime: 1999,
-        lifetime_old: 4299,
-        format: (n) => `${n.toLocaleString('tr-TR')} ₺`,
-        texts: {
-          'main-menu': 'Ana Menü',
-          'home': 'Ana Sayfa',
-          'niche-discovery': 'Niş Keşfi',
-          'trending-channels': 'Trend Kanallar',
-          'channel-analysis': 'Kanal Analizi',
-          'tools': 'Araçlar',
-          'risk-detector': 'Risk Dedektörü',
-          'ai-assistant': 'AI Asistan',
-          'roadmap': 'Yol Haritası',
-          'admin': 'Yönetici',
-          'admin-panel': 'Yönetici Paneli',
-          'lifetime-deal': '🔥 Kurucu 20 Fırsatı',
-          'get-it-now': 'Hemen Al',
-          'left': 'kaldı',
-          'welcome': '👋 Hoş Geldin,',
-          'welcome-back': 'NICHIFY PRO\'ya tekrar hoş geldin. Bugün hangi nişi keşfedelim?',
-          'last-login': 'Son Giriş',
-          'just-now': 'Az önce',
-          'live-data': 'Canlı veri',
-          'updated-now': 'Az önce güncellendi',
-          'search-placeholder': 'Niş ara: AI, finans, motivasyon, oyun...',
-          'search': 'Ara',
-          'total-analyses': 'Toplam Analiz',
-          'hidden-opps': 'Gizli Fırsat',
-          'total-niches': 'Toplam Niş',
-          'lang-support': 'Dil Desteği',
-          'view-all': 'Tümünü Gör →',
-          'live-youtube-daily': 'Canlı YouTube verisi · Günlük güncellenir',
-          'top-niches': 'Popüler Nişler',
-          'high-score-low-comp': 'Yüksek puan · Düşük rekabet',
-          'opportunity': 'Fırsat',
-          'youtube-news': 'YouTube Haberleri',
-          'latest-news': 'YouTube dünyasından en son haberler',
-          'new': 'Yeni',
-          'this-week': 'Bu hafta'
-        }
-      },
-      DEFAULT: {
-        currency: 'USD',
-        symbol: '$',
-        lifetime: 119,
-        lifetime_old: 199,
-        format: (n) => `$${n}`,
-        texts: null
-      }
-    };
-    
-    async function detectCountryDash() {
-      const manual = localStorage.getItem('user_country_manual');
-      if (manual && manual !== 'auto') return manual;
-      
-      const cached = localStorage.getItem('user_country');
-      const cachedTime = localStorage.getItem('user_country_time');
-      if (cached && cachedTime) {
-        const age = Date.now() - parseInt(cachedTime);
-        if (age < 24 * 60 * 60 * 1000) return cached;
-      }
-      
-      try {
-        const response = await fetch('https://ipapi.co/json/');
-        const data = await response.json();
-        const country = data.country_code || 'US';
-        localStorage.setItem('user_country', country);
-        localStorage.setItem('user_country_time', Date.now().toString());
-        return country;
-      } catch (error) {
-        return 'US';
-      }
-    }
-    
-    function changeCountry(value) {
-      localStorage.setItem('user_country_manual', value);
-      if (value !== 'auto') {
-        localStorage.setItem('user_country', value);
-        localStorage.setItem('user_country_time', Date.now().toString());
-      } else {
-        localStorage.removeItem('user_country');
-        localStorage.removeItem('user_country_time');
-      }
-      window.location.reload();
-    }
-    
-    function applyDashPricing(config) {
-      document.getElementById('sidebarLifetimeOld').textContent = config.format(config.lifetime_old);
-      document.getElementById('sidebarLifetimePrice').textContent = config.format(config.lifetime);
-      
-      if (config.texts) {
-        document.documentElement.lang = 'tr';
-        document.title = 'Panel - NICHIFY PRO';
-        Object.keys(config.texts).forEach(key => {
-          document.querySelectorAll(`[data-i18n="${key}"]`).forEach(el => {
-            el.innerHTML = config.texts[key];
-          });
-          document.querySelectorAll(`[data-i18n-placeholder="${key}"]`).forEach(el => {
-            el.placeholder = config.texts[key];
-          });
-        });
-      }
-    }
-    
-    function setCountrySelectorDash() {
-      const manual = localStorage.getItem('user_country_manual');
-      const selector = document.getElementById('countrySelector');
-      if (manual) {
-        selector.value = manual;
-      } else {
-        selector.value = 'auto';
-      }
-    }
-    
-    window.USER_LANG = 'en';
-    
-    (async function initDashPricing() {
-      const country = await detectCountryDash();
-      const config = DASH_PRICING[country] || DASH_PRICING.DEFAULT;
-      applyDashPricing(config);
-      setCountrySelectorDash();
-      window.USER_LANG = country === 'TR' ? 'tr' : 'en';
-      console.log(`💰 Dashboard pricing: ${country} (${config.currency})`);
-    })();
-  </script>
-  
   <script>
     
     (async () => {
@@ -520,16 +344,15 @@
         }
         
         const badgeContainer = document.getElementById('userBadge');
-        const isTR = window.USER_LANG === 'tr';
-        
-        if (user.is_premium || user.is_pro || user.lifetime) {
-          const badgeText = user.premium_type === 'lifetime' || user.lifetime
-            ? (isTR ? '💎 ÖMÜR BOYU PRO' : '💎 LIFETIME PRO')
-            : (isTR ? '💎 PRO' : '💎 PRO');
-          badgeContainer.innerHTML = `<span class="badge badge-pro">${badgeText}</span>`;
+        if (user.is_premium) {
+          badgeContainer.innerHTML = `
+            <span class="badge badge-pro">💎 ${user.premium_type === 'lifetime' ? 'LIFETIME PRO' : 'PRO'}</span>
+          `;
           document.getElementById('lifetimeCard').style.display = 'none';
         } else {
-          badgeContainer.innerHTML = `<span class="badge">🆓 ${isTR ? 'Ücretsiz Plan' : 'Free Plan'}</span>`;
+          badgeContainer.innerHTML = `
+            <span class="badge">🆓 Free Plan</span>
+          `;
         }
         
         if (user.last_sign_in_at) {
@@ -539,7 +362,6 @@
       
       await loadLifetimeStock();
       await loadTrendingChannels();
-      await loadLiveNews();
       
     })();
     
@@ -569,11 +391,10 @@
         }
       } catch (error) {
         console.error('Trending load error:', error);
-        const isTR = window.USER_LANG === 'tr';
         document.getElementById('trendingChannels').innerHTML = `
           <div class="empty-state">
             <div class="empty-state-icon">📡</div>
-            <div class="empty-state-message">${isTR ? 'Veri yüklenemedi' : 'Could not load data'}</div>
+            <div class="empty-state-message">Could not load data</div>
           </div>
         `;
       }
@@ -581,9 +402,6 @@
     
     function renderTrendingChannels(videos) {
       const container = document.getElementById('trendingChannels');
-      const isTR = window.USER_LANG === 'tr';
-      const viewsText = isTR ? 'görüntülenme' : 'views';
-      
       container.innerHTML = videos.map((video, index) => {
         const snippet = video.snippet || {};
         const stats = video.statistics || {};
@@ -596,7 +414,7 @@
             </div>
             <div class="row-item-info">
               <div class="row-item-title">${Utils.truncate(snippet.title || 'Untitled', 35)}</div>
-              <div class="row-item-meta">${Utils.formatNumber(stats.viewCount || 0)} ${viewsText}</div>
+              <div class="row-item-meta">${Utils.formatNumber(stats.viewCount || 0)} views</div>
             </div>
             <div class="row-item-rank">#${index + 1}</div>
           </div>
@@ -621,12 +439,9 @@
       const container = document.getElementById('youtubeNews');
       if (!container) return;
       
-      const isTR = window.USER_LANG === 'tr';
-      const newText = isTR ? 'Yeni' : 'New';
-      
       container.innerHTML = newsItems.slice(0, 6).map(item => {
         const icon = getNewsIcon(item.source);
-        const timeAgo = item.published_at ? Utils.timeAgo(item.published_at) : newText;
+        const timeAgo = item.published_at ? Utils.timeAgo(item.published_at) : 'New';
         
         return `
           <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="news-item" style="display: block; text-decoration: none; color: inherit;">
@@ -667,9 +482,7 @@
     });
     
     document.getElementById('logoutBtn').addEventListener('click', async () => {
-      const isTR = window.USER_LANG === 'tr';
-      const confirmMsg = isTR ? 'Çıkış yapmak istediğine emin misin?' : 'Are you sure you want to log out?';
-      if (confirm(confirmMsg)) {
+      if (confirm('Are you sure you want to log out?')) {
         await Auth.logout();
       }
     });
