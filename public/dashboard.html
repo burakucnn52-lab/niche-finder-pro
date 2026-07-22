@@ -11,70 +11,11 @@
   <link rel="stylesheet" href="/css/dashboard.css">
   
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
-  
-  <style>
-    /* Country Selector */
-    .country-selector-dash {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 100;
-      background: rgba(15, 15, 25, 0.95);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 8px 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.85rem;
-      color: #a0a0a0;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    
-    .country-selector-dash:hover {
-      border-color: rgba(167, 139, 250, 0.5);
-    }
-    
-    .country-selector-dash select {
-      background: transparent;
-      border: none;
-      color: white;
-      font-size: 0.9rem;
-      cursor: pointer;
-      outline: none;
-    }
-    
-    .country-selector-dash select option {
-      background: #1a1a2e;
-      color: white;
-    }
-    
-    @media (max-width: 768px) {
-      .country-selector-dash {
-        top: 15px;
-        right: 60px;
-        padding: 6px 10px;
-        font-size: 0.75rem;
-      }
-    }
-  </style>
 </head>
 <body>
   
   <div class="aurora-bg">
     <div class="aurora-3"></div>
-  </div>
-  
-  <!-- COUNTRY SELECTOR -->
-  <div class="country-selector-dash">
-    <span>💱</span>
-    <select id="countrySelector" onchange="changeCountry(this.value)">
-      <option value="auto">🌍 Auto</option>
-      <option value="TR">🇹🇷 TR</option>
-      <option value="US">🌎 EN</option>
-    </select>
   </div>
   
   <button class="mobile-menu-btn" id="mobileMenuBtn">☰</button>
@@ -152,13 +93,13 @@
       
       <!-- Lifetime Card - DYNAMIC PRICING -->
       <div class="sidebar-lifetime" id="lifetimeCard">
-        <div class="sidebar-lifetime-old" id="sidebarLifetimeOld">$149</div>
-        <div class="sidebar-lifetime-price" id="sidebarLifetimePrice">$89</div>
+        <div class="sidebar-lifetime-old" id="sidebarLifetimeOld">$199</div>
+        <div class="sidebar-lifetime-price" id="sidebarLifetimePrice">$119</div>
         <div class="sidebar-lifetime-label" data-i18n="lifetime-deal">🔥 Lifetime Deal</div>
         <a href="/pricing" class="btn btn-primary btn-sm btn-block" style="margin-top: 8px;" data-i18n="get-it-now">
           Get It Now
         </a>
-        <div class="sidebar-lifetime-stock">⚡ <span id="lifetimeStock">99</span>/100 <span data-i18n="left">left</span></div>
+        <div class="sidebar-lifetime-stock">⚡ <span id="lifetimeStock">19</span>/20 <span data-i18n="left">left</span></div>
       </div>
       
       <div class="sidebar-user">
@@ -384,15 +325,15 @@
   <script src="/js/animations.js"></script>
   
   <!-- ============================================ -->
-  <!-- GEOLOCATION + PRICING SYSTEM -->
+  <!-- GEOLOCATION + PRICING SYSTEM (AUTO IP DETECT) -->
   <!-- ============================================ -->
   <script>
     const DASH_PRICING = {
       TR: {
         currency: 'TL',
         symbol: '₺',
-        lifetime: 2499,
-        lifetime_old: 3499,
+        lifetime: 4299,
+        lifetime_old: 4999,
         format: (n) => `${n.toLocaleString('tr-TR')} ₺`,
         texts: {
           // Sidebar
@@ -440,17 +381,15 @@
       DEFAULT: {
         currency: 'USD',
         symbol: '$',
-        lifetime: 89,
-        lifetime_old: 149,
+        lifetime: 119,
+        lifetime_old: 199,
         format: (n) => `$${n}`,
         texts: null
       }
     };
     
+    // Otomatik IP tespiti (manuel seçim YOK)
     async function detectCountryDash() {
-      const manual = localStorage.getItem('user_country_manual');
-      if (manual && manual !== 'auto') return manual;
-      
       const cached = localStorage.getItem('user_country');
       const cachedTime = localStorage.getItem('user_country_time');
       if (cached && cachedTime) {
@@ -468,18 +407,6 @@
       } catch (error) {
         return 'US';
       }
-    }
-    
-    function changeCountry(value) {
-      localStorage.setItem('user_country_manual', value);
-      if (value !== 'auto') {
-        localStorage.setItem('user_country', value);
-        localStorage.setItem('user_country_time', Date.now().toString());
-      } else {
-        localStorage.removeItem('user_country');
-        localStorage.removeItem('user_country_time');
-      }
-      window.location.reload();
     }
     
     function applyDashPricing(config) {
@@ -503,16 +430,6 @@
       }
     }
     
-    function setCountrySelectorDash() {
-      const manual = localStorage.getItem('user_country_manual');
-      const selector = document.getElementById('countrySelector');
-      if (manual) {
-        selector.value = manual;
-      } else {
-        selector.value = 'auto';
-      }
-    }
-    
     // Store user language preference for later use
     window.USER_LANG = 'en';
     
@@ -521,7 +438,6 @@
       const country = await detectCountryDash();
       const config = DASH_PRICING[country] || DASH_PRICING.DEFAULT;
       applyDashPricing(config);
-      setCountrySelectorDash();
       window.USER_LANG = country === 'TR' ? 'tr' : 'en';
       console.log(`💰 Dashboard pricing: ${country} (${config.currency})`);
     })();
