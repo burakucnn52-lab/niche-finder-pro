@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="NICHIFY PRO - AI-powered YouTube niche finder and channel analyzer. Live data, professional tools. Lifetime deal available!">
+  <meta name="description" content="NICHIFY PRO - AI-powered YouTube niche finder and channel analyzer. Live data, professional tools. Lifetime deal $119!">
   <meta name="keywords" content="youtube niche finder, youtube research tool, channel analysis, ai assistant, youtube tools, niche discovery">
   
   <meta property="og:title" content="NICHIFY PRO - YouTube Niche Finder & Analyzer">
-  <meta property="og:description" content="100+ niche analysis, live YouTube data, AI assistant. Lifetime deal available!">
+  <meta property="og:description" content="100+ niche analysis, live YouTube data, AI assistant. Lifetime deal for $119!">
   <meta property="og:type" content="website">
   
   <title>NICHIFY PRO - YouTube Niche Finder | AI-Powered Analysis</title>
@@ -18,40 +18,6 @@
   <link rel="stylesheet" href="/css/landing.css">
   
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎯</text></svg>">
-  
-  <style>
-    .country-selector {
-      position: fixed;
-      top: 90px;
-      right: 20px;
-      z-index: 100;
-      background: rgba(15, 15, 25, 0.95);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 8px 12px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 0.85rem;
-      color: #a0a0a0;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-    .country-selector:hover { border-color: rgba(167, 139, 250, 0.5); }
-    .country-selector select {
-      background: transparent;
-      border: none;
-      color: white;
-      font-size: 0.9rem;
-      cursor: pointer;
-      outline: none;
-    }
-    .country-selector select option { background: #1a1a2e; color: white; }
-    @media (max-width: 768px) {
-      .country-selector { top: 75px; right: 10px; padding: 6px 10px; font-size: 0.75rem; }
-    }
-  </style>
 </head>
 <body>
   
@@ -59,15 +25,7 @@
     <div class="aurora-3"></div>
   </div>
   
-  <div class="country-selector">
-    <span>💱</span>
-    <select id="countrySelector" onchange="changeCountry(this.value)">
-      <option value="auto">🌍 Auto Detect</option>
-      <option value="TR">🇹🇷 Türkiye (TL)</option>
-      <option value="US">🌎 Global (USD)</option>
-    </select>
-  </div>
-  
+  <!-- NAVBAR -->
   <nav class="navbar">
     <div class="container">
       <div class="nav-wrapper">
@@ -78,16 +36,16 @@
         </a>
         
         <div class="nav-links hide-mobile">
-          <a href="#features" class="nav-link" data-i18n="nav-features">Features</a>
-          <a href="/pricing" class="nav-link" data-i18n="nav-pricing">Pricing</a>
-          <a href="/roadmap" class="nav-link" data-i18n="nav-roadmap">🗳️ Roadmap</a>
-          <a href="#faq" class="nav-link" data-i18n="nav-faq">FAQ</a>
+          <a href="#features" class="nav-link">Features</a>
+          <a href="/pricing" class="nav-link">Pricing</a>
+          <a href="/roadmap" class="nav-link">🗳️ Roadmap</a>
+          <a href="#faq" class="nav-link">FAQ</a>
         </div>
         
         <div class="nav-actions">
-          <a href="/login" class="btn btn-ghost btn-sm" data-i18n="nav-login">Log In</a>
+          <a href="/login" class="btn btn-ghost btn-sm">Log In</a>
           <a href="/register" class="btn btn-primary btn-sm">
-            <span data-i18n="nav-start-free">Start Free</span>
+            Start Free
             <span>→</span>
           </a>
         </div>
@@ -95,23 +53,24 @@
     </div>
   </nav>
   
+  <!-- HERO -->
   <section class="hero">
     <div class="container">
       <div class="hero-content">
         
         <div class="hero-badge fade-in-down">
           <span class="live-indicator"></span>
-          <span id="heroBadgeText">🔥 Lifetime Deal - First 100 Members - <strong>1/20</strong> Claimed</span>
+          <span>🔥 Lifetime Deal - First 20 Members - <strong>1/20</strong> Claimed</span>
         </div>
         
         <h1 class="hero-title fade-in-up stagger-1">
-          <span data-i18n="hero-find">Find</span>
-          <span class="gradient-text-aurora" data-i18n="hero-profitable">Profitable YouTube Niches</span>
+          Find
+          <span class="gradient-text-aurora">Profitable YouTube Niches</span>
           <br>
-          <span data-i18n="hero-in">in</span> <span class="gradient-text" data-i18n="hero-minutes">5 Minutes</span>
+          in <span class="gradient-text">5 Minutes</span>
         </h1>
         
-        <p class="hero-subtitle fade-in-up stagger-2" data-i18n="hero-subtitle">
+        <p class="hero-subtitle fade-in-up stagger-2">
           AI-powered analysis, real-time YouTube data, and 10-criteria scoring.<br>
           <strong>Turn weeks of research into minutes — without the guesswork.</strong>
         </p>
@@ -119,72 +78,74 @@
         <div class="hero-cta fade-in-up stagger-3">
           <a href="/register" class="btn btn-primary btn-xl pulse-glow">
             <span>🚀</span>
-            <span data-i18n="hero-cta-start">Start Free - No Credit Card</span>
+            Start Free - No Credit Card
           </a>
           <a href="#features" class="btn btn-glass btn-xl">
             <span>▶</span>
-            <span data-i18n="hero-cta-how">How It Works</span>
+            How It Works
           </a>
         </div>
         
         <div class="hero-trust fade-in-up stagger-4">
           <div class="trust-item">
             <span class="trust-icon">⚡</span>
-            <span data-i18n="trust-instant">Instant Activation</span>
+            <span>Instant Activation</span>
           </div>
           <div class="trust-item">
             <span class="trust-icon">🔒</span>
-            <span data-i18n="trust-secure">Secure Payment</span>
+            <span>Secure Payment</span>
           </div>
           <div class="trust-item">
             <span class="trust-icon">💎</span>
-            <span data-i18n="trust-lifetime">Lifetime Access</span>
+            <span>Lifetime Access</span>
           </div>
           <div class="trust-item">
             <span class="trust-icon">🎯</span>
-            <span data-i18n="trust-niches">100+ Niches</span>
+            <span>100+ Niches</span>
           </div>
         </div>
         
       </div>
       
+      <!-- Hero Stats -->
       <div class="hero-stats fade-in-up stagger-5">
         <div class="hero-stat">
           <div class="hero-stat-value counter-glow" data-target="100">0</div>
-          <div class="hero-stat-label" data-i18n="stat-niches">Niches Analyzed</div>
+          <div class="hero-stat-label">Niches Analyzed</div>
         </div>
         <div class="hero-stat">
           <div class="hero-stat-value counter-glow" data-target="18700000" data-format="number">0</div>
-          <div class="hero-stat-label" data-i18n="stat-data">YouTube Data Points</div>
+          <div class="hero-stat-label">YouTube Data Points</div>
         </div>
         <div class="hero-stat">
           <div class="hero-stat-value counter-glow" data-target="42">0</div>
-          <div class="hero-stat-label" data-i18n="stat-hidden">Hidden Opportunities</div>
+          <div class="hero-stat-label">Hidden Opportunities</div>
         </div>
         <div class="hero-stat">
           <div class="hero-stat-value counter-glow" data-target="7">0</div>
-          <div class="hero-stat-label" data-i18n="stat-languages">Languages Supported</div>
+          <div class="hero-stat-label">Languages Supported</div>
         </div>
       </div>
       
     </div>
   </section>
   
+  <!-- FEATURES -->
   <section class="features" id="features">
     <div class="container">
       
       <div class="section-header text-center">
-        <div class="badge badge-primary">⚡ <span data-i18n="features-badge">FEATURES</span></div>
-        <h2><span data-i18n="features-title-1">Everything You Need for</span> <span class="gradient-text" data-i18n="features-title-2">YouTube Success</span></h2>
-        <p data-i18n="features-desc">From niche discovery to channel analysis, AI assistant to content planning — all in one platform.</p>
+        <div class="badge badge-primary">⚡ FEATURES</div>
+        <h2>Everything You Need for <span class="gradient-text">YouTube Success</span></h2>
+        <p>From niche discovery to channel analysis, AI assistant to content planning — all in one platform.</p>
       </div>
       
       <div class="features-grid">
         
         <div class="feature-card card-magic reveal">
           <div class="feature-icon" style="background: rgba(77,163,255,0.15);">🎯</div>
-          <h3 data-i18n="feature-1-title">Smart Niche Finder</h3>
-          <p data-i18n="feature-1-desc">Discover profitable niches from 100+ main categories and thousands of micro-niches using AI.</p>
+          <h3>Smart Niche Finder</h3>
+          <p>Discover profitable niches from 100+ main categories and thousands of micro-niches using AI.</p>
           <div class="feature-tags">
             <span class="chip">RPM Analysis</span>
             <span class="chip">Competition Score</span>
@@ -193,8 +154,8 @@
         
         <div class="feature-card card-magic reveal">
           <div class="feature-icon" style="background: rgba(167,139,250,0.15);">📊</div>
-          <h3 data-i18n="feature-2-title">Live YouTube Data</h3>
-          <p data-i18n="feature-2-desc">Real-time channel stats, video performance, and trending data via official YouTube API.</p>
+          <h3>Live YouTube Data</h3>
+          <p>Real-time channel stats, video performance, and trending data via official YouTube API.</p>
           <div class="feature-tags">
             <span class="chip">Real-Time</span>
             <span class="chip">Accurate Data</span>
@@ -203,8 +164,8 @@
         
         <div class="feature-card card-magic reveal">
           <div class="feature-icon" style="background: rgba(244,114,182,0.15);">🤖</div>
-          <h3 data-i18n="feature-3-title">AI Assistant</h3>
-          <p data-i18n="feature-3-desc">Get niche suggestions, title ideas, and content strategy with Claude AI — by your side 24/7.</p>
+          <h3>AI Assistant</h3>
+          <p>Get niche suggestions, title ideas, and content strategy with Claude AI — by your side 24/7.</p>
           <div class="feature-tags">
             <span class="chip">Claude AI</span>
             <span class="chip">24/7 Active</span>
@@ -213,8 +174,8 @@
         
         <div class="feature-card card-magic reveal">
           <div class="feature-icon" style="background: rgba(69,224,138,0.15);">🛡️</div>
-          <h3 data-i18n="feature-4-title">Risk Detector</h3>
-          <p data-i18n="feature-4-desc">Channel safety score, ban statistics, copyright risk — with clear DO/DON'T lists.</p>
+          <h3>Risk Detector</h3>
+          <p>Channel safety score, ban statistics, copyright risk — with clear DO/DON'T lists.</p>
           <div class="feature-tags">
             <span class="chip">Safety First</span>
             <span class="chip">COPPA Check</span>
@@ -223,8 +184,8 @@
         
         <div class="feature-card card-magic reveal">
           <div class="feature-icon" style="background: rgba(255,209,102,0.15);">💎</div>
-          <h3 data-i18n="feature-5-title">Hidden Opportunities</h3>
-          <p data-i18n="feature-5-desc">Discover high-profit, low-competition "hidden" niches with our exclusive algorithm.</p>
+          <h3>Hidden Opportunities</h3>
+          <p>Discover high-profit, low-competition "hidden" niches with our exclusive algorithm.</p>
           <div class="feature-tags">
             <span class="chip">Low Competition</span>
             <span class="chip">High RPM</span>
@@ -233,8 +194,8 @@
         
         <div class="feature-card card-magic reveal">
           <div class="feature-icon" style="background: rgba(34,211,238,0.15);">📅</div>
-          <h3 data-i18n="feature-6-title">30-Day Content Plan</h3>
-          <p data-i18n="feature-6-desc">Ready-to-use content calendar with video titles, thumbnail ideas for every niche.</p>
+          <h3>30-Day Content Plan</h3>
+          <p>Ready-to-use content calendar with video titles, thumbnail ideas for every niche.</p>
           <div class="feature-tags">
             <span class="chip">Ready Plan</span>
             <span class="chip">Hook Ideas</span>
@@ -243,8 +204,8 @@
         
         <div class="feature-card card-magic reveal">
           <div class="feature-icon" style="background: rgba(167,139,250,0.15);">🌍</div>
-          <h3 data-i18n="feature-7-title">7 Language Analysis</h3>
-          <p data-i18n="feature-7-desc">Analyze niches globally in English, Spanish, German, French, Portuguese, Arabic, and Turkish.</p>
+          <h3>7 Language Analysis</h3>
+          <p>Analyze niches globally in English, Spanish, German, French, Portuguese, Arabic, and Turkish.</p>
           <div class="feature-tags">
             <span class="chip">Global</span>
             <span class="chip">7 Languages</span>
@@ -253,8 +214,8 @@
         
         <div class="feature-card card-magic reveal">
           <div class="feature-icon" style="background: rgba(255,92,122,0.15);">⚖️</div>
-          <h3 data-i18n="feature-8-title">Niche Comparison</h3>
-          <p data-i18n="feature-8-desc">Compare 3 niches side-by-side — earnings, competition, sustainability, and more.</p>
+          <h3>Niche Comparison</h3>
+          <p>Compare 3 niches side-by-side — earnings, competition, sustainability, and more.</p>
           <div class="feature-tags">
             <span class="chip">3-Way Compare</span>
           </div>
@@ -262,8 +223,8 @@
         
         <div class="feature-card card-magic reveal">
           <div class="feature-icon" style="background: rgba(77,163,255,0.15);">💰</div>
-          <h3 data-i18n="feature-9-title">Estimated Earnings</h3>
-          <p data-i18n="feature-9-desc">Calculate monthly/yearly earnings for each niche (RPM × estimated views).</p>
+          <h3>Estimated Earnings</h3>
+          <p>Calculate monthly/yearly earnings for each niche (RPM × estimated views).</p>
           <div class="feature-tags">
             <span class="chip">RPM Calculator</span>
           </div>
@@ -273,12 +234,13 @@
     </div>
   </section>
   
+  <!-- HOW IT WORKS -->
   <section class="how-it-works">
     <div class="container">
       
       <div class="section-header text-center">
-        <div class="badge badge-purple">🚀 <span data-i18n="how-badge">HOW IT WORKS</span></div>
-        <h2><span data-i18n="how-title-1">Find</span> <span class="gradient-text" data-i18n="how-title-2">Profitable Niches</span> <span data-i18n="how-title-3">in 3 Steps</span></h2>
+        <div class="badge badge-purple">🚀 HOW IT WORKS</div>
+        <h2>Find <span class="gradient-text">Profitable Niches</span> in 3 Steps</h2>
       </div>
       
       <div class="steps-grid">
@@ -286,114 +248,124 @@
         <div class="step-card reveal">
           <div class="step-number">01</div>
           <div class="step-icon">🔍</div>
-          <h3 data-i18n="step-1-title">Search a Niche</h3>
-          <p data-i18n="step-1-desc">Type any topic you're interested in (AI, finance, yoga, etc.) or hit the random discovery button.</p>
+          <h3>Search a Niche</h3>
+          <p>Type any topic you're interested in (AI, finance, yoga, etc.) or hit the random discovery button.</p>
         </div>
         
         <div class="step-card reveal">
           <div class="step-number">02</div>
           <div class="step-icon">📊</div>
-          <h3 data-i18n="step-2-title">Get Instant Analysis</h3>
-          <p data-i18n="step-2-desc">10-criteria scoring, competition analysis, and RPM calculations done automatically.</p>
+          <h3>Get Instant Analysis</h3>
+          <p>10-criteria scoring, competition analysis, and RPM calculations done automatically.</p>
         </div>
         
         <div class="step-card reveal">
           <div class="step-number">03</div>
           <div class="step-icon">🚀</div>
-          <h3 data-i18n="step-3-title">Start Creating</h3>
-          <p data-i18n="step-3-desc">Launch immediately with a 30-day plan, title ideas, and thumbnail suggestions.</p>
+          <h3>Start Creating</h3>
+          <p>Launch immediately with a 30-day plan, title ideas, and thumbnail suggestions.</p>
         </div>
         
       </div>
     </div>
   </section>
   
+  <!-- PRICING -->
   <section class="pricing" id="pricing">
     <div class="container">
       
       <div class="section-header text-center">
-        <div class="badge badge-warning">💎 <span data-i18n="pricing-badge">LIFETIME DEAL</span></div>
-        <h2><span data-i18n="pricing-pay">Pay</span> <span class="gradient-text-warm" data-i18n="pricing-once">Once</span>, <span data-i18n="pricing-use">Use</span> <span class="gradient-text" data-i18n="pricing-forever">Forever</span></h2>
-        <p data-i18n="pricing-desc">Exclusive offer for the first 100 members. Monthly plans coming after.</p>
+        <div class="badge badge-warning">💎 LIFETIME DEAL</div>
+        <h2>Pay <span class="gradient-text-warm">Once</span>, Use <span class="gradient-text">Forever</span></h2>
+        <p>Exclusive offer for the first 20 members. Monthly plans coming after.</p>
       </div>
       
       <div class="pricing-wrapper">
         
+        <!-- Lifetime - Main Plan -->
         <div class="pricing-card pricing-featured pop-in">
-          <div class="pricing-ribbon" data-i18n="pricing-founding">FOUNDING MEMBER</div>
+          <div class="pricing-ribbon">FOUNDING MEMBER</div>
           <div class="pricing-header">
             <div class="pricing-icon">💎</div>
             <h3>LIFETIME PRO</h3>
-            <p class="pricing-description" data-i18n="pricing-lifetime-desc">One-time payment, unlimited access forever</p>
+            <p class="pricing-description">One-time payment, unlimited access forever</p>
           </div>
           
           <div class="pricing-price">
-            <span class="pricing-old" id="mainLifetimeOld">$199</span>
+            <span class="pricing-old">$199</span>
             <div class="pricing-current">
-              <span class="pricing-currency" id="mainLifetimeCurrency">$</span>
-              <span class="pricing-amount" id="mainLifetimeAmount">119</span>
+              <span class="pricing-currency">$</span>
+              <span class="pricing-amount">119</span>
             </div>
-            <span class="pricing-period" data-i18n="pricing-one-time">one-time payment</span>
+            <span class="pricing-period">one-time payment</span>
           </div>
           
           <div class="pricing-stock">
             <div class="stock-bar">
               <div class="stock-fill" style="width: 5%;"></div>
             </div>
-            <p id="mainStockText"><strong>19</strong> spots remaining out of 20!</p>
+            <p><strong>19</strong> spots remaining out of 20!</p>
           </div>
           
           <ul class="pricing-features">
-            <li>✅ <strong data-i18n="feat-lifetime">Lifetime</strong> <span data-i18n="feat-access">access to all features</span></li>
-            <li>✅ <span data-i18n="feat-100-niches">100+ niche analysis</span></li>
-            <li>✅ <span data-i18n="feat-live-data">Live YouTube data</span></li>
-            <li>✅ <span data-i18n="feat-ai">AI Assistant (unlimited)</span></li>
-            <li>✅ <span data-i18n="feat-risk">Risk Detector</span></li>
-            <li>✅ <span data-i18n="feat-hidden">Hidden Opportunities</span></li>
-            <li>✅ <span data-i18n="feat-7-lang">7 language analysis</span></li>
-            <li>✅ <span data-i18n="feat-updates">All future updates included</span></li>
-            <li>✅ <span data-i18n="feat-support">Priority support</span></li>
-            <li>✅ <span data-i18n="feat-badge">Founding Member badge</span></li>
+            <li>✅ <strong>Lifetime</strong> access to all features</li>
+            <li>✅ 100+ niche analysis</li>
+            <li>✅ Live YouTube data</li>
+            <li>✅ AI Assistant (unlimited)</li>
+            <li>✅ Risk Detector</li>
+            <li>✅ Hidden Opportunities</li>
+            <li>✅ 7 language analysis</li>
+            <li>✅ All future updates included</li>
+            <li>✅ Priority support</li>
+            <li>✅ Founding Member badge</li>
           </ul>
           
-          <a href="/register?plan=lifetime" class="btn btn-primary btn-xl btn-block pulse-glow" data-i18n="pricing-claim">
+          <a href="/register?plan=lifetime" class="btn btn-primary btn-xl btn-block pulse-glow">
             🚀 Claim Your Lifetime Access
           </a>
           
-          <p class="pricing-guarantee" data-i18n="pricing-guarantee">⚡ Instant activation · 🔒 Secure payment · 💯 14-day money-back</p>
+          <p class="pricing-guarantee">⚡ Instant activation · 🔒 Secure payment · 💯 14-day money-back</p>
         </div>
         
+        <!-- Coming Soon Plans -->
         <div class="pricing-cards-secondary">
           
           <div class="pricing-card-mini">
             <h4>🌱 STARTER</h4>
-            <div class="mini-price" id="miniStarterPrice">$9.99<small>/mo</small></div>
-            <p data-i18n="mini-starter-desc">For beginners</p>
-            <a href="/register?plan=starter" class="btn btn-glass btn-sm" data-i18n="get-started">Get Started</a>
+            <div class="mini-price">$9.99<small>/mo</small></div>
+            <p>Coming soon — for beginners</p>
+            <span class="btn btn-glass btn-sm" style="opacity:0.6;">Coming Soon</span>
           </div>
           
           <div class="pricing-card-mini">
             <h4>🎬 CREATOR</h4>
-            <div class="mini-price" id="miniCreatorPrice">$17.99<small>/mo</small></div>
-            <p data-i18n="mini-creator-desc">For active YouTubers</p>
-            <a href="/register?plan=creator" class="btn btn-primary btn-sm" data-i18n="get-started">Get Started</a>
+            <div class="mini-price">$17.99<small>/mo</small></div>
+            <p>Coming soon — for active YouTubers</p>
+            <span class="btn btn-glass btn-sm" style="opacity:0.6;">Coming Soon</span>
+          </div>
+          
+          <div class="pricing-card-mini">
+            <h4>🚀 GROWTH</h4>
+            <div class="mini-price">$24.99<small>/mo</small></div>
+            <p>Coming soon — for growing channels</p>
+            <span class="btn btn-glass btn-sm" style="opacity:0.6;">Coming Soon</span>
           </div>
           
           <div class="pricing-card-mini">
             <h4>👑 ALL-IN-ONE</h4>
-            <div class="mini-price" id="miniAllInOnePrice">$33.99<small>/mo</small></div>
-            <p data-i18n="mini-allinone-desc">For professionals</p>
-            <a href="/register?plan=all-in-one" class="btn btn-glass btn-sm" data-i18n="get-started">Get Started</a>
+            <div class="mini-price">$33.99<small>/mo</small></div>
+            <p>Coming soon — for professionals</p>
+            <span class="btn btn-glass btn-sm" style="opacity:0.6;">Coming Soon</span>
           </div>
           
         </div>
         
         <div style="text-align: center; margin-top: 30px;">
-          <p style="color: var(--text-secondary); margin-bottom: 15px;" data-i18n="monthly-launch-info">
-            💡 <strong>Save more with Lifetime.</strong><br>
+          <p style="color: var(--text-secondary); margin-bottom: 15px;">
+            💡 <strong>Monthly plans launch after Lifetime sells out.</strong><br>
             Get Lifetime now and save thousands long-term.
           </p>
-          <a href="/pricing" class="btn btn-glass btn-lg" data-i18n="compare-all">
+          <a href="/pricing" class="btn btn-glass btn-lg">
             📊 Compare All Plans →
           </a>
         </div>
@@ -402,92 +374,93 @@
     </div>
   </section>
   
+  <!-- FAQ -->
   <section class="faq" id="faq">
     <div class="container container-md">
       
       <div class="section-header text-center">
         <div class="badge badge-primary">❓ FAQ</div>
-        <h2><span data-i18n="faq-title-1">Frequently Asked</span> <span class="gradient-text" data-i18n="faq-title-2">Questions</span></h2>
+        <h2>Frequently Asked <span class="gradient-text">Questions</span></h2>
       </div>
       
       <div class="faq-list">
         
         <details class="faq-item reveal">
           <summary>
-            <span data-i18n="faq-q1">🎯 What is NICHIFY PRO?</span>
+            <span>🎯 What is NICHIFY PRO?</span>
             <span class="faq-icon">+</span>
           </summary>
-          <div class="faq-answer" data-i18n="faq-a1">
+          <div class="faq-answer">
             NICHIFY PRO is an AI-powered platform that helps you discover profitable YouTube niches. With 100+ niches, live YouTube data, an AI assistant, and a 10-criteria scoring system, we help creators make data-driven decisions in minutes — not weeks.
           </div>
         </details>
         
         <details class="faq-item reveal">
           <summary>
-            <span data-i18n="faq-q2">💎 What does Lifetime Deal mean?</span>
+            <span>💎 What does Lifetime Deal mean?</span>
             <span class="faq-icon">+</span>
           </summary>
-          <div class="faq-answer" id="faqA2">
-            Pay <strong>$119 once</strong> and get <strong>lifetime access</strong> to all features. No monthly fees, no hidden costs. This offer is exclusively for the first 100 members.
+          <div class="faq-answer">
+            Pay <strong>$119 once</strong> and get <strong>lifetime access</strong> to all features. No monthly fees, no hidden costs. This offer is exclusively for the first 20 members.
           </div>
         </details>
         
         <details class="faq-item reveal">
           <summary>
-            <span data-i18n="faq-q3">🌍 Do you support other languages?</span>
+            <span>🌍 Do you support other languages?</span>
             <span class="faq-icon">+</span>
           </summary>
-          <div class="faq-answer" data-i18n="faq-a3">
+          <div class="faq-answer">
             Yes! Our analysis engine supports <strong>7 languages</strong>: English, Spanish, German, French, Portuguese, Arabic, and Turkish. The interface is available in English and Turkish, with more languages coming based on community votes.
           </div>
         </details>
         
         <details class="faq-item reveal">
           <summary>
-            <span data-i18n="faq-q4">🤖 What does the AI Assistant do?</span>
+            <span>🤖 What does the AI Assistant do?</span>
             <span class="faq-icon">+</span>
           </summary>
-          <div class="faq-answer" data-i18n="faq-a4">
+          <div class="faq-answer">
             Powered by Claude AI, our assistant provides niche suggestions, generates video titles and thumbnail ideas, develops content strategy, and answers your questions. Lifetime members get <strong>unlimited</strong> AI usage.
           </div>
         </details>
         
         <details class="faq-item reveal">
           <summary>
-            <span data-i18n="faq-q5">🔄 Do you offer refunds?</span>
+            <span>🔄 Do you offer refunds?</span>
             <span class="faq-icon">+</span>
           </summary>
-          <div class="faq-answer" data-i18n="faq-a5">
+          <div class="faq-answer">
             Absolutely! We offer a <strong>14-day money-back guarantee</strong>. If you're not satisfied, just send us an email and we'll refund you 100% — no questions asked.
           </div>
         </details>
         
         <details class="faq-item reveal">
           <summary>
-            <span data-i18n="faq-q6">📊 How fresh is your data?</span>
+            <span>📊 How fresh is your data?</span>
             <span class="faq-icon">+</span>
           </summary>
-          <div class="faq-answer" data-i18n="faq-a6">
+          <div class="faq-answer">
             We use YouTube Data API v3 to pull <strong>real-time</strong> data. Our smart cache system ensures fast response times while updating data every 6 hours.
           </div>
         </details>
         
         <details class="faq-item reveal">
           <summary>
-            <span data-i18n="faq-q7">💳 Which payment methods do you accept?</span>
+            <span>💳 Which payment methods do you accept?</span>
             <span class="faq-icon">+</span>
           </summary>
-          <div class="faq-answer" data-i18n="faq-a7">
+          <div class="faq-answer">
             We accept all major credit/debit cards (Visa, Mastercard, Amex), PayPal, and Apple Pay through our secure payment processor LemonSqueezy. Payments are processed worldwide.
           </div>
         </details>
         
         <details class="faq-item reveal">
           <summary>
-            <span data-i18n="faq-q8">🗳️ Can I suggest new features?</span>
+            <span>🗳️ Can I suggest new features?</span>
             <span class="faq-icon">+</span>
           </summary>
-          <div class="faq-answer" data-i18n="faq-a8">
+          <div class="faq-answer">
             Yes! We have a <a href="/roadmap" style="color: var(--accent);">public roadmap</a> where you can suggest features and vote on what we build next. Your voice shapes NICHIFY's future.
           </div>
         </details>
@@ -496,28 +469,30 @@
     </div>
   </section>
   
+  <!-- FINAL CTA -->
   <section class="final-cta">
     <div class="container container-md text-center">
       <div class="cta-box gradient-border">
         <div class="gradient-border-content">
-          <h2><span data-i18n="cta-start">Start Your</span> <span class="gradient-text-aurora" data-i18n="cta-success">YouTube Success</span> <span data-i18n="cta-today">Today</span></h2>
-          <p id="finalCtaText">Become one of the first 100 Lifetime members. Get unlimited access forever for just $119.</p>
+          <h2>Start Your <span class="gradient-text-aurora">YouTube Success</span> Today</h2>
+          <p>Become one of the first 20 Lifetime members. Get unlimited access forever for just $119.</p>
           
           <div class="cta-buttons">
-            <a href="/register" class="btn btn-primary btn-xl pulse-glow" id="finalCtaBtn">
+            <a href="/register" class="btn btn-primary btn-xl pulse-glow">
               🚀 Get Lifetime Access - $119
             </a>
-            <a href="/login" class="btn btn-glass btn-xl" data-i18n="cta-already">
+            <a href="/login" class="btn btn-glass btn-xl">
               Already a Member
             </a>
           </div>
           
-          <p class="cta-note" data-i18n="cta-note">⚡ Activated in 30 seconds · 🔒 14-day money-back guarantee</p>
+          <p class="cta-note">⚡ Activated in 30 seconds · 🔒 14-day money-back guarantee</p>
         </div>
       </div>
     </div>
   </section>
   
+  <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
       <div class="footer-grid">
@@ -528,28 +503,28 @@
             <span class="nav-logo-text gradient-text-aurora">NICHIFY</span>
             <span class="badge badge-pro badge-sm">PRO</span>
           </a>
-          <p class="footer-desc" data-i18n="footer-desc">The smartest way to find profitable YouTube niches.</p>
+          <p class="footer-desc">The smartest way to find profitable YouTube niches.</p>
         </div>
         
         <div class="footer-col">
-          <h4 data-i18n="footer-product">Product</h4>
-          <a href="#features" data-i18n="nav-features">Features</a>
-          <a href="/pricing" data-i18n="nav-pricing">Pricing</a>
-          <a href="/roadmap" data-i18n="nav-roadmap">🗳️ Roadmap</a>
-          <a href="/faq" data-i18n="nav-faq">FAQ</a>
+          <h4>Product</h4>
+          <a href="#features">Features</a>
+          <a href="/pricing">Pricing</a>
+          <a href="/roadmap">🗳️ Roadmap</a>
+          <a href="/faq">FAQ</a>
         </div>
         
         <div class="footer-col">
-          <h4 data-i18n="footer-account">Account</h4>
-          <a href="/login" data-i18n="nav-login">Log In</a>
-          <a href="/register" data-i18n="footer-signup">Sign Up</a>
-          <a href="/dashboard" data-i18n="footer-dashboard">Dashboard</a>
+          <h4>Account</h4>
+          <a href="/login">Log In</a>
+          <a href="/register">Sign Up</a>
+          <a href="/dashboard">Dashboard</a>
         </div>
         
         <div class="footer-col">
-          <h4 data-i18n="footer-legal">Legal</h4>
-          <a href="/privacy" data-i18n="footer-privacy">Privacy Policy</a>
-          <a href="/terms" data-i18n="footer-terms">Terms of Service</a>
+          <h4>Legal</h4>
+          <a href="/privacy">Privacy Policy</a>
+          <a href="/terms">Terms of Service</a>
           <a href="/gdpr">GDPR</a>
         </div>
         
@@ -557,269 +532,11 @@
       
       <div class="footer-bottom">
         <p>© 2025 NICHIFY PRO. All rights reserved.</p>
-        <p data-i18n="footer-made">Made with ❤️ for YouTube Creators</p>
+        <p>Made with ❤️ for YouTube Creators</p>
       </div>
     </div>
   </footer>
   
   <script src="/js/animations.js"></script>
-  
-  <script>
-    const PRICING_CONFIG = {
-      TR: {
-        currency: 'TL',
-        symbol: '₺',
-        format: (n) => `${n.toLocaleString('tr-TR')} ₺`,
-        lifetime: 1999,
-        lifetime_old: 4299,
-        starter: 499,
-        creator: 799,
-        allInOne: 1099,
-        texts: {
-          'nav-features': 'Özellikler',
-          'nav-pricing': 'Fiyatlandırma',
-          'nav-roadmap': '🗳️ Yol Haritası',
-          'nav-faq': 'SSS',
-          'nav-login': 'Giriş Yap',
-          'nav-start-free': 'Ücretsiz Başla',
-          'hero-find': 'Bul',
-          'hero-profitable': 'Karlı YouTube Nişleri',
-          'hero-in': 'Sadece',
-          'hero-minutes': '5 Dakikada',
-          'hero-subtitle': 'AI destekli analiz, gerçek zamanlı YouTube verisi ve 10 kriterli puanlama.<br><strong>Haftalar süren araştırmayı dakikalara indir — tahminden uzak dur.</strong>',
-          'hero-cta-start': 'Ücretsiz Başla - Kart Gerekmez',
-          'hero-cta-how': 'Nasıl Çalışır',
-          'trust-instant': 'Anında Aktivasyon',
-          'trust-secure': 'Güvenli Ödeme',
-          'trust-lifetime': 'Ömür Boyu Erişim',
-          'trust-niches': '100+ Niş',
-          'stat-niches': 'Analiz Edilen Niş',
-          'stat-data': 'YouTube Veri Noktası',
-          'stat-hidden': 'Gizli Fırsat',
-          'stat-languages': 'Desteklenen Dil',
-          'features-badge': 'ÖZELLİKLER',
-          'features-title-1': 'YouTube Başarısı İçin',
-          'features-title-2': 'İhtiyacınız Olan Her Şey',
-          'features-desc': 'Niş keşfinden kanal analizine, AI asistandan içerik planlamaya — hepsi tek platformda.',
-          'feature-1-title': 'Akıllı Niş Bulucu',
-          'feature-1-desc': 'AI ile 100+ ana kategori ve binlerce mikro-nişten karlı olanları keşfet.',
-          'feature-2-title': 'Canlı YouTube Verisi',
-          'feature-2-desc': 'Gerçek zamanlı kanal istatistikleri, video performansı ve trend verisi - resmi YouTube API ile.',
-          'feature-3-title': 'AI Asistan',
-          'feature-3-desc': 'Claude AI ile niş önerileri, başlık fikirleri ve içerik stratejisi - 7/24 yanında.',
-          'feature-4-title': 'Risk Dedektörü',
-          'feature-4-desc': 'Kanal güvenlik skoru, ban istatistikleri, telif riski - net YAP/YAPMA listesiyle.',
-          'feature-5-title': 'Gizli Fırsatlar',
-          'feature-5-desc': 'Yüksek kar, düşük rekabet - özel algoritmamızla "gizli" nişleri keşfet.',
-          'feature-6-title': '30 Günlük İçerik Planı',
-          'feature-6-desc': 'Her niş için hazır video başlıkları, thumbnail fikirleri içeren içerik takvimi.',
-          'feature-7-title': '7 Dilde Analiz',
-          'feature-7-desc': 'Nişleri global olarak İngilizce, İspanyolca, Almanca, Fransızca, Portekizce, Arapça ve Türkçe analiz et.',
-          'feature-8-title': 'Niş Karşılaştırma',
-          'feature-8-desc': '3 nişi yan yana karşılaştır - kazanç, rekabet, sürdürülebilirlik ve daha fazlası.',
-          'feature-9-title': 'Tahmini Kazanç',
-          'feature-9-desc': 'Her niş için aylık/yıllık kazancı hesapla (RPM × tahmini görüntülenme).',
-          'how-badge': 'NASIL ÇALIŞIR',
-          'how-title-1': 'Karlı Nişleri',
-          'how-title-2': 'Karlı Nişleri',
-          'how-title-3': '3 Adımda Bul',
-          'step-1-title': 'Bir Niş Ara',
-          'step-1-desc': 'İlgilendiğin herhangi bir konuyu yaz (AI, finans, yoga vb.) veya rastgele keşif butonuna bas.',
-          'step-2-title': 'Anında Analiz Al',
-          'step-2-desc': '10 kriterli puanlama, rekabet analizi ve RPM hesaplamaları otomatik yapılır.',
-          'step-3-title': 'Üretmeye Başla',
-          'step-3-desc': '30 günlük plan, başlık fikirleri ve thumbnail önerileriyle hemen başla.',
-          'pricing-badge': 'ÖMÜR BOYU FIRSAT',
-          'pricing-pay': 'Bir Kez',
-          'pricing-once': 'Öde',
-          'pricing-use': 'Ömür Boyu',
-          'pricing-forever': 'Kullan',
-          'pricing-desc': 'İlk 100 üyeye özel fırsat. Aylık planlar sonra geliyor.',
-          'pricing-founding': 'KURUCU ÜYE',
-          'pricing-lifetime-desc': 'Tek seferlik ödeme, ömür boyu sınırsız erişim',
-          'pricing-one-time': 'tek seferlik ödeme',
-          'pricing-claim': '🚀 Ömür Boyu Erişimi Al',
-          'pricing-guarantee': '⚡ Anında aktivasyon · 🔒 Güvenli ödeme · 💯 14 gün para iadesi',
-          'feat-lifetime': 'Ömür boyu',
-          'feat-access': 'tüm özelliklere erişim',
-          'feat-100-niches': '100+ niş analizi',
-          'feat-live-data': 'Canlı YouTube verisi',
-          'feat-ai': 'AI Asistan (sınırsız)',
-          'feat-risk': 'Risk Dedektörü',
-          'feat-hidden': 'Gizli Fırsatlar',
-          'feat-7-lang': '7 dilde analiz',
-          'feat-updates': 'Tüm gelecek güncellemeler dahil',
-          'feat-support': 'Öncelikli destek',
-          'feat-badge': 'Kurucu Üye rozeti',
-          'mini-starter-desc': 'Yeni başlayanlar için',
-          'mini-creator-desc': 'Aktif YouTuber\'lar için',
-          'mini-allinone-desc': 'Profesyoneller için',
-          'get-started': 'Başla',
-          'monthly-launch-info': '💡 <strong>Lifetime ile daha çok tasarruf et.</strong><br>Şimdi Lifetime al, uzun vadede binlerce lira tasarruf et.',
-          'compare-all': '📊 Tüm Planları Karşılaştır →',
-          'faq-title-1': 'Sık Sorulan',
-          'faq-title-2': 'Sorular',
-          'faq-q1': '🎯 NICHIFY PRO nedir?',
-          'faq-a1': 'NICHIFY PRO, karlı YouTube nişlerini bulmanıza yardımcı olan AI destekli bir platformdur. 100+ niş, canlı YouTube verisi, AI asistan ve 10 kriterli puanlama sistemi ile içerik üreticilerin veri odaklı kararlar almasını sağlar — haftalar değil, dakikalar içinde.',
-          'faq-q2': '💎 Lifetime Deal ne demek?',
-          'faq-q3': '🌍 Diğer dilleri destekliyor musunuz?',
-          'faq-a3': 'Evet! Analiz motorumuz <strong>7 dili</strong> destekler: İngilizce, İspanyolca, Almanca, Fransızca, Portekizce, Arapça ve Türkçe. Arayüz İngilizce ve Türkçe olarak mevcut, topluluk oylarına göre daha fazla dil eklenecek.',
-          'faq-q4': '🤖 AI Asistan ne yapar?',
-          'faq-a4': 'Claude AI ile güçlendirilen asistanımız niş önerileri sunar, video başlıkları ve thumbnail fikirleri üretir, içerik stratejisi geliştirir ve sorularınızı yanıtlar. Lifetime üyeler <strong>sınırsız</strong> AI kullanır.',
-          'faq-q5': '🔄 İade sunuyor musunuz?',
-          'faq-a5': 'Kesinlikle! <strong>14 gün para iade garantisi</strong> sunuyoruz. Memnun kalmazsanız bize e-posta atmanız yeterli, %100 iade edelim — soru sormadan.',
-          'faq-q6': '📊 Veriler ne kadar güncel?',
-          'faq-a6': 'YouTube Data API v3 kullanarak <strong>gerçek zamanlı</strong> veri çekiyoruz. Akıllı cache sistemimiz hızlı yanıt sürelerini korurken verileri her 6 saatte bir günceller.',
-          'faq-q7': '💳 Hangi ödeme yöntemlerini kabul ediyorsunuz?',
-          'faq-a7': 'Güvenli ödeme sistemimiz LemonSqueezy üzerinden tüm büyük kredi/banka kartlarını (Visa, Mastercard, Amex), PayPal ve Apple Pay\'i kabul ediyoruz. Ödemeler dünya çapında işlenir.',
-          'faq-q8': '🗳️ Yeni özellik önerebilir miyim?',
-          'faq-a8': 'Evet! Özellik önerebileceğiniz ve neyi geliştireceğimize oy verebileceğiniz <a href="/roadmap" style="color: var(--accent);">herkese açık yol haritamız</a> var. Sesiniz NICHIFY\'ın geleceğini şekillendiriyor.',
-          'cta-start': 'YouTube',
-          'cta-success': 'Başarı Yolculuğunu',
-          'cta-today': 'Bugün Başlat',
-          'cta-already': 'Zaten Üyeyim',
-          'cta-note': '⚡ 30 saniyede aktif · 🔒 14 gün para iade garantisi',
-          'footer-desc': 'Karlı YouTube nişlerini bulmanın en akıllı yolu.',
-          'footer-product': 'Ürün',
-          'footer-account': 'Hesap',
-          'footer-signup': 'Kayıt Ol',
-          'footer-dashboard': 'Panel',
-          'footer-legal': 'Yasal',
-          'footer-privacy': 'Gizlilik Politikası',
-          'footer-terms': 'Kullanım Şartları',
-          'footer-made': 'YouTube İçerik Üreticileri için ❤️ ile yapıldı'
-        }
-      },
-      DEFAULT: {
-        currency: 'USD',
-        symbol: '$',
-        format: (n) => `$${n}`,
-        lifetime: 119,
-        lifetime_old: 199,
-        starter: 9.99,
-        creator: 17.99,
-        allInOne: 33.99,
-        texts: null
-      }
-    };
-    
-    async function detectCountry() {
-      const manual = localStorage.getItem('user_country_manual');
-      if (manual && manual !== 'auto') return manual;
-      
-      const cached = localStorage.getItem('user_country');
-      const cachedTime = localStorage.getItem('user_country_time');
-      if (cached && cachedTime) {
-        const age = Date.now() - parseInt(cachedTime);
-        if (age < 24 * 60 * 60 * 1000) return cached;
-      }
-      
-      try {
-        const response = await fetch('https://ipapi.co/json/');
-        const data = await response.json();
-        const country = data.country_code || 'US';
-        localStorage.setItem('user_country', country);
-        localStorage.setItem('user_country_time', Date.now().toString());
-        return country;
-      } catch (error) {
-        console.warn('Country detection failed:', error);
-        return 'US';
-      }
-    }
-    
-    function changeCountry(value) {
-      localStorage.setItem('user_country_manual', value);
-      if (value !== 'auto') {
-        localStorage.setItem('user_country', value);
-        localStorage.setItem('user_country_time', Date.now().toString());
-      } else {
-        localStorage.removeItem('user_country');
-        localStorage.removeItem('user_country_time');
-      }
-      window.location.reload();
-    }
-    
-    function applyPricing(config) {
-      document.getElementById('mainLifetimeAmount').textContent = 
-        config.currency === 'TL' ? config.lifetime.toLocaleString('tr-TR') : config.lifetime;
-      document.getElementById('mainLifetimeOld').textContent = config.format(config.lifetime_old);
-      document.getElementById('mainLifetimeCurrency').textContent = 
-        config.currency === 'TL' ? '' : '$';
-      
-      if (config.currency === 'TL') {
-        document.getElementById('mainLifetimeAmount').innerHTML = 
-          `${config.lifetime.toLocaleString('tr-TR')} ₺`;
-      }
-      
-      if (config.currency === 'TL') {
-        document.getElementById('miniStarterPrice').innerHTML = 
-          `${config.starter} ₺<small>/ay</small>`;
-        document.getElementById('miniCreatorPrice').innerHTML = 
-          `${config.creator} ₺<small>/ay</small>`;
-        document.getElementById('miniAllInOnePrice').innerHTML = 
-          `${config.allInOne.toLocaleString('tr-TR')} ₺<small>/ay</small>`;
-      } else {
-        document.getElementById('miniStarterPrice').innerHTML = 
-          `$${config.starter}<small>/mo</small>`;
-        document.getElementById('miniCreatorPrice').innerHTML = 
-          `$${config.creator}<small>/mo</small>`;
-        document.getElementById('miniAllInOnePrice').innerHTML = 
-          `$${config.allInOne}<small>/mo</small>`;
-      }
-      
-      const lifetimeStr = config.format(config.lifetime);
-      if (config.currency === 'TL') {
-        document.getElementById('finalCtaText').innerHTML = 
-          `İlk 100 Lifetime üyeden biri ol. Sadece ${lifetimeStr}'ye ömür boyu sınırsız erişim.`;
-        document.getElementById('finalCtaBtn').innerHTML = 
-          `🚀 Ömür Boyu Erişim - ${lifetimeStr}`;
-        
-        document.getElementById('heroBadgeText').innerHTML = 
-          `🔥 Lifetime Fırsatı - İlk 100 Üye - <strong>1/20</strong> Alındı`;
-        
-        document.getElementById('faqA2').innerHTML = 
-          `<strong>${lifetimeStr} bir kez öde</strong> ve <strong>ömür boyu erişim</strong> kazan. Aylık ücret yok, gizli maliyet yok. Bu fırsat sadece ilk 100 üyeye özel.`;
-      } else {
-        document.getElementById('finalCtaText').innerHTML = 
-          `Become one of the first 100 Lifetime members. Get unlimited access forever for just ${lifetimeStr}.`;
-        document.getElementById('finalCtaBtn').innerHTML = 
-          `🚀 Get Lifetime Access - ${lifetimeStr}`;
-        
-        document.getElementById('heroBadgeText').innerHTML = 
-          `🔥 Lifetime Deal - First 100 Members - <strong>1/20</strong> Claimed`;
-        
-        document.getElementById('faqA2').innerHTML = 
-          `Pay <strong>${lifetimeStr} once</strong> and get <strong>lifetime access</strong> to all features. No monthly fees, no hidden costs. This offer is exclusively for the first 100 members.`;
-      }
-      
-      if (config.texts) {
-        document.documentElement.lang = 'tr';
-        document.title = 'NICHIFY PRO - YouTube Niş Bulucu | AI Destekli Analiz';
-        Object.keys(config.texts).forEach(key => {
-          document.querySelectorAll(`[data-i18n="${key}"]`).forEach(el => {
-            el.innerHTML = config.texts[key];
-          });
-        });
-      }
-    }
-    
-    function setCountrySelector() {
-      const manual = localStorage.getItem('user_country_manual');
-      const selector = document.getElementById('countrySelector');
-      if (manual) {
-        selector.value = manual;
-      } else {
-        selector.value = 'auto';
-      }
-    }
-    
-    (async function initPricing() {
-      const country = await detectCountry();
-      const config = PRICING_CONFIG[country] || PRICING_CONFIG.DEFAULT;
-      applyPricing(config);
-      setCountrySelector();
-      console.log(`💰 Homepage pricing loaded for: ${country} (${config.currency})`);
-    })();
-  </script>
 </body>
 </html>
