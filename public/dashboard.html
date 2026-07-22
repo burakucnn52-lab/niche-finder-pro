@@ -91,10 +91,10 @@
         
       </nav>
       
-      <!-- Lifetime Card -->
+      <!-- Lifetime Card - Dynamic pricing based on IP -->
       <div class="sidebar-lifetime" id="lifetimeCard">
-        <div class="sidebar-lifetime-old">$199</div>
-        <div class="sidebar-lifetime-price">$119</div>
+        <div class="sidebar-lifetime-old" id="sidebarLifetimeOld">$199</div>
+        <div class="sidebar-lifetime-price" id="sidebarLifetimePrice">$119</div>
         <div class="sidebar-lifetime-label">🔥 Lifetime Deal</div>
         <a href="/pricing" class="btn btn-primary btn-sm btn-block" style="margin-top: 8px;">
           Get It Now
@@ -322,6 +322,54 @@
   <script src="/js/auth.js"></script>
   <script src="/js/utils.js"></script>
   <script src="/js/animations.js"></script>
+  
+  <!-- ============================================ -->
+  <!-- AUTO IP-BASED PRICING -->
+  <!-- ============================================ -->
+  <script>
+    (async function detectAndApplyPricing() {
+      let country = 'US';
+      
+      // Cache kontrol (24 saat)
+      const cached = localStorage.getItem('user_country');
+      const cachedTime = localStorage.getItem('user_country_time');
+      if (cached && cachedTime) {
+        const age = Date.now() - parseInt(cachedTime);
+        if (age < 24 * 60 * 60 * 1000) {
+          country = cached;
+        } else {
+          country = await fetchCountry();
+        }
+      } else {
+        country = await fetchCountry();
+      }
+      
+      async function fetchCountry() {
+        try {
+          const response = await fetch('https://ipapi.co/json/');
+          const data = await response.json();
+          const detectedCountry = data.country_code || 'US';
+          localStorage.setItem('user_country', detectedCountry);
+          localStorage.setItem('user_country_time', Date.now().toString());
+          return detectedCountry;
+        } catch (error) {
+          return 'US';
+        }
+      }
+      
+      // Türk kullanıcı ise TL, değilse USD
+      if (country === 'TR') {
+        document.getElementById('sidebarLifetimeOld').textContent = '7.299 ₺';
+        document.getElementById('sidebarLifetimePrice').textContent = '4.299 ₺';
+      } else {
+        document.getElementById('sidebarLifetimeOld').textContent = '$199';
+        document.getElementById('sidebarLifetimePrice').textContent = '$119';
+      }
+      
+      console.log(`💰 Pricing: ${country === 'TR' ? 'Turkey (TL)' : 'Global (USD)'}`);
+    })();
+  </script>
+  
   <script>
     
     (async () => {
