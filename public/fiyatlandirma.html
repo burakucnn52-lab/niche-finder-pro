@@ -357,7 +357,7 @@
               <span class="faq-icon">+</span>
             </summary>
             <div class="faq-answer">
-              We accept all major credit/debit cards (Visa, Mastercard, Amex), PayPal, and Apple Pay through LemonSqueezy — our secure global payment processor.
+              We accept all major credit/debit cards (Visa, Mastercard, Amex), PayPal, and Apple Pay through Paddle — our secure global payment processor.
             </div>
           </details>
           
@@ -512,10 +512,16 @@
     });
   </script>
   
-  <!-- LIFETIME COUNTER + CHECKOUT -->
+  <!-- ============================================ -->
+  <!-- LIFETIME COUNTER + PADDLE CHECKOUT -->
+  <!-- ============================================ -->
   <script src="/js/config.js"></script>
+  <script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
   <script>
-    const LEMONSQUEEZY_CHECKOUT_URL = 'https://nichify.lemonsqueezy.com/checkout/buy/327c8366-362b-45e1-8d34-0c6b6ea43411';
+    // Paddle Initialize - Client Token buraya
+    Paddle.Initialize({ 
+      token: 'BURAYA_CLIENT_TOKEN_YAPIŞTIR'
+    });
 
     (async function initLifetimePage() {
       try {
@@ -568,8 +574,22 @@
               const { data: { user } } = await supabase.auth.getUser();
               
               if (user) {
-                const checkoutUrl = `${LEMONSQUEEZY_CHECKOUT_URL}?checkout[email]=${encodeURIComponent(user.email)}`;
-                window.location.href = checkoutUrl;
+                // Paddle Checkout Aç
+                Paddle.Checkout.open({
+                  items: [{
+                    priceId: CONFIG.PADDLE_PRICE_ID_LIFETIME,
+                    quantity: 1
+                  }],
+                  customer: {
+                    email: user.email
+                  },
+                  settings: {
+                    displayMode: 'overlay',
+                    theme: 'dark',
+                    locale: 'auto',
+                    successUrl: window.location.origin + '/dashboard?payment=success'
+                  }
+                });
               } else {
                 window.location.href = '/register?plan=lifetime&redirect=checkout';
               }
