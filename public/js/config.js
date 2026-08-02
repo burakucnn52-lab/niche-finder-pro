@@ -29,8 +29,8 @@ const CONFIG = {
   // Admin status is determined by 'is_admin' field in database.
   // Backend uses ADMIN_EMAIL environment variable for notifications.
   
-  // URLs
-  LEMONSQUEEZY_CHECKOUT_URL: '', // Sonra ekleyeceğiz
+  // Payment Provider (Paddle)
+  PADDLE_PRICE_ID_LIFETIME: 'pri_01kyyfg8hvc0qyz15s4gjd5shr',
   
   // Routes
   ROUTES: {
