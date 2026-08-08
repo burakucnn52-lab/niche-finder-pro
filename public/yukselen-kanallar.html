@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Trending Channels - NICHIFY PRO</title>
+  <title>Trend Kanallar - NICHIFY PRO</title>
   
   <link rel="stylesheet" href="/css/core.css">
   <link rel="stylesheet" href="/css/animations.css">
@@ -35,68 +35,68 @@
       
       <nav class="sidebar-nav">
         <div class="sidebar-section">
-          <div class="sidebar-section-title">Main Menu</div>
+          <div class="sidebar-section-title">Ana Menü</div>
           <a href="/dashboard" class="sidebar-item">
             <span class="sidebar-item-icon">🏠</span>
-            <span>Home</span>
+            <span>Ana Sayfa</span>
           </a>
           <a href="/nis-kesfi" class="sidebar-item">
             <span class="sidebar-item-icon">🎯</span>
-            <span>Niche Discovery</span>
+            <span>Niş Keşfi</span>
           </a>
           <a href="/yukselen-kanallar" class="sidebar-item active">
             <span class="sidebar-item-icon">🔥</span>
-            <span>Trending Channels</span>
+            <span>Trend Kanallar</span>
           </a>
           <a href="/kanal-analizi" class="sidebar-item">
             <span class="sidebar-item-icon">📊</span>
-            <span>Channel Analysis</span>
+            <span>Kanal Analizi</span>
           </a>
         </div>
         
         <div class="sidebar-section">
-          <div class="sidebar-section-title">Tools</div>
+          <div class="sidebar-section-title">Araçlar</div>
           <a href="/risk-detector" class="sidebar-item">
             <span class="sidebar-item-icon">🛡️</span>
-            <span>Risk Detector</span>
+            <span>Risk Dedektörü</span>
           </a>
           <a href="/ai-asistan" class="sidebar-item">
             <span class="sidebar-item-icon">🤖</span>
-            <span>AI Assistant</span>
+            <span>AI Asistan</span>
             <span class="badge badge-pro sidebar-item-badge">PRO</span>
           </a>
           <a href="/yol-haritasi" class="sidebar-item">
             <span class="sidebar-item-icon">🗺️</span>
-            <span>Roadmap</span>
+            <span>Yol Haritası</span>
           </a>
         </div>
         
         <div class="sidebar-section" id="adminSection" style="display: none;">
-          <div class="sidebar-section-title">👑 Admin</div>
+          <div class="sidebar-section-title">👑 Yönetici</div>
           <a href="/admin" class="sidebar-item">
             <span class="sidebar-item-icon">⚙️</span>
-            <span>Admin Panel</span>
+            <span>Yönetici Paneli</span>
           </a>
         </div>
       </nav>
       
       <div class="sidebar-lifetime" id="lifetimeCard">
-        <div class="sidebar-lifetime-old">$149</div>
-        <div class="sidebar-lifetime-price">$89</div>
-        <div class="sidebar-lifetime-label">🔥 Lifetime Deal</div>
+        <div class="sidebar-lifetime-old">4.999 ₺</div>
+        <div class="sidebar-lifetime-price">4.299 ₺</div>
+        <div class="sidebar-lifetime-label">🔥 Ömür Boyu Fırsat</div>
         <a href="/pricing" class="btn btn-primary btn-sm btn-block" style="margin-top: 8px;">
-          Get It Now
+          Hemen Al
         </a>
-        <div class="sidebar-lifetime-stock">⚡ <span id="lifetimeStock">88</span>/100 left</div>
+        <div class="sidebar-lifetime-stock">⚡ <span id="lifetimeStock">19</span>/20 kaldı</div>
       </div>
       
       <div class="sidebar-user">
         <div class="avatar" id="userAvatar">U</div>
         <div class="sidebar-user-info">
-          <div class="sidebar-user-name" id="userName">Loading...</div>
+          <div class="sidebar-user-name" id="userName">Yükleniyor...</div>
           <div class="sidebar-user-email" id="userEmail">-</div>
         </div>
-        <div class="sidebar-user-menu" id="logoutBtn" title="Log Out">⏻</div>
+        <div class="sidebar-user-menu" id="logoutBtn" title="Çıkış Yap">⏻</div>
       </div>
     </aside>
     
@@ -105,48 +105,48 @@
       <div class="page-header">
         <h1>
           <span>🔥</span>
-          <span>Trending Channels</span>
-          <span class="badge badge-success">LIVE</span>
+          <span>Trend Kanallar</span>
+          <span class="badge badge-success">CANLI</span>
         </h1>
-        <p>Discover <strong class="text-warning">trending channels</strong> and <strong class="text-blue">viral videos</strong> on YouTube.</p>
+        <p>YouTube'da <strong class="text-warning">trend olan kanalları</strong> ve <strong class="text-blue">viral videoları</strong> keşfet.</p>
       </div>
       
       <!-- Region Selector -->
       <div class="region-selector">
-        <div class="region-pill" data-region="US">🇺🇸 USA</div>
-        <div class="region-pill active" data-region="GB">🇬🇧 UK</div>
-        <div class="region-pill" data-region="DE">🇩🇪 Germany</div>
-        <div class="region-pill" data-region="FR">🇫🇷 France</div>
-        <div class="region-pill" data-region="JP">🇯🇵 Japan</div>
-        <div class="region-pill" data-region="TR">🇹🇷 Turkey</div>
+        <div class="region-pill" data-region="US">🇺🇸 ABD</div>
+        <div class="region-pill active" data-region="GB">🇬🇧 İngiltere</div>
+        <div class="region-pill" data-region="DE">🇩🇪 Almanya</div>
+        <div class="region-pill" data-region="FR">🇫🇷 Fransa</div>
+        <div class="region-pill" data-region="JP">🇯🇵 Japonya</div>
+        <div class="region-pill" data-region="TR">🇹🇷 Türkiye</div>
       </div>
       
       <!-- Category Selector -->
       <div class="cat-selector">
-        <div class="cat-pill active" data-category="0">🌐 All</div>
-        <div class="cat-pill" data-category="10">🎵 Music</div>
-        <div class="cat-pill" data-category="20">🎮 Gaming</div>
+        <div class="cat-pill active" data-category="0">🌐 Tümü</div>
+        <div class="cat-pill" data-category="10">🎵 Müzik</div>
+        <div class="cat-pill" data-category="20">🎮 Oyun</div>
         <div class="cat-pill" data-category="22">📹 Vlog</div>
-        <div class="cat-pill" data-category="23">😂 Comedy</div>
-        <div class="cat-pill" data-category="24">🎭 Entertainment</div>
-        <div class="cat-pill" data-category="25">📰 News</div>
-        <div class="cat-pill" data-category="26">🎨 Lifestyle</div>
-        <div class="cat-pill" data-category="27">📚 Education</div>
-        <div class="cat-pill" data-category="28">🔬 Science</div>
+        <div class="cat-pill" data-category="23">😂 Komedi</div>
+        <div class="cat-pill" data-category="24">🎭 Eğlence</div>
+        <div class="cat-pill" data-category="25">📰 Haber</div>
+        <div class="cat-pill" data-category="26">🎨 Yaşam Tarzı</div>
+        <div class="cat-pill" data-category="27">📚 Eğitim</div>
+        <div class="cat-pill" data-category="28">🔬 Bilim</div>
       </div>
       
       <!-- Results Info -->
       <div class="results-info">
         <div class="results-count">
-          <strong id="resultsCount">0</strong> channels
-          <span class="data-source live" id="dataSource">🔴 Live</span>
+          <strong id="resultsCount">0</strong> kanal
+          <span class="data-source live" id="dataSource">🔴 Canlı</span>
         </div>
-        <button class="btn btn-primary btn-sm" id="refreshBtn">🔄 Refresh</button>
+        <button class="btn btn-primary btn-sm" id="refreshBtn">🔄 Yenile</button>
       </div>
       
       <!-- Channels Grid -->
       <div class="channels-grid" id="channelsGrid">
-        <!-- Filled by JS -->
+        <!-- JS ile doldurulur -->
       </div>
       
     </main>
@@ -172,11 +172,11 @@
     // INIT
     // ============================================
     (async () => {
-      // Auth check
+      // Auth kontrolü
       const isAuth = await Auth.requireAuth('/login');
       if (!isAuth) return;
       
-      // Load user
+      // Kullanıcıyı yükle
       const user = await Auth.getCurrentUser();
       if (user) {
         const displayName = user.name || user.email.split('@')[0];
@@ -195,7 +195,7 @@
       
       loadLifetimeStock();
       
-      // Load trending videos
+      // Trend videoları yükle
       await loadTrending();
     })();
     
@@ -213,7 +213,7 @@
         const remaining = CONFIG.LIFETIME_MAX_SLOTS - (count || 0);
         document.getElementById('lifetimeStock').textContent = remaining;
       } catch (error) {
-        console.error('Stock load error:', error);
+        console.error('Stok yükleme hatası:', error);
       }
     }
     
@@ -229,9 +229,9 @@
       const dataSource = document.getElementById('dataSource');
       
       refreshBtn.disabled = true;
-      refreshBtn.innerHTML = '<span class="spinner spinner-sm"></span> Loading...';
+      refreshBtn.innerHTML = '<span class="spinner spinner-sm"></span> Yükleniyor...';
       
-      // Show skeleton
+      // Skeleton göster
       grid.innerHTML = Array(9).fill(`
         <div class="channel-skeleton">
           <div class="channel-skeleton-thumb shimmer"></div>
@@ -251,35 +251,35 @@
           
           if (result.source === 'cache') {
             dataSource.className = 'data-source cache';
-            dataSource.innerHTML = '⚡ Cache';
+            dataSource.innerHTML = '⚡ Önbellek';
           } else {
             dataSource.className = 'data-source live';
-            dataSource.innerHTML = '🔴 Live';
+            dataSource.innerHTML = '🔴 Canlı';
           }
         } else {
-          showError(result.error || 'Could not load data');
+          showError(result.error || 'Veri yüklenemedi');
         }
       } catch (error) {
-        showError('An error occurred: ' + error.message);
+        showError('Bir hata oluştu: ' + error.message);
       }
       
       refreshBtn.disabled = false;
-      refreshBtn.innerHTML = '🔄 Refresh';
+      refreshBtn.innerHTML = '🔄 Yenile';
       state.loading = false;
     }
     
     // ============================================
-    // RENDER VIDEOS (with Premium Check)
+    // RENDER VIDEOS (Premium Kontrolü ile)
     // ============================================
     async function renderVideos(videos) {
       const grid = document.getElementById('channelsGrid');
       const countEl = document.getElementById('resultsCount');
       
-      // ✅ PREMIUM CHECK
+      // ✅ PREMIUM KONTROLÜ
       const currentUser = await Auth.getCurrentUser();
       const isPremium = currentUser?.is_premium || currentUser?.is_admin || currentUser?.role === 'super_admin';
       
-      // Only first 10 for free users
+      // Ücretsiz kullanıcılar için sadece ilk 10
       let lockedCount = 0;
       let displayVideos = videos;
       
@@ -294,8 +294,8 @@
         grid.innerHTML = `
           <div class="empty-state" style="grid-column: 1/-1;">
             <div class="empty-state-icon">📺</div>
-            <div class="empty-state-title">No trending videos found</div>
-            <div class="empty-state-message">Try a different region or category</div>
+            <div class="empty-state-title">Trend video bulunamadı</div>
+            <div class="empty-state-message">Farklı bir bölge veya kategori dene</div>
           </div>
         `;
         return;
@@ -327,25 +327,25 @@
               <div class="channel-header">
                 <div class="channel-avatar">${channelInitial}</div>
                 <div class="channel-info">
-                  <div class="channel-title">${snippet.title || 'Untitled'}</div>
-                  <div class="channel-name">${snippet.channelTitle || 'Unknown Channel'}</div>
+                  <div class="channel-title">${snippet.title || 'Başlıksız'}</div>
+                  <div class="channel-name">${snippet.channelTitle || 'Bilinmeyen Kanal'}</div>
                 </div>
               </div>
               
               <div class="channel-stats">
-                <div class="channel-stat" title="Views">
+                <div class="channel-stat" title="Görüntülenme">
                   <span class="channel-stat-icon">👁️</span>
                   <span class="channel-stat-value">${views}</span>
                 </div>
-                <div class="channel-stat" title="Likes">
+                <div class="channel-stat" title="Beğeni">
                   <span class="channel-stat-icon">👍</span>
                   <span class="channel-stat-value">${likes}</span>
                 </div>
-                <div class="channel-stat" title="Comments">
+                <div class="channel-stat" title="Yorum">
                   <span class="channel-stat-icon">💬</span>
                   <span class="channel-stat-value">${comments}</span>
                 </div>
-                <div class="channel-stat" style="margin-left: auto;" title="Published">
+                <div class="channel-stat" style="margin-left: auto;" title="Yayınlanma">
                   <span>⏱️</span>
                   <span style="font-size: 0.6875rem;">${publishedAt}</span>
                 </div>
@@ -356,7 +356,7 @@
         `;
       }).join('');
       
-      // ✅ PREMIUM CARD FOR FREE USERS
+      // ✅ ÜCRETSİZ KULLANICILAR İÇİN PREMIUM KARTI
       if (!isPremium && lockedCount > 0) {
         html += `
           <div style="
@@ -377,7 +377,7 @@
               -webkit-text-fill-color: transparent;
               font-weight: 700;
             ">
-              ${lockedCount} More Channels Waiting For You!
+              ${lockedCount} Kanal Daha Seni Bekliyor!
             </h2>
             <div style="
               display: inline-block;
@@ -388,7 +388,7 @@
               font-size: 0.75rem;
               font-weight: 700;
               margin-bottom: 20px;
-            ">💎 PREMIUM FEATURE</div>
+            ">💎 PREMİUM ÖZELLİK</div>
             <p style="
               color: rgba(255,255,255,0.7);
               max-width: 500px;
@@ -396,9 +396,9 @@
               line-height: 1.7;
               font-size: 0.9375rem;
             ">
-              With Premium, see <strong style="color: #a78bfa;">all trending channels</strong>,
-              do <strong style="color: #4da3ff;">detailed analyses</strong>, and
-              <strong style="color: #f472b6;">beat your competitors!</strong>
+              Premium ile <strong style="color: #a78bfa;">tüm trend kanalları</strong> gör,
+              <strong style="color: #4da3ff;">detaylı analizler</strong> yap ve
+              <strong style="color: #f472b6;">rakiplerini geçebilirsin!</strong>
             </p>
             <div style="
               display: flex;
@@ -412,19 +412,19 @@
             ">
               <div style="display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.9);">
                 <span style="color: #10b981; font-size: 1.25rem;">✓</span>
-                <span>All trending channels</span>
+                <span>Tüm trend kanallar</span>
               </div>
               <div style="display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.9);">
                 <span style="color: #10b981; font-size: 1.25rem;">✓</span>
-                <span>Detailed statistics</span>
+                <span>Detaylı istatistikler</span>
               </div>
               <div style="display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.9);">
                 <span style="color: #10b981; font-size: 1.25rem;">✓</span>
-                <span>Channel analysis</span>
+                <span>Kanal analizi</span>
               </div>
               <div style="display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.9);">
                 <span style="color: #10b981; font-size: 1.25rem;">✓</span>
-                <span>Risk Detector</span>
+                <span>Risk Dedektörü</span>
               </div>
             </div>
             <a href="/pricing" style="
@@ -440,7 +440,7 @@
               transition: all 0.3s;
             " onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 8px 30px rgba(77, 163, 255, 0.6)'" 
                onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 20px rgba(77, 163, 255, 0.4)'">
-              💎 Upgrade to Premium - $89 Lifetime
+              💎 Premium'a Yükselt - 4.299 ₺ Ömür Boyu
             </a>
           </div>
         `;
@@ -450,24 +450,24 @@
     }
     
     // ============================================
-    // ERROR
+    // HATA
     // ============================================
     function showError(message) {
       const grid = document.getElementById('channelsGrid');
       grid.innerHTML = `
         <div class="empty-state" style="grid-column: 1/-1;">
           <div class="empty-state-icon">⚠️</div>
-          <div class="empty-state-title">Could not load data</div>
+          <div class="empty-state-title">Veri yüklenemedi</div>
           <div class="empty-state-message">${message}</div>
           <button class="btn btn-primary" onclick="loadTrending()" style="margin-top: 16px;">
-            🔄 Try Again
+            🔄 Tekrar Dene
           </button>
         </div>
       `;
     }
     
     // ============================================
-    // ACTIONS
+    // İŞLEMLER
     // ============================================
     window.openVideo = function(videoId) {
       window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
@@ -498,7 +498,7 @@
     document.getElementById('refreshBtn').addEventListener('click', loadTrending);
     
     document.getElementById('logoutBtn').addEventListener('click', async () => {
-      if (confirm('Are you sure you want to log out?')) {
+      if (confirm('Çıkış yapmak istediğinize emin misiniz?')) {
         await Auth.logout();
       }
     });
