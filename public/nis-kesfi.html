@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Niche Discovery - NICHIFY PRO</title>
+  <title>Niş Keşfi - NICHIFY PRO</title>
   
   <link rel="stylesheet" href="/css/core.css">
   <link rel="stylesheet" href="/css/animations.css">
@@ -26,9 +26,7 @@
   
   <div class="dash-layout">
     
-    <!-- ============================================
-         SIDEBAR (Same as dashboard)
-         ============================================ -->
+    <!-- SIDEBAR -->
     <aside class="sidebar" id="sidebar">
       
       <div class="sidebar-logo">
@@ -41,84 +39,82 @@
       
       <nav class="sidebar-nav">
         <div class="sidebar-section">
-          <div class="sidebar-section-title">Main Menu</div>
+          <div class="sidebar-section-title">Ana Menü</div>
           <a href="/dashboard" class="sidebar-item">
             <span class="sidebar-item-icon">🏠</span>
-            <span>Home</span>
+            <span>Ana Sayfa</span>
           </a>
           <a href="/nis-kesfi" class="sidebar-item active">
             <span class="sidebar-item-icon">🎯</span>
-            <span>Niche Discovery</span>
+            <span>Niş Keşfi</span>
           </a>
           <a href="/yukselen-kanallar" class="sidebar-item">
             <span class="sidebar-item-icon">🔥</span>
-            <span>Trending Channels</span>
+            <span>Trend Kanallar</span>
           </a>
           <a href="/kanal-analizi" class="sidebar-item">
             <span class="sidebar-item-icon">📊</span>
-            <span>Channel Analysis</span>
+            <span>Kanal Analizi</span>
           </a>
         </div>
         
         <div class="sidebar-section">
-          <div class="sidebar-section-title">Tools</div>
+          <div class="sidebar-section-title">Araçlar</div>
           <a href="/risk-detector" class="sidebar-item">
             <span class="sidebar-item-icon">🛡️</span>
-            <span>Risk Detector</span>
+            <span>Risk Dedektörü</span>
           </a>
           <a href="/ai-asistan" class="sidebar-item">
             <span class="sidebar-item-icon">🤖</span>
-            <span>AI Assistant</span>
+            <span>AI Asistan</span>
             <span class="badge badge-pro sidebar-item-badge">PRO</span>
           </a>
           <a href="/yol-haritasi" class="sidebar-item">
             <span class="sidebar-item-icon">🗺️</span>
-            <span>Roadmap</span>
+            <span>Yol Haritası</span>
           </a>
         </div>
         
         <div class="sidebar-section" id="adminSection" style="display: none;">
-          <div class="sidebar-section-title">👑 Admin</div>
+          <div class="sidebar-section-title">👑 Yönetici</div>
           <a href="/admin" class="sidebar-item">
             <span class="sidebar-item-icon">⚙️</span>
-            <span>Admin Panel</span>
+            <span>Yönetici Paneli</span>
           </a>
         </div>
       </nav>
       
       <div class="sidebar-lifetime" id="lifetimeCard">
-        <div class="sidebar-lifetime-old">$149</div>
-        <div class="sidebar-lifetime-price">$89</div>
-        <div class="sidebar-lifetime-label">🔥 Lifetime Deal</div>
+        <div class="sidebar-lifetime-old">4.999 ₺</div>
+        <div class="sidebar-lifetime-price">4.299 ₺</div>
+        <div class="sidebar-lifetime-label">🔥 Ömür Boyu Fırsat</div>
         <a href="/pricing" class="btn btn-primary btn-sm btn-block" style="margin-top: 8px;">
-          Get It Now
+          Hemen Al
         </a>
-        <div class="sidebar-lifetime-stock">⚡ <span id="lifetimeStock">88</span>/100 left</div>
+        <div class="sidebar-lifetime-stock">⚡ <span id="lifetimeStock">19</span>/20 kaldı</div>
       </div>
       
       <div class="sidebar-user">
         <div class="avatar" id="userAvatar">U</div>
         <div class="sidebar-user-info">
-          <div class="sidebar-user-name" id="userName">Loading...</div>
+          <div class="sidebar-user-name" id="userName">Yükleniyor...</div>
           <div class="sidebar-user-email" id="userEmail">-</div>
         </div>
-        <div class="sidebar-user-menu" id="logoutBtn" title="Log Out">⏻</div>
+        <div class="sidebar-user-menu" id="logoutBtn" title="Çıkış Yap">⏻</div>
       </div>
       
     </aside>
     
-    <!-- ============================================
-         MAIN CONTENT
-         ============================================ -->
+    <!-- MAIN CONTENT -->
     <main class="main page-enter">
       
       <!-- Page Header -->
       <div class="page-header">
         <h1>
           <span>🎯</span>
-          <span>Niche Discovery</span>
+          <span>Niş Keşfi</span>
         </h1>
-        <p>Find the niche that fits you best among 100+ options. With <strong class="text-blue">10-criteria scoring</strong>, <strong class="text-warning">Hidden Opportunity</strong>, and <strong class="text-success">estimated earnings</strong>.</p>
+        <p>100+ seçenek arasından sana en uygun nişi bul. <strong class="text-blue">10 kriterli puanlama</strong>, <strong class="text-warning">Gizli Fırsat</strong> ve <strong class="text-success">tahmini kazanç</strong> ile.</p>
       </div>
       
       <!-- Filters -->
@@ -130,42 +126,42 @@
             <input 
               type="text" 
               id="searchInput" 
-              placeholder="Search niches, categories, or keywords..."
+              placeholder="Niş, kategori veya anahtar kelime ara..."
               autocomplete="off"
             >
           </div>
           
           <select class="sort-select" id="sortSelect">
-            <option value="score">📊 Highest Score</option>
-            <option value="growth">📈 Fastest Growing</option>
-            <option value="rpm">💰 Highest Earnings</option>
-            <option value="competition">⚔️ Least Competition</option>
-            <option value="hidden">💎 Hidden Opportunity</option>
+            <option value="score">📊 En Yüksek Puan</option>
+            <option value="growth">📈 En Hızlı Büyüyen</option>
+            <option value="rpm">💰 En Yüksek Kazanç</option>
+            <option value="competition">⚔️ En Az Rekabet</option>
+            <option value="hidden">💎 Gizli Fırsat</option>
           </select>
         </div>
         
         <!-- Categories -->
         <div class="categories" id="categoriesContainer">
-          <!-- Filled by JS -->
+          <!-- JS ile doldurulur -->
         </div>
         
         <!-- Toggle Filters -->
         <div class="filters-row">
           <div class="toggle-filters">
             <div class="toggle-filter" data-filter="hidden">
-              💎 Hidden Opportunity
+              💎 Gizli Fırsat
             </div>
             <div class="toggle-filter" data-filter="faceless">
-              🎭 Faceless Friendly
+              🎭 Yüzsüz Uygun
             </div>
             <div class="toggle-filter" data-filter="shorts">
-              📱 Shorts Friendly
+              📱 Shorts Uygun
             </div>
             <div class="toggle-filter" data-filter="lowComp">
-              ⚔️ Low Competition
+              ⚔️ Düşük Rekabet
             </div>
             <div class="toggle-filter" data-filter="highRpm">
-              💰 High RPM
+              💰 Yüksek RPM
             </div>
           </div>
         </div>
@@ -175,15 +171,15 @@
       <!-- Results Info -->
       <div class="results-info">
         <div class="results-count">
-          <strong id="resultsCount">0</strong> niches found
+          <strong id="resultsCount">0</strong> niş bulundu
         </div>
         <div>
           <span class="live-indicator"></span>
-          <span style="font-size: 0.75rem;">Live data</span>
+          <span style="font-size: 0.75rem;">Canlı veri</span>
         </div>
       </div>
       
-          <!-- ===== TRENDING NICHES SECTION (NEW) ===== -->
+      <!-- ===== TRENDING NICHES SECTION ===== -->
       <div id="trendingSection" style="margin-bottom: 32px; display: none;">
         <div style="
           display: flex;
@@ -209,7 +205,7 @@
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 font-weight: 700;
-              ">Trending Niches Today</span>
+              ">Bugün Trend Olan Nişler</span>
               <span style="
                 background: rgba(255, 92, 122, 0.2);
                 color: #ff5c7a;
@@ -217,13 +213,13 @@
                 padding: 2px 8px;
                 border-radius: 10px;
                 font-weight: 700;
-              ">LIVE</span>
+              ">CANLI</span>
             </h2>
             <p style="
               color: rgba(255,255,255,0.6);
               font-size: 0.8125rem;
               margin: 0;
-            ">Niches trending today on YouTube</p>
+            ">Bugün YouTube'da trend olan nişler</p>
           </div>
           <div id="trendingCount" style="
             font-size: 0.75rem;
@@ -232,7 +228,7 @@
         </div>
         
         <div class="niches-grid" id="trendingGrid">
-          <!-- Filled by JS -->
+          <!-- JS ile doldurulur -->
         </div>
       </div>
       
@@ -255,17 +251,17 @@
           -webkit-background-clip: text;
           -webkit-text-fill-color: transparent;
           font-weight: 700;
-        ">Recommended Niches</h2>
+        ">Önerilen Nişler</h2>
         <span style="
           color: rgba(255,255,255,0.5);
           font-size: 0.8125rem;
           margin-left: auto;
-        ">100+ curated niches</span>
+        ">100+ özenle seçilmiş niş</span>
       </div>
       
       <!-- Niches Grid -->
       <div class="niches-grid" id="nichesGrid">
-        <!-- Filled by JS -->
+        <!-- JS ile doldurulur -->
       </div>
       
     </main>
@@ -276,11 +272,11 @@
   <div class="modal-overlay hidden" id="nicheModal">
     <div class="modal niche-detail-modal">
       <div class="modal-header">
-        <div class="modal-title">Niche Details</div>
+        <div class="modal-title">Niş Detayları</div>
         <div class="modal-close" id="closeModalBtn">×</div>
       </div>
       <div class="modal-body" id="nicheModalBody">
-        <!-- Filled by JS -->
+        <!-- JS ile doldurulur -->
       </div>
     </div>
   </div>
@@ -315,14 +311,14 @@
     // ============================================
     (async () => {
       
-      // Auth check
+      // Auth kontrolü
       const isAuth = await Auth.requireAuth('/login');
       if (!isAuth) return;
          
-      // ✅ NICHE DISCOVERY PAGE OPEN LIMIT CHECK
+      // ✅ NİŞ KEŞFİ SAYFA AÇMA LİMİT KONTROLÜ
       const currentUser = await Auth.getCurrentUser();
       
-      // If not Admin/Premium, check limit
+      // Admin/Premium değilse limit kontrolü
       if (currentUser && !currentUser.is_admin && currentUser.role !== 'super_admin' && !currentUser.is_premium) {
         try {
           const limitResponse = await fetch('/api/ai', {
@@ -337,7 +333,7 @@
           
           const limitData = await limitResponse.json();
           
-          // If limit reached, show Premium page
+          // Limit bittiyse Premium sayfası göster
           if (!limitData.allowed) {
             document.body.innerHTML = `
               <div style="
@@ -362,7 +358,7 @@
                 ">
                   <div style="font-size: 4rem; margin-bottom: 16px;">🎯</div>
                   <h1 style="font-size: 1.75rem; margin-bottom: 12px; background: linear-gradient(135deg, #4da3ff, #a78bfa); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
-                    Daily Limit Reached
+                    Günlük Limit Doldu
                   </h1>
                   <div style="
                     display: inline-block;
@@ -373,27 +369,27 @@
                     font-size: 0.75rem;
                     font-weight: 700;
                     margin-bottom: 24px;
-                  ">⏰ ${limitData.used}/${limitData.limit} used</div>
+                  ">⏰ ${limitData.used}/${limitData.limit} kullanıldı</div>
                   <p style="color: rgba(255,255,255,0.7); margin-bottom: 32px; line-height: 1.6;">
-                    Your <strong>Niche Discovery</strong> limit for today is full!<br>
-                    Switch to <strong>Premium</strong> for unlimited access or try again tomorrow.
+                    Bugünkü <strong>Niş Keşfi</strong> limitin doldu!<br>
+                    Sınırsız erişim için <strong>Premium</strong>'a geç veya yarın tekrar dene.
                   </p>
                   <div style="text-align: left; margin-bottom: 32px;">
                     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
                       <span style="color: #10b981;">✓</span>
-                      <span style="color: rgba(255,255,255,0.9);">Unlimited niche discovery</span>
+                      <span style="color: rgba(255,255,255,0.9);">Sınırsız niş keşfi</span>
                     </div>
                     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
                       <span style="color: #10b981;">✓</span>
-                      <span style="color: rgba(255,255,255,0.9);">All Premium features</span>
+                      <span style="color: rgba(255,255,255,0.9);">Tüm Premium özellikleri</span>
                     </div>
                     <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
                       <span style="color: #10b981;">✓</span>
-                      <span style="color: rgba(255,255,255,0.9);">Risk Detector + Channel Analysis</span>
+                      <span style="color: rgba(255,255,255,0.9);">Risk Dedektörü + Kanal Analizi</span>
                     </div>
                     <div style="display: flex; align-items: center; gap: 12px;">
                       <span style="color: #10b981;">✓</span>
-                      <span style="color: rgba(255,255,255,0.9);">AI Assistant 50/day</span>
+                      <span style="color: rgba(255,255,255,0.9);">AI Asistan 50/gün</span>
                     </div>
                   </div>
                   <div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
@@ -408,7 +404,7 @@
                       box-shadow: 0 4px 20px rgba(77, 163, 255, 0.3);
                       transition: transform 0.2s;
                     " onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
-                      💎 Upgrade to Premium
+                      💎 Premium'a Yükselt
                     </a>
                     <a href="/dashboard" style="
                       display: inline-block;
@@ -420,7 +416,7 @@
                       font-weight: 600;
                       border: 1px solid rgba(255, 255, 255, 0.2);
                     ">
-                      ← Go Back
+                      ← Geri Dön
                     </a>
                   </div>
                 </div>
@@ -429,7 +425,7 @@
             return;
           }
           
-          // Limit available, increment counter
+          // Limit var, sayacı artır
           fetch('/api/ai', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -440,7 +436,7 @@
             })
           });
           
-          // Show remaining uses to user (toast)
+          // Kalan kullanım hakkını göster (toast)
           if (limitData.remaining <= 2) {
             setTimeout(() => {
               const toast = document.createElement('div');
@@ -458,18 +454,18 @@
                 font-size: 0.875rem;
                 animation: slideIn 0.5s ease-out;
               `;
-              toast.innerHTML = `⏰ You have ${limitData.remaining - 1} uses left today!`;
+              toast.innerHTML = `⏰ Bugün ${limitData.remaining - 1} kullanım hakkın kaldı!`;
               document.body.appendChild(toast);
               setTimeout(() => toast.remove(), 5000);
             }, 1000);
           }
           
         } catch (error) {
-          console.error('Limit check error:', error);
+          console.error('Limit kontrol hatası:', error);
         }
       }
          
-      // Load user
+      // Kullanıcıyı yükle
       const user = await Auth.getCurrentUser();
       if (user) {
         const displayName = user.name || user.email.split('@')[0];
@@ -486,12 +482,12 @@
         }
       }
       
-      // Lifetime stock
+      // Lifetime stok
       loadLifetimeStock();
            
-      // ✅ Load YouTube Trending Niches
+      // ✅ YouTube Trend Nişleri yükle
       loadTrendingNiches(); 
-      // Process all niches (score & enrich)
+      // Tüm nişleri işle (puan ve zenginleştir)
       state.allNiches = NICHES_DATA.map(niche => ({
         ...niche,
         score: calculateNicheScore(niche),
@@ -499,10 +495,10 @@
         earnings: calculateEarnings(niche)
       }));
       
-      // Setup categories
+      // Kategorileri kur
       renderCategories();
       
-      // Check URL params
+      // URL parametrelerini kontrol et
       const urlSearch = Utils.getUrlParam('q');
       if (urlSearch) {
         state.search = urlSearch;
@@ -514,7 +510,7 @@
         state.category = urlCategory;
       }
       
-      // Initial render
+      // İlk render
       renderNiches();
       
     })();
@@ -533,17 +529,17 @@
         const remaining = CONFIG.LIFETIME_MAX_SLOTS - (count || 0);
         document.getElementById('lifetimeStock').textContent = remaining;
       } catch (error) {
-        console.error('Stock load error:', error);
+        console.error('Stok yükleme hatası:', error);
       }
     }
     
     // ============================================
-    // RENDER CATEGORIES
+    // KATEGORİLERİ RENDER ET
     // ============================================
     function renderCategories() {
       const container = document.getElementById('categoriesContainer');
       
-      // Count niches per category
+      // Kategori başına niş sayısı
       const counts = {};
       counts['all'] = state.allNiches.length;
       
@@ -565,7 +561,7 @@
         `;
       }).join('');
       
-      // Event listeners
+      // Event listener'lar
       container.querySelectorAll('.category-pill').forEach(pill => {
         pill.addEventListener('click', () => {
           state.category = pill.dataset.category;
@@ -577,12 +573,12 @@
     }
     
     // ============================================
-    // FILTER & SORT
+    // FİLTRE VE SIRALAMA
     // ============================================
     function getFilteredNiches() {
       let filtered = [...state.allNiches];
       
-      // Search
+      // Arama
       if (state.search) {
         const q = state.search.toLowerCase();
         filtered = filtered.filter(n => 
@@ -594,12 +590,12 @@
         );
       }
       
-      // Category
+      // Kategori
       if (state.category !== 'all') {
         filtered = filtered.filter(n => n.category === state.category);
       }
       
-      // Toggle filters
+      // Toggle filtreleri
       if (state.toggles.hidden) {
         filtered = filtered.filter(n => n.isHidden);
       }
@@ -616,7 +612,7 @@
         filtered = filtered.filter(n => (n.rpm.min + n.rpm.max) / 2 >= 10);
       }
       
-      // Sort
+      // Sıralama
       switch (state.sort) {
         case 'score':
           filtered.sort((a, b) => b.score - a.score);
@@ -643,7 +639,7 @@
     }
     
     // ============================================
-    // RENDER NICHES
+    // NİŞLERİ RENDER ET
     // ============================================
     function renderNiches() {
       const niches = getFilteredNiches();
@@ -656,10 +652,10 @@
         grid.innerHTML = `
           <div class="no-results">
             <div class="no-results-icon">🔍</div>
-            <h3>No results found</h3>
-            <p>Try changing your filters or searching for something else</p>
+            <h3>Sonuç bulunamadı</h3>
+            <p>Filtrelerini değiştirmeyi veya başka bir şey aramayı dene</p>
             <button class="btn btn-primary" onclick="resetFilters()">
-              🔄 Reset Filters
+              🔄 Filtreleri Sıfırla
             </button>
           </div>
         `;
@@ -691,29 +687,29 @@
             <div class="niche-card-desc">${niche.description}</div>
             
             <div class="niche-card-badges">
-              ${niche.isHidden ? '<span class="badge badge-warning">💎 Hidden</span>' : ''}
-              ${niche.facelessSupport ? '<span class="badge badge-purple">🎭 Faceless</span>' : ''}
+              ${niche.isHidden ? '<span class="badge badge-warning">💎 Gizli</span>' : ''}
+              ${niche.facelessSupport ? '<span class="badge badge-purple">🎭 Yüzsüz</span>' : ''}
               ${niche.shortsSupport ? '<span class="badge badge-primary">📱 Shorts</span>' : ''}
-              ${niche.competition < 50 ? '<span class="badge badge-success">⚔️ Low Competition</span>' : ''}
+              ${niche.competition < 50 ? '<span class="badge badge-success">⚔️ Düşük Rekabet</span>' : ''}
             </div>
             
             <div class="niche-stats">
               <div class="niche-stat">
-                <div class="niche-stat-label">Competition</div>
+                <div class="niche-stat-label">Rekabet</div>
                 <div class="niche-stat-bar">
                   <div class="niche-stat-fill competition" style="width: ${niche.competition}%"></div>
                 </div>
                 <div class="niche-stat-value">${niche.competition}</div>
               </div>
               <div class="niche-stat">
-                <div class="niche-stat-label">Growth</div>
+                <div class="niche-stat-label">Büyüme</div>
                 <div class="niche-stat-bar">
                   <div class="niche-stat-fill growth" style="width: ${niche.growth}%"></div>
                 </div>
                 <div class="niche-stat-value">${niche.growth}</div>
               </div>
               <div class="niche-stat">
-                <div class="niche-stat-label">Sustainability</div>
+                <div class="niche-stat-label">Sürdürülebilirlik</div>
                 <div class="niche-stat-bar">
                   <div class="niche-stat-fill sustainability" style="width: ${niche.sustainability}%"></div>
                 </div>
@@ -723,8 +719,8 @@
             
             <div class="niche-earnings">
               <div>
-                <div class="niche-earnings-label">Estimated Earnings</div>
-                <div class="niche-earnings-value">$${niche.earnings.monthly.toLocaleString('en-US')}/mo</div>
+                <div class="niche-earnings-label">Tahmini Kazanç</div>
+                <div class="niche-earnings-value">$${niche.earnings.monthly.toLocaleString('tr-TR')}/ay</div>
               </div>
               <div class="niche-earnings-rpm">
                 <strong>RPM</strong><br>
@@ -734,7 +730,7 @@
             
             <div class="niche-card-actions">
               <button class="btn btn-primary btn-sm" onclick="openNicheDetail('${niche.id}')">
-                📊 Details
+                📊 Detaylar
               </button>
               <button class="btn btn-secondary btn-sm" onclick="searchOnYoutube('${niche.id}')">
                 ▶️ YouTube
@@ -747,7 +743,7 @@
     }
     
     // ============================================
-    // OPEN NICHE DETAIL
+    // NİŞ DETAYINI AÇ
     // ============================================
     window.openNicheDetail = function(nicheId) {
       const niche = state.allNiches.find(n => n.id === nicheId);
@@ -764,14 +760,14 @@
             <p class="text-muted">${niche.description}</p>
             <div class="badges">
               <span class="badge badge-primary">${niche.category}</span>
-              ${niche.isHidden ? '<span class="badge badge-warning">💎 Hidden Opportunity</span>' : ''}
-              ${niche.facelessSupport ? '<span class="badge badge-purple">🎭 Faceless</span>' : ''}
+              ${niche.isHidden ? '<span class="badge badge-warning">💎 Gizli Fırsat</span>' : ''}
+              ${niche.facelessSupport ? '<span class="badge badge-purple">🎭 Yüzsüz</span>' : ''}
               ${niche.shortsSupport ? '<span class="badge badge-primary">📱 Shorts</span>' : ''}
             </div>
           </div>
           <div class="niche-detail-score">
             <div class="niche-detail-score-value">${niche.score}</div>
-            <div class="niche-detail-score-label">Niche Score</div>
+            <div class="niche-detail-score-label">Niş Puanı</div>
           </div>
         </div>
         
@@ -780,38 +776,38 @@
           <div class="detail-stat">
             <div class="detail-stat-icon">⚔️</div>
             <div class="detail-stat-value" style="color: ${niche.competition < 50 ? 'var(--success)' : niche.competition < 75 ? 'var(--warning)' : 'var(--danger)'}">${niche.competition}</div>
-            <div class="detail-stat-label">Competition Level</div>
+            <div class="detail-stat-label">Rekabet Seviyesi</div>
           </div>
           <div class="detail-stat">
             <div class="detail-stat-icon">📈</div>
             <div class="detail-stat-value text-success">${niche.growth}</div>
-            <div class="detail-stat-label">Growth Trend</div>
+            <div class="detail-stat-label">Büyüme Trendi</div>
           </div>
           <div class="detail-stat">
             <div class="detail-stat-icon">♾️</div>
             <div class="detail-stat-value text-blue">${niche.sustainability}</div>
-            <div class="detail-stat-label">Sustainability</div>
+            <div class="detail-stat-label">Sürdürülebilirlik</div>
           </div>
           <div class="detail-stat">
             <div class="detail-stat-icon">💰</div>
             <div class="detail-stat-value text-success">$${niche.rpm.min}-${niche.rpm.max}</div>
-            <div class="detail-stat-label">RPM Range</div>
+            <div class="detail-stat-label">RPM Aralığı</div>
           </div>
           <div class="detail-stat">
             <div class="detail-stat-icon">📊</div>
-            <div class="detail-stat-value">$${niche.earnings.monthly.toLocaleString('en-US')}</div>
-            <div class="detail-stat-label">Monthly Estimate (100K views)</div>
+            <div class="detail-stat-value">$${niche.earnings.monthly.toLocaleString('tr-TR')}</div>
+            <div class="detail-stat-label">Aylık Tahmin (100K görüntülenme)</div>
           </div>
           <div class="detail-stat">
             <div class="detail-stat-icon">🎯</div>
-            <div class="detail-stat-value">$${niche.earnings.yearly.toLocaleString('en-US')}</div>
-            <div class="detail-stat-label">Yearly Estimate</div>
+            <div class="detail-stat-value">$${niche.earnings.yearly.toLocaleString('tr-TR')}</div>
+            <div class="detail-stat-label">Yıllık Tahmin</div>
           </div>
         </div>
         
-        <!-- Sub Categories -->
+        <!-- Alt Kategoriler -->
         <div class="detail-section">
-          <h3>🎯 Sub-Niches</h3>
+          <h3>🎯 Alt Nişler</h3>
           <div class="subcategory-grid">
             ${niche.subCategories.map(sub => `
               <div class="subcategory-item" onclick="searchSubNiche('${sub}')">
@@ -821,9 +817,9 @@
           </div>
         </div>
         
-        <!-- Keywords -->
+        <!-- Anahtar Kelimeler -->
         <div class="detail-section">
-          <h3>🔑 Keywords</h3>
+          <h3>🔑 Anahtar Kelimeler</h3>
           <div class="keywords-list">
             ${niche.keywords.map(kw => `
               <span class="chip">${kw}</span>
@@ -831,18 +827,18 @@
           </div>
         </div>
         
-        <!-- Actions -->
+        <!-- İşlemler -->
         <div class="detail-section">
-          <h3>🚀 Actions</h3>
+          <h3>🚀 İşlemler</h3>
           <div style="display: flex; gap: 8px; flex-wrap: wrap;">
             <button class="btn btn-primary" onclick="searchOnYoutube('${niche.id}')">
-              ▶️ Search on YouTube
+              ▶️ YouTube'da Ara
             </button>
             <button class="btn btn-secondary" onclick="analyzeWithAI('${niche.id}')">
-              🤖 Analyze with AI
+              🤖 AI ile Analiz Et
             </button>
             <button class="btn btn-secondary" onclick="addToFavorites('${niche.id}')">
-              ⭐ Add to Favorites
+              ⭐ Favorilere Ekle
             </button>
           </div>
         </div>
@@ -851,7 +847,7 @@
       modal.classList.remove('hidden');
     };
     
-    // Modal close
+    // Modal kapat
     document.getElementById('closeModalBtn').addEventListener('click', () => {
       document.getElementById('nicheModal').classList.add('hidden');
     });
@@ -863,7 +859,7 @@
     });
     
     // ============================================
-    // ACTIONS
+    // İŞLEMLER
     // ============================================
     window.searchOnYoutube = function(nicheId) {
       const niche = state.allNiches.find(n => n.id === nicheId);
@@ -879,83 +875,83 @@
     };
     
     window.analyzeWithAI = function(nicheId) {
-      Utils.toast.info('AI Assistant will be active soon! 🤖');
+      Utils.toast.info('AI Asistan yakında aktif olacak! 🤖');
     };
     
     window.addToFavorites = async function(nicheId) {
-  try {
-    // Buton loading
-    const btn = event?.target;
-    if (btn) {
-      btn.disabled = true;
-      btn.innerHTML = '⏳ Adding...';
-    }
-    
-    // Limit kontrolü
-    const limitCheck = await Favorites.checkLimit();
-    
-    if (!limitCheck.allowed) {
-      if (limitCheck.upgrade) {
-        Utils.toast.warning(`Free limit reached (20 favorites). Upgrade to Premium for unlimited!`);
-        setTimeout(() => window.location.href = '/pricing', 2000);
-      } else if (limitCheck.reason === 'Not logged in') {
-        Utils.toast.warning('Please log in first');
-        setTimeout(() => window.location.href = '/login', 1500);
+      try {
+        // Buton loading
+        const btn = event?.target;
+        if (btn) {
+          btn.disabled = true;
+          btn.innerHTML = '⏳ Ekleniyor...';
+        }
+        
+        // Limit kontrolü
+        const limitCheck = await Favorites.checkLimit();
+        
+        if (!limitCheck.allowed) {
+          if (limitCheck.upgrade) {
+            Utils.toast.warning(`Ücretsiz limit doldu (20 favori). Sınırsız için Premium'a geç!`);
+            setTimeout(() => window.location.href = '/pricing', 2000);
+          } else if (limitCheck.reason === 'Not logged in') {
+            Utils.toast.warning('Lütfen önce giriş yap');
+            setTimeout(() => window.location.href = '/login', 1500);
+          }
+          
+          if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = '⭐ Favorilere Ekle';
+          }
+          return;
+        }
+        
+        // Favorilere ekle
+        const result = await Favorites.add(nicheId);
+        
+        if (result.success) {
+          Utils.toast.success(result.message);
+          
+          // Butonu güncelle
+          if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = '⭐ Eklendi ✓';
+            btn.style.background = 'linear-gradient(135deg, #ff9f43, #ff5c7a)';
+          }
+          
+          // Kaç favori kaldı göster (Free için)
+          if (!limitCheck.unlimited && limitCheck.remaining !== undefined) {
+            setTimeout(() => {
+              Utils.toast.info(`${limitCheck.remaining - 1} favori hakkın kaldı`);
+            }, 1500);
+          }
+          
+        } else if (result.alreadyExists) {
+          Utils.toast.warning('Bu niş zaten favorilerinde!');
+          if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = '⭐ Zaten Favorilerde';
+          }
+        } else if (result.requireLogin) {
+          Utils.toast.warning('Lütfen önce giriş yap');
+          setTimeout(() => window.location.href = '/login', 1500);
+          if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = '⭐ Favorilere Ekle';
+          }
+        } else {
+          Utils.toast.error(result.message || 'Favori eklenemedi');
+          if (btn) {
+            btn.disabled = false;
+            btn.innerHTML = '⭐ Favorilere Ekle';
+          }
+        }
+        
+      } catch (error) {
+        console.error('Favori ekleme hatası:', error);
+        Utils.toast.error('Bir hata oluştu');
       }
-      
-      if (btn) {
-        btn.disabled = false;
-        btn.innerHTML = '⭐ Add to Favorites';
-      }
-      return;
-    }
-    
-    // Favorilere ekle
-    const result = await Favorites.add(nicheId);
-    
-    if (result.success) {
-      Utils.toast.success(result.message);
-      
-      // Butonu güncelle
-      if (btn) {
-        btn.disabled = false;
-        btn.innerHTML = '⭐ Added ✓';
-        btn.style.background = 'linear-gradient(135deg, #ff9f43, #ff5c7a)';
-      }
-      
-      // Kaç favorisi kaldı göster (Free için)
-      if (!limitCheck.unlimited && limitCheck.remaining !== undefined) {
-        setTimeout(() => {
-          Utils.toast.info(`You have ${limitCheck.remaining - 1} favorites left`);
-        }, 1500);
-      }
-      
-    } else if (result.alreadyExists) {
-      Utils.toast.warning('This niche is already in your favorites!');
-      if (btn) {
-        btn.disabled = false;
-        btn.innerHTML = '⭐ Already Favorited';
-      }
-    } else if (result.requireLogin) {
-      Utils.toast.warning('Please log in first');
-      setTimeout(() => window.location.href = '/login', 1500);
-      if (btn) {
-        btn.disabled = false;
-        btn.innerHTML = '⭐ Add to Favorites';
-      }
-    } else {
-      Utils.toast.error(result.message || 'Failed to add favorite');
-      if (btn) {
-        btn.disabled = false;
-        btn.innerHTML = '⭐ Add to Favorites';
-      }
-    }
-    
-  } catch (error) {
-    console.error('Add favorite error:', error);
-    Utils.toast.error('An error occurred');
-  }
-};
+    };
     
     window.resetFilters = function() {
       state.search = '';
@@ -971,19 +967,19 @@
     // EVENT LISTENERS
     // ============================================
     
-    // Search
+    // Arama
     document.getElementById('searchInput').addEventListener('input', Utils.debounce((e) => {
       state.search = e.target.value;
       renderNiches();
     }, 300));
     
-    // Sort
+    // Sıralama
     document.getElementById('sortSelect').addEventListener('change', (e) => {
       state.sort = e.target.value;
       renderNiches();
     });
     
-    // Toggle filters
+    // Toggle filtreleri
     document.querySelectorAll('.toggle-filter').forEach(toggle => {
       toggle.addEventListener('click', () => {
         const filter = toggle.dataset.filter;
@@ -993,14 +989,14 @@
       });
     });
     
-    // Logout
+    // Çıkış
     document.getElementById('logoutBtn').addEventListener('click', async () => {
-      if (confirm('Are you sure you want to log out?')) {
+      if (confirm('Çıkış yapmak istediğinize emin misiniz?')) {
         await Auth.logout();
       }
     });
     
-    // Mobile menu
+    // Mobil menü
     document.getElementById('mobileMenuBtn').addEventListener('click', () => {
       document.getElementById('sidebar').classList.toggle('open');
       document.getElementById('sidebarOverlay').classList.toggle('active');
@@ -1011,7 +1007,7 @@
       document.getElementById('sidebarOverlay').classList.remove('active');
     });
     
-    // ESC to close modal
+    // ESC ile modal kapat
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         document.getElementById('nicheModal').classList.add('hidden');
@@ -1019,7 +1015,7 @@
     });
       
     // ============================================
-    // LOAD YOUTUBE TRENDING NICHES
+    // YOUTUBE TREND NİŞLERİ YÜKLE
     // ============================================
     async function loadTrendingNiches() {
       try {
@@ -1027,29 +1023,29 @@
         const result = await response.json();
         
         if (!result.niches || result.niches.length === 0) {
-          console.log('No trending niches found');
+          console.log('Trend niş bulunamadı');
           return;
         }
         
-        // Premium check
+        // Premium kontrolü
         const currentUser = await Auth.getCurrentUser();
         const isPremium = currentUser?.is_premium || currentUser?.is_admin || currentUser?.role === 'super_admin';
         
         let trendingNiches = result.niches;
         let lockedCount = 0;
         
-        // Only first 3 niches for Free users
+        // Ücretsiz kullanıcılar için sadece ilk 3 niş
         if (!isPremium && trendingNiches.length > 3) {
           lockedCount = trendingNiches.length - 3;
           trendingNiches = trendingNiches.slice(0, 3);
         }
         
-        // Show section
+        // Bölümü göster
         document.getElementById('trendingSection').style.display = 'block';
         document.getElementById('trendingCount').textContent = 
-          `${trendingNiches.length} niches • ${result.source === 'cache' ? '⚡ Cache' : '🔴 Live'}`;
+          `${trendingNiches.length} niş • ${result.source === 'cache' ? '⚡ Önbellek' : '🔴 Canlı'}`;
         
-        // Fill trending grid
+        // Trend grid'i doldur
         const grid = document.getElementById('trendingGrid');
         
         let html = trendingNiches.map(niche => {
@@ -1123,7 +1119,7 @@
                 display: flex;
                 align-items: center;
                 gap: 4px;
-              ">🔥 TRENDING</div>
+              ">🔥 TREND</div>
               
               <div style="display: flex; gap: 12px; margin-bottom: 12px; align-items: flex-start;">
                 <div style="font-size: 2.5rem; line-height: 1;">${niche.icon}</div>
@@ -1165,7 +1161,7 @@
                     color: rgba(255,255,255,0.5);
                     margin-bottom: 8px;
                     font-weight: 600;
-                  ">📺 TRENDING VIDEOS:</div>
+                  ">📺 TREND VİDEOLAR:</div>
                   ${videosHtml}
                 </div>
               ` : ''}
@@ -1173,7 +1169,7 @@
           `;
         }).join('');
         
-        // Premium card for Free user
+        // Ücretsiz kullanıcı için Premium kartı
         if (!isPremium && lockedCount > 0) {
           html += `
             <div style="
@@ -1192,12 +1188,12 @@
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 font-weight: 700;
-              ">${lockedCount} More Trending Niches</h3>
+              ">${lockedCount} Trend Niş Daha Var</h3>
               <p style="
                 color: rgba(255,255,255,0.7);
                 margin: 0 0 20px 0;
                 font-size: 0.875rem;
-              ">Discover all trending niches with Premium!</p>
+              ">Tüm trend nişleri Premium ile keşfet!</p>
               <a href="/pricing" style="
                 display: inline-block;
                 background: linear-gradient(135deg, #4da3ff, #a78bfa);
@@ -1207,7 +1203,7 @@
                 text-decoration: none;
                 font-weight: 700;
                 font-size: 0.875rem;
-              ">💎 Upgrade to Premium</a>
+              ">💎 Premium'a Yükselt</a>
             </div>
           `;
         }
@@ -1215,7 +1211,7 @@
         grid.innerHTML = html;
         
       } catch (error) {
-        console.error('Trending niche load error:', error);
+        console.error('Trend niş yükleme hatası:', error);
       }
     }
     
