@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Assistant - NICHIFY PRO</title>
+  <title>Yapay Zeka Asistanı - NICHIFY PRO</title>
   
   <link rel="stylesheet" href="/css/core.css">
   <link rel="stylesheet" href="/css/animations.css">
@@ -87,45 +87,45 @@
       
       <nav class="sidebar-nav">
         <div class="sidebar-section">
-          <div class="sidebar-section-title">Main Menu</div>
-          <a href="/dashboard" class="sidebar-item"><span class="sidebar-item-icon">🏠</span><span>Home</span></a>
-          <a href="/niche-discovery" class="sidebar-item"><span class="sidebar-item-icon">🎯</span><span>Niche Discovery</span></a>
-          <a href="/rising-channels" class="sidebar-item"><span class="sidebar-item-icon">🔥</span><span>Rising Channels</span></a>
-          <a href="/channel-analysis" class="sidebar-item"><span class="sidebar-item-icon">📊</span><span>Channel Analysis</span></a>
+          <div class="sidebar-section-title">Ana Menü</div>
+          <a href="/dashboard" class="sidebar-item"><span class="sidebar-item-icon">🏠</span><span>Anasayfa</span></a>
+          <a href="/niche-discovery" class="sidebar-item"><span class="sidebar-item-icon">🎯</span><span>Niş Keşfi</span></a>
+          <a href="/rising-channels" class="sidebar-item"><span class="sidebar-item-icon">🔥</span><span>Yükselen Kanallar</span></a>
+          <a href="/channel-analysis" class="sidebar-item"><span class="sidebar-item-icon">📊</span><span>Kanal Analizi</span></a>
         </div>
         
         <div class="sidebar-section">
-          <div class="sidebar-section-title">Tools</div>
-          <a href="/risk-detector" class="sidebar-item"><span class="sidebar-item-icon">🛡️</span><span>Risk Detector</span></a>
+          <div class="sidebar-section-title">Araçlar</div>
+          <a href="/risk-detector" class="sidebar-item"><span class="sidebar-item-icon">🛡️</span><span>Risk Dedektörü</span></a>
           <a href="/ai-assistant" class="sidebar-item active">
             <span class="sidebar-item-icon">🤖</span>
-            <span>AI Assistant</span>
-            <span class="badge badge-pro sidebar-item-badge">ACTIVE</span>
+            <span>Yapay Zeka Asistanı</span>
+            <span class="badge badge-pro sidebar-item-badge">AKTİF</span>
           </a>
-          <a href="/roadmap" class="sidebar-item"><span class="sidebar-item-icon">🗺️</span><span>Roadmap</span></a>
+          <a href="/roadmap" class="sidebar-item"><span class="sidebar-item-icon">🗺️</span><span>Yol Haritası</span></a>
         </div>
         
         <div class="sidebar-section" id="adminSection" style="display: none;">
-          <div class="sidebar-section-title">👑 Admin</div>
-          <a href="/admin" class="sidebar-item"><span class="sidebar-item-icon">⚙️</span><span>Admin Panel</span></a>
+          <div class="sidebar-section-title">👑 Yönetici</div>
+          <a href="/admin" class="sidebar-item"><span class="sidebar-item-icon">⚙️</span><span>Yönetici Paneli</span></a>
         </div>
       </nav>
       
       <div class="sidebar-lifetime" id="lifetimeCard">
         <div class="sidebar-lifetime-old">$149</div>
         <div class="sidebar-lifetime-price">$89</div>
-        <div class="sidebar-lifetime-label">🔥 Lifetime Deal</div>
-        <a href="/pricing" class="btn btn-primary btn-sm btn-block" style="margin-top: 8px;">Get Now</a>
-        <div class="sidebar-lifetime-stock">⚡ <span id="lifetimeStock">88</span>/100 left</div>
+        <div class="sidebar-lifetime-label">🔥 Ömür Boyu Fırsat</div>
+        <a href="/pricing" class="btn btn-primary btn-sm btn-block" style="margin-top: 8px;">Hemen Al</a>
+        <div class="sidebar-lifetime-stock">⚡ <span id="lifetimeStock">88</span>/100 kaldı</div>
       </div>
       
       <div class="sidebar-user">
         <div class="avatar" id="userAvatar">U</div>
         <div class="sidebar-user-info">
-          <div class="sidebar-user-name" id="userName">Loading...</div>
+          <div class="sidebar-user-name" id="userName">Yükleniyor...</div>
           <div class="sidebar-user-email" id="userEmail">-</div>
         </div>
-        <div class="sidebar-user-menu" id="logoutBtn" title="Logout">⏻</div>
+        <div class="sidebar-user-menu" id="logoutBtn" title="Çıkış Yap">⏻</div>
       </div>
     </aside>
     
@@ -134,10 +134,10 @@
       <div class="page-header">
         <h1>
           <span>🤖</span>
-          <span>AI Assistant</span>
-          <span class="badge badge-success">LIVE</span>
+          <span>Yapay Zeka Asistanı</span>
+          <span class="badge badge-success">CANLI</span>
         </h1>
-        <p>Chat with <strong>Google Gemini AI</strong> for YouTube niches, content ideas and growth strategies.</p>
+        <p><strong>Google Gemini AI</strong> ile YouTube nişleri, içerik fikirleri ve büyüme stratejileri hakkında sohbet et.</p>
       </div>
       
       <div class="ai-container">
@@ -145,49 +145,49 @@
         <div class="ai-status">
           <div class="ai-status-info">
             <span class="live-indicator"></span>
-            <span>AI Assistant Active</span>
+            <span>Yapay Zeka Asistanı Aktif</span>
             <span class="ai-model-badge"><span>✨</span><span>Gemini 2.5 Flash</span></span>
             <span class="ai-limit-badge" id="limitBadge">
               <span>📊</span>
-              <span id="limitText">Loading...</span>
+              <span id="limitText">Yükleniyor...</span>
             </span>
           </div>
-          <div class="ai-clear-btn" id="clearChatBtn">🗑️ Clear</div>
+          <div class="ai-clear-btn" id="clearChatBtn">🗑️ Temizle</div>
         </div>
         
         <div class="ai-quick-actions">
-          <div class="ai-quick-action" data-action="niche_ideas"><span>🎯</span><span>Suggest Niche</span></div>
-          <div class="ai-quick-action" data-action="video_titles"><span>📝</span><span>Video Title</span></div>
-          <div class="ai-quick-action" data-action="thumbnail_ideas"><span>🖼️</span><span>Thumbnail Idea</span></div>
-          <div class="ai-quick-action" data-action="hook_writer"><span>🎣</span><span>Write Hook</span></div>
-          <div class="ai-quick-action" data-action="content_plan"><span>📅</span><span>30-Day Plan</span></div>
-          <div class="ai-quick-action" data-action="seo_tips"><span>🔍</span><span>SEO Tips</span></div>
-          <div class="ai-quick-action" data-action="growth_strategy"><span>📈</span><span>Growth Strategy</span></div>
+          <div class="ai-quick-action" data-action="niche_ideas"><span>🎯</span><span>Niş Öner</span></div>
+          <div class="ai-quick-action" data-action="video_titles"><span>📝</span><span>Video Başlığı</span></div>
+          <div class="ai-quick-action" data-action="thumbnail_ideas"><span>🖼️</span><span>Küçük Resim Fikri</span></div>
+          <div class="ai-quick-action" data-action="hook_writer"><span>🎣</span><span>Kanca Yaz</span></div>
+          <div class="ai-quick-action" data-action="content_plan"><span>📅</span><span>30 Günlük Plan</span></div>
+          <div class="ai-quick-action" data-action="seo_tips"><span>🔍</span><span>SEO İpuçları</span></div>
+          <div class="ai-quick-action" data-action="growth_strategy"><span>📈</span><span>Büyüme Stratejisi</span></div>
         </div>
         
         <div class="ai-messages" id="aiMessages">
           
           <div class="ai-welcome" id="aiWelcome">
             <div class="ai-welcome-icon">🤖</div>
-            <h2>Hello! I'm NICHIFY AI</h2>
-            <p>I can help you with everything you need to grow on YouTube.<br>Suggest niches, write titles, create content plans - ask me anything!</p>
+            <h2>Merhaba! Ben NICHIFY AI</h2>
+            <p>YouTube'da büyümen için ihtiyacın olan her konuda sana yardım edebilirim.<br>Niş öner, başlık yaz, içerik planı oluştur - istediğini sor!</p>
             
             <div class="ai-suggestions">
-              <div class="ai-suggestion-card" onclick="sendSuggestion('Suggest 5 low-competition but high-earning YouTube niches')">
+              <div class="ai-suggestion-card" onclick="sendSuggestion('Düşük rekabetli ama yüksek kazançlı 5 YouTube nişi öner')">
                 <div class="ai-suggestion-icon">🎯</div>
-                <div class="ai-suggestion-text"><strong>Suggest low-competition niches</strong><br>5 high-earning niches</div>
+                <div class="ai-suggestion-text"><strong>Düşük rekabetli nişler öner</strong><br>5 yüksek kazançlı niş</div>
               </div>
-              <div class="ai-suggestion-card" onclick="sendSuggestion('Write 10 video titles that could go viral in the AI tools niche')">
+              <div class="ai-suggestion-card" onclick="sendSuggestion('Yapay zeka araçları nişinde viral olabilecek 10 video başlığı yaz')">
                 <div class="ai-suggestion-icon">📝</div>
-                <div class="ai-suggestion-text"><strong>Generate video titles</strong><br>Titles with viral potential</div>
+                <div class="ai-suggestion-text"><strong>Video başlığı üret</strong><br>Viral potansiyeli olan başlıklar</div>
               </div>
-              <div class="ai-suggestion-card" onclick="sendSuggestion('Create a 30-day content plan for a faceless YouTube channel')">
+              <div class="ai-suggestion-card" onclick="sendSuggestion('Yüzsüz bir YouTube kanalı için 30 günlük içerik planı oluştur')">
                 <div class="ai-suggestion-icon">📅</div>
-                <div class="ai-suggestion-text"><strong>30-day plan</strong><br>For a faceless channel</div>
+                <div class="ai-suggestion-text"><strong>30 günlük plan</strong><br>Yüzsüz kanal için</div>
               </div>
-              <div class="ai-suggestion-card" onclick="sendSuggestion('How can I grow from 0 to 10K subscribers with YouTube Shorts?')">
+              <div class="ai-suggestion-card" onclick="sendSuggestion('YouTube Shorts ile 0 aboneden 10 bin aboneye nasıl büyüyebilirim?')">
                 <div class="ai-suggestion-icon">🚀</div>
-                <div class="ai-suggestion-text"><strong>Growth strategy</strong><br>From 0 to 10K subscribers</div>
+                <div class="ai-suggestion-text"><strong>Büyüme stratejisi</strong><br>0'dan 10 bin aboneye</div>
               </div>
             </div>
           </div>
@@ -196,13 +196,13 @@
         
         <div class="ai-input-area">
           <div class="ai-input-wrapper">
-            <textarea class="ai-input" id="aiInput" placeholder="Type your message... (e.g. Suggest 10 video titles in the AI niche)" rows="1"></textarea>
-            <button class="ai-send-btn" id="sendBtn" title="Send">➤</button>
+            <textarea class="ai-input" id="aiInput" placeholder="Mesajını yaz... (örn. Yapay zeka nişinde 10 video başlığı öner)" rows="1"></textarea>
+            <button class="ai-send-btn" id="sendBtn" title="Gönder">➤</button>
           </div>
           <div class="ai-input-info">
             <div class="ai-input-hint">
-              <span><kbd>Enter</kbd> Send</span>
-              <span><kbd>Shift</kbd>+<kbd>Enter</kbd> New line</span>
+              <span><kbd>Enter</kbd> Gönder</span>
+              <span><kbd>Shift</kbd>+<kbd>Enter</kbd> Yeni satır</span>
             </div>
             <span id="charCount">0 / 2000</span>
           </div>
@@ -222,45 +222,45 @@
     // ============================================
     // SYSTEM PROMPT
     // ============================================
-    const SYSTEM_PROMPT = `You are the AI assistant of NICHIFY PRO. You are an expert in finding YouTube niches, channel analysis, content creation and YouTube growth.
+    const SYSTEM_PROMPT = `Sen NICHIFY PRO'nun yapay zeka asistanısın. YouTube nişleri bulma, kanal analizi, içerik üretimi ve YouTube büyüme konularında uzmansın.
 
-YOUR TASKS:
-- Provide YouTube niche suggestions
-- Generate video title and thumbnail ideas
-- Develop content strategies
-- Give channel growth advice
-- Analyze trends
-- Warn about copyright/risk issues
-- Write hooks and opening lines
+GÖREVLERİN:
+- YouTube niş önerileri sun
+- Video başlığı ve küçük resim fikirleri üret
+- İçerik stratejileri geliştir
+- Kanal büyüme tavsiyeleri ver
+- Trendleri analiz et
+- Telif hakkı/risk konularında uyar
+- Kancalar (hooks) ve açılış cümleleri yaz
 
-RULES:
-- Always respond in English
-- Give practical, actionable advice
-- Explain in bullet points and clearly
-- Be concise (detailed when necessary)
-- Use emojis but don't overdo it
-- Understand the needs of YouTubers
-- Know the current YouTube algorithm
-- Don't give wrong information, say when you don't know
+KURALLAR:
+- Her zaman Türkçe cevap ver
+- Pratik, uygulanabilir tavsiyeler ver
+- Madde madde ve net şekilde açıkla
+- Kısa ve öz ol (gerektiğinde detaylı)
+- Emoji kullan ama abartma
+- YouTuber'ların ihtiyaçlarını anla
+- Güncel YouTube algoritmasını bil
+- Yanlış bilgi verme, bilmediğinde söyle
 
-PROHIBITED:
-- Suggesting copyright infringement
-- Suggesting misleading/illegal tactics
-- Constantly emphasizing that you are an AI
-- Giving very long and unnecessary answers`;
+YASAK:
+- Telif hakkı ihlali önermek
+- Yanıltıcı/yasadışı taktikler önermek
+- Sürekli yapay zeka olduğunu vurgulamak
+- Çok uzun ve gereksiz cevaplar vermek`;
     
     // ============================================
     // QUICK PROMPTS
     // ============================================
     const QUICK_PROMPTS = {
-      'niche_ideas': (ctx) => `Give profitable niche suggestions for YouTube. If the user has specified a specific area, be specific in that area. Context: ${ctx}`,
-      'video_titles': (ctx) => `Suggest 10 YouTube video titles that could go viral for this topic: ${ctx}`,
-      'thumbnail_ideas': (ctx) => `Suggest creative thumbnail ideas for this video topic (color, composition, text): ${ctx}`,
-      'hook_writer': (ctx) => `Write 5 different hooks (opening lines) that will immediately grab the viewer for this video: ${ctx}`,
-      'content_plan': (ctx) => `Create a detailed 30-day content calendar for this niche (video titles, formats, hashtags): ${ctx}`,
-      'channel_audit': (ctx) => `Analyze this channel and give growth suggestions: ${ctx}`,
-      'seo_tips': (ctx) => `Suggest SEO optimization for this video (title, description, tags, hashtags): ${ctx}`,
-      'growth_strategy': (ctx) => `Create a detailed growth strategy for this channel: ${ctx}`
+      'niche_ideas': (ctx) => `YouTube için kazançlı niş önerileri ver. Kullanıcı belirli bir alan belirttiyse o alanda spesifik ol. Bağlam: ${ctx}`,
+      'video_titles': (ctx) => `Bu konu için viral olabilecek 10 YouTube video başlığı öner: ${ctx}`,
+      'thumbnail_ideas': (ctx) => `Bu video konusu için yaratıcı küçük resim (thumbnail) fikirleri öner (renk, kompozisyon, yazı): ${ctx}`,
+      'hook_writer': (ctx) => `Bu video için izleyiciyi hemen yakalayacak 5 farklı kanca (açılış cümlesi) yaz: ${ctx}`,
+      'content_plan': (ctx) => `Bu niş için detaylı 30 günlük içerik takvimi oluştur (video başlıkları, formatları, hashtag'ler): ${ctx}`,
+      'channel_audit': (ctx) => `Bu kanalı analiz et ve büyüme önerileri ver: ${ctx}`,
+      'seo_tips': (ctx) => `Bu video için SEO optimizasyonu öner (başlık, açıklama, etiketler, hashtag'ler): ${ctx}`,
+      'growth_strategy': (ctx) => `Bu kanal için detaylı bir büyüme stratejisi oluştur: ${ctx}`
     };
     
     let chatHistory = [];
@@ -284,11 +284,11 @@ PROHIBITED:
         
         if (currentUser.is_admin || currentUser.role === 'super_admin') {
           document.getElementById('adminSection').style.display = 'block';
-          document.getElementById('limitText').textContent = 'Unlimited (Admin)';
+          document.getElementById('limitText').textContent = 'Sınırsız (Yönetici)';
         } else if (currentUser.is_premium) {
-          document.getElementById('limitText').textContent = 'Premium: 50/day';
+          document.getElementById('limitText').textContent = 'Premium: 50/gün';
         } else {
-          document.getElementById('limitText').textContent = 'Free: 3/day';
+          document.getElementById('limitText').textContent = 'Ücretsiz: 3/gün';
         }
         
         if (currentUser.is_premium) {
@@ -344,9 +344,9 @@ PROHIBITED:
           return { apiKeys: result.api_keys, isAdmin: result.is_admin };
         }
         
-        return { error: result.error || 'Could not retrieve API key' };
+        return { error: result.error || 'API anahtarı alınamadı' };
       } catch (error) {
-        return { error: 'Connection error: ' + error.message };
+        return { error: 'Bağlantı hatası: ' + error.message };
       }
     }
 
@@ -390,20 +390,20 @@ PROHIBITED:
         const result = await response.json();
         
         if (response.status === 429) {
-          return { error: '⚠️ This API key has reached its daily limit. Please try again in a few hours.' };
+          return { error: '⚠️ Bu API anahtarı günlük limitine ulaştı. Lütfen birkaç saat sonra tekrar dene.' };
         }
         
         if (!response.ok) {
-          return { error: result.error?.message || 'Gemini API error' };
+          return { error: result.error?.message || 'Gemini API hatası' };
         }
         
         if (result.candidates && result.candidates[0]?.content?.parts?.[0]?.text) {
           return { success: true, response: result.candidates[0].content.parts[0].text };
         }
         
-        return { error: 'AI could not respond' };
+        return { error: 'Yapay zeka cevap veremedi' };
       } catch (error) {
-        return { error: 'Connection error: ' + error.message };
+        return { error: 'Bağlantı hatası: ' + error.message };
       }
     }
     
@@ -491,7 +491,7 @@ PROHIBITED:
         removeTyping(typingId);
         
         if (!result || !result.success) {
-          showError(lastError || '⚠️ All API keys are exhausted. Please try again tomorrow.');
+          showError(lastError || '⚠️ Tüm API anahtarları tükendi. Lütfen yarın tekrar dene.');
           isLoading = false;
           return;
         }
@@ -507,11 +507,11 @@ PROHIBITED:
           // Increment counter
           incrementUsage();
         } else {
-          showError(result.error || 'An error occurred');
+          showError(result.error || 'Bir hata oluştu');
         }
       } catch (error) {
         removeTyping(typingId);
-        showError('Error: ' + error.message);
+        showError('Hata: ' + error.message);
       }
       
       isLoading = false;
@@ -532,7 +532,7 @@ PROHIBITED:
         <div class="ai-message-avatar">${role === 'user' ? userInitial : '🤖'}</div>
         <div>
           <div class="ai-message-bubble">${formatted}</div>
-          <span class="ai-message-time">${new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</span>
+          <span class="ai-message-time">${new Date().toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' })}</span>
         </div>
       `;
       
@@ -631,7 +631,7 @@ PROHIBITED:
         const action = btn.dataset.action;
         const text = document.getElementById('aiInput').value.trim();
         if (!text) {
-          Utils.toast.warning('Write the topic first, then select a quick action');
+          Utils.toast.warning('Önce konuyu yaz, sonra hızlı işlem seç');
           document.getElementById('aiInput').focus();
           return;
         }
@@ -640,7 +640,7 @@ PROHIBITED:
     });
     
     document.getElementById('clearChatBtn').addEventListener('click', () => {
-      if (confirm('Are you sure you want to clear the chat history?')) {
+      if (confirm('Sohbet geçmişini silmek istediğinden emin misin?')) {
         chatHistory = [];
         Utils.storage.remove('ai_chat_history');
         document.getElementById('aiMessages').innerHTML = '';
@@ -649,7 +649,7 @@ PROHIBITED:
     });
     
     document.getElementById('logoutBtn').addEventListener('click', async () => {
-      if (confirm('Are you sure you want to logout?')) {
+      if (confirm('Çıkış yapmak istediğinden emin misin?')) {
         await Auth.logout();
       }
     });
