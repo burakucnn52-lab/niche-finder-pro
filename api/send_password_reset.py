@@ -150,7 +150,7 @@ def send_reset_email(email, reset_link):
 def generate_reset_token(email):
     """Supabase üzerinden reset token oluştur"""
     try:
-        # 🔧 Sondaki / karakterini temizle (çift slash sorununu önler)
+        # Sondaki / karakterini temizle (çift slash sorununu önler)
         supabase_url = os.environ.get('SUPABASE_URL', '').rstrip('/')
         supabase_key = os.environ.get('SUPABASE_SERVICE_ROLE_KEY', '')
         
@@ -160,7 +160,7 @@ def generate_reset_token(email):
         # Supabase Admin API ile magic link oluştur
         url = f"{supabase_url}/auth/v1/admin/generate_link"
         
-        # 🔧 Redirect URL ekle (kullanıcı linke tıklayınca şifre sıfırlama sayfana gitsin)
+        # Redirect URL ekle (kullanıcı linke tıklayınca şifre sıfırlama sayfana gitsin)
         payload = json.dumps({
             'type': 'recovery',
             'email': email,
@@ -180,8 +180,12 @@ def generate_reset_token(email):
             with urllib.request.urlopen(req, timeout=10) as response:
                 data = json.loads(response.read().decode())
                 
-                # Recovery link'i al
-                action_link = data.get('properties', {}).get('action_link', '')
+                # 🔧 DÜZELTME: action_link hem properties içinde hem root'ta olabilir
+                # Önce properties içinde ara, yoksa root'ta ara
+                action_link = (
+                    data.get('properties', {}).get('action_link', '') 
+                    or data.get('action_link', '')
+                )
                 
                 if action_link:
                     print(f"✅ Reset link oluşturuldu: {email}")
@@ -191,7 +195,6 @@ def generate_reset_token(email):
                     return {'success': False, 'error': 'Link oluşturulamadı'}
         
         except urllib.error.HTTPError as http_err:
-            # 🔧 HTTP hatasının detayını oku - gerçek hatayı görmek için
             error_body = http_err.read().decode('utf-8')
             print(f"❌ Supabase HTTP {http_err.code} hatası: {error_body}")
             print(f"❌ İstek atılan URL: {url}")
@@ -235,7 +238,7 @@ class handler(BaseHTTPRequestHandler):
             token_result = generate_reset_token(email)
             
             if not token_result['success']:
-                # 🔧 Hata detayını da logla ama kullanıcıya generic mesaj göster
+                # Hata detayını logla ama kullanıcıya generic mesaj göster (güvenlik)
                 print(f"⚠️ Token oluşturma başarısız ama kullanıcıya generic mesaj döndürülüyor: {token_result.get('error')}")
                 self._send_response(200, {
                     'success': True,
