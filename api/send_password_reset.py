@@ -132,6 +132,9 @@ def send_reset_email(email, reset_link):
         req = urllib.request.Request(url, data=payload, method='POST')
         req.add_header('Authorization', f'Bearer {resend_api_key}')
         req.add_header('Content-Type', 'application/json')
+        # 🔧 Cloudflare bot koruması için User-Agent ekle
+        req.add_header('User-Agent', 'Mozilla/5.0 (compatible; NichifyPro/1.0)')
+        req.add_header('Accept', 'application/json')
         
         with urllib.request.urlopen(req, timeout=10) as response:
             result = json.loads(response.read().decode())
@@ -173,6 +176,7 @@ def generate_reset_token(email):
         req.add_header('apikey', supabase_key)
         req.add_header('Authorization', f'Bearer {supabase_key}')
         req.add_header('Content-Type', 'application/json')
+        req.add_header('User-Agent', 'Mozilla/5.0 (compatible; NichifyPro/1.0)')
         
         print(f"🔗 Supabase'e istek atılıyor: {url}")
         
@@ -180,8 +184,7 @@ def generate_reset_token(email):
             with urllib.request.urlopen(req, timeout=10) as response:
                 data = json.loads(response.read().decode())
                 
-                # 🔧 DÜZELTME: action_link hem properties içinde hem root'ta olabilir
-                # Önce properties içinde ara, yoksa root'ta ara
+                # action_link hem properties içinde hem root'ta olabilir
                 action_link = (
                     data.get('properties', {}).get('action_link', '') 
                     or data.get('action_link', '')
