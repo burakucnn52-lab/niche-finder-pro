@@ -3,6 +3,7 @@ import json
 import os
 import urllib.request
 import urllib.parse
+import urllib.error
 import secrets
 from datetime import datetime, timedelta
 
@@ -137,6 +138,10 @@ def send_reset_email(email, reset_link):
             print(f"✅ Şifre sıfırlama maili gönderildi: {email}")
             return {'success': True, 'id': result.get('id')}
     
+    except urllib.error.HTTPError as http_err:
+        error_body = http_err.read().decode('utf-8')
+        print(f"❌ Resend HTTP {http_err.code} hatası: {error_body}")
+        return {'success': False, 'error': f'Resend HTTP {http_err.code}: {error_body}'}
     except Exception as e:
         print(f"❌ Mail gönderme hatası: {e}")
         return {'success': False, 'error': str(e)}
@@ -145,7 +150,8 @@ def send_reset_email(email, reset_link):
 def generate_reset_token(email):
     """Supabase üzerinden reset token oluştur"""
     try:
-        supabase_url = os.environ.get('SUPABASE_URL', '')
+        # 🔧 Sondaki / karakterini temizle (çift slash sorununu önler)
+        supabase_url = os.environ.get('SUPABASE_URL', '').rstrip('/')
         supabase_key = os.environ.get('SUPABASE_SERVICE_ROLE_KEY', '')
         
         if not supabase_url or not supabase_key:
@@ -154,9 +160,13 @@ def generate_reset_token(email):
         # Supabase Admin API ile magic link oluştur
         url = f"{supabase_url}/auth/v1/admin/generate_link"
         
+        # 🔧 Redirect URL ekle (kullanıcı linke tıklayınca şifre sıfırlama sayfana gitsin)
         payload = json.dumps({
             'type': 'recovery',
-            'email': email
+            'email': email,
+            'options': {
+                'redirect_to': 'https://niche-finder-pro-cyan.vercel.app/reset-password'
+            }
         }).encode('utf-8')
         
         req = urllib.request.Request(url, data=payload, method='POST')
@@ -164,19 +174,31 @@ def generate_reset_token(email):
         req.add_header('Authorization', f'Bearer {supabase_key}')
         req.add_header('Content-Type', 'application/json')
         
-        with urllib.request.urlopen(req, timeout=10) as response:
-            data = json.loads(response.read().decode())
-            
-            # Recovery link'i al
-            action_link = data.get('properties', {}).get('action_link', '')
-            
-            if action_link:
-                return {'success': True, 'link': action_link}
-            else:
-                return {'success': False, 'error': 'Link oluşturulamadı'}
+        print(f"🔗 Supabase'e istek atılıyor: {url}")
+        
+        try:
+            with urllib.request.urlopen(req, timeout=10) as response:
+                data = json.loads(response.read().decode())
+                
+                # Recovery link'i al
+                action_link = data.get('properties', {}).get('action_link', '')
+                
+                if action_link:
+                    print(f"✅ Reset link oluşturuldu: {email}")
+                    return {'success': True, 'link': action_link}
+                else:
+                    print(f"⚠️ Response'da action_link yok. Response: {data}")
+                    return {'success': False, 'error': 'Link oluşturulamadı'}
+        
+        except urllib.error.HTTPError as http_err:
+            # 🔧 HTTP hatasının detayını oku - gerçek hatayı görmek için
+            error_body = http_err.read().decode('utf-8')
+            print(f"❌ Supabase HTTP {http_err.code} hatası: {error_body}")
+            print(f"❌ İstek atılan URL: {url}")
+            return {'success': False, 'error': f'Supabase HTTP {http_err.code}: {error_body}'}
     
     except Exception as e:
-        print(f"Token oluşturma hatası: {e}")
+        print(f"❌ Token oluşturma hatası: {e}")
         return {'success': False, 'error': str(e)}
 
 
@@ -213,7 +235,8 @@ class handler(BaseHTTPRequestHandler):
             token_result = generate_reset_token(email)
             
             if not token_result['success']:
-                # Kullanıcı bulunamasa bile başarılı gibi göster (güvenlik)
+                # 🔧 Hata detayını da logla ama kullanıcıya generic mesaj göster
+                print(f"⚠️ Token oluşturma başarısız ama kullanıcıya generic mesaj döndürülüyor: {token_result.get('error')}")
                 self._send_response(200, {
                     'success': True,
                     'message': 'Eğer bu e-posta kayıtlıysa, sıfırlama bağlantısı gönderildi.'
