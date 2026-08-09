@@ -18,7 +18,6 @@ def send_reset_email(email, reset_link):
         
         url = 'https://api.resend.com/emails'
         
-        # HTML e-posta içeriği
         html_content = f"""
         <!DOCTYPE html>
         <html>
@@ -30,8 +29,6 @@ def send_reset_email(email, reset_link):
                 <tr>
                     <td align="center">
                         <table width="600" cellpadding="0" cellspacing="0" style="background: #ffffff; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.08);">
-                            
-                            <!-- Header -->
                             <tr>
                                 <td style="background: linear-gradient(135deg, #d97706, #b45309); padding: 40px 30px; text-align: center;">
                                     <h1 style="margin: 0; color: #ffffff; font-size: 32px; font-weight: 800;">
@@ -42,8 +39,6 @@ def send_reset_email(email, reset_link):
                                     </p>
                                 </td>
                             </tr>
-                            
-                            <!-- Body -->
                             <tr>
                                 <td style="padding: 40px 30px;">
                                     <div style="text-align: center; margin-bottom: 30px;">
@@ -52,17 +47,13 @@ def send_reset_email(email, reset_link):
                                             Şifreni Sıfırla
                                         </h2>
                                     </div>
-                                    
                                     <p style="color: #44403c; font-size: 16px; line-height: 1.6; margin: 0 0 20px;">
                                         Merhaba,
                                     </p>
-                                    
                                     <p style="color: #44403c; font-size: 16px; line-height: 1.6; margin: 0 0 30px;">
                                         NICHIFY PRO hesabın için şifre sıfırlama talebinde bulundun. 
                                         Yeni bir şifre oluşturmak için aşağıdaki butona tıkla:
                                     </p>
-                                    
-                                    <!-- CTA Button -->
                                     <div style="text-align: center; margin: 40px 0;">
                                         <a href="{reset_link}" style="
                                             display: inline-block;
@@ -78,8 +69,6 @@ def send_reset_email(email, reset_link):
                                             🔑 Şifremi Sıfırla
                                         </a>
                                     </div>
-                                    
-                                    <!-- Alternative link -->
                                     <div style="background: #f7f3ed; border-radius: 8px; padding: 16px; margin: 30px 0;">
                                         <p style="color: #78716c; font-size: 13px; margin: 0 0 8px; font-weight: 600;">
                                             Buton çalışmıyorsa, aşağıdaki bağlantıyı tarayıcına kopyala:
@@ -88,8 +77,6 @@ def send_reset_email(email, reset_link):
                                             {reset_link}
                                         </p>
                                     </div>
-                                    
-                                    <!-- Info -->
                                     <div style="border-top: 1px solid #e8e0d0; padding-top: 20px; margin-top: 30px;">
                                         <p style="color: #78716c; font-size: 14px; line-height: 1.6; margin: 0 0 12px;">
                                             ⏰ <strong>Bu bağlantı 1 saat boyunca geçerlidir.</strong>
@@ -101,8 +88,6 @@ def send_reset_email(email, reset_link):
                                     </div>
                                 </td>
                             </tr>
-                            
-                            <!-- Footer -->
                             <tr>
                                 <td style="background: #ede7dc; padding: 30px; text-align: center;">
                                     <p style="color: #78716c; font-size: 13px; margin: 0 0 8px;">
@@ -113,7 +98,6 @@ def send_reset_email(email, reset_link):
                                     </p>
                                 </td>
                             </tr>
-                            
                         </table>
                     </td>
                 </tr>
@@ -122,8 +106,9 @@ def send_reset_email(email, reset_link):
         </html>
         """
         
+        # 🎯 KENDİ DOMAİNİMİZDEN GÖNDERİYORUZ!
         payload = json.dumps({
-            'from': 'NICHIFY PRO <onboarding@resend.dev>',
+            'from': 'NICHIFY PRO <noreply@nichifypro.com>',
             'to': [email],
             'subject': '🔒 Şifreni Sıfırla - NICHIFY PRO',
             'html': html_content
@@ -132,7 +117,6 @@ def send_reset_email(email, reset_link):
         req = urllib.request.Request(url, data=payload, method='POST')
         req.add_header('Authorization', f'Bearer {resend_api_key}')
         req.add_header('Content-Type', 'application/json')
-        # 🔧 Cloudflare bot koruması için User-Agent ekle
         req.add_header('User-Agent', 'Mozilla/5.0 (compatible; NichifyPro/1.0)')
         req.add_header('Accept', 'application/json')
         
@@ -153,17 +137,14 @@ def send_reset_email(email, reset_link):
 def generate_reset_token(email):
     """Supabase üzerinden reset token oluştur"""
     try:
-        # Sondaki / karakterini temizle (çift slash sorununu önler)
         supabase_url = os.environ.get('SUPABASE_URL', '').rstrip('/')
         supabase_key = os.environ.get('SUPABASE_SERVICE_ROLE_KEY', '')
         
         if not supabase_url or not supabase_key:
             return {'success': False, 'error': 'Supabase config eksik'}
         
-        # Supabase Admin API ile magic link oluştur
         url = f"{supabase_url}/auth/v1/admin/generate_link"
         
-        # Redirect URL ekle (kullanıcı linke tıklayınca şifre sıfırlama sayfana gitsin)
         payload = json.dumps({
             'type': 'recovery',
             'email': email,
@@ -184,7 +165,6 @@ def generate_reset_token(email):
             with urllib.request.urlopen(req, timeout=10) as response:
                 data = json.loads(response.read().decode())
                 
-                # action_link hem properties içinde hem root'ta olabilir
                 action_link = (
                     data.get('properties', {}).get('action_link', '') 
                     or data.get('action_link', '')
@@ -210,7 +190,6 @@ def generate_reset_token(email):
 
 class handler(BaseHTTPRequestHandler):
     def do_POST(self):
-        """Şifre sıfırlama endpoint'i"""
         try:
             content_length = int(self.headers.get('Content-Length', 0))
             
@@ -237,11 +216,9 @@ class handler(BaseHTTPRequestHandler):
             
             print(f"📧 Şifre sıfırlama talebi: {email}")
             
-            # 1. Supabase'den reset link oluştur
             token_result = generate_reset_token(email)
             
             if not token_result['success']:
-                # Hata detayını logla ama kullanıcıya generic mesaj göster (güvenlik)
                 print(f"⚠️ Token oluşturma başarısız ama kullanıcıya generic mesaj döndürülüyor: {token_result.get('error')}")
                 self._send_response(200, {
                     'success': True,
@@ -251,7 +228,6 @@ class handler(BaseHTTPRequestHandler):
             
             reset_link = token_result['link']
             
-            # 2. Resend ile mail gönder
             email_result = send_reset_email(email, reset_link)
             
             if email_result['success']:
@@ -273,7 +249,6 @@ class handler(BaseHTTPRequestHandler):
             })
     
     def do_GET(self):
-        """Sağlık kontrolü"""
         self._send_response(200, {
             'status': 'ok',
             'service': 'NICHIFY Password Reset',
@@ -288,7 +263,6 @@ class handler(BaseHTTPRequestHandler):
         self.end_headers()
     
     def _send_response(self, status_code, data):
-        """JSON yanıt gönder"""
         self.send_response(status_code)
         self.send_header('Content-type', 'application/json')
         self.send_header('Access-Control-Allow-Origin', '*')
