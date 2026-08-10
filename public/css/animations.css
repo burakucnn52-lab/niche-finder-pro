@@ -1,5 +1,5 @@
 /* ============================================
-   NICHIFY PRO - ANIMATIONS CSS
+   NICHIFY PRO - ANIMASYONLAR CSS
    Canlı, Dinamik, Modern Animasyonlar
    ============================================ */
 
@@ -80,7 +80,7 @@
 }
 
 /* ============================================
-   2. FADE IN ANIMATIONS
+   2. FADE IN ANİMASYONLARI (Belirme efektleri)
    ============================================ */
 .fade-in {
   animation: fadeIn 0.6s ease-out forwards;
@@ -166,7 +166,7 @@
 .stagger-8 { animation-delay: 0.8s; }
 
 /* ============================================
-   3. SCALE ANIMATIONS
+   3. ÖLÇEKLEME ANİMASYONLARI
    ============================================ */
 .scale-in {
   animation: scaleIn 0.5s var(--transition-bounce) forwards;
@@ -204,7 +204,7 @@
 }
 
 /* ============================================
-   4. PULSE / GLOW EFFECTS
+   4. NABIZ / PARLAMA EFEKTLERİ
    ============================================ */
 .pulse {
   animation: pulse 2s ease-in-out infinite;
@@ -262,7 +262,7 @@
   }
 }
 
-/* Live indicator */
+/* Canlı göstergesi */
 .live-indicator {
   display: inline-flex;
   align-items: center;
@@ -292,7 +292,7 @@
 }
 
 /* ============================================
-   5. FLOATING ANIMATIONS
+   5. YÜZEN ANİMASYONLAR
    ============================================ */
 .float {
   animation: float 3s ease-in-out infinite;
@@ -316,7 +316,7 @@
 }
 
 /* ============================================
-   6. SHIMMER (Skeleton Loading)
+   6. PARILDAMA (İskelet Yükleme)
    ============================================ */
 .shimmer {
   background: linear-gradient(
@@ -363,7 +363,7 @@
 }
 
 /* ============================================
-   7. SPINNER / LOADING
+   7. DÖNEN / YÜKLEME
    ============================================ */
 .spinner {
   width: 24px;
@@ -390,7 +390,7 @@
   to { transform: rotate(360deg); }
 }
 
-/* Dual ring spinner */
+/* Çift halka döndürücü */
 .spinner-dual {
   width: 48px;
   height: 48px;
@@ -414,7 +414,7 @@
   100% { transform: rotate(360deg); }
 }
 
-/* Dots loading */
+/* Noktalı yükleme */
 .dots-loading {
   display: inline-flex;
   gap: 4px;
@@ -443,7 +443,7 @@
 }
 
 /* ============================================
-   8. SLIDE ANIMATIONS
+   8. KAYDIRMA ANİMASYONLARI
    ============================================ */
 .slide-in-bottom {
   animation: slideInBottom 0.5s ease-out forwards;
@@ -477,7 +477,7 @@
 }
 
 /* ============================================
-   9. SHAKE / WIGGLE
+   9. SALLAMA / KIVIRMA
    ============================================ */
 .shake {
   animation: shake 0.5s ease-in-out;
@@ -500,7 +500,7 @@
 }
 
 /* ============================================
-   10. HOVER EFFECTS
+   10. FARE ÜZERİNE GELME EFEKTLERİ
    ============================================ */
 .hover-lift {
   transition: transform var(--transition-base), box-shadow var(--transition-base);
@@ -535,7 +535,7 @@
   transform: rotate(5deg);
 }
 
-/* Tilt 3D effect */
+/* 3D Eğim efekti */
 .tilt-3d {
   transition: transform var(--transition-base);
   transform-style: preserve-3d;
@@ -546,7 +546,7 @@
 }
 
 /* ============================================
-   11. GRADIENT BORDER (Animasyonlu kenarlık)
+   11. GRADYAN KENARLIK (Animasyonlu kenarlık)
    ============================================ */
 .gradient-border {
   position: relative;
@@ -578,7 +578,7 @@
 }
 
 /* ============================================
-   12. NUMBER COUNTER GLOW
+   12. SAYAÇ PARLAMA
    ============================================ */
 .counter-glow {
   background: var(--gradient-primary);
@@ -605,7 +605,7 @@
 }
 
 /* ============================================
-   13. RIPPLE EFFECT (Tıklama dalgası)
+   13. DALGA EFEKTİ (Tıklama dalgası)
    ============================================ */
 .ripple {
   position: relative;
@@ -631,7 +631,7 @@
 }
 
 /* ============================================
-   14. TYPING ANIMATION (Yazılıyor efekti)
+   14. YAZI ANİMASYONU (Yazılıyor efekti)
    ============================================ */
 .typing {
   overflow: hidden;
@@ -651,7 +651,7 @@
 }
 
 /* ============================================
-   15. BOUNCE
+   15. ZIPLAMA
    ============================================ */
 .bounce {
   animation: bounce 1s infinite;
@@ -669,7 +669,7 @@
 }
 
 /* ============================================
-   16. GLITCH EFFECT
+   16. BOZULMA EFEKTİ
    ============================================ */
 .glitch {
   position: relative;
@@ -685,7 +685,7 @@
 }
 
 /* ============================================
-   17. PROGRESS BAR ANIMATION
+   17. İLERLEME ÇUBUĞU ANİMASYONU
    ============================================ */
 .progress-bar {
   height: 8px;
@@ -731,7 +731,7 @@
 }
 
 /* ============================================
-   18. CARD HOVER MAGIC
+   18. KART HOVER SİHRİ
    ============================================ */
 .card-magic {
   position: relative;
@@ -766,7 +766,7 @@
 }
 
 /* ============================================
-   19. BADGE ANIMATIONS
+   19. ROZET ANİMASYONLARI
    ============================================ */
 .badge-new {
   position: relative;
@@ -799,7 +799,7 @@
 }
 
 /* ============================================
-   20. SMOOTH ENTER FOR PAGE LOAD
+   20. SAYFA YÜKLEMESİ İÇİN YUMUŞAK GİRİŞ
    ============================================ */
 .page-enter {
   animation: pageEnter 0.6s ease-out;
@@ -817,7 +817,7 @@
 }
 
 /* ============================================
-   21. NEON GLOW TEXT
+   21. NEON PARLAMA YAZI
    ============================================ */
 .neon-text {
   color: var(--text-primary);
@@ -845,7 +845,7 @@
 }
 
 /* ============================================
-   22. SCROLL REVEAL (JS ile tetiklenecek)
+   22. KAYDIRMA İLE ORTAYA ÇIKMA (JS ile tetiklenecek)
    ============================================ */
 .reveal {
   opacity: 0;
@@ -859,7 +859,7 @@
 }
 
 /* ============================================
-   23. ACCESSIBILITY - Reduce motion
+   23. ERİŞİLEBİLİRLİK - Hareket azaltma
    ============================================ */
 @media (prefers-reduced-motion: reduce) {
   .aurora-bg,
@@ -867,4 +867,30 @@
   .aurora-bg::after {
     animation: none;
   }
+}
+
+/* ============================================
+   24. VIEW TRANSITIONS - Sayfa Geçiş Efekti
+   Sidebar flash sorununu çözer, smooth geçiş
+   ============================================ */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root) {
+  animation: pageOut 0.15s ease-out;
+}
+
+::view-transition-new(root) {
+  animation: pageIn 0.15s ease-out;
+}
+
+@keyframes pageOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes pageIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
