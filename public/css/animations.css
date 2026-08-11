@@ -894,3 +894,12 @@
   from { opacity: 0; }
   to { opacity: 1; }
 }
+
+/* ============================================
+   25. SIDEBAR ÖMÜR BOYU FIRSAT KARTINI GİZLE
+   Sadece /pricing (Fiyatlandırma) sayfasında görünsün
+   Diğer sayfalarda sidebar'da gözükmesin
+   ============================================ */
+.sidebar-lifetime {
+  display: none !important;
+}
